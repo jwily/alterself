@@ -1,11 +1,17 @@
 
 import React from 'react';
+import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 
+const NavMain = styled.nav`
+  background-color: black;
+  color: white;
+`
+
 const NavBar = () => {
   return (
-    <nav>
+    <NavMain>
       <ul>
         <li>
           <NavLink to='/' exact={true} activeClassName='active'>
@@ -31,7 +37,7 @@ const NavBar = () => {
           <LogoutButton />
         </li>
       </ul>
-    </nav>
+    </NavMain>
   );
 }
 
