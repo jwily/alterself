@@ -7,6 +7,22 @@ import LogoutButton from './auth/LogoutButton';
 const NavMain = styled.nav`
   background-color: black;
   color: white;
+  display: flex;
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  ul {
+    display: flex;
+    width: 100%;
+    height: 2.5rem;
+    justify-content: space-around;
+    align-items: center;
+
+    li {
+      list-style-type: none;
+    }
+  }
 `
 
 const NavBar = () => {
