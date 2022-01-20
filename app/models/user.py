@@ -1,3 +1,4 @@
+from app.models import character
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -12,6 +13,8 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+
+    characters = db.relationship('Character', back_populates='user')
 
     @property
     def password(self):
@@ -29,5 +32,6 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'name': self.first_name + ' ' + self.last_name[0] + '.',
-            'email': self.email
+            'email': self.email,
+            'characters': {char.id: char.to_dict() for char in self.characters}
         }

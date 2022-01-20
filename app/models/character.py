@@ -22,7 +22,7 @@ class Character(db.Model):
     hp_max = db.Column(db.Integer, nullable=False, default=0)
     hp_temp = db.Column(db.Integer, nullable=False, default=0)
     hd_curr = db.Column(db.Integer, nullable=False, default=1)
-    hp_max = db.Column(db.Integer, nullable=False, default=1)
+    hd_max = db.Column(db.Integer, nullable=False, default=1)
     ds_pass = db.Column(db.Integer, nullable=False, default=0)
     ds_fail = db.Column(db.Integer, nullable=False, default=0)
     strength = db.Column(db.Integer, nullable=False, default=0)
@@ -36,6 +36,8 @@ class Character(db.Model):
     updated_at = db.Column(
         db.DateTime, server_default=func.now(), onupdate=func.now(), nullable=False
     )
+
+    user = db.relationship('User', back_populates='characters')
 
     def to_dict(self):
         return {
