@@ -4,6 +4,8 @@ from app.models import Character, User
 
 character_routes = Blueprint('characters', __name__)
 
+# Consider how to handle unauthorized character requests
+
 
 @character_routes.route('/')
 @login_required
@@ -17,4 +19,4 @@ def get_chars():
 def get_char(id):
     char = Character.query.filter(
         Character.id == id, Character.user_id == current_user.id).one()
-    return {char.id: char.to_dict()}
+    return {'char': char.to_dict()}

@@ -10,6 +10,7 @@ def seed_users():
     rinoa = User(
         username='Angelo', email='shooting@star.com', password='password', first_name='Rinoa', last_name='Heartilly')
 
+    db.session.add(demo)
     db.session.add(squall)
     db.session.add(rinoa)
 
