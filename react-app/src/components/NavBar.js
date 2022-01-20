@@ -6,7 +6,6 @@ import LogoutButton from './auth/LogoutButton';
 
 const NavMain = styled.nav`
   background-color: black;
-  color: white;
   display: flex;
   a {
     color: white;
@@ -18,10 +17,6 @@ const NavMain = styled.nav`
     height: 2.5rem;
     justify-content: space-around;
     align-items: center;
-
-    li {
-      list-style-type: none;
-    }
   }
 `
 
