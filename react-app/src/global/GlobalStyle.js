@@ -16,5 +16,11 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Karla', sans-serif;
         color: whitesmoke;
     }
+
+
+    a {
+        color: whitesmoke;
+        text-decoration: none;
+    }
 `
 export default GlobalStyle;

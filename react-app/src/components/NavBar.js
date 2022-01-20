@@ -7,10 +7,6 @@ import LogoutButton from './auth/LogoutButton';
 const NavMain = styled.nav`
   background-color: black;
   display: flex;
-  a {
-    color: white;
-    text-decoration: none;
-  }
   ul {
     display: flex;
     width: 100%;
