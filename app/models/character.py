@@ -67,3 +67,13 @@ class Character(db.Model):
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
         }
+
+    def to_dict_roster(self):
+        return {
+            'name': self.name,
+            'class': self.char_class,
+            'race': self.race,
+            'level': self.level,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at,
+        }

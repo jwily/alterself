@@ -26,7 +26,7 @@ export const getChars = () => async (dispatch) => {
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case SET_CHARS:
-            return { characters: action.payload }
+            return { entities: action.payload }
         default:
             return state;
     }

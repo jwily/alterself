@@ -9,4 +9,4 @@ character_routes = Blueprint('characters', __name__)
 @login_required
 def get_chars():
     chars = User.query.get(current_user.id).characters
-    return {char.id: char.to_dict() for char in chars}
+    return {char.id: char.to_dict_roster() for char in chars}
