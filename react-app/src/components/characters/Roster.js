@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom"
 import styled from "styled-components";
 
-import { getChars } from "../store/characters";
+import { getChars } from "../../store/characters";
 
 const CharCard = styled.li`
     margin: 1rem;

@@ -11,6 +11,7 @@ class Character(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     char_class = db.Column(db.String(40), nullable=False)
+    sub_class = db.Column(db.String(40), nullable=True)
     race = db.Column(db.String(40), nullable=False)
     background = db.Column(db.String(40), nullable=False)
     description = db.Column(db.Text, nullable=True)
@@ -38,6 +39,8 @@ class Character(db.Model):
     )
 
     user = db.relationship('User', back_populates='characters')
+    skills = db.relationship(
+        'Skill', back_populates='character', cascade='all, delete')
 
     def to_dict(self):
         return {
@@ -45,6 +48,7 @@ class Character(db.Model):
             'userId': self.user_id,
             'name': self.name,
             'class': self.char_class,
+            'sub': self.sub_class,
             'race': self.race,
             'background': self.background,
             'description': self.description,
@@ -65,6 +69,7 @@ class Character(db.Model):
             'int': self.intelligence,
             'wis': self.wisdom,
             'cha': self.charisma,
+            'skills': {skill.skill_num: True for skill in self.skills},
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
         }

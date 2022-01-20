@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getChar } from "../store/characters";
+import { getChar } from "../../store/characters";
 
 const modCalc = (score) => {
     return Math.floor((score - 10) / 2)
@@ -24,7 +24,7 @@ const Character = () => {
         dispatch(getChar(charId)).then(() => setIsLoaded(true))
     }, [dispatch, charId])
 
-    const char = useSelector(state => state.characters.entities.char)
+    const char = useSelector(state => state.characters.entities.single)
 
     console.log(char);
 

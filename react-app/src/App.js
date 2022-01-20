@@ -7,8 +7,8 @@ import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
-import Roster from './components/Roster';
-import Character from './components/Character';
+import Roster from './components/characters/Roster';
+import Character from './components/characters/Character';
 import { authenticate } from './store/session';
 
 function App() {
