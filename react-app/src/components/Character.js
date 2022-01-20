@@ -8,17 +8,21 @@ const modCalc = (score) => {
     return Math.floor((score - 10) / 2)
 }
 
+const profCalc = (level) => {
+    return (1 + Math.ceil(level / 4))
+}
+
 const Character = () => {
 
-    const params = useParams();
+    const { charId } = useParams();
 
     const [isLoaded, setIsLoaded] = useState(false)
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getChar(params.charId)).then(() => setIsLoaded(true))
-    }, [dispatch, params.charId])
+        dispatch(getChar(charId)).then(() => setIsLoaded(true))
+    }, [dispatch, charId])
 
     const char = useSelector(state => state.characters.entities.char)
 
@@ -31,6 +35,7 @@ const Character = () => {
                     <li>{char.name}</li>
                     <li>Level {char.level} {char.race} {char.class}</li>
                     <li>{char.exp} Experience Points</li>
+                    <li>Profiency Bonus {profCalc(char.level)}</li>
                     <li>Strength {char.str}</li>
                     <li>Dexterity {char.dex}</li>
                     <li>Constitution {char.con}</li>
