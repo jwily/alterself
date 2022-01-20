@@ -36,3 +36,32 @@ class Character(db.Model):
     updated_at = db.Column(
         db.DateTime, server_default=func.now(), onupdate=func.now(), nullable=False
     )
+
+    def to_dict(self):
+        return {
+            'userId': self.user_id,
+            'name': self.name,
+            'class': self.char_class,
+            'race': self.race,
+            'background': self.background,
+            'description': self.description,
+            'level': self.level,
+            'exp': self.exp,
+            'armor': self.armor,
+            'speed': self.speed,
+            'hpCurr': self.hp_curr,
+            'hpMax': self.hp_max,
+            'hpTemp': self.hp_temp,
+            'hdCurr': self.hd_curr,
+            'hdMax': self.hd_max,
+            'dsPass': self.ds_pass,
+            'dsFail': self.ds_fail,
+            'str': self.strength,
+            'dex': self.dexterity,
+            'con': self.constitution,
+            'int': self.intelligence,
+            'wis': self.wisdom,
+            'cha': self.charisma,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at,
+        }
