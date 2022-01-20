@@ -32,6 +32,5 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'name': self.first_name + ' ' + self.last_name[0] + '.',
-            'email': self.email,
-            'characters': {char.id: char.to_dict() for char in self.characters}
+            'email': self.email
         }
