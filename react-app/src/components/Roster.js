@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Link } from "react-router-dom"
 import { getChars } from "../store/characters";
 
 const Roster = () => {
@@ -21,11 +21,11 @@ const Roster = () => {
         <div>
             {isLoaded && <ul>
                 {Object.values(chars).map((char, idx) => {
+                    console.log(char);
                     return <li key={idx}>
-                        <p>{char.name}</p>
+                        <Link to={`/roster/${char.id}`}>{char.name}</Link>
                         <p>{char.race}</p>
-                        <p>{char.class}</p>
-                        <p>{char.level}</p>
+                        <p>Level {char.level} {char.class}</p>
                     </li>
                 })}
             </ul>}

@@ -16,7 +16,7 @@ class Character(db.Model):
     description = db.Column(db.Text, nullable=True)
     level = db.Column(db.Integer, nullable=False, default=1)
     exp = db.Column(db.Integer, nullable=False, default=0)
-    armor = db.Column(db.Integer, nullable=False)
+    armor = db.Column(db.Integer, nullable=True)
     speed = db.Column(db.Integer, nullable=False, default=30)
     hp_curr = db.Column(db.Integer, nullable=False, default=0)
     hp_max = db.Column(db.Integer, nullable=False, default=0)
@@ -41,6 +41,7 @@ class Character(db.Model):
 
     def to_dict(self):
         return {
+            'id': self.id,
             'userId': self.user_id,
             'name': self.name,
             'class': self.char_class,
@@ -70,6 +71,7 @@ class Character(db.Model):
 
     def to_dict_roster(self):
         return {
+            'id': self.id,
             'name': self.name,
             'class': self.char_class,
             'race': self.race,

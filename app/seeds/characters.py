@@ -8,7 +8,6 @@ def seed_characters():
         char_class='Druid',
         race='Dragonborn',
         background='Sailor (Pirate)',
-        armor=10
     )
 
     db.session.add(zexceed)

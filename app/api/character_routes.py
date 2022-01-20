@@ -10,3 +10,11 @@ character_routes = Blueprint('characters', __name__)
 def get_chars():
     chars = User.query.get(current_user.id).characters
     return {char.id: char.to_dict_roster() for char in chars}
+
+
+@character_routes.route('/<int:id>')
+@login_required
+def get_char(id):
+    char = Character.query.filter(
+        Character.id == id, Character.user_id == current_user.id).one()
+    return {char.id: char.to_dict()}

@@ -23,6 +23,22 @@ export const getChars = () => async (dispatch) => {
     }
 }
 
+export const getChar = (charId) => async (dispatch) => {
+    const response = await fetch(`/api/characters/${charId}`, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    if (response.ok) {
+        const data = await response.json();
+        if (data.errors) {
+            return;
+        }
+
+        dispatch(setChars(data));
+    }
+}
+
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case SET_CHARS:
