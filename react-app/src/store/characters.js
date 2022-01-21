@@ -5,7 +5,7 @@ const setChars = (chars) => ({
     payload: chars
 })
 
-const initialState = { characters: null };
+const initialState = { characters: { entities: null } };
 
 export const getChars = () => async (dispatch) => {
     const response = await fetch(`/api/characters/`, {

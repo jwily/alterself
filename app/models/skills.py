@@ -14,8 +14,3 @@ class Skill(db.Model):
     )
 
     character = db.relationship('Character', back_populates='skills')
-
-    # def to_dict(self):
-    #     return {
-    #         self.skill_num: True
-    #     }

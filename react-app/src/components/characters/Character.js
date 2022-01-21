@@ -20,29 +20,37 @@ const Character = () => {
 
     const dispatch = useDispatch();
 
+    const charList = useSelector(state => state.session.user.characters)
+
     useEffect(() => {
-        dispatch(getChar(charId)).then(() => setIsLoaded(true))
-    }, [dispatch, charId])
+        if (charId in charList) {
+            dispatch(getChar(charId)).then(() => setIsLoaded(true))
+        } else return;
+    }, [dispatch, charId, charList])
 
-    const char = useSelector(state => state.characters.entities.single)
+    const data = useSelector(state => state.characters.entities)
 
-    console.log(char);
+    if (!data) {
+        return (
+            <div>404</div>
+        )
+    }
 
     return (
         <div>
             {isLoaded &&
                 <ul>
-                    <li>{char.name}</li>
-                    <li>Level {char.level} {char.race} {char.class}</li>
-                    <li>{char.exp} Experience Points</li>
-                    <li>Profiency Bonus {profCalc(char.level)}</li>
-                    <li>Strength {char.str}</li>
-                    <li>Dexterity {char.dex}</li>
-                    <li>Constitution {char.con}</li>
-                    <li>Intelligence {char.int}</li>
-                    <li>Wisdom {char.wis}</li>
-                    <li>Charisma {char.cha}</li>
-                    <li>Armor Class {10 + modCalc(char.dex)}</li>
+                    <li>{data.character.name}</li>
+                    <li>Level {data.character.level} {data.character.race} {data.character.class}</li>
+                    <li>{data.character.exp} Experience Points</li>
+                    <li>Profiency Bonus {profCalc(data.character.level)}</li>
+                    <li>Strength {data.character.str}</li>
+                    <li>Dexterity {data.character.dex}</li>
+                    <li>Constitution {data.character.con}</li>
+                    <li>Intelligence {data.character.int}</li>
+                    <li>Wisdom {data.character.wis}</li>
+                    <li>Charisma {data.character.cha}</li>
+                    <li>Armor Class {10 + modCalc(data.character.dex)}</li>
                 </ul>}
         </div>
     )

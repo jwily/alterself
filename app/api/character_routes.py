@@ -19,4 +19,4 @@ def get_chars():
 def get_char(id):
     char = Character.query.filter(
         Character.id == id, Character.user_id == current_user.id).one()
-    return {'single': char.to_dict()}
+    return {'character': char.to_dict()}
