@@ -69,7 +69,6 @@ class Character(db.Model):
             'int': self.intelligence,
             'wis': self.wisdom,
             'cha': self.charisma,
-            'skills': {skill.skill_num: True for skill in self.skills},
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
         }
