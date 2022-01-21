@@ -32,6 +32,7 @@ const Roster = () => {
         <div>
             <h1>{user.username}'s Roster</h1>
             <br></br>
+            <h3>Create</h3>
             <CreateCharacter />
             <br></br>
             {isLoaded && <ul>

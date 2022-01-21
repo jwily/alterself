@@ -36,12 +36,12 @@ def create_char():
             user_id=current_user.id,
             name=form.data['name'],
             race=form.data['race'],
-            char_class=form.data['char_class'],
+            char_class=form.data['charClass'],
             background=form.data['background'],
         )
         db.session.add(char)
         db.session.commit()
-        return char.to_dict()
+        return char.to_dict_roster()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
