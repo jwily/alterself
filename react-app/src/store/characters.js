@@ -1,8 +1,14 @@
 const SET_CHARS = 'characters/SET_CHARS'
+const ADD_CHAR = 'characters/ADD_CHAR'
 
 const setChars = (chars) => ({
     type: SET_CHARS,
     payload: chars
+})
+
+const addChar = (char) => ({
+    type: ADD_CHAR,
+    payload: char
 })
 
 const initialState = { entities: null };
@@ -37,6 +43,10 @@ export const getChar = (charId) => async (dispatch) => {
 
         dispatch(setChars(data));
     }
+}
+
+export const createChar = ({ name, race, charClass, backgroun }) => {
+
 }
 
 export default function reducer(state = initialState, action) {

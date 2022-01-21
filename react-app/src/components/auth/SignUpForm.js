@@ -7,6 +7,8 @@ const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const user = useSelector(state => state.session.user);
@@ -15,7 +17,14 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
+      const formData = {
+        username,
+        firstName,
+        lastName,
+        email,
+        password,
+      }
+      const data = await dispatch(signUp(formData));
       if (data) {
         setErrors(data)
       }
@@ -24,6 +33,14 @@ const SignUpForm = () => {
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
+  };
+
+  const updateFirstName = (e) => {
+    setFirstName(e.target.value);
+  };
+
+  const updateLastName = (e) => {
+    setLastName(e.target.value);
   };
 
   const updateEmail = (e) => {
@@ -50,40 +67,57 @@ const SignUpForm = () => {
         ))}
       </div>
       <div>
-        <label>User Name</label>
+        <label>Username</label>
         <input
           type='text'
-          name='username'
           onChange={updateUsername}
           value={username}
+          required
         ></input>
       </div>
       <div>
         <label>Email</label>
         <input
           type='text'
-          name='email'
           onChange={updateEmail}
           value={email}
+          required
+        ></input>
+      </div>
+      <div>
+        <label>First Name</label>
+        <input
+          type='text'
+          onChange={updateFirstName}
+          value={firstName}
+          required
+        ></input>
+      </div>
+      <div>
+        <label>Last Name</label>
+        <input
+          type='text'
+          onChange={updateLastName}
+          value={lastName}
+          required
         ></input>
       </div>
       <div>
         <label>Password</label>
         <input
           type='password'
-          name='password'
           onChange={updatePassword}
           value={password}
+          required
         ></input>
       </div>
       <div>
         <label>Repeat Password</label>
         <input
           type='password'
-          name='repeat_password'
           onChange={updateRepeatPassword}
           value={repeatPassword}
-          required={true}
+          required
         ></input>
       </div>
       <button type='submit'>Sign Up</button>

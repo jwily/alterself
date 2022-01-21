@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { selectUser } from "../../store/session";
 import { getChars } from "../../store/characters";
 
+import CreateCharacter from "./CreateCharacter";
+
 const CharCard = styled.li`
     margin: 1rem;
     a {
@@ -26,14 +28,14 @@ const Roster = () => {
     const user = useSelector(selectUser());
     const chars = useSelector(state => state.characters.entities);
 
-    console.log(chars);
-
     return (
         <div>
             <h1>{user.username}'s Roster</h1>
+            <br></br>
+            <CreateCharacter />
+            <br></br>
             {isLoaded && <ul>
                 {Object.values(chars).map((char, idx) => {
-                    console.log(char);
                     return <CharCard key={idx}>
                         <Link to={`/roster/${char.id}`}>{char.name}</Link>
                         <p>{char.race}</p>
