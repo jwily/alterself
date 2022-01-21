@@ -32,5 +32,4 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'name': self.first_name + ' ' + self.last_name[0] + '.',
             'email': self.email,
-            'characters': {char.id: True for char in self.characters}
         }

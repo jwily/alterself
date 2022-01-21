@@ -20,13 +20,9 @@ const Character = () => {
 
     const dispatch = useDispatch();
 
-    const charList = useSelector(state => state.session.user.characters)
-
     useEffect(() => {
-        if (charId in charList) {
-            dispatch(getChar(charId)).then(() => setIsLoaded(true))
-        } else return;
-    }, [dispatch, charId, charList])
+        dispatch(getChar(charId)).then(() => setIsLoaded(true))
+    }, [dispatch, charId])
 
     const data = useSelector(state => state.characters.entities)
 
