@@ -27,4 +27,4 @@ def get_char(id):
 def get_skills(id):
     skills = Character.query.filter(
         Character.id == id, Character.user_id == current_user.id).one().skills
-    return {'skills': {skill.skill_num: True for skill in skills}}
+    return {'entities': {skill.skill_num: True for skill in skills}}

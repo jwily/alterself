@@ -40,8 +40,10 @@ const Character = () => {
     if (!charData) {
         return (
             <Container>
-                <h2>404</h2>
-                <p>Oops. Are you lost?</p>
+                {isLoaded && <>
+                    <h2>404</h2>
+                    <p>Oops. Are you lost?</p>
+                </>}
             </Container>
         )
     }
@@ -64,24 +66,24 @@ const Character = () => {
                         <li>Wisdom :: {charData.character.wis}</li>
                         <li>Charisma :: {charData.character.cha}</li>
                         <br></br>
-                        <li>Acrobatics (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData.skills[1])}</li>
-                        <li>Animal Handling (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData.skills[2])}</li>
-                        <li>Arcana (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData.skills[3])}</li>
-                        <li>Athletics (Str) :: {skillCalc(charData.character.level, charData.character.str, skillsData.skills[4])}</li>
-                        <li>Deception (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData.skills[5])}</li>
-                        <li>History (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData.skills[6])}</li>
-                        <li>Insight (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData.skills[7])}</li>
-                        <li>Intimidation (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData.skills[8])}</li>
-                        <li>Investigation (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData.skills[9])}</li>
-                        <li>Medicine (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData.skills[10])}</li>
-                        <li>Nature (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData.skills[11])}</li>
-                        <li>Perception (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData.skills[12])}</li>
-                        <li>Performance (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData.skills[13])}</li>
-                        <li>Persuasion (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData.skills[14])}</li>
-                        <li>Religion (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData.skills[15])}</li>
-                        <li>Sleight of Hand (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData.skills[16])}</li>
-                        <li>Stealth (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData.skills[17])}</li>
-                        <li>Survival (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData.skills[18])}</li>
+                        <li>Acrobatics (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData[1])}</li>
+                        <li>Animal Handling (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[2])}</li>
+                        <li>Arcana (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[3])}</li>
+                        <li>Athletics (Str) :: {skillCalc(charData.character.level, charData.character.str, skillsData[4])}</li>
+                        <li>Deception (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[5])}</li>
+                        <li>History (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[6])}</li>
+                        <li>Insight (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[7])}</li>
+                        <li>Intimidation (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[8])}</li>
+                        <li>Investigation (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[9])}</li>
+                        <li>Medicine (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[10])}</li>
+                        <li>Nature (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[11])}</li>
+                        <li>Perception (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[12])}</li>
+                        <li>Performance (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[13])}</li>
+                        <li>Persuasion (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[14])}</li>
+                        <li>Religion (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[15])}</li>
+                        <li>Sleight of Hand (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData[16])}</li>
+                        <li>Stealth (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData[17])}</li>
+                        <li>Survival (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[18])}</li>
                     </ul>
                 </>}
         </Container>
