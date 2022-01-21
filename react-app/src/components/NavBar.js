@@ -7,10 +7,6 @@ import LogoutButton from './auth/LogoutButton';
 const NavMain = styled.nav`
   background-color: black;
   display: flex;
-  a {
-    color: white;
-    text-decoration: none;
-  }
   ul {
     display: flex;
     width: 100%;
@@ -42,6 +38,11 @@ const NavBar = () => {
         <li>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to='/roster' exact={true} activeClassName='active'>
+            Roster
           </NavLink>
         </li>
         <li>
