@@ -28,7 +28,10 @@ const Character = () => {
 
     if (!data) {
         return (
-            <div>404</div>
+            <div>
+                <h2>404</h2>
+                <p>Oops. Are you lost?</p>
+            </div>
         )
     }
 

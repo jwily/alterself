@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom"
 import styled from "styled-components";
 
+import { selectUser } from "../../store/session";
 import { getChars } from "../../store/characters";
 
 const CharCard = styled.li`
@@ -22,12 +23,14 @@ const Roster = () => {
         dispatch(getChars()).then(() => setIsLoaded(true))
     }, [dispatch])
 
-    const chars = useSelector(state => state.characters.entities)
+    const user = useSelector(selectUser());
+    const chars = useSelector(state => state.characters.entities);
 
     console.log(chars);
 
     return (
         <div>
+            <h1>{user.username}'s Roster</h1>
             {isLoaded && <ul>
                 {Object.values(chars).map((char, idx) => {
                     console.log(char);
