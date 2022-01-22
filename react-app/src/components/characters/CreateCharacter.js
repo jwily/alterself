@@ -42,6 +42,10 @@ const CreateCharacter = () => {
         if (data) {
             setErrors(data)
         }
+        setName('');
+        setRace('');
+        setCharClass('');
+        setBackground('');
     };
 
     const updateName = (e) => {
