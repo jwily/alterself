@@ -18,7 +18,6 @@ const CharCard = styled.li`
 const Roster = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
-    const [boop, setBoop] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -27,17 +26,17 @@ const Roster = () => {
     }, [dispatch])
 
     const user = useSelector(selectUser());
-    const chars = useSelector(state => state.characters.entities);
+    const chars = useSelector(state => state.characters);
 
     return (
         <div>
             <h1>{user.username}'s Roster</h1>
             <br></br>
             <h3>Create</h3>
-            <CreateCharacter boop={boop} setBoop={setBoop} />
+            <CreateCharacter />
             <br></br>
             {isLoaded && <ul>
-                {Object.values(chars).map((char, idx) => {
+                {Object.values(chars.entities).map((char, idx) => {
                     return <CharCard key={idx}>
                         <Link to={`/roster/${char.id}`}>{char.name}</Link>
                         <p>{char.race}</p>
