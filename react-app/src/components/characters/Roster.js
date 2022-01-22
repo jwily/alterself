@@ -17,7 +17,8 @@ const CharCard = styled.li`
 
 const Roster = () => {
 
-    const [isLoaded, setIsLoaded] = useState(false)
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [boop, setBoop] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -33,7 +34,7 @@ const Roster = () => {
             <h1>{user.username}'s Roster</h1>
             <br></br>
             <h3>Create</h3>
-            <CreateCharacter />
+            <CreateCharacter boop={boop} setBoop={setBoop} />
             <br></br>
             {isLoaded && <ul>
                 {Object.values(chars).map((char, idx) => {

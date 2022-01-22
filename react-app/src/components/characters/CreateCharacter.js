@@ -21,7 +21,7 @@ const CreateForm = styled.form`
     }
 `
 
-const CreateCharacter = () => {
+const CreateCharacter = ({ boop, setBoop }) => {
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState('');
     const [race, setRace] = useState('');
@@ -42,6 +42,7 @@ const CreateCharacter = () => {
         if (data) {
             setErrors(data)
         }
+        setBoop(!boop);
     };
 
     const updateName = (e) => {
