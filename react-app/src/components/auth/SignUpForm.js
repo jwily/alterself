@@ -7,6 +7,8 @@ const SignUpForm = ({ setShowModal }) => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const user = useSelector(state => state.session.user);
@@ -15,7 +17,14 @@ const SignUpForm = ({ setShowModal }) => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
+      const formData = {
+        username,
+        firstName,
+        lastName,
+        email,
+        password,
+      }
+      const data = await dispatch(signUp(formData));
       if (data) {
         setErrors(data)
       } else {
@@ -26,6 +35,14 @@ const SignUpForm = ({ setShowModal }) => {
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
+  };
+
+  const updateFirstName = (e) => {
+    setFirstName(e.target.value);
+  };
+
+  const updateLastName = (e) => {
+    setLastName(e.target.value);
   };
 
   const updateEmail = (e) => {
@@ -58,6 +75,7 @@ const SignUpForm = ({ setShowModal }) => {
           type='text'
           onChange={updateUsername}
           value={username}
+          required
         ></input>
       </div>
       <div>
@@ -67,6 +85,25 @@ const SignUpForm = ({ setShowModal }) => {
           type='text'
           onChange={updateEmail}
           value={email}
+          required
+        ></input>
+      </div>
+      <div>
+        <label>First Name</label>
+        <input
+          type='text'
+          onChange={updateFirstName}
+          value={firstName}
+          required
+        ></input>
+      </div>
+      <div>
+        <label>Last Name</label>
+        <input
+          type='text'
+          onChange={updateLastName}
+          value={lastName}
+          required
         ></input>
       </div>
       <div>
@@ -76,6 +113,7 @@ const SignUpForm = ({ setShowModal }) => {
           type='password'
           onChange={updatePassword}
           value={password}
+          required
         ></input>
       </div>
       <div>
@@ -85,7 +123,7 @@ const SignUpForm = ({ setShowModal }) => {
           type='password'
           onChange={updateRepeatPassword}
           value={repeatPassword}
-          required={true}
+          required
         ></input>
       </div>
       <div>
