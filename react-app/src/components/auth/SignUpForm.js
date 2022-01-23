@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 
-const SignUpForm = () => {
+const SignUpForm = ({ setShowModal }) => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -27,6 +27,8 @@ const SignUpForm = () => {
       const data = await dispatch(signUp(formData));
       if (data) {
         setErrors(data)
+      } else {
+        setShowModal(false)
       }
     }
   };
@@ -67,8 +69,9 @@ const SignUpForm = () => {
         ))}
       </div>
       <div>
-        <label>Username</label>
+        <label htmlFor='username'>User Name</label>
         <input
+          id='username'
           type='text'
           onChange={updateUsername}
           value={username}
@@ -76,8 +79,9 @@ const SignUpForm = () => {
         ></input>
       </div>
       <div>
-        <label>Email</label>
+        <label htmlFor='email'>Email</label>
         <input
+          id='email'
           type='text'
           onChange={updateEmail}
           value={email}
@@ -103,8 +107,9 @@ const SignUpForm = () => {
         ></input>
       </div>
       <div>
-        <label>Password</label>
+        <label htmlFor='password'>Password</label>
         <input
+          id='password'
           type='password'
           onChange={updatePassword}
           value={password}
@@ -112,15 +117,18 @@ const SignUpForm = () => {
         ></input>
       </div>
       <div>
-        <label>Repeat Password</label>
+        <label htmlFor='repeat-password'>Repeat Password</label>
         <input
+          id='repeat-password'
           type='password'
           onChange={updateRepeatPassword}
           value={repeatPassword}
           required
         ></input>
       </div>
-      <button type='submit'>Sign Up</button>
+      <div>
+        <button type='submit'>Sign Up</button>
+      </div>
     </form>
   );
 };
