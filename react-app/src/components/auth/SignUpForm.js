@@ -50,43 +50,45 @@ const SignUpForm = () => {
         ))}
       </div>
       <div>
-        <label>User Name</label>
+        <label htmlFor='username'>User Name</label>
         <input
+          id='username'
           type='text'
-          name='username'
           onChange={updateUsername}
           value={username}
         ></input>
       </div>
       <div>
-        <label>Email</label>
+        <label htmlFor='email'>Email</label>
         <input
+          id='email'
           type='text'
-          name='email'
           onChange={updateEmail}
           value={email}
         ></input>
       </div>
       <div>
-        <label>Password</label>
+        <label htmlFor='password'>Password</label>
         <input
+          id='password'
           type='password'
-          name='password'
           onChange={updatePassword}
           value={password}
         ></input>
       </div>
       <div>
-        <label>Repeat Password</label>
+        <label htmlFor='repeat-password'>Repeat Password</label>
         <input
+          id='repeat-password'
           type='password'
-          name='repeat_password'
           onChange={updateRepeatPassword}
           value={repeatPassword}
           required={true}
         ></input>
       </div>
-      <button type='submit'>Sign Up</button>
+      <div>
+        <button type='submit'>Sign Up</button>
+      </div>
     </form>
   );
 };
