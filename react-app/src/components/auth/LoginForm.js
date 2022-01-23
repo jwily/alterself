@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { login } from '../../store/session';
 
-const LoginForm = () => {
+const LoginForm = ({ setShowModal }) => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
   const onLogin = async (e) => {
@@ -15,8 +13,20 @@ const LoginForm = () => {
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
+    } else {
+      setShowModal(false)
     }
   };
+
+  const demoLogin = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login('demo@alterself.com', 'password'));
+    if (data) {
+      setErrors(data);
+    } else {
+      setShowModal(false)
+    }
+  }
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
@@ -25,10 +35,6 @@ const LoginForm = () => {
   const updatePassword = (e) => {
     setPassword(e.target.value);
   };
-
-  if (user) {
-    return <Redirect to='/' />;
-  }
 
   return (
     <form onSubmit={onLogin}>
@@ -40,9 +46,8 @@ const LoginForm = () => {
       <div>
         <label htmlFor='email'>Email</label>
         <input
-          name='email'
+          id='email'
           type='text'
-          placeholder='Email'
           value={email}
           onChange={updateEmail}
         />
@@ -50,13 +55,17 @@ const LoginForm = () => {
       <div>
         <label htmlFor='password'>Password</label>
         <input
-          name='password'
+          id='password'
           type='password'
-          placeholder='Password'
           value={password}
           onChange={updatePassword}
         />
+      </div>
+      <div>
         <button type='submit'>Login</button>
+      </div>
+      <div>
+        <button type='button' onClick={demoLogin}>Demo</button>
       </div>
     </form>
   );
