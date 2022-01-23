@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { selectUser } from "../../store/session";
 import { getChars } from "../../store/characters";
 
-import CreateCharacter from "./CreateCharacter";
+import CreateCharModal from "./CreateCharModal";
 
 const CharCard = styled.li`
     margin: 1rem;
@@ -32,8 +32,7 @@ const Roster = () => {
         <div>
             <h1>{user.username}'s Roster</h1>
             <br></br>
-            <h3>Create</h3>
-            <CreateCharacter />
+            <CreateCharModal />
             <br></br>
             {isLoaded && <ul>
                 {Object.values(chars.entities).map((char, idx) => {

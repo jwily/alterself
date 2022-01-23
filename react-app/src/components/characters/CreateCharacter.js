@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { createChar } from "../../store/characters";
 
@@ -21,7 +21,7 @@ const CreateForm = styled.form`
     }
 `
 
-const CreateCharacter = () => {
+const CreateCharacter = ({ setShowModal }) => {
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState('');
     const [race, setRace] = useState('');
@@ -40,7 +40,9 @@ const CreateCharacter = () => {
         }
         const data = await dispatch(createChar(formData));
         if (data) {
-            setErrors(data)
+            setErrors(data);
+        } else {
+            setShowModal(false);
         }
         setName('');
         setRace('');
