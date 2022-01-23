@@ -11,10 +11,16 @@ function AuthFormModal() {
         <>
             <button onClick={() => setShowModal(true)}>Log In</button>
             {showModal && (
-                <Modal onClose={() => setShowModal(false)}>
-                    <button type='button' onClick={() => setToggle(!toggle)}>{toggle ? 'Register' : 'Back to Login'}</button>
-                    {toggle ? <LoginForm /> :
-                        <SignUpForm />}
+                <Modal onClose={() => {
+                    setShowModal(false);
+                    setToggle(true);
+                }}>
+                    <button type='button' onClick={() => setToggle(!toggle)}>
+                        {toggle ? 'Register' : 'Back to Login'}
+                    </button>
+                    {toggle ?
+                        <LoginForm setShowModal={setShowModal} /> :
+                        <SignUpForm setShowModal={setShowModal} />}
                 </Modal>
             )}
         </>
