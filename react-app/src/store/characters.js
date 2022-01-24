@@ -1,6 +1,6 @@
-const SET_CHARS = 'characters/SET_CHARS'
-const ADD_CHAR = 'characters/ADD_CHAR'
-const REMOVE_CHAR = 'characters/REMOVE_CHAR'
+const SET_CHARS = 'characters/SET_CHARS';
+const ADD_CHAR = 'characters/ADD_CHAR';
+const REMOVE_CHAR = 'characters/REMOVE_CHAR';
 
 const setChars = (chars) => ({
     type: SET_CHARS,
@@ -100,7 +100,7 @@ export default function reducer(state = initialState, action) {
         case ADD_CHAR:
             newState = { ...state };
             newState.entities[action.payload.id] = action.payload;
-            return newState
+            return newState;
         case REMOVE_CHAR:
             newState = { ...state };
             delete newState.entities[action.payload];
