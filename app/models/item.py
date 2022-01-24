@@ -6,7 +6,8 @@ class Item(db.Model):
     __tablename__ = 'items'
 
     id = db.Column(db.Integer, primary_key=True)
-    char_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    char_id = db.Column(db.Integer, db.ForeignKey(
+        'characters.id'), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=True)
     quantity = db.Column(db.Integer, nullable=False, default=1)
@@ -21,7 +22,6 @@ class Item(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'charId': self.char_id,
             'name': self.name,
             'quantity': self.quantity,
             'description': self.description,

@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import session from './session'
 import characters from './characters'
 import skills from './skills'
+import items from './items'
 
 const rootReducer = combineReducers({
   session,
   characters,
-  skills
+  skills,
+  items
 });
 
 

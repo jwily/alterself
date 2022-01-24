@@ -4,7 +4,10 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { getChar } from "../../store/characters";
+import { getItems } from "../../store/items";
 import { getSkills } from "../../store/skills";
+
+import Inventory from "../items/Inventory";
 
 const Container = styled.div`
     margin: 1rem;
@@ -31,7 +34,10 @@ const Character = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getChar(charId)).then(() => dispatch(getSkills(charId))).then(() => setIsLoaded(true))
+        dispatch(getChar(charId))
+            .then(() => dispatch(getSkills(charId)))
+            .then(() => dispatch(getItems(charId)))
+            .then(() => setIsLoaded(true))
     }, [dispatch, charId])
 
     const charData = useSelector(state => state.characters.entities)
@@ -85,6 +91,7 @@ const Character = () => {
                         <li>Stealth (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData[17])}</li>
                         <li>Survival (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[18])}</li>
                     </ul>
+                    <Inventory />
                 </>}
         </Container>
     )

@@ -59,3 +59,11 @@ def get_skills(id):
     skills = Character.query.filter(
         Character.id == id, Character.user_id == current_user.id).one().skills
     return {'entities': {skill.skill_num: True for skill in skills}}
+
+
+@character_routes.route('/<int:id>/items', methods=['GET'])
+@login_required
+def get_items(id):
+    items = Character.query.filter(
+        Character.id == id, Character.user_id == current_user.id).one().items
+    return {'entities': {item.id: item.to_dict() for item in items}}
