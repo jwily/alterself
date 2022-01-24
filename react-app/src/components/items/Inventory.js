@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
+import CreateItem from "./CreateItem";
+
 const Container = styled.ul`
     li {
         margin: 1rem;
@@ -10,11 +12,12 @@ const Container = styled.ul`
 
 const Inventory = () => {
 
-    const itemsData = useSelector(state => state.items.entities)
+    const items = useSelector(state => state.items)
 
     return (
         <Container>
-            {Object.values(itemsData).map((item) => {
+            <CreateItem />
+            {Object.values(items.entities).map((item) => {
                 return (
                     <li>
                         <p>{item.name} x {item.quantity}</p>
