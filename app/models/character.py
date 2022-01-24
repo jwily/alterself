@@ -41,6 +41,8 @@ class Character(db.Model):
     user = db.relationship('User', back_populates='characters')
     skills = db.relationship(
         'Skill', back_populates='character', cascade='all, delete')
+    items = db.relationship(
+        'Item', back_populates='character', cascade='all, delete')
 
     def to_dict(self):
         return {

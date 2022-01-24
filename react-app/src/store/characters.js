@@ -1,5 +1,6 @@
 const SET_CHARS = 'characters/SET_CHARS'
 const ADD_CHAR = 'characters/ADD_CHAR'
+const REMOVE_CHAR = 'characters/REMOVE_CHAR'
 
 const setChars = (chars) => ({
     type: SET_CHARS,
@@ -10,6 +11,12 @@ const addChar = (char) => ({
     type: ADD_CHAR,
     payload: char
 })
+
+const delChar = (id) => ({
+    type: REMOVE_CHAR,
+    payload: id
+})
+
 
 const initialState = { entities: null };
 
@@ -68,14 +75,36 @@ export const createChar = (formData) => async (dispatch) => {
     }
 }
 
+export const deleteChar = (charId) => async (dispatch) => {
+    const response = await fetch(`/api/characters/${charId}`, {
+        method: 'DELETE'
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(delChar(data.charId));
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        return data.error;
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
 export default function reducer(state = initialState, action) {
+    let newState;
     switch (action.type) {
         case SET_CHARS:
             return { entities: action.payload }
         case ADD_CHAR:
-            const newState = { ...state }
+            newState = { ...state };
             newState.entities[action.payload.id] = action.payload;
             return newState
+        case REMOVE_CHAR:
+            newState = { ...state };
+            delete newState.entities[action.payload];
+            return newState;
         default:
             return state;
     }

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import styled from "styled-components";
 
 import { selectUser } from "../../store/session";
-import { getChars } from "../../store/characters";
+import { getChars, deleteChar } from "../../store/characters";
 
 import CreateCharModal from "./CreateCharModal";
 
@@ -16,6 +16,11 @@ const CharCard = styled.li`
 `
 
 const Roster = () => {
+
+    const handleDelete = (e, id) => {
+        e.preventDefault();
+        dispatch(deleteChar(id));
+    }
 
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -40,6 +45,9 @@ const Roster = () => {
                         <Link to={`/roster/${char.id}`}>{char.name}</Link>
                         <p>{char.race}</p>
                         <p>Level {char.level} {char.class}</p>
+                        <form onSubmit={(e) => handleDelete(e, char.id)}>
+                            <button type='submit'>Delete</button>
+                        </form>
                     </CharCard>
                 })}
             </ul>}
