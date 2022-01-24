@@ -8,9 +8,7 @@ function AuthFormModal() {
     const [toggle, setToggle] = useState(true);
 
     useEffect(() => {
-        return () => {
-            setShowModal(false);
-        }
+        return 'Unmounted';
     }, [])
 
     return (
