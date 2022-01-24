@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from '../../context/Modal';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
@@ -6,6 +6,12 @@ import SignUpForm from './SignUpForm';
 function AuthFormModal() {
     const [showModal, setShowModal] = useState(false);
     const [toggle, setToggle] = useState(true);
+
+    useEffect(() => {
+        return () => {
+            setShowModal(false);
+        }
+    }, [])
 
     return (
         <>
