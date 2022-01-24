@@ -58,6 +58,24 @@ export const createItem = (formData) => async (dispatch) => {
     }
 }
 
+
+export const deleteItem = (itemId) => async (dispatch) => {
+    const response = await fetch(`/api/items/${itemId}`, {
+        method: 'DELETE'
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(delItem(data.itemId));
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        return data.error;
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
 export default function reducer(state = initialState, action) {
     let newState;
     switch (action.type) {
