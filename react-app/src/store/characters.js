@@ -102,8 +102,8 @@ export default function reducer(state = initialState, action) {
             newState.entities[action.payload.id] = action.payload;
             return newState
         case REMOVE_CHAR:
-            newState = { ...state }
-            delete newState[action.payload]
+            newState = { ...state };
+            delete newState.entities[action.payload];
             return newState;
         default:
             return state;
