@@ -1,5 +1,6 @@
 const SET_CHARS = 'characters/SET_CHARS'
 const ADD_CHAR = 'characters/ADD_CHAR'
+const REMOVE_CHAR = 'characters/REMOVE_CHAR'
 
 const setChars = (chars) => ({
     type: SET_CHARS,
@@ -10,6 +11,12 @@ const addChar = (char) => ({
     type: ADD_CHAR,
     payload: char
 })
+
+const delChar = (id) => ({
+    type: REMOVE_CHAR,
+    payload: id
+})
+
 
 const initialState = { entities: null };
 
@@ -65,6 +72,20 @@ export const createChar = (formData) => async (dispatch) => {
         }
     } else {
         return ['An error occurred. Please try again.']
+    }
+}
+
+export const deleteChar = (charId) => async (dispatch) => {
+    const response = await fetch(`/api/characters/${charId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        return data;
     }
 }
 

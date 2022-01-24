@@ -6,7 +6,7 @@ def seed_items():
     zex1 = Item(
         char_id=1,
         name='Leather Armor',
-        description='Light Armor with AC of 11.'
+        description='Light Armor with AC of 11'
     )
 
     zex2 = Item(
