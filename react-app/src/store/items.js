@@ -1,5 +1,6 @@
 const SET_ITEMS = 'items/SET_ITEMS'
 const ADD_ITEM = 'items/ADD_ITEM'
+const REMOVE_ITEM = 'items/REMOVE_ITEM'
 
 const setItems = (items) => ({
     type: SET_ITEMS,
@@ -9,6 +10,11 @@ const setItems = (items) => ({
 const addItem = (item) => ({
     type: ADD_ITEM,
     payload: item
+})
+
+const delItem = (id) => ({
+    type: REMOVE_ITEM,
+    payload: id
 })
 
 const initialState = { entities: null };
@@ -61,6 +67,10 @@ export default function reducer(state = initialState, action) {
             newState = { ...state };
             newState.entities[action.payload.id] = action.payload;
             return newState
+        case REMOVE_ITEM:
+            newState = { ...state };
+            delete newState.entities[action.payload];
+            return newState;
         default:
             return state;
     }
