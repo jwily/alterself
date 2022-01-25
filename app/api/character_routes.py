@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Character, User, db
-from app.forms import CreateCharacterForm, DeleteCharForm
+from app.models import Character, User, db, Item
+from app.forms import CreateCharacterForm, DeleteCharForm, CreateItemForm
 
 character_routes = Blueprint('characters', __name__)
 
@@ -85,3 +85,21 @@ def get_items(id):
     items = Character.query.filter(
         Character.id == id, Character.user_id == current_user.id).one().items
     return {'entities': {item.id: item.to_dict() for item in items}}
+
+
+@character_routes.route('/<int:id>/items', methods=['POST'])
+@login_required
+def create_item(id):
+    form = CreateItemForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        item = Item(
+            char_id=id,
+            name=form.data['name'],
+            description=form.data['description'],
+            quantity=form.data['quantity']
+        )
+        db.session.add(item)
+        db.session.commit()
+        return item.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
