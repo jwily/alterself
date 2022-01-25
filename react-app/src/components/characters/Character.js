@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import debounce from "lodash/debounce";
 
 import { getChar } from "../../store/characters";
 import { getItems } from "../../store/items";
