@@ -7,9 +7,9 @@ function AuthFormModal() {
     const [showModal, setShowModal] = useState(false);
     const [toggle, setToggle] = useState(true);
 
-    useEffect(() => {
-        return 'Unmounted';
-    }, [])
+    // useEffect(() => {
+    //     return 'Unmounted';
+    // }, [])
 
     return (
         <>
@@ -23,8 +23,8 @@ function AuthFormModal() {
                         {toggle ? 'Register' : 'Back to Login'}
                     </button>
                     {toggle ?
-                        <LoginForm setShowModal={setShowModal} /> :
-                        <SignUpForm setShowModal={setShowModal} />}
+                        <LoginForm /> :
+                        <SignUpForm />}
                 </Modal>
             )}
         </>
