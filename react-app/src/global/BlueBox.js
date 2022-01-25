@@ -7,10 +7,8 @@ const BlueBox = styled.div`
     background: linear-gradient(160deg, rgba(90,158,213,1) 0%, rgba(26,88,162,1) 10%, rgba(7,21,45,1) 50%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5a9ed5",endColorstr="#07152d",GradientType=1);
 
-    border: 1px solid silver;
+    border: 2.5px solid silver;
     border-radius: 1rem;
-
-    width: 25rem;
 
     padding: 1rem;
 

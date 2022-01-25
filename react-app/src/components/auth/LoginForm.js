@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../store/session';
 
-const LoginForm = ({ setShowModal }) => {
+const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,8 +13,6 @@ const LoginForm = ({ setShowModal }) => {
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
-    } else {
-      setShowModal(false)
     }
   };
 
@@ -23,8 +21,6 @@ const LoginForm = ({ setShowModal }) => {
     const data = await dispatch(login('demo@alterself.com', 'password'));
     if (data) {
       setErrors(data);
-    } else {
-      setShowModal(false)
     }
   }
 
