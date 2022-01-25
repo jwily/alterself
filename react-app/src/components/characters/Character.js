@@ -7,10 +7,12 @@ import { getChar } from "../../store/characters";
 import { getItems } from "../../store/items";
 import { getSkills } from "../../store/skills";
 
+import BlueBox from "../../global/BlueBox";
+
 import Inventory from "../items/Inventory";
 
 const Container = styled.div`
-    margin: 1rem;
+    display: flex;
 `
 
 const modCalc = (score) => {
@@ -58,40 +60,48 @@ const Character = () => {
         <Container>
             {isLoaded &&
                 <>
-                    <ul>
-                        <li>{charData.character.name}</li>
-                        <li>Level {charData.character.level} {charData.character.race} {charData.character.class}</li>
-                        <li>{charData.character.exp} Experience Points</li>
-                        <li>Profiency Bonus {profCalc(charData.character.level)}</li>
-                        <li>Armor Class {10 + modCalc(charData.character.dex)}</li>
-                        <br></br>
-                        <li>Strength :: {charData.character.str}</li>
-                        <li>Dexterity :: {charData.character.dex}</li>
-                        <li>Constitution :: {charData.character.con}</li>
-                        <li>Intelligence :: {charData.character.int}</li>
-                        <li>Wisdom :: {charData.character.wis}</li>
-                        <li>Charisma :: {charData.character.cha}</li>
-                        <br></br>
-                        <li>Acrobatics (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData[1])}</li>
-                        <li>Animal Handling (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[2])}</li>
-                        <li>Arcana (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[3])}</li>
-                        <li>Athletics (Str) :: {skillCalc(charData.character.level, charData.character.str, skillsData[4])}</li>
-                        <li>Deception (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[5])}</li>
-                        <li>History (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[6])}</li>
-                        <li>Insight (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[7])}</li>
-                        <li>Intimidation (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[8])}</li>
-                        <li>Investigation (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[9])}</li>
-                        <li>Medicine (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[10])}</li>
-                        <li>Nature (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[11])}</li>
-                        <li>Perception (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[12])}</li>
-                        <li>Performance (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[13])}</li>
-                        <li>Persuasion (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[14])}</li>
-                        <li>Religion (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[15])}</li>
-                        <li>Sleight of Hand (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData[16])}</li>
-                        <li>Stealth (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData[17])}</li>
-                        <li>Survival (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[18])}</li>
-                    </ul>
-                    <Inventory />
+
+                    <BlueBox>
+                        <p>{charData.character.name}</p>
+                        <p>Level {charData.character.level} {charData.character.race} {charData.character.class}</p>
+                        <p>{charData.character.exp} Experience Points</p>
+                        <p>Profiency Bonus {profCalc(charData.character.level)}</p>
+                        <p>Armor Class {10 + modCalc(charData.character.dex)}</p>
+                    </BlueBox>
+
+                    <BlueBox>
+                        <p>Strength :: {charData.character.str}</p>
+                        <p>Dexterity :: {charData.character.dex}</p>
+                        <p>Constitution :: {charData.character.con}</p>
+                        <p>Intelpgence :: {charData.character.int}</p>
+                        <p>Wisdom :: {charData.character.wis}</p>
+                        <p>Charisma :: {charData.character.cha}</p>
+                    </BlueBox>
+
+                    <BlueBox>
+                        <p>Acrobatics (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData[1])}</p>
+                        <p>Animal Handpng (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[2])}</p>
+                        <p>Arcana (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[3])}</p>
+                        <p>Athletics (Str) :: {skillCalc(charData.character.level, charData.character.str, skillsData[4])}</p>
+                        <p>Deception (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[5])}</p>
+                        <p>History (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[6])}</p>
+                        <p>Insight (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[7])}</p>
+                        <p>Intimidation (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[8])}</p>
+                        <p>Investigation (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[9])}</p>
+                        <p>Medicine (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[10])}</p>
+                        <p>Nature (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[11])}</p>
+                        <p>Perception (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[12])}</p>
+                        <p>Performance (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[13])}</p>
+                        <p>Persuasion (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[14])}</p>
+                        <p>Repgion (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[15])}</p>
+                        <p>Sleight of Hand (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData[16])}</p>
+                        <p>Stealth (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData[17])}</p>
+                        <p>Survival (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[18])}</p>
+                    </BlueBox>
+
+                    <BlueBox>
+                        <Inventory />
+                    </BlueBox>
                 </>}
         </Container>
     )
