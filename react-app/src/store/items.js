@@ -77,16 +77,14 @@ export const deleteItem = (itemId) => async (dispatch) => {
 }
 
 export default function reducer(state = initialState, action) {
-    let newState;
+    const newState = { ...state };
     switch (action.type) {
         case SET_ITEMS:
             return action.payload
         case ADD_ITEM:
-            newState = { ...state };
             newState.entities[action.payload.id] = action.payload;
             return newState
         case REMOVE_ITEM:
-            newState = { ...state };
             delete newState.entities[action.payload];
             return newState;
         default:

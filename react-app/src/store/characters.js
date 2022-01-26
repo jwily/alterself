@@ -100,7 +100,7 @@ export const editAbilities = (formData) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json();
-        dispatch(setChars(data))
+        dispatch(setChar(data))
         return null;
     } else if (response.status < 500) {
         const data = await response.json();
@@ -113,7 +113,7 @@ export const editAbilities = (formData) => async (dispatch) => {
 }
 
 export default function reducer(state = initialState, action) {
-    const newState = { ...state }
+    const newState = { ...state };
     switch (action.type) {
         case SET_CHARS:
             newState.entities.characters = action.payload;

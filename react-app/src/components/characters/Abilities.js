@@ -66,12 +66,12 @@ const Abilities = ({ charData }) => {
 
     const dispatch = useDispatch()
 
-    const [str, setStr] = useState(charData.entities.character.str)
-    const [dex, setDex] = useState(charData.entities.character.dex)
-    const [con, setCon] = useState(charData.entities.character.con)
-    const [int, setInt] = useState(charData.entities.character.int)
-    const [wis, setWis] = useState(charData.entities.character.wis)
-    const [cha, setCha] = useState(charData.entities.character.cha)
+    const [str, setStr] = useState(charData.str)
+    const [dex, setDex] = useState(charData.dex)
+    const [con, setCon] = useState(charData.con)
+    const [int, setInt] = useState(charData.int)
+    const [wis, setWis] = useState(charData.wis)
+    const [cha, setCha] = useState(charData.cha)
 
     const debouncedSave = useCallback(
         debounce(async (data) => {
@@ -82,7 +82,7 @@ const Abilities = ({ charData }) => {
 
     useEffect(() => {
         const data = {
-            charId: charData.entities.character.id,
+            charId: charData.id,
             strength: parseInt(str, 10),
             dexterity: parseInt(dex, 10),
             constitution: parseInt(con, 10),
@@ -91,7 +91,7 @@ const Abilities = ({ charData }) => {
             charisma: parseInt(cha, 10),
         }
         debouncedSave(data);
-    }, [debouncedSave, charData.entities.character.id, str, dex, con, int, wis, cha])
+    }, [debouncedSave, charData.id, str, dex, con, int, wis, cha])
 
     const handleBlur = (e, func) => {
         if (e.target.value > 20) {
@@ -104,74 +104,74 @@ const Abilities = ({ charData }) => {
     return (
         <Container>
             <AbilityDiv>
-                <label htmlFor={`${charData.entities.character.id}-str`}>
+                <label htmlFor={`${charData.id}-str`}>
                     <span>Strength</span>
                     <div className="mod">
                         <FontAwesomeIcon icon={faFistRaised} />
                         <span>{modDisplay(str)}</span>
                     </div>
                 </label>
-                <input max="20" min="0" id={`${charData.entities.character.id}-str`} type="number" value={str}
+                <input max="20" min="0" id={`${charData.id}-str`} type="number" value={str}
                     onBlur={(e) => handleBlur(e, setStr)}
                     onChange={(e) => setStr(e.target.value)} />
             </AbilityDiv>
             <AbilityDiv>
-                <label htmlFor={`${charData.entities.character.id}-dex`}>
+                <label htmlFor={`${charData.id}-dex`}>
                     <span>Dexterity</span>
                     <div className="mod">
                         <FontAwesomeIcon icon={faHandPaper} />
                         <span>{modDisplay(dex)}</span>
                     </div>
                 </label>
-                <input max="20" min="0" id={`${charData.entities.character.id}-dex`} type="number" value={dex}
+                <input max="20" min="0" id={`${charData.id}-dex`} type="number" value={dex}
                     onBlur={(e) => handleBlur(e, setDex)}
                     onChange={(e) => setDex(e.target.value)} />
             </AbilityDiv>
             <AbilityDiv>
-                <label htmlFor={`${charData.entities.character.id}-con`}>
+                <label htmlFor={`${charData.id}-con`}>
                     <span>Constitution</span>
                     <div className="mod">
                         <FontAwesomeIcon icon={faHandHoldingWater} />
                         <span>{modDisplay(con)}</span>
                     </div>
                 </label>
-                <input max="20" min="0" id={`${charData.entities.character.id}-con`} type="number" value={con}
+                <input max="20" min="0" id={`${charData.id}-con`} type="number" value={con}
                     onBlur={(e) => handleBlur(e, setCon)}
                     onChange={(e) => setCon(e.target.value)} />
             </AbilityDiv>
             <AbilityDiv>
-                <label htmlFor={`${charData.entities.character.id}-int`}>
+                <label htmlFor={`${charData.id}-int`}>
                     <span>Intelligence</span>
                     <div className="mod">
                         <FontAwesomeIcon icon={faHandSpock} />
                         <span>{modDisplay(int)}</span>
                     </div>
                 </label>
-                <input max="20" min="0" id={`${charData.entities.character.id}-int`} type="number" value={int}
+                <input max="20" min="0" id={`${charData.id}-int`} type="number" value={int}
                     onBlur={(e) => handleBlur(e, setInt)}
                     onChange={(e) => setInt(e.target.value)} />
             </AbilityDiv>
             <AbilityDiv>
-                <label htmlFor={`${charData.entities.character.id}-wis`}>
+                <label htmlFor={`${charData.id}-wis`}>
                     <span>Wisdom</span>
                     <div className="mod">
                         <FontAwesomeIcon icon={faHandHoldingHeart} />
                         <span>{modDisplay(wis)}</span>
                     </div>
                 </label>
-                <input max="20" min="0" id={`${charData.entities.character.id}-wis`} type="number" value={wis}
+                <input max="20" min="0" id={`${charData.id}-wis`} type="number" value={wis}
                     onBlur={(e) => handleBlur(e, setWis)}
                     onChange={(e) => setWis(e.target.value)} />
             </AbilityDiv>
             <AbilityDiv>
-                <label htmlFor={`${charData.entities.character.id}-cha`}>
+                <label htmlFor={`${charData.id}-cha`}>
                     <span>Charisma</span>
                     <div className="mod">
                         <FontAwesomeIcon icon={faHandPeace} />
                         <span>{modDisplay(cha)}</span>
                     </div>
                 </label>
-                <input max="20" min="0" id={`${charData.entities.character.id}-cha`} type="number" value={cha}
+                <input max="20" min="0" id={`${charData.id}-cha`} type="number" value={cha}
                     onBlur={(e) => handleBlur(e, setCha)}
                     onChange={(e) => setCha(e.target.value)} />
             </AbilityDiv>

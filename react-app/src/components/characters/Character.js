@@ -117,7 +117,7 @@ const Character = () => {
             .then(() => setIsLoaded(true))
     }, [dispatch, charId])
 
-    const charData = useSelector(state => state.characters)
+    const charData = useSelector(state => state.characters.entities.character)
     const skillsData = useSelector(state => state.skills)
 
     if (!charData) {
@@ -137,11 +137,11 @@ const Character = () => {
                 {isLoaded &&
                     <>
                         <BlueBox className="vitals">
-                            <p>{charData.entities.character.name}</p>
-                            <p>Level {charData.entities.character.level} {charData.entities.character.race} {charData.entities.character.class}</p>
-                            <p>{charData.entities.character.exp} Experience Points</p>
-                            <p>Profiency Bonus {profCalc(charData.entities.character.level)}</p>
-                            <p>Armor Class {10 + modCalc(charData.entities.character.dex)}</p>
+                            <p>{charData.name}</p>
+                            <p>Level {charData.level} {charData.race} {charData.class}</p>
+                            <p>{charData.exp} Experience Points</p>
+                            <p>Profiency Bonus {profCalc(charData.level)}</p>
+                            <p>Armor Class {10 + modCalc(charData.dex)}</p>
                         </BlueBox>
 
                         <BlueBox className="abilities">
@@ -151,24 +151,24 @@ const Character = () => {
                         <BlueBox className="throws"></BlueBox>
 
                         <BlueBox className="skills">
-                            <p>Acrobatics (Dex) :: {skillCalc(charData.entities.character.level, charData.entities.character.dex, skillsData.entities[1])}</p>
-                            <p>Animal Handling (Wis) :: {skillCalc(charData.entities.character.level, charData.entities.character.wis, skillsData.entities[2])}</p>
-                            <p>Arcana (Int) :: {skillCalc(charData.entities.character.level, charData.entities.character.int, skillsData.entities[3])}</p>
-                            <p>Athletics (Str) :: {skillCalc(charData.entities.character.level, charData.entities.character.str, skillsData.entities[4])}</p>
-                            <p>Deception (Cha) :: {skillCalc(charData.entities.character.level, charData.entities.character.cha, skillsData.entities[5])}</p>
-                            <p>History (Int) :: {skillCalc(charData.entities.character.level, charData.entities.character.int, skillsData.entities[6])}</p>
-                            <p>Insight (Wis) :: {skillCalc(charData.entities.character.level, charData.entities.character.wis, skillsData.entities[7])}</p>
-                            <p>Intimidation (Cha) :: {skillCalc(charData.entities.character.level, charData.entities.character.cha, skillsData.entities[8])}</p>
-                            <p>Investigation (Int) :: {skillCalc(charData.entities.character.level, charData.entities.character.int, skillsData.entities[9])}</p>
-                            <p>Medicine (Wis) :: {skillCalc(charData.entities.character.level, charData.entities.character.wis, skillsData.entities[10])}</p>
-                            <p>Nature (Int) :: {skillCalc(charData.entities.character.level, charData.entities.character.int, skillsData.entities[11])}</p>
-                            <p>Perception (Wis) :: {skillCalc(charData.entities.character.level, charData.entities.character.wis, skillsData.entities[12])}</p>
-                            <p>Performance (Cha) :: {skillCalc(charData.entities.character.level, charData.entities.character.cha, skillsData.entities[13])}</p>
-                            <p>Persuasion (Cha) :: {skillCalc(charData.entities.character.level, charData.entities.character.cha, skillsData.entities[14])}</p>
-                            <p>Religion (Int) :: {skillCalc(charData.entities.character.level, charData.entities.character.int, skillsData.entities[15])}</p>
-                            <p>Sleight of Hand (Dex) :: {skillCalc(charData.entities.character.level, charData.entities.character.dex, skillsData.entities[16])}</p>
-                            <p>Stealth (Dex) :: {skillCalc(charData.entities.character.level, charData.entities.character.dex, skillsData.entities[17])}</p>
-                            <p>Survival (Wis) :: {skillCalc(charData.entities.character.level, charData.entities.character.wis, skillsData.entities[18])}</p>
+                            <p>Acrobatics (Dex) :: {skillCalc(charData.level, charData.dex, skillsData.entities[1])}</p>
+                            <p>Animal Handling (Wis) :: {skillCalc(charData.level, charData.wis, skillsData.entities[2])}</p>
+                            <p>Arcana (Int) :: {skillCalc(charData.level, charData.int, skillsData.entities[3])}</p>
+                            <p>Athletics (Str) :: {skillCalc(charData.level, charData.str, skillsData.entities[4])}</p>
+                            <p>Deception (Cha) :: {skillCalc(charData.level, charData.cha, skillsData.entities[5])}</p>
+                            <p>History (Int) :: {skillCalc(charData.level, charData.int, skillsData.entities[6])}</p>
+                            <p>Insight (Wis) :: {skillCalc(charData.level, charData.wis, skillsData.entities[7])}</p>
+                            <p>Intimidation (Cha) :: {skillCalc(charData.level, charData.cha, skillsData.entities[8])}</p>
+                            <p>Investigation (Int) :: {skillCalc(charData.level, charData.int, skillsData.entities[9])}</p>
+                            <p>Medicine (Wis) :: {skillCalc(charData.level, charData.wis, skillsData.entities[10])}</p>
+                            <p>Nature (Int) :: {skillCalc(charData.level, charData.int, skillsData.entities[11])}</p>
+                            <p>Perception (Wis) :: {skillCalc(charData.level, charData.wis, skillsData.entities[12])}</p>
+                            <p>Performance (Cha) :: {skillCalc(charData.level, charData.cha, skillsData.entities[13])}</p>
+                            <p>Persuasion (Cha) :: {skillCalc(charData.level, charData.cha, skillsData.entities[14])}</p>
+                            <p>Religion (Int) :: {skillCalc(charData.level, charData.int, skillsData.entities[15])}</p>
+                            <p>Sleight of Hand (Dex) :: {skillCalc(charData.level, charData.dex, skillsData.entities[16])}</p>
+                            <p>Stealth (Dex) :: {skillCalc(charData.level, charData.dex, skillsData.entities[17])}</p>
+                            <p>Survival (Wis) :: {skillCalc(charData.level, charData.wis, skillsData.entities[18])}</p>
                         </BlueBox>
 
                         <BlueBox className="profs">
