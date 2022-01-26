@@ -21,11 +21,7 @@ const delChar = (id) => ({
 const initialState = { entities: null };
 
 export const getChars = () => async (dispatch) => {
-    const response = await fetch(`/api/characters/`, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
+    const response = await fetch(`/api/characters/`);
     if (response.ok) {
         const data = await response.json();
         if (data.errors) {
@@ -37,11 +33,7 @@ export const getChars = () => async (dispatch) => {
 }
 
 export const getChar = (charId) => async (dispatch) => {
-    const response = await fetch(`/api/characters/${charId}`, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
+    const response = await fetch(`/api/characters/${charId}`);
     if (response.ok) {
         const data = await response.json();
         if (data.errors) {
@@ -87,6 +79,28 @@ export const deleteChar = (charId) => async (dispatch) => {
     } else if (response.status < 500) {
         const data = await response.json();
         return data.error;
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
+export const editAbilities = (formData) => async (dispatch) => {
+    const response = await fetch(`/api/characters/${formData.charId}/abilities`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(setChars(data))
+        return null;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data.errors;
+        }
     } else {
         return ['An error occurred. Please try again.']
     }

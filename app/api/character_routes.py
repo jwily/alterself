@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Character, User, db, Item
-from app.forms import CreateCharacterForm, DeleteCharForm, CreateItemForm
+from app.forms import CreateCharacterForm, DeleteCharForm, CreateItemForm, EditAbilitiesForm
 
 character_routes = Blueprint('characters', __name__)
 
@@ -24,6 +24,30 @@ def validation_errors_to_error_messages(validation_errors):
 def get_chars():
     chars = User.query.get(current_user.id).characters
     return {char.id: char.to_dict_roster() for char in chars}
+
+
+@character_routes.route('/<int:id>', methods=['GET'])
+@login_required
+def get_char(id):
+    char = Character.query.filter(
+        Character.id == id, Character.user_id == current_user.id).one()
+    return {'character': char.to_dict()}
+
+
+@character_routes.route('/<int:id>/skills', methods=['GET'])
+@login_required
+def get_skills(id):
+    skills = Character.query.filter(
+        Character.id == id, Character.user_id == current_user.id).one().skills
+    return {'entities': {skill.skill_num: True for skill in skills}}
+
+
+@character_routes.route('/<int:id>/items', methods=['GET'])
+@login_required
+def get_items(id):
+    items = Character.query.filter(
+        Character.id == id, Character.user_id == current_user.id).one().items
+    return {'entities': {item.id: item.to_dict() for item in items}}
 
 
 @character_routes.route('/<int:id>', methods=['DELETE'])
@@ -59,32 +83,8 @@ def create_char():
         )
         db.session.add(char)
         db.session.commit()
-        return char.to_dict_roster()
+        return {'character': char.to_dict()}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
-
-@character_routes.route('/<int:id>', methods=['GET'])
-@login_required
-def get_char(id):
-    char = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).one()
-    return {'character': char.to_dict()}
-
-
-@character_routes.route('/<int:id>/skills', methods=['GET'])
-@login_required
-def get_skills(id):
-    skills = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).one().skills
-    return {'entities': {skill.skill_num: True for skill in skills}}
-
-
-@character_routes.route('/<int:id>/items', methods=['GET'])
-@login_required
-def get_items(id):
-    items = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).one().items
-    return {'entities': {item.id: item.to_dict() for item in items}}
 
 
 @character_routes.route('/<int:id>/items', methods=['POST'])
@@ -102,4 +102,26 @@ def create_item(id):
         db.session.add(item)
         db.session.commit()
         return item.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@character_routes.route('/<int:id>/abilities', methods=['PATCH'])
+@login_required
+def edit_abilities(id):
+    form = EditAbilitiesForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        char = Character.query.filter(
+            Character.id == id, Character.user_id == current_user.id).one()
+        if char:
+            char.strength = form.data['strength']
+            char.dexterity = form.data['dexterity']
+            char.constitution = form.data['constitution']
+            char.intelligence = form.data['intelligence']
+            char.strength = form.data['strength']
+            char.charisma = form.data['charisma']
+            db.session.commit()
+            return {'character': char.to_dict()}
+        else:
+            return {'error': 'Character not found.'}, 400
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

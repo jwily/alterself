@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import debounce from "lodash/debounce"
+import { useDispatch } from "react-redux";
+import { editAbilities } from "../../store/characters";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -18,7 +20,6 @@ const Container = styled.form`
     flex-direction: column;
     align-items: center;
 `
-
 const AbilityDiv = styled.div`
     display: flex;
     flex-direction: column;
@@ -63,6 +64,8 @@ const modDisplay = (score) => {
 
 const Abilities = ({ charData }) => {
 
+    const dispatch = useDispatch()
+
     const char = charData.character;
 
     const [str, setStr] = useState(char.str)
@@ -73,14 +76,15 @@ const Abilities = ({ charData }) => {
     const [cha, setCha] = useState(char.cha)
 
     const debouncedSave = useCallback(
-        debounce((data) => {
-            console.log(data);
+        debounce(async (data) => {
+            await dispatch(editAbilities(data))
         }, 500),
         [],
     );
 
     useEffect(() => {
         const data = {
+            charId: char.id,
             strength: parseInt(str, 10),
             dexterity: parseInt(dex, 10),
             constitution: parseInt(con, 10),
@@ -89,7 +93,7 @@ const Abilities = ({ charData }) => {
             charisma: parseInt(cha, 10),
         }
         debouncedSave(data);
-    }, [debouncedSave, str, dex, con, int, wis, cha])
+    }, [debouncedSave, char.id, str, dex, con, int, wis, cha])
 
     const handleBlur = (e, func) => {
         if (e.target.value > 20) {
