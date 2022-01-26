@@ -12,16 +12,14 @@ const BlueBox = styled.div`
 
     filter: drop-shadow(5px 5px 5px #000000);
 
-    margin: 1rem;
-
-    // font-family: 'Inconsolata', monospace;
+    font-family: 'Inconsolata', monospace;
 
     input, textarea {
         background-color: rgba(51, 48, 47, 0.25);
         border: 0;
         color: whitesmoke;
         padding: 0.5rem;
-        // font-family: 'Inconsolata', monospace;
+        font-family: 'Inconsolata', monospace;
     }
 
     button {
@@ -30,7 +28,7 @@ const BlueBox = styled.div`
         color: whitesmoke;
         padding: .5rem;
         border-radius: .5rem;
-        // font-family: 'Inconsolata', monospace;
+        font-family: 'Inconsolata', monospace;
     }
 
     button:hover {
