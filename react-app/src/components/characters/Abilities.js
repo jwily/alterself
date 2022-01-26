@@ -11,11 +11,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    button {
-        width: 5rem;
-        margin-bottom: 1rem;
-    }
 `
 
 const AbilityDiv = styled.div`
@@ -25,8 +20,8 @@ const AbilityDiv = styled.div`
     margin: 1rem;
 
     .mod {
-        font-size: 1.5rem;
-        margin: .5rem;
+        font-size: 1.25rem;
+        margin: .75rem;
         font-weight: bold;
         color: gold;
     }
@@ -64,48 +59,48 @@ const Abilities = ({ charData }) => {
             <Container>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-str`}>
-                        <span><FontAwesomeIcon icon={faFistRaised} /> Strength</span>
-                        <span className="mod">{str >= 10 && '+'}{modCalc(str)}</span>
+                        <span>Strength</span>
+                        <span className="mod"><FontAwesomeIcon icon={faFistRaised} /> {str >= 10 && '+'}{modCalc(str)}</span>
                     </label>
                     <input max="20" min="0" id={`${charData.id}-str`} type="number" value={str}
                         onChange={(e) => setStr(e.target.value)} />
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-dex`}>
-                        <span><FontAwesomeIcon icon={faHandPaper} /> Dexterity</span>
-                        <span className="mod">{dex >= 10 && '+'}{modCalc(dex)}</span>
+                        <span>Dexterity</span>
+                        <span className="mod"><FontAwesomeIcon icon={faHandPaper} /> {dex >= 10 && '+'}{modCalc(dex)}</span>
                     </label>
                     <input max="20" min="0" id={`${charData.id}-dex`} type="number" value={dex}
                         onChange={(e) => setDex(e.target.value)} />
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-con`}>
-                        <span><FontAwesomeIcon icon={faHandHoldingMedical} /> Constitution</span>
-                        <span className="mod">{con >= 10 && '+'}{modCalc(con)}</span>
+                        <span>Constitution</span>
+                        <span className="mod"><FontAwesomeIcon icon={faHandHoldingMedical} /> {con >= 10 && '+'}{modCalc(con)}</span>
                     </label>
                     <input max="20" min="0" id={`${charData.id}-con`} type="number" value={con}
                         onChange={(e) => setCon(e.target.value)} />
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-int`}>
-                        <span><FontAwesomeIcon icon={faHandSpock} /> Intelligence</span>
-                        <span className="mod">{int >= 10 && '+'}{modCalc(int)}</span>
+                        <span>Intelligence</span>
                     </label>
+                    <span className="mod"><FontAwesomeIcon icon={faHandSpock} /> {int >= 10 && '+'}{modCalc(int)}</span>
                     <input max="20" min="0" id={`${charData.id}-int`} type="number" value={int}
                         onChange={(e) => setInt(e.target.value)} />
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-wis`}>
-                        <span><FontAwesomeIcon icon={faHandHoldingHeart} /> Wisdom</span>
-                        <span className="mod">{wis >= 10 && '+'}{modCalc(wis)}</span>
+                        <span>Wisdom</span>
+                        <span className="mod"><FontAwesomeIcon icon={faHandHoldingHeart} /> {wis >= 10 && '+'}{modCalc(wis)}</span>
                     </label>
                     <input max="20" min="0" id={`${charData.id}-wis`} type="number" value={wis}
                         onChange={(e) => setWis(e.target.value)} />
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-cha`}>
-                        <span><FontAwesomeIcon icon={faHandPeace} /> Charisma</span>
-                        <span className="mod">{cha >= 10 && '+'}{modCalc(cha)}</span>
+                        <span>Charisma</span>
+                        <span className="mod"><FontAwesomeIcon icon={faHandPeace} /> {cha >= 10 && '+'}{modCalc(cha)}</span>
                     </label>
                     <input max="20" min="0" id={`${charData.id}-cha`} type="number" value={cha}
                         onChange={(e) => setCha(e.target.value)} />
