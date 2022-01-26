@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const BlueBox = styled.div`
+export const BlueBox = styled.div`
     background: rgb(90,158,213);
     background: -moz-linear-gradient(160deg, rgba(90,158,213,1) 0%, rgba(26,88,162,1) 10%, rgba(7,21,45,1) 50%);
     background: -webkit-linear-gradient(160deg, rgba(90,158,213,1) 0%, rgba(26,88,162,1) 10%, rgba(7,21,45,1) 50%);

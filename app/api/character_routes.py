@@ -83,7 +83,7 @@ def create_char():
         )
         db.session.add(char)
         db.session.commit()
-        return {'character': char.to_dict()}
+        return char.to_dict_roster()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
