@@ -77,7 +77,6 @@ const Abilities = ({ charData }) => {
 
     const debouncedSave = useCallback(
         debounce(async (data) => {
-            console.log(str)
             await dispatch(editAbilities(data))
         }, 500),
         [],
