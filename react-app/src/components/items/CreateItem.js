@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { createItem } from "../../store/items";
 
 const CreateForm = styled.div`
-    width: 15rem;
-
     div {
         display: flex;
         flex-direction: column;
@@ -78,7 +76,7 @@ const CreateItem = () => {
                 </div>
                 <div>
                     <label htmlFor="forge-description">Description</label>
-                    <textarea type="textarea" id="forge-description" value={description} onChange={updateDescription} rows="5" cols="30"></textarea>
+                    <textarea type="textarea" id="forge-description" value={description} onChange={updateDescription} rows="5"></textarea>
                 </div>
                 <div>
                     <button type="submit">Add</button>

@@ -11,16 +11,11 @@ import {
     faHandPeace
 } from '@fortawesome/free-solid-svg-icons';
 
-import BlueBox from "../../global/BlueBox";
-
 const Container = styled.form`
     width: 10rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    // display: grid;
-    // grid-template-columns: 1fr 1fr 1fr;
 `
 
 const AbilityDiv = styled.div`
@@ -85,83 +80,80 @@ const Abilities = ({ charData }) => {
     };
 
     return (
-        <BlueBox>
-            <Container>
-                <AbilityDiv>
-                    <label htmlFor={`${charData.id}-str`}>
-                        <span>Strength</span>
-                        <div className="mod">
-                            <FontAwesomeIcon icon={faFistRaised} />
-                            <span>{modDisplay(str)}</span>
-                        </div>
-                    </label>
-                    <input max="20" min="0" id={`${charData.id}-str`} type="number" value={str}
-                        onBlur={(e) => handleBlur(e, setStr)}
-                        onChange={(e) => setStr(e.target.value)} />
-                </AbilityDiv>
-                <AbilityDiv>
-                    <label htmlFor={`${charData.id}-dex`}>
-                        <span>Dexterity</span>
-                        <div className="mod">
-                            <FontAwesomeIcon icon={faHandPaper} />
-                            <span>{modDisplay(dex)}</span>
-                        </div>
-                    </label>
-                    <input max="20" min="0" id={`${charData.id}-dex`} type="number" value={dex}
-                        onBlur={(e) => handleBlur(e, setDex)}
-                        onChange={(e) => setDex(e.target.value)} />
-                </AbilityDiv>
-                <AbilityDiv>
-                    <label htmlFor={`${charData.id}-con`}>
-                        <span>Constitution</span>
-                        <div className="mod">
-                            <FontAwesomeIcon icon={faHandHoldingWater} />
-                            <span>{modDisplay(con)}</span>
-                        </div>
-                    </label>
-                    <input max="20" min="0" id={`${charData.id}-con`} type="number" value={con}
-                        onBlur={(e) => handleBlur(e, setCon)}
-                        onChange={(e) => setCon(e.target.value)} />
-                </AbilityDiv>
-                <AbilityDiv>
-                    <label htmlFor={`${charData.id}-int`}>
-                        <span>Intelligence</span>
-                        <div className="mod">
-                            <FontAwesomeIcon icon={faHandSpock} />
-                            <span>{modDisplay(int)}</span>
-                        </div>
-                    </label>
-                    <input max="20" min="0" id={`${charData.id}-int`} type="number" value={int}
-                        onBlur={(e) => handleBlur(e, setInt)}
-                        onChange={(e) => setInt(e.target.value)} />
-                </AbilityDiv>
-                <AbilityDiv>
-                    <label htmlFor={`${charData.id}-wis`}>
-                        <span>Wisdom</span>
-                        <div className="mod">
-                            <FontAwesomeIcon icon={faHandHoldingHeart} />
-                            <span>{modDisplay(wis)}</span>
-                        </div>
-                    </label>
-                    <input max="20" min="0" id={`${charData.id}-wis`} type="number" value={wis}
-                        onBlur={(e) => handleBlur(e, setWis)}
-                        onChange={(e) => setWis(e.target.value)} />
-                </AbilityDiv>
-                <AbilityDiv>
-                    <label htmlFor={`${charData.id}-cha`}>
-                        <span>Charisma</span>
-                        <div className="mod">
-                            <FontAwesomeIcon icon={faHandPeace} />
-                            <span>{modDisplay(cha)}</span>
-                        </div>
-                    </label>
-                    <input max="20" min="0" id={`${charData.id}-cha`} type="number" value={cha}
-                        onBlur={(e) => handleBlur(e, setCha)}
-                        onChange={(e) => setCha(e.target.value)} />
-                </AbilityDiv>
-
-            </Container>
-        </BlueBox >
+        <Container>
+            <AbilityDiv>
+                <label htmlFor={`${charData.id}-str`}>
+                    <span>Strength</span>
+                    <div className="mod">
+                        <FontAwesomeIcon icon={faFistRaised} />
+                        <span>{modDisplay(str)}</span>
+                    </div>
+                </label>
+                <input max="20" min="0" id={`${charData.id}-str`} type="number" value={str}
+                    onBlur={(e) => handleBlur(e, setStr)}
+                    onChange={(e) => setStr(e.target.value)} />
+            </AbilityDiv>
+            <AbilityDiv>
+                <label htmlFor={`${charData.id}-dex`}>
+                    <span>Dexterity</span>
+                    <div className="mod">
+                        <FontAwesomeIcon icon={faHandPaper} />
+                        <span>{modDisplay(dex)}</span>
+                    </div>
+                </label>
+                <input max="20" min="0" id={`${charData.id}-dex`} type="number" value={dex}
+                    onBlur={(e) => handleBlur(e, setDex)}
+                    onChange={(e) => setDex(e.target.value)} />
+            </AbilityDiv>
+            <AbilityDiv>
+                <label htmlFor={`${charData.id}-con`}>
+                    <span>Constitution</span>
+                    <div className="mod">
+                        <FontAwesomeIcon icon={faHandHoldingWater} />
+                        <span>{modDisplay(con)}</span>
+                    </div>
+                </label>
+                <input max="20" min="0" id={`${charData.id}-con`} type="number" value={con}
+                    onBlur={(e) => handleBlur(e, setCon)}
+                    onChange={(e) => setCon(e.target.value)} />
+            </AbilityDiv>
+            <AbilityDiv>
+                <label htmlFor={`${charData.id}-int`}>
+                    <span>Intelligence</span>
+                    <div className="mod">
+                        <FontAwesomeIcon icon={faHandSpock} />
+                        <span>{modDisplay(int)}</span>
+                    </div>
+                </label>
+                <input max="20" min="0" id={`${charData.id}-int`} type="number" value={int}
+                    onBlur={(e) => handleBlur(e, setInt)}
+                    onChange={(e) => setInt(e.target.value)} />
+            </AbilityDiv>
+            <AbilityDiv>
+                <label htmlFor={`${charData.id}-wis`}>
+                    <span>Wisdom</span>
+                    <div className="mod">
+                        <FontAwesomeIcon icon={faHandHoldingHeart} />
+                        <span>{modDisplay(wis)}</span>
+                    </div>
+                </label>
+                <input max="20" min="0" id={`${charData.id}-wis`} type="number" value={wis}
+                    onBlur={(e) => handleBlur(e, setWis)}
+                    onChange={(e) => setWis(e.target.value)} />
+            </AbilityDiv>
+            <AbilityDiv>
+                <label htmlFor={`${charData.id}-cha`}>
+                    <span>Charisma</span>
+                    <div className="mod">
+                        <FontAwesomeIcon icon={faHandPeace} />
+                        <span>{modDisplay(cha)}</span>
+                    </div>
+                </label>
+                <input max="20" min="0" id={`${charData.id}-cha`} type="number" value={cha}
+                    onBlur={(e) => handleBlur(e, setCha)}
+                    onChange={(e) => setCha(e.target.value)} />
+            </AbilityDiv>
+        </Container>
     )
 }
 

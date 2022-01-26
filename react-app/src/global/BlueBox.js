@@ -12,8 +12,6 @@ const BlueBox = styled.div`
 
     filter: drop-shadow(5px 5px 5px #000000);
 
-    margin: 1rem;
-
     // font-family: 'Inconsolata', monospace;
 
     input, textarea {
