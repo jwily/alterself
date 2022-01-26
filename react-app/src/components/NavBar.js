@@ -21,6 +21,8 @@ const NavMain = styled.nav`
   li {
     margin: 0 1rem;
   }
+
+  font-family: 'Karla', sans-serif;
 `
 
 const NavBar = () => {

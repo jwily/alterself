@@ -4,13 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { createItem } from "../../store/items";
 
-const CreateForm = styled.form`
-    margin: 1rem;
+const CreateForm = styled.div`
     width: 15rem;
 
     div {
         display: flex;
         flex-direction: column;
+    }
+
+    textarea {
+        resize: none;
     }
 `
 
@@ -55,31 +58,33 @@ const CreateItem = () => {
     };
 
     return (
-        <CreateForm onSubmit={handleSubmit}>
-            <div>
-                {errors.map((error, ind) => (
-                    <div key={ind}>{error}</div>
-                ))}
-            </div>
-            <div>
-                <label htmlFor="forge-name">Name</label>
-                <input type="text" id="forge-name" required maxLength="255" value={name} onChange={updateName} />
-            </div>
-            <div>
-                <label htmlFor="forge-quantity">Quantity</label>
-                <input type="number" min="1" id="forge-quantity" value={quantity} onChange={updateQuantity}
-                    onBlur={() => {
-                        if (!quantity) setQuantity(1);
-                    }} />
-            </div>
-            <div>
-                <label htmlFor="forge-description">Description</label>
-                <textarea type="textarea" id="forge-description" value={description} onChange={updateDescription}></textarea>
-            </div>
-            <div>
-                <button type="submit">Add</button>
-            </div>
-        </CreateForm >
+        <CreateForm>
+            <form onSubmit={handleSubmit} autoComplete="off">
+                <div>
+                    {errors.map((error, ind) => (
+                        <div key={ind}>{error}</div>
+                    ))}
+                </div>
+                <div>
+                    <label htmlFor="forge-name">Name</label>
+                    <input type="text" id="forge-name" required maxLength="255" value={name} onChange={updateName} />
+                </div>
+                <div>
+                    <label htmlFor="forge-quantity">Quantity</label>
+                    <input type="number" min="1" id="forge-quantity" value={quantity} onChange={updateQuantity}
+                        onBlur={() => {
+                            if (!quantity) setQuantity(1);
+                        }} />
+                </div>
+                <div>
+                    <label htmlFor="forge-description">Description</label>
+                    <textarea type="textarea" id="forge-description" value={description} onChange={updateDescription} rows="5" cols="30"></textarea>
+                </div>
+                <div>
+                    <button type="submit">Add</button>
+                </div>
+            </form>
+        </CreateForm>
     )
 }
 

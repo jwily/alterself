@@ -9,6 +9,7 @@ import { getSkills } from "../../store/skills";
 
 import BlueBox from "../../global/BlueBox";
 
+import Abilities from "./Abilities";
 import Inventory from "../items/Inventory";
 
 const Container = styled.div`
@@ -68,14 +69,7 @@ const Character = () => {
                         <p>Armor Class {10 + modCalc(charData.character.dex)}</p>
                     </BlueBox>
 
-                    <BlueBox>
-                        <p>Strength :: {charData.character.str}</p>
-                        <p>Dexterity :: {charData.character.dex}</p>
-                        <p>Constitution :: {charData.character.con}</p>
-                        <p>Intelligence :: {charData.character.int}</p>
-                        <p>Wisdom :: {charData.character.wis}</p>
-                        <p>Charisma :: {charData.character.cha}</p>
-                    </BlueBox>
+                    <Abilities charData={charData} />
 
                     <BlueBox>
                         <p>Acrobatics (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData[1])}</p>
