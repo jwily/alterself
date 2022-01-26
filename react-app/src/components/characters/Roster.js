@@ -40,7 +40,7 @@ const Roster = () => {
             <CreateCharModal />
             <br></br>
             {isLoaded && <ul>
-                {Object.values(chars.entities).map((char, idx) => {
+                {Object.values(chars.entities.characters).map((char, idx) => {
                     return <CharCard key={idx}>
                         <Link to={`/roster/${char.id}`}>{char.name}</Link>
                         <p>{char.race}</p>
