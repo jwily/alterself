@@ -32,7 +32,7 @@ const AbilityDiv = styled.div`
     .mod {
         font-size: 1.25rem;
         margin: .75rem;
-        width: 3.5rem;
+        width: 3.75rem;
         display: flex;
         justify-content: space-between;
     }
@@ -45,7 +45,7 @@ const AbilityDiv = styled.div`
 
     input {
         width: 4rem;
-        padding-left: 1.5rem;
+        padding-left: 1.25rem;
         color: gold;
         text-align: center;
     }
@@ -58,11 +58,11 @@ const modCalc = (score) => {
 }
 
 const modDisplay = (score) => {
-    if (score > 20) return '+5';
-    else if (score < 0) return '-5'
+    if (score > 20) return '+ 5';
+    else if (score < 0) return '- 5'
     const mod = modCalc(score);
-    if (mod >= 0) return `+${mod}`
-    else return mod;
+    if (mod >= 0) return `+ ${mod}`
+    else return `- ${Math.abs(mod)}`;
 }
 
 const Abilities = ({ charData }) => {
