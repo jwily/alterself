@@ -10,17 +10,14 @@ const BlueBox = styled.div`
     border: 2.5px solid silver;
     border-radius: .5rem;
 
-    padding: 1rem;
-
     filter: drop-shadow(5px 5px 5px #000000);
 
     margin: 1rem;
 
     font-family: 'Inconsolata', monospace;
-    font-size: 1.25rem;
 
     input, textarea {
-        background-color: rgba(51, 48, 47, 0.35);
+        background-color: rgba(51, 48, 47, 0.25);
         border: 0;
         color: whitesmoke;
         padding: 0.5rem;
