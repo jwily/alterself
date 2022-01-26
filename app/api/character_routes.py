@@ -118,7 +118,7 @@ def edit_abilities(id):
             char.dexterity = form.data['dexterity']
             char.constitution = form.data['constitution']
             char.intelligence = form.data['intelligence']
-            char.strength = form.data['strength']
+            char.wisdom = form.data['wisdom']
             char.charisma = form.data['charisma']
             db.session.commit()
             return {'character': char.to_dict()}
