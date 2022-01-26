@@ -8,12 +8,34 @@ const BlueBox = styled.div`
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5a9ed5",endColorstr="#07152d",GradientType=1);
 
     border: 2.5px solid silver;
-    border-radius: 1rem;
-
-    padding: 1rem;
+    border-radius: .5rem;
 
     filter: drop-shadow(5px 5px 5px #000000);
 
     margin: 1rem;
+
+    // font-family: 'Inconsolata', monospace;
+
+    input, textarea {
+        background-color: rgba(51, 48, 47, 0.25);
+        border: 0;
+        color: whitesmoke;
+        padding: 0.5rem;
+        // font-family: 'Inconsolata', monospace;
+    }
+
+    button {
+        background-color: transparent;
+        border: 2.5px solid silver;
+        color: whitesmoke;
+        padding: .5rem;
+        border-radius: .5rem;
+        // font-family: 'Inconsolata', monospace;
+    }
+
+    button:hover {
+        background-color: rgba(51, 48, 47, 0.5);
+    }
 `
+
 export default BlueBox;
