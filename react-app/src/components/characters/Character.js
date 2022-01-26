@@ -16,7 +16,6 @@ const Parent = styled.div`
     display: flex;
     padding-top: 2.5%;
     width: 100%:
-    height: 100%;
     align-items: center;
     justify-content: center;
 `
@@ -49,7 +48,8 @@ const Container = styled.div`
 
     .skills {
         grid-area: skills;
-        width: 15rem;
+        width: 20rem;
+        padding: 1rem;
     }
 
     .profs {

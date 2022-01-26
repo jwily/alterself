@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
+import debounce from "lodash/debounce"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -70,6 +71,25 @@ const Abilities = ({ charData }) => {
     const [int, setInt] = useState(char.int)
     const [wis, setWis] = useState(char.wis)
     const [cha, setCha] = useState(char.cha)
+
+    const debouncedSave = useCallback(
+        debounce((data) => {
+            console.log(data);
+        }, 1000),
+        [],
+    );
+
+    useEffect(() => {
+        const data = {
+            str: parseInt(str, 10),
+            dex: parseInt(dex, 10),
+            con: parseInt(con, 10),
+            int: parseInt(int, 10),
+            wis: parseInt(wis, 10),
+            cha: parseInt(cha, 10),
+        }
+        debouncedSave(data);
+    }, [debouncedSave, str, dex, con, int, wis, cha])
 
     const handleBlur = (e, func) => {
         if (e.target.value > 20) {
