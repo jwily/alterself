@@ -122,12 +122,12 @@ const Character = () => {
 
     if (!charData) {
         return (
-            <Container>
+            <div>
                 {isLoaded && <>
                     <h2>404</h2>
                     <p>Oops. Are you lost?</p>
                 </>}
-            </Container>
+            </div>
         )
     }
 
@@ -182,7 +182,7 @@ const Character = () => {
                         <BlueBox className="items">
                             <Inventory />
                         </BlueBox>
-                        {/* <button className="scholar"></button> */}
+                        <button className="scholar"></button>
                     </>}
             </Container>
         </Parent>
