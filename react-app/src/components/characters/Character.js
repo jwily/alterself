@@ -8,9 +8,10 @@ import { getItems } from "../../store/items";
 import { getSkills } from "../../store/skills";
 
 import BlueBox from "../../global/BlueBox";
-
 import Abilities from "./Abilities";
 import Inventory from "../items/Inventory";
+
+import scholar from '../../images/scholar.png';
 
 const Parent = styled.div`
     display: flex;
@@ -67,6 +68,25 @@ const Container = styled.div`
     .items {
         grid-area: items;
         margin-left: 1rem;
+    }
+
+    .scholar {
+        background-image: url(${scholar});
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        width: 5em;
+        height: 5em;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        border: none;
+        background-color: transparent;
+        margin: 1rem;
+    }
+
+    .scholar:hover {
+        filter: drop-shadow(0 0 5px #D4AF37);
     }
 `
 
@@ -162,6 +182,7 @@ const Character = () => {
                         <BlueBox className="items">
                             <Inventory />
                         </BlueBox>
+                        {/* <button className="scholar"></button> */}
                     </>}
             </Container>
         </Parent>

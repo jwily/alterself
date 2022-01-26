@@ -75,18 +75,18 @@ const Abilities = ({ charData }) => {
     const debouncedSave = useCallback(
         debounce((data) => {
             console.log(data);
-        }, 1000),
+        }, 500),
         [],
     );
 
     useEffect(() => {
         const data = {
-            str: parseInt(str, 10),
-            dex: parseInt(dex, 10),
-            con: parseInt(con, 10),
-            int: parseInt(int, 10),
-            wis: parseInt(wis, 10),
-            cha: parseInt(cha, 10),
+            strength: parseInt(str, 10),
+            dexterity: parseInt(dex, 10),
+            constitution: parseInt(con, 10),
+            intelligence: parseInt(int, 10),
+            wisdom: parseInt(wis, 10),
+            charisma: parseInt(cha, 10),
         }
         debouncedSave(data);
     }, [debouncedSave, str, dex, con, int, wis, cha])
