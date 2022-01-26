@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFistRaised, faHandPaper, faHandHoldingMedical, faHandSpock, faHandHoldingHeart, faHandPeace } from '@fortawesome/free-solid-svg-icons';
+
 import BlueBox from "../../global/BlueBox";
 
 const Container = styled.div`
@@ -61,7 +64,7 @@ const Abilities = ({ charData }) => {
             <Container>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-str`}>
-                        <span>Strength</span>
+                        <span><FontAwesomeIcon icon={faFistRaised} /> Strength</span>
                         <span className="mod">{str >= 10 && '+'}{modCalc(str)}</span>
                     </label>
                     <input max="20" min="0" id={`${charData.id}-str`} type="number" value={str}
@@ -69,7 +72,7 @@ const Abilities = ({ charData }) => {
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-dex`}>
-                        <span>Dexterity</span>
+                        <span><FontAwesomeIcon icon={faHandPaper} /> Dexterity</span>
                         <span className="mod">{dex >= 10 && '+'}{modCalc(dex)}</span>
                     </label>
                     <input max="20" min="0" id={`${charData.id}-dex`} type="number" value={dex}
@@ -77,7 +80,7 @@ const Abilities = ({ charData }) => {
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-con`}>
-                        <span>Constitution</span>
+                        <span><FontAwesomeIcon icon={faHandHoldingMedical} /> Constitution</span>
                         <span className="mod">{con >= 10 && '+'}{modCalc(con)}</span>
                     </label>
                     <input max="20" min="0" id={`${charData.id}-con`} type="number" value={con}
@@ -85,7 +88,7 @@ const Abilities = ({ charData }) => {
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-int`}>
-                        <span>Intelligence</span>
+                        <span><FontAwesomeIcon icon={faHandSpock} /> Intelligence</span>
                         <span className="mod">{int >= 10 && '+'}{modCalc(int)}</span>
                     </label>
                     <input max="20" min="0" id={`${charData.id}-int`} type="number" value={int}
@@ -93,7 +96,7 @@ const Abilities = ({ charData }) => {
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-wis`}>
-                        <span>Wisdom</span>
+                        <span><FontAwesomeIcon icon={faHandHoldingHeart} /> Wisdom</span>
                         <span className="mod">{wis >= 10 && '+'}{modCalc(wis)}</span>
                     </label>
                     <input max="20" min="0" id={`${charData.id}-wis`} type="number" value={wis}
@@ -101,7 +104,7 @@ const Abilities = ({ charData }) => {
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-cha`}>
-                        <span>Charisma</span>
+                        <span><FontAwesomeIcon icon={faHandPeace} /> Charisma</span>
                         <span className="mod">{cha >= 10 && '+'}{modCalc(cha)}</span>
                     </label>
                     <input max="20" min="0" id={`${charData.id}-cha`} type="number" value={cha}
