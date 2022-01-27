@@ -23,7 +23,8 @@ const CreateForm = styled.div`
         display: flex;
         flex-direction: row;
         justify-content: right;
-        margin-top: 1rem;
+        margin-top: .25rem;
+        margin-bottom: .5rem;
 
         button {
             margin-left: .5rem;
