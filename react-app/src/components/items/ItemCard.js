@@ -12,70 +12,73 @@ import {
 
 const Card = styled.li`
 
-.edit-item-form {
-    display: flex;
-    flex-direction: column;
-}
+    .edit-item-form {
+        display: flex;
+        flex-direction: column;
+    }
 
-.buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-    margin-top: .25rem;
+    .buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        margin-top: .25rem;
 
-    button {
-        margin-left: .5rem;
+        button {
+            margin-left: .5rem;
+        }
+
+        span {
+            display: flex;
+            align-items: center;
+            font-size: .85rem;
+        }
+    }
+
+    .title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    p {
+        padding: .5rem;
+        margin: .5rem 0;
+        background-color: rgba(51, 48, 47, 0.25);
+        font-size: .85rem;
     }
 
     span {
-        display: flex;
-        align-items: center;
-        font-size: .85rem;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+        text-overflow: ellipsis;
     }
-}
 
-.title {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
+    .edit-name-field {
+        font-size: 1rem;
+        padding: .5rem;
+        width: 12.5rem;
+    }
 
-p {
-    padding: .5rem;
-    margin: .5rem 0;
-    background-color: rgba(51, 48, 47, 0.25);
-    font-size: .85rem;
-}
+    .edit-quant-field {
+        color: gold;
+        width: 4rem;
+    }
 
-span {
-    white-space: nowrap;
-    overflow: hidden;
-    display: block;
-    text-overflow: ellipsis;
-}
+    input.edit-name-field {
+        color: gold;
+    }
 
-.edit-name-field {
-    font-size: 1rem;
-    padding: .5rem;
-    width: 13.5rem;
-}
+    textarea {
+        margin-top: .5rem;
+        resize: none;
+        color: gold;
+    }
 
-.edit-quant-field {
-    color: gold;
-    width: 4rem;
-    font-size: 1rem;
-}
-
-input.edit-name-field {
-    color: gold;
-}
-
-textarea {
-    margin-top: .5rem;
-    resize: none;
-    color: gold;
-}
+    .item-reveal {
+        margin-lefT: .5rem;
+    }
 `
 
 const ItemCard = ({ item }) => {

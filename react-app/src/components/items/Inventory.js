@@ -1,16 +1,13 @@
 import React, { useState, useMemo } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import CreateItem from "./CreateItem";
-import { deleteItem } from "../../store/items";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faPlus,
     faShoppingBag,
-    faPlusCircle,
-    faMinusCircle
 } from '@fortawesome/free-solid-svg-icons';
 
 import BlueBox from "../../global/BlueBox";
@@ -19,7 +16,7 @@ import ItemCard from "./ItemCard";
 const Container = styled.div`
 
     margin: 1rem;
-    width: 22.5rem;
+    width: 20rem;
 
     h2 {
         font-size: 1.25rem;

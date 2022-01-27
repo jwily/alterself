@@ -8,11 +8,3 @@ class EditAbilitiesForm(FlaskForm):
         max=20, min=0, message='Out of range error.')])
     dexterity = IntegerField(validators=[NumberRange(
         max=20, min=0, message='Out of range error.')])
-    constitution = IntegerField(validators=[NumberRange(
-        max=20, min=0, message='Out of range error.')])
-    intelligence = IntegerField(validators=[NumberRange(
-        max=20, min=0, message='Out of range error.')])
-    wisdom = IntegerField(validators=[NumberRange(
-        max=20, min=0, message='Out of range error.')])
-    charisma = IntegerField(validators=[NumberRange(
-        max=20, min=0, message='Out of range error.')])

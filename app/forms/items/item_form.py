@@ -3,7 +3,7 @@ from wtforms import StringField, IntegerField
 from wtforms.validators import DataRequired
 
 
-class CreateItemForm(FlaskForm):
+class ItemForm(FlaskForm):
     name = StringField(validators=[DataRequired()])
     description = StringField()
     quantity = IntegerField()
