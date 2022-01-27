@@ -37,7 +37,7 @@ function App() {
         <ProtectedRoute path='/roster' exact={true} >
           <Roster />
         </ProtectedRoute>
-        <ProtectedRoute path='/roster/:charId'  >
+        <ProtectedRoute path='/roster/:charId' exact={true} >
           <Character />
         </ProtectedRoute>
         <Route path='/' exact={true}>

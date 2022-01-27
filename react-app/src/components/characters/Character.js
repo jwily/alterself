@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import styled from "styled-components";
 
 import { getChar } from "../../store/characters";
 import { getItems } from "../../store/items";
 import { getSkills } from "../../store/skills";
+import { selectUser } from "../../store/session";
 
 import BlueBox from "../../global/BlueBox";
 import Abilities from "./Abilities";
@@ -41,7 +42,7 @@ const Container = styled.div`
         margin-right: 1rem;
         display: flex;
         justify-content: center;
-        align-items:center;
+        align-items: center;
     }
 
     .throws {
@@ -121,17 +122,6 @@ const Character = () => {
 
     const charData = useSelector(state => state.characters.entities.character)
     const skillsData = useSelector(state => state.skills)
-
-    if (!charData) {
-        return (
-            <div>
-                {isLoaded && <>
-                    <h2>404</h2>
-                    <p>Oops. Are you lost?</p>
-                </>}
-            </div>
-        )
-    }
 
     return (
         <Parent>
