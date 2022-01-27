@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Redirect } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { getChar } from "../../store/characters";
 import { getItems } from "../../store/items";
 import { getSkills } from "../../store/skills";
-import { selectUser } from "../../store/session";
 
 import BlueBox from "../../global/BlueBox";
 import Abilities from "./Abilities";
@@ -24,17 +23,22 @@ const Parent = styled.div`
 const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(5, min-content);
-    grid-template-rows: repeat(4, 11.5rem);
-    grid-template-areas:
-        "abilities throws vitals vitals vitals"
-        "abilities throws profs feats items"
-        "abilities skills profs feats items"
-        "abilities skills profs feats items";
+    grid-template-rows: min-content min-content 1fr;
+    // grid-template-areas:
+    //     "abilities throws vitals vitals vitals"
+    //     "abilities throws profs feats items"
+    //     "abilities skills profs feats items"
+    //     ". . profs feats items";
 
     .vitals {
         grid-area: vitals;
         margin-bottom: 1rem;
         margin-left: 1rem;
+
+        grid-column-start: 3;
+        grid-column-end: 6;
+        grid-row-start: 1;
+        grid-row-end: 2;
     }
 
     .abilities {
@@ -43,34 +47,67 @@ const Container = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 3;
     }
 
     .throws {
         grid-area: throws;
         margin-bottom: 1rem;
+
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
     }
 
     .skills {
         grid-area: skills;
         width: 20rem;
         padding: 1rem;
+
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
     }
 
     .profs {
         grid-area: profs;
         width: 15rem;
         margin-left: 1rem;
+        height: min-content;
+
+        grid-column-start: 3;
+        grid-column-end: 4;
+        grid-row-start: 2;
+        grid-row-end: 4;
     }
 
     .feats {
         grid-area: feats;
         width: 15rem;
         margin-left: 1rem;
+        height: min-content;
+
+        grid-column-start: 4;
+        grid-column-end: 5;
+        grid-row-start: 2;
+        grid-row-end: 4;
     }
 
     .items {
         grid-area: items;
         margin-left: 1rem;
+        height: min-content;
+
+        grid-column-start: 5;
+        grid-column-end: 6;
+        grid-row-start: 2;
+        grid-row-end: 4;
     }
 
     .scholar {
