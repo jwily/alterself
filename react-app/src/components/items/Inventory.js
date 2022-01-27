@@ -59,13 +59,25 @@ const Container = styled.div`
 
 const Card = styled.li`
 
+    .edit-item-form {
+        display: flex;
+        flex-direction: column;
+    }
+
     .buttons {
         display: flex;
         flex-direction: row;
         justify-content: right;
+        margin-top: .25rem;
 
         button {
             margin-left: .5rem;
+        }
+
+        span {
+            display: flex;
+            align-items: center;
+            font-size: .85rem;
         }
     }
 
@@ -80,7 +92,7 @@ const Card = styled.li`
         padding: .5rem;
         margin: .5rem 0;
         background-color: rgba(51, 48, 47, 0.25);
-        font-size: .75rem;
+        font-size: .85rem;
     }
 
     span {
@@ -89,6 +101,21 @@ const Card = styled.li`
         display: block;
         text-overflow: ellipsis;
     }
+
+    .edit-name-field {
+        font-size: 1rem;
+        padding: .5rem;
+    }
+
+    input.edit-name-field {
+        color: gold;
+    }
+
+    textarea {
+        margin-top: .5rem;
+        resize: none;
+        color: gold;
+    }
 `
 
 const ItemCard = ({ item }) => {
@@ -96,25 +123,54 @@ const ItemCard = ({ item }) => {
     const dispatch = useDispatch();
 
     const [show, setShow] = useState(false);
+    const [saved, setSaved] = useState(false);
+    const [confirm, setConfirm] = useState(false);
+
+    const [name, setName] = useState(item.name);
+    const [desc, setDesc] = useState(item.description)
 
     const handleDelete = (e, id) => {
         e.preventDefault();
         dispatch(deleteItem(id));
     }
 
+    const clickDelete = () => {
+        setConfirm(!confirm);
+        setSaved(false);
+    }
+
+    const nameChange = (e) => {
+        setName(e.target.value);
+        setSaved(false);
+    }
+
+    const descChange = (e) => {
+        setDesc(e.target.value);
+        setSaved(false);
+    }
+
     return (
         <Card>
-            <div className="title">
-                <span>{item.name}</span>
-                <button type="button" className="item-reveal" onClick={() => setShow(!show)}><FontAwesomeIcon icon={!show ? faPlusCircle : faMinusCircle} /></button>
-            </div>
-            {show && item.description && < p > {item.description}</p>}
+            <form className="edit-item-form">
+                <div className="title">
+                    {!show ? <span className="edit-name-field">{item.name}</span> :
+                        <input className="edit-name-field" value={name} onChange={nameChange} />}
+                    <button type="button" className="item-reveal" onClick={() => {
+                        setShow(!show);
+                        setConfirm(false);
+                        setSaved(false);
+                    }}><FontAwesomeIcon icon={!show ? faPlusCircle : faMinusCircle} /></button>
+                </div>
+                {show && <textarea value={desc} onChange={descChange} rows="5" />}
+            </form>
             {
                 show && <div className="buttons">
-                    <button type="button">Edit</button>
-                    <form onSubmit={(e) => handleDelete(e, item.id)}>
-                        <button type='submit'>Delete</button>
-                    </form>
+                    {saved && <span>Saved!</span>}
+                    {!confirm ? <button type='button' onClick={clickDelete}>Delete</button> :
+                        <form onSubmit={(e) => handleDelete(e, item.id)}>
+                            <button type='submit'>Confirm Delete</button>
+                            <button type='button' onClick={clickDelete}>Cancel</button>
+                        </form>}
                 </div>
             }
         </Card >
@@ -143,7 +199,9 @@ const Inventory = () => {
                         {mode === 'add' && 'Add Item'}
                         {mode === 'edit' && 'Edit Item'}
                     </h2>
-                    {mode === 'base' && <button type="button" onClick={() => setMode('add')}><FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faShoppingBag} /></button>}
+                    {mode === 'base' && <button type="button" onClick={() => setMode('add')}>
+                        <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faShoppingBag} />
+                    </button>}
                 </div>
                 {mode === 'add' && <CreateItem setMode={setMode} />}
                 <ul>{itemCards}</ul>

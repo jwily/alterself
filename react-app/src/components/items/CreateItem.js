@@ -86,8 +86,8 @@ const CreateItem = ({ setMode }) => {
                     <input type="number" id="forge-quantity" value={quantity} onChange={updateQuantity} min="1" />
                 </div>
                 <div>
-                    <label htmlFor="forge-description">Description</label>
-                    <textarea type="textarea" id="forge-description" value={description} onChange={updateDescription} rows="5"></textarea>
+                    <label htmlFor="forge-description">Description (Optional)</label>
+                    <textarea id="forge-description" value={description} onChange={updateDescription} rows="5" />
                 </div>
                 <div id="create-buttons">
                     <button type="submit">Add</button>

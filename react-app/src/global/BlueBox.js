@@ -31,6 +31,7 @@ export const BlueBox = styled.div`
         border-radius: .5rem;
         font-family: 'Inconsolata', monospace;
         cursor: pointer;
+        font-size: .85rem;
     }
 
     button:active {
