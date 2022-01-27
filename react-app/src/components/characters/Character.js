@@ -15,16 +15,15 @@ import scholar from '../../images/scholar.png';
 
 const Parent = styled.div`
     display: flex;
-    padding-top: 2.5%;
-    width: 100%:
-    align-items: center;
-    justify-content: center;
+    padding-top: 1.5%;
+    padding-left: 1.5%;
+    width: 100%;
 `
 
 const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(5, min-content);
-    grid-template-rows: auto;
+    grid-template-rows: repeat(4, 11.5rem);
     grid-template-areas:
         "abilities throws vitals vitals vitals"
         "abilities throws profs feats items"
@@ -40,6 +39,9 @@ const Container = styled.div`
     .abilities {
         grid-area: abilities;
         margin-right: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items:center;
     }
 
     .throws {
@@ -75,8 +77,8 @@ const Container = styled.div`
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50% 50%;
-        width: 5em;
-        height: 5em;
+        width: 5rem;
+        height: 5rem;
         position: fixed;
         right: 0;
         bottom: 0;
@@ -144,9 +146,7 @@ const Character = () => {
                             <p>Armor Class {10 + modCalc(charData.dex)}</p>
                         </BlueBox>
 
-                        <BlueBox className="abilities">
-                            <Abilities charData={charData} />
-                        </BlueBox>
+                        <Abilities charData={charData} />
 
                         <BlueBox className="throws"></BlueBox>
 
@@ -177,9 +177,7 @@ const Character = () => {
                         <BlueBox className="feats">
                         </BlueBox>
 
-                        <BlueBox className="items">
-                            <Inventory />
-                        </BlueBox>
+                        <Inventory />
                         <button className="scholar"></button>
                     </>}
             </Container>

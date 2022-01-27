@@ -11,7 +11,6 @@ const Card = styled.li`
         color: gold;
     }
 `
-
 const CharCard = ({ char, idx }) => {
 
     const dispatch = useDispatch();

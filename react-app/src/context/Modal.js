@@ -24,7 +24,7 @@ const ModalBackground = styled.div`
 
 const ModalContent = styled.div`
     position: absolute;
-    background-color: transparent;
+    background-color: black;
 `
 
 const ModalContext = React.createContext();

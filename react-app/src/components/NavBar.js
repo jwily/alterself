@@ -1,7 +1,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import AuthFormModal from './auth/AuthFormModal';
 import { selectUser } from '../store/session';
@@ -33,23 +33,23 @@ const NavBar = () => {
     <NavMain>
       <ul>
         <li>
-          <NavLink to='/' exact={true} activeClassName='active'>
+          <Link to='/' exact={true}>
             Alter Self
-          </NavLink>
+          </Link>
         </li>
         {!user && <li>
           <AuthFormModal />
         </li>}
         {user && <>
           <li>
-            <NavLink to='/' exact={true} activeClassName='active'>
+            <Link to='/' exact={true}>
               Campaigns
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink to='/roster' exact={true} activeClassName='active'>
+            <Link to='/roster' exact={true}>
               Roster
-            </NavLink>
+            </Link>
           </li>
           <li>
             <LogoutButton />

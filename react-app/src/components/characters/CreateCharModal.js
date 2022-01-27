@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import { useDispatch } from 'react-redux';
 import { createChar } from "../../store/characters";
-import BlueBox from '../../global/BlueBox';
 import styled from 'styled-components';
 
 const CreateForm = styled.div`
@@ -76,39 +75,37 @@ function CreateCharModal() {
         <>
             <button onClick={() => setShowModal(true)}>Create</button>
             {showModal && (
-                <Modal className onClose={() => {
+                <Modal onClose={() => {
                     setShowModal(false);
                 }}>
-                    <BlueBox>
-                        <CreateForm>
-                            <form onSubmit={handleSubmit} autoComplete="off">
-                                <div>
-                                    {errors.map((error, ind) => (
-                                        <div key={ind}>{error}</div>
-                                    ))}
-                                </div>
-                                <div>
-                                    <label htmlFor="create-name">Name</label>
-                                    <input type="text" id="create-name" required maxLength="255" value={name} onChange={updateName} />
-                                </div>
-                                <div>
-                                    <label htmlFor="create-race">Race</label>
-                                    <input type="text" id="create-race" required maxLength="40" value={race} onChange={updateRace} />
-                                </div>
-                                <div>
-                                    <label htmlFor="create-char-class">Class</label>
-                                    <input type="text" id="create-char-class" required maxLength="40" value={charClass} onChange={updateClass} />
-                                </div>
-                                <div>
-                                    <label htmlFor="create-background">Background</label>
-                                    <input type="text" id="create-background" required maxLength="40" value={background} onChange={updateBackground} />
-                                </div>
-                                <div>
-                                    <button type="submit">Submit</button>
-                                </div>
-                            </form >
-                        </CreateForm>
-                    </BlueBox>
+                    <CreateForm>
+                        <form onSubmit={handleSubmit} autoComplete="off">
+                            <div>
+                                {errors.map((error, ind) => (
+                                    <div key={ind}>{error}</div>
+                                ))}
+                            </div>
+                            <div>
+                                <label htmlFor="create-name">Name</label>
+                                <input type="text" id="create-name" required maxLength="255" value={name} onChange={updateName} />
+                            </div>
+                            <div>
+                                <label htmlFor="create-race">Race</label>
+                                <input type="text" id="create-race" required maxLength="40" value={race} onChange={updateRace} />
+                            </div>
+                            <div>
+                                <label htmlFor="create-char-class">Class</label>
+                                <input type="text" id="create-char-class" required maxLength="40" value={charClass} onChange={updateClass} />
+                            </div>
+                            <div>
+                                <label htmlFor="create-background">Background</label>
+                                <input type="text" id="create-background" required maxLength="40" value={background} onChange={updateBackground} />
+                            </div>
+                            <div>
+                                <button type="submit">Submit</button>
+                            </div>
+                        </form >
+                    </CreateForm>
                 </Modal>
             )}
         </>

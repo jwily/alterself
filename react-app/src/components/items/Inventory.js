@@ -5,9 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import CreateItem from "./CreateItem";
 import { deleteItem } from "../../store/items";
 
-const Container = styled.ul`
+import BlueBox from "../../global/BlueBox";
+
+const Container = styled.div`
+
+    margin: 1rem;
+    width: 15rem;
+
     li {
-        margin: 1rem;
+        margin-top: 1rem;
     }
 `
 
@@ -23,20 +29,24 @@ const Inventory = () => {
     }
 
     return (
-        <Container>
-            <CreateItem />
-            {Object.values(items.entities).map((item, idx) => {
-                return (
-                    <li key={idx}>
-                        <p>{item.name} x {item.quantity}</p>
-                        <p>{item.description}</p>
-                        <form onSubmit={(e) => handleDelete(e, item.id)}>
-                            <button type='submit'>Delete</button>
-                        </form>
-                    </li>
-                )
-            })}
-        </Container>
+        <BlueBox className="items">
+            <Container>
+                <CreateItem />
+                <ul>
+                    {Object.values(items.entities).map((item, idx) => {
+                        return (
+                            <li key={idx}>
+                                <p>{item.name} x {item.quantity}</p>
+                                <p>{item.description}</p>
+                                <form onSubmit={(e) => handleDelete(e, item.id)}>
+                                    <button type='submit'>Delete</button>
+                                </form>
+                            </li>
+                        )
+                    })}
+                </ul>
+            </Container>
+        </BlueBox >
     )
 }
 

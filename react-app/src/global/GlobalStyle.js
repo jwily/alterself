@@ -22,5 +22,10 @@ const GlobalStyle = createGlobalStyle`
         color: whitesmoke;
         text-decoration: none;
     }
+
+    h1, h2, h3 {
+        font-size: 1rem;
+        font-weight 400;
+    }
 `
 export default GlobalStyle;
