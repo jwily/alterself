@@ -26,7 +26,7 @@ export const getSkills = (charId) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case SET_SKILLS:
-            return action.payload
+            return { 'entities': action.payload }
         default:
             return state;
     }

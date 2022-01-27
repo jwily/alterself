@@ -80,8 +80,8 @@ export default function reducer(state = initialState, action) {
     const newState = { ...state };
     switch (action.type) {
         case SET_ITEMS:
-            newState.entities = action.payload.entities;
-            newState.ids = Object.keys(action.payload.entities);
+            newState.entities = action.payload;
+            newState.ids = Object.keys(action.payload);
             return newState;
         case ADD_ITEM:
             newState.entities[action.payload.id] = action.payload;
