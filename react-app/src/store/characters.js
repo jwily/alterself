@@ -124,9 +124,11 @@ export default function reducer(state = initialState, action) {
             return newState;
         case ADD_CHAR:
             newState.entities.characters[action.payload.id] = action.payload;
+            newState.ids = Object.keys(newState.entities.characters)
             return newState;
         case REMOVE_CHAR:
             delete newState.entities.characters[action.payload];
+            newState.ids = Object.keys(newState.entities.characters)
             return newState;
         default:
             return state;

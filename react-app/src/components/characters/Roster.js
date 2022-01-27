@@ -20,17 +20,22 @@ const Roster = () => {
     const user = useSelector(selectUser());
     const data = useSelector(state => state.characters);
 
+    const charCards = useMemo(() => {
+        return data.ids.map(id => {
+            const char = data.entities.characters[id];
+            return <CharCard key={char.id} char={char} />
+        })
+    }, [data.entities.characters, data.ids])
+
     return (
         <div>
             <h1>{user.username}'s Roster</h1>
             <br></br>
             <CreateCharModal />
             <br></br>
-            {isLoaded && <ul>
-                {Object.values(data.entities.characters).map((char, idx) => {
-                    return <CharCard key={idx} char={char} />
-                })}
-            </ul>}
+            <ul>
+                {isLoaded && charCards}
+            </ul>
         </div>
     )
 }
