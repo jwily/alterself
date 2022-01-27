@@ -24,7 +24,7 @@ const delChar = (id) => ({
 })
 
 
-const initialState = { entities: { characters: null, character: null } };
+const initialState = { entities: { characters: null, character: null }, ids: [] };
 
 export const getChars = () => async (dispatch) => {
     const response = await fetch(`/api/characters/`);
@@ -117,7 +117,7 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case SET_CHARS:
             newState.entities.characters = action.payload;
-            newState.entities.ids = Object.keys(action.payload);
+            newState.ids = Object.keys(action.payload);
             return newState;
         case SET_CHAR:
             newState.entities.character = action.payload.character;
