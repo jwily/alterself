@@ -1,26 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom"
-import styled from "styled-components";
 
 import { selectUser } from "../../store/session";
-import { getChars, deleteChar } from "../../store/characters";
+import { getChars } from "../../store/characters";
 
 import CreateCharModal from "./CreateCharModal";
-
-const CharCard = styled.li`
-    margin: 1rem;
-    a {
-        color: gold;
-    }
-`
+import CharCard from "./CharCard";
 
 const Roster = () => {
-
-    const handleDelete = (e, id) => {
-        e.preventDefault();
-        dispatch(deleteChar(id));
-    }
 
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -31,7 +18,14 @@ const Roster = () => {
     }, [dispatch])
 
     const user = useSelector(selectUser());
-    const chars = useSelector(state => state.characters);
+    const data = useSelector(state => state.characters);
+
+    const charCards = useMemo(() => {
+        return data.ids.map(id => {
+            const char = data.entities.characters[id];
+            return <CharCard key={char.id} char={char} />
+        })
+    }, [data.entities.characters, data.ids])
 
     return (
         <div>
@@ -39,18 +33,9 @@ const Roster = () => {
             <br></br>
             <CreateCharModal />
             <br></br>
-            {isLoaded && <ul>
-                {Object.values(chars.entities).map((char, idx) => {
-                    return <CharCard key={idx}>
-                        <Link to={`/roster/${char.id}`}>{char.name}</Link>
-                        <p>{char.race}</p>
-                        <p>Level {char.level} {char.class}</p>
-                        <form onSubmit={(e) => handleDelete(e, char.id)}>
-                            <button type='submit'>Delete</button>
-                        </form>
-                    </CharCard>
-                })}
-            </ul>}
+            <ul>
+                {isLoaded && charCards}
+            </ul>
         </div>
     )
 }

@@ -14,60 +14,92 @@ import Inventory from "../items/Inventory";
 import scholar from '../../images/scholar.png';
 
 const Parent = styled.div`
-    display: flex;
-    padding-top: 2.5%;
-    width: 100%:
-    align-items: center;
-    justify-content: center;
+    padding-top: 1.5%;
+    padding-left: 1.5%;
 `
 
 const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(5, min-content);
-    grid-template-rows: auto;
-    grid-template-areas:
-        "abilities throws vitals vitals vitals"
-        "abilities throws profs feats items"
-        "abilities skills profs feats items"
-        "abilities skills profs feats items";
+    grid-template-rows: min-content min-content 1fr;
 
     .vitals {
-        grid-area: vitals;
         margin-bottom: 1rem;
         margin-left: 1rem;
+
+        grid-column-start: 3;
+        grid-column-end: 6;
+        grid-row-start: 1;
+        grid-row-end: 2;
     }
 
     .abilities {
-        grid-area: abilities;
         margin-right: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 3;
     }
 
     .throws {
-        grid-area: throws;
         margin-bottom: 1rem;
+
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
     }
 
     .skills {
-        grid-area: skills;
         width: 20rem;
         padding: 1rem;
+
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
     }
 
     .profs {
-        grid-area: profs;
-        width: 15rem;
         margin-left: 1rem;
+        height: min-content;
+
+        grid-column-start: 3;
+        grid-column-end: 4;
+        grid-row-start: 2;
+        grid-row-end: 4;
+
+        padding: 1rem;
+
+        width: 17.5rem;
     }
 
     .feats {
-        grid-area: feats;
-        width: 15rem;
         margin-left: 1rem;
+        height: min-content;
+
+        grid-column-start: 4;
+        grid-column-end: 5;
+        grid-row-start: 2;
+        grid-row-end: 4;
+
+        padding: 1rem;
+
+        width: 17.5rem;
     }
 
     .items {
-        grid-area: items;
         margin-left: 1rem;
+        height: min-content;
+
+        grid-column-start: 5;
+        grid-column-end: 6;
+        grid-row-start: 2;
+        grid-row-end: 4;
     }
 
     .scholar {
@@ -75,8 +107,8 @@ const Container = styled.div`
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50% 50%;
-        width: 5em;
-        height: 5em;
+        width: 5rem;
+        height: 5rem;
         position: fixed;
         right: 0;
         bottom: 0;
@@ -117,20 +149,8 @@ const Character = () => {
             .then(() => setIsLoaded(true))
     }, [dispatch, charId])
 
-    const charData = useSelector(state => state.characters.entities)
-    const skillsData = useSelector(state => state.skills.entities)
-
-    // This seems to be causing some problems, find alternate solution
-    if (!charData) {
-        return (
-            <div>
-                {isLoaded && <>
-                    <h2>404</h2>
-                    <p>Oops. Are you lost?</p>
-                </>}
-            </div>
-        )
-    }
+    const charData = useSelector(state => state.characters.entities.character)
+    const skillsData = useSelector(state => state.skills)
 
     return (
         <Parent>
@@ -138,51 +158,47 @@ const Character = () => {
                 {isLoaded &&
                     <>
                         <BlueBox className="vitals">
-                            <p>{charData.character.name}</p>
-                            <p>Level {charData.character.level} {charData.character.race} {charData.character.class}</p>
-                            <p>{charData.character.exp} Experience Points</p>
-                            <p>Profiency Bonus {profCalc(charData.character.level)}</p>
-                            <p>Armor Class {10 + modCalc(charData.character.dex)}</p>
+                            <p>{charData.name}</p>
+                            <p>Level {charData.level} {charData.race} {charData.class}</p>
+                            <p>{charData.exp} Experience Points</p>
+                            <p>Profiency Bonus {profCalc(charData.level)}</p>
+                            <p>Armor Class {10 + modCalc(charData.dex)}</p>
                         </BlueBox>
 
-                        <BlueBox className="abilities">
-                            <Abilities charData={charData} />
-                        </BlueBox>
+                        <Abilities charData={charData} />
 
                         <BlueBox className="throws"></BlueBox>
 
                         <BlueBox className="skills">
-                            <p>Acrobatics (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData[1])}</p>
-                            <p>Animal Handling (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[2])}</p>
-                            <p>Arcana (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[3])}</p>
-                            <p>Athletics (Str) :: {skillCalc(charData.character.level, charData.character.str, skillsData[4])}</p>
-                            <p>Deception (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[5])}</p>
-                            <p>History (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[6])}</p>
-                            <p>Insight (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[7])}</p>
-                            <p>Intimidation (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[8])}</p>
-                            <p>Investigation (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[9])}</p>
-                            <p>Medicine (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[10])}</p>
-                            <p>Nature (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[11])}</p>
-                            <p>Perception (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[12])}</p>
-                            <p>Performance (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[13])}</p>
-                            <p>Persuasion (Cha) :: {skillCalc(charData.character.level, charData.character.cha, skillsData[14])}</p>
-                            <p>Religion (Int) :: {skillCalc(charData.character.level, charData.character.int, skillsData[15])}</p>
-                            <p>Sleight of Hand (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData[16])}</p>
-                            <p>Stealth (Dex) :: {skillCalc(charData.character.level, charData.character.dex, skillsData[17])}</p>
-                            <p>Survival (Wis) :: {skillCalc(charData.character.level, charData.character.wis, skillsData[18])}</p>
+                            <p>Acrobatics (Dex) :: {skillCalc(charData.level, charData.dex, skillsData.entities[1])}</p>
+                            <p>Animal Handling (Wis) :: {skillCalc(charData.level, charData.wis, skillsData.entities[2])}</p>
+                            <p>Arcana (Int) :: {skillCalc(charData.level, charData.int, skillsData.entities[3])}</p>
+                            <p>Athletics (Str) :: {skillCalc(charData.level, charData.str, skillsData.entities[4])}</p>
+                            <p>Deception (Cha) :: {skillCalc(charData.level, charData.cha, skillsData.entities[5])}</p>
+                            <p>History (Int) :: {skillCalc(charData.level, charData.int, skillsData.entities[6])}</p>
+                            <p>Insight (Wis) :: {skillCalc(charData.level, charData.wis, skillsData.entities[7])}</p>
+                            <p>Intimidation (Cha) :: {skillCalc(charData.level, charData.cha, skillsData.entities[8])}</p>
+                            <p>Investigation (Int) :: {skillCalc(charData.level, charData.int, skillsData.entities[9])}</p>
+                            <p>Medicine (Wis) :: {skillCalc(charData.level, charData.wis, skillsData.entities[10])}</p>
+                            <p>Nature (Int) :: {skillCalc(charData.level, charData.int, skillsData.entities[11])}</p>
+                            <p>Perception (Wis) :: {skillCalc(charData.level, charData.wis, skillsData.entities[12])}</p>
+                            <p>Performance (Cha) :: {skillCalc(charData.level, charData.cha, skillsData.entities[13])}</p>
+                            <p>Persuasion (Cha) :: {skillCalc(charData.level, charData.cha, skillsData.entities[14])}</p>
+                            <p>Religion (Int) :: {skillCalc(charData.level, charData.int, skillsData.entities[15])}</p>
+                            <p>Sleight of Hand (Dex) :: {skillCalc(charData.level, charData.dex, skillsData.entities[16])}</p>
+                            <p>Stealth (Dex) :: {skillCalc(charData.level, charData.dex, skillsData.entities[17])}</p>
+                            <p>Survival (Wis) :: {skillCalc(charData.level, charData.wis, skillsData.entities[18])}</p>
                         </BlueBox>
 
                         <BlueBox className="profs">
-                            {/* <Inventory /> */}
+                            <h2>Proficiencies</h2>
                         </BlueBox>
 
                         <BlueBox className="feats">
-                            {/* <Inventory /> */}
+                            <h2>Features and Traits</h2>
                         </BlueBox>
 
-                        <BlueBox className="items">
-                            <Inventory />
-                        </BlueBox>
+                        <Inventory />
                         <button className="scholar"></button>
                     </>}
             </Container>

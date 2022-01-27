@@ -17,7 +17,7 @@ const delItem = (id) => ({
     payload: id
 })
 
-const initialState = { entities: null };
+const initialState = { entities: null, ids: [] };
 
 export const getItems = (charId) => async (dispatch) => {
     const response = await fetch(`/api/characters/${charId}/items`, {
@@ -77,17 +77,19 @@ export const deleteItem = (itemId) => async (dispatch) => {
 }
 
 export default function reducer(state = initialState, action) {
-    let newState;
+    const newState = { ...state };
     switch (action.type) {
         case SET_ITEMS:
-            return action.payload
+            newState.entities = action.payload.entities;
+            newState.ids = Object.keys(action.payload.entities);
+            return newState;
         case ADD_ITEM:
-            newState = { ...state };
             newState.entities[action.payload.id] = action.payload;
+            newState.ids = Object.keys(newState.entities);
             return newState
         case REMOVE_ITEM:
-            newState = { ...state };
             delete newState.entities[action.payload];
+            newState.ids = Object.keys(newState.entities);
             return newState;
         default:
             return state;

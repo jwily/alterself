@@ -1,12 +1,18 @@
 from flask_wtf import FlaskForm
 from wtforms import IntegerField
-from wtforms.validators import DataRequired
+from wtforms.validators import InputRequired, NumberRange
 
 
-class CreateCharacterForm(FlaskForm):
-    strength = IntegerField(validators=[DataRequired()])
-    dexterity = IntegerField(validators=[DataRequired()])
-    constitution = IntegerField(validators=[DataRequired()])
-    intelligence = IntegerField(validators=[DataRequired()])
-    wisdom = IntegerField(validators=[DataRequired()])
-    charisma = IntegerField(validators=[DataRequired()])
+class EditAbilitiesForm(FlaskForm):
+    strength = IntegerField(validators=[NumberRange(
+        max=20, min=0, message='Out of range error.')])
+    dexterity = IntegerField(validators=[NumberRange(
+        max=20, min=0, message='Out of range error.')])
+    constitution = IntegerField(validators=[NumberRange(
+        max=20, min=0, message='Out of range error.')])
+    intelligence = IntegerField(validators=[NumberRange(
+        max=20, min=0, message='Out of range error.')])
+    wisdom = IntegerField(validators=[NumberRange(
+        max=20, min=0, message='Out of range error.')])
+    charisma = IntegerField(validators=[NumberRange(
+        max=20, min=0, message='Out of range error.')])

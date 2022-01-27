@@ -13,13 +13,29 @@ const CreateForm = styled.div`
     textarea {
         resize: none;
     }
+
+    label {
+        margin-bottom: .5rem;
+        margin-top: .5rem;
+    }
+
+    #create-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        margin-top: 1rem;
+
+        button {
+            margin-left: .5rem;
+        }
+    }
 `
 
-const CreateItem = () => {
+const CreateItem = ({ setMode }) => {
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
     const [quantity, setQuantity] = useState(1);
+    const [description, setDescription] = useState('');
 
     const dispatch = useDispatch();
 
@@ -31,7 +47,6 @@ const CreateItem = () => {
             charId,
             name,
             description,
-            quantity,
         }
         const data = await dispatch(createItem(formData));
         if (data) {
@@ -39,7 +54,6 @@ const CreateItem = () => {
         }
         setName('');
         setDescription('');
-        setQuantity(1);
         setErrors([]);
     };
 
@@ -47,12 +61,12 @@ const CreateItem = () => {
         setName(e.target.value);
     };
 
-    const updateDescription = (e) => {
-        setDescription(e.target.value);
-    };
-
     const updateQuantity = (e) => {
         setQuantity(e.target.value);
+    };
+
+    const updateDescription = (e) => {
+        setDescription(e.target.value);
     };
 
     return (
@@ -69,17 +83,21 @@ const CreateItem = () => {
                 </div>
                 <div>
                     <label htmlFor="forge-quantity">Quantity</label>
-                    <input type="number" min="1" id="forge-quantity" value={quantity} onChange={updateQuantity}
-                        onBlur={() => {
-                            if (!quantity) setQuantity(1);
-                        }} />
+                    <input type="number" id="forge-quantity" value={quantity} onChange={updateQuantity} min="1" />
                 </div>
                 <div>
                     <label htmlFor="forge-description">Description</label>
                     <textarea type="textarea" id="forge-description" value={description} onChange={updateDescription} rows="5"></textarea>
                 </div>
-                <div>
+                <div id="create-buttons">
                     <button type="submit">Add</button>
+                    <button type="button" onClick={() => {
+                        setMode('base');
+                        setQuantity(1);
+                        setName('');
+                        setDescription('');
+                        setErrors([]);
+                    }}>Close</button>
                 </div>
             </form>
         </CreateForm>
