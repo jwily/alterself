@@ -14,10 +14,8 @@ import Inventory from "../items/Inventory";
 import scholar from '../../images/scholar.png';
 
 const Parent = styled.div`
-    display: flex;
     padding-top: 1.5%;
     padding-left: 1.5%;
-    width: 100%;
 `
 
 const Container = styled.div`
@@ -31,7 +29,6 @@ const Container = styled.div`
     //     ". . profs feats items";
 
     .vitals {
-        grid-area: vitals;
         margin-bottom: 1rem;
         margin-left: 1rem;
 
@@ -42,7 +39,6 @@ const Container = styled.div`
     }
 
     .abilities {
-        grid-area: abilities;
         margin-right: 1rem;
         display: flex;
         justify-content: center;
@@ -55,7 +51,6 @@ const Container = styled.div`
     }
 
     .throws {
-        grid-area: throws;
         margin-bottom: 1rem;
 
         grid-column-start: 2;
@@ -65,7 +60,6 @@ const Container = styled.div`
     }
 
     .skills {
-        grid-area: skills;
         width: 20rem;
         padding: 1rem;
 
@@ -76,8 +70,6 @@ const Container = styled.div`
     }
 
     .profs {
-        grid-area: profs;
-        width: 15rem;
         margin-left: 1rem;
         height: min-content;
 
@@ -85,11 +77,13 @@ const Container = styled.div`
         grid-column-end: 4;
         grid-row-start: 2;
         grid-row-end: 4;
+
+        padding: 1rem;
+
+        width: 17.5rem;
     }
 
     .feats {
-        grid-area: feats;
-        width: 15rem;
         margin-left: 1rem;
         height: min-content;
 
@@ -97,10 +91,13 @@ const Container = styled.div`
         grid-column-end: 5;
         grid-row-start: 2;
         grid-row-end: 4;
+
+        padding: 1rem;
+
+        width: 17.5rem;
     }
 
     .items {
-        grid-area: items;
         margin-left: 1rem;
         height: min-content;
 
@@ -199,9 +196,11 @@ const Character = () => {
                         </BlueBox>
 
                         <BlueBox className="profs">
+                            <h2>Proficiencies</h2>
                         </BlueBox>
 
                         <BlueBox className="feats">
+                            <h2>Features and Traits</h2>
                         </BlueBox>
 
                         <Inventory />

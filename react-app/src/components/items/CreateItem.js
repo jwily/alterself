@@ -97,7 +97,7 @@ const CreateItem = ({ setMode }) => {
                         setName('');
                         setDescription('');
                         setErrors([]);
-                    }}>Cancel</button>
+                    }}>Close</button>
                 </div>
             </form>
         </CreateForm>

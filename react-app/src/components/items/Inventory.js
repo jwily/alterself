@@ -22,7 +22,6 @@ const Container = styled.div`
 
     h2 {
         font-size: 1.25rem;
-        margin-bottom: .5rem;
     }
 
     #inventory-title {
@@ -30,6 +29,8 @@ const Container = styled.div`
         justify-content: space-between;
         align-items: center;
         flex-direction: row;
+        margin-bottom: .5rem;
+        height: 1.5rem;
     }
 
     li {
@@ -145,7 +146,7 @@ const Inventory = () => {
                     {mode === 'base' && <button type="button" onClick={() => setMode('add')}><FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faShoppingBag} /></button>}
                 </div>
                 {mode === 'add' && <CreateItem setMode={setMode} />}
-                {mode === 'base' && <ul>{itemCards}</ul>}
+                <ul>{itemCards}</ul>
             </Container>
         </BlueBox >
     )
