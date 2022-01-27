@@ -37,10 +37,10 @@ function App() {
         <ProtectedRoute path='/roster' exact={true} >
           <Roster />
         </ProtectedRoute>
-        <ProtectedRoute path='/roster/:charId' exact={true} >
+        <ProtectedRoute path='/roster/:charId'  >
           <Character />
         </ProtectedRoute>
-        <Route path='/' exact={true} >
+        <Route path='/' exact={true}>
           <h1>My Home Page</h1>
         </Route>
       </Switch>

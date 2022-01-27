@@ -33,7 +33,7 @@ const NavBar = () => {
     <NavMain>
       <ul>
         <li>
-          <Link to='/' exact={true}>
+          <Link to='/'>
             Alter Self
           </Link>
         </li>
@@ -42,12 +42,12 @@ const NavBar = () => {
         </li>}
         {user && <>
           <li>
-            <Link to='/' exact={true}>
+            <Link to='/'>
               Campaigns
             </Link>
           </li>
           <li>
-            <Link to='/roster' exact={true}>
+            <Link to='/roster'>
               Roster
             </Link>
           </li>
