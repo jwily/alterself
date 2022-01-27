@@ -22,11 +22,6 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(5, min-content);
     grid-template-rows: min-content min-content 1fr;
-    // grid-template-areas:
-    //     "abilities throws vitals vitals vitals"
-    //     "abilities throws profs feats items"
-    //     "abilities skills profs feats items"
-    //     ". . profs feats items";
 
     .vitals {
         margin-bottom: 1rem;
