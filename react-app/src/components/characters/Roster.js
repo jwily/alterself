@@ -47,9 +47,9 @@ const Roster = () => {
     const data = useSelector(state => state.characters);
 
     const charCards = useMemo(() => {
-        return data.ids.map(id => {
+        return data.ids.map((id, idx) => {
             const char = data.entities.characters[id];
-            return <CharCard key={char.id} char={char} />
+            return <CharCard key={char.id} char={char} idx={idx} />
         })
     }, [data.entities.characters, data.ids])
 

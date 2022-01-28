@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -48,6 +48,15 @@ const Icon = styled.div`
 
 const CharCard = ({ char, idx }) => {
 
+    const charLi = useRef(null);
+
+    useEffect(() => {
+        const fadeIn = setTimeout(() => {
+            charLi.current.style.opacity = 1;
+        }, 250 * ((5 + idx) / 5));
+        return () => clearTimeout(fadeIn);
+    }, [idx])
+
     const dispatch = useDispatch();
 
     const handleDelete = (e, id) => {
@@ -56,7 +65,7 @@ const CharCard = ({ char, idx }) => {
     }
 
     return (
-        <Card key={idx}>
+        <Card key={idx} ref={charLi.current}>
             <Icon className="roster-icon" color={`rgb(${(char.str + char.con) * 5}, ${(char.dex + char.cha) * 5}, ${(char.int + char.wis) * 5})`}>
                 {char.name[0]}
             </Icon>
