@@ -10,7 +10,6 @@ import {
 
 import { deleteChar } from "../../store/characters";
 import BlackBox from "../../global/BlackBox";
-import { RosterContext } from "./Roster";
 
 const Card = styled.li`
     margin: 1rem;
@@ -83,11 +82,11 @@ const CharCard = ({ char, idx, ids }) => {
     const charLi = useRef(null);
 
     useEffect(() => {
-        charLi.current.style.transition = '';
         charLi.current.style.opacity = 0;
+        charLi.current.style.transition = '';
         const fadeIn = setTimeout(() => {
             charLi.current.style.opacity = 1;
-            charLi.current.style.transition = 'opacity .5s'
+            charLi.current.style.transition = 'opacity .75s'
         }, 250 * ((5 + idx) / 5));
         return () => clearTimeout(fadeIn);
     }, [idx, ids])
@@ -98,10 +97,6 @@ const CharCard = ({ char, idx, ids }) => {
         e.preventDefault();
         dispatch(deleteChar(id));
     }
-
-    const cardRefs = useContext(RosterContext);
-    cardRefs[char.id] = charLi;
-    console.log(cardRefs);
 
     return (
         <Card key={idx} ref={charLi}>

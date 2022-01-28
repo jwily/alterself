@@ -33,11 +33,7 @@ const Container = styled.div`
     }
 `
 
-export const RosterContext = createContext();
-
 const Roster = () => {
-
-    const cardRefs = {};
 
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -46,25 +42,6 @@ const Roster = () => {
     useEffect(() => {
         dispatch(getChars()).then(() => setIsLoaded(true))
     }, [dispatch])
-
-    // const vanish = () => {
-    //     for (let key in cardRefs) {
-    //         cardRefs[key].current.style.opacity = 0;
-    //     }
-    // };
-
-    // const reveal = () => {
-    //     for (let key in cardRefs) {
-    //         cardRefs[key].current.style.opacity = 1;
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     (async () => {
-    //         await vanish();
-    //         reveal();
-    //     })();
-    // }, [cardRefs])
 
     const user = useSelector(selectUser());
     const data = useSelector(state => state.characters);
@@ -80,11 +57,9 @@ const Roster = () => {
         <Container>
             <h1>Dive into an altered self</h1>
             <CreateCharModal />
-            <RosterContext.Provider value={cardRefs}>
-                <ul>
-                    {isLoaded && charCards}
-                </ul>
-            </RosterContext.Provider>
+            <ul>
+                {isLoaded && charCards}
+            </ul>
         </Container>
     )
 }
