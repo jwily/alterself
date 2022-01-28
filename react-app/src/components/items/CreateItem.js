@@ -17,7 +17,8 @@ const CreateForm = styled.div`
     label {
         margin-bottom: .5rem;
         margin-top: .5rem;
-        margin-left: .25rem;
+        margin-left: .15rem;
+        font-size: .95rem;
     }
 
     .create-buttons {
@@ -86,7 +87,7 @@ const CreateItem = ({ setAdd }) => {
                     ))}
                 </div>
                 <div>
-                    <label htmlFor="forge-name">Name</label>
+                    <label htmlFor="forge-name">Item Name</label>
                     <input type="text" id="forge-name" required maxLength="255" value={name} onChange={updateName} />
                 </div>
                 <div>

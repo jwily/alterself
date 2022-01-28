@@ -74,7 +74,7 @@ const Proficiencies = () => {
                 <div id="proficiencies-title">
                     <h2>
                         {!add && 'Proficiencies'}
-                        {add && "Bet you're pretty good"}
+                        {add && "Do you speak fairy? Hey!"}
                     </h2>
                     <button type="button" onClick={() => setAdd(!add)}>
                         {!add &&

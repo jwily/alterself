@@ -17,7 +17,8 @@ const CreateForm = styled.div`
     label {
         margin-bottom: .5rem;
         margin-top: .5rem;
-        margin-left: .25rem;
+        margin-left: .15rem;
+        font-size: .95rem;
     }
 
     .create-buttons {
@@ -79,7 +80,7 @@ const CreateProf = ({ setAdd }) => {
                     ))}
                 </div>
                 <div>
-                    <label htmlFor="prof-name">Name</label>
+                    <label htmlFor="prof-name">Proficiency Name or Category</label>
                     <input type="text" id="prof-name" required maxLength="255" value={name} onChange={updateName} />
                 </div>
                 <div>

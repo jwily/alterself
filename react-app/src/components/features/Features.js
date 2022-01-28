@@ -74,7 +74,7 @@ const FeaturesAndTraits = () => {
                 <div id="features-title">
                     <h2>
                         {!add && 'Features and Traits'}
-                        {add && "Special move! Hiyah!"}
+                        {add && "Secret move! Take this!"}
                     </h2>
                     <button type="button" onClick={() => setAdd(!add)}>
                         {!add &&
