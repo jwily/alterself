@@ -55,7 +55,7 @@ export const createProf = (formData) => async (dispatch) => {
 }
 
 export const editProf = (formData) => async (dispatch) => {
-    const response = await fetch(`/api/feats/${formData.profId}`, {
+    const response = await fetch(`/api/profs/${formData.profId}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -78,7 +78,7 @@ export const editProf = (formData) => async (dispatch) => {
 }
 
 export const deleteProf = (profId) => async (dispatch) => {
-    const response = await fetch(`/api/feats/${profId}`, {
+    const response = await fetch(`/api/profs/${profId}`, {
         method: 'DELETE'
     })
 

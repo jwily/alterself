@@ -2,16 +2,15 @@ import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-import CreateFeat from "./CreateFeat";
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faPlus,
-    faStar,
+    faCrown,
 } from '@fortawesome/free-solid-svg-icons';
 
 import BlueBox from "../../global/BlueBox";
 import FeatCard from "./FeatCard";
+import CreateFeat from "./CreateFeat";
 
 const Container = styled.div`
 
@@ -74,10 +73,10 @@ const FeaturesAndTraits = () => {
                 <div id="features-title">
                     <h2>
                         {mode === 'base' && 'Features and Traits'}
-                        {mode === 'add' && 'What makes you a hero?'}
+                        {mode === 'add' && "Special move! Hiyah!"}
                     </h2>
                     {mode === 'base' && <button type="button" onClick={() => setMode('add')}>
-                        <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faStar} />
+                        <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faCrown} />
                     </button>}
                 </div>
                 {mode === 'add' && <CreateFeat setMode={setMode} />}

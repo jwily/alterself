@@ -1,11 +1,9 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import debounce from "lodash/debounce"
 
-import { deleteItem } from "../../store/items";
-import { editItem } from "../../store/items";
-import { editQuantity } from "../../store/items";
+import { deleteProf } from "../../store/profs";
+import { editProf } from "../../store/profs";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -32,7 +30,7 @@ const Card = styled.li`
         }
     }
 
-    .edit-item-form {
+    .edit-prof-form {
         display: flex;
         flex-direction: column;
     }
@@ -40,19 +38,14 @@ const Card = styled.li`
     .edit-name-field {
         font-size: 1rem;
         padding: .5rem;
-        width: 12.5rem;
+        width: 15rem;
     }
 
-    .edit-quant-field {
-        color: gold;
-        width: 4rem;
-    }
-
-    .item-delete-confirm {
+    .prof-delete-confirm {
         justify-self: end;
     }
 
-    .item-reveal {
+    .prof-reveal {
         margin-left: .5rem;
     }
 
@@ -88,41 +81,24 @@ const Card = styled.li`
     }
 `
 
-const ItemCard = ({ item }) => {
+const ProfCard = ({ prof }) => {
 
     const dispatch = useDispatch();
 
     const [show, setShow] = useState(false);
     const [confirm, setConfirm] = useState(false);
 
-    const [name, setName] = useState(item.name);
-    const [description, setDesc] = useState(item.description || '')
-    const [quantity, setQuant] = useState(item.quantity)
-
-    const debouncedSave = useCallback(
-        debounce(async (formData) => {
-            await dispatch(editQuantity(formData))
-        }, 500),
-        [],
-    );
-
-    useEffect(() => {
-        const formData = {
-            itemId: item.id,
-            quantity: parseInt(quantity, 10)
-        }
-        debouncedSave(formData);
-    }, [debouncedSave, item.id, quantity])
+    const [name, setName] = useState(prof.name);
+    const [description, setDesc] = useState(prof.description || '');
 
     const submitEdit = async (e) => {
         e.preventDefault();
         const formData = {
-            itemId: item.id,
-            name: name || item.name,
-            quantity: parseInt(quantity, 10),
+            profId: prof.id,
+            name: name || prof.name,
             description
         };
-        const data = await dispatch(editItem(formData));
+        const data = await dispatch(editProf(formData));
         if (data) {
             console.log("Errors!");
         }
@@ -132,13 +108,13 @@ const ItemCard = ({ item }) => {
     const clickLook = () => {
         setShow(!show);
         setConfirm(false);
-        setName(item.name);
-        setDesc(item.description);
+        setName(prof.name);
+        setDesc(prof.description);
     }
 
     const handleDelete = (e, id) => {
         e.preventDefault();
-        dispatch(deleteItem(id));
+        dispatch(deleteProf(id));
     }
 
     const clickDelete = () => {
@@ -149,27 +125,18 @@ const ItemCard = ({ item }) => {
         setName(e.target.value);
     }
 
-    const quantChange = (e) => {
-        setQuant(e.target.value);
-    }
-
     const descChange = (e) => {
         setDesc(e.target.value);
     }
 
-    const handleBlur = (e) => {
-        if (e.target.value < 0 || !e.target.value) setQuant(0);
-    };
-
     return (
         <Card>
-            <form className="edit-item-form" id={`edit-item-${item.id}`} onSubmit={submitEdit}>
+            <form className="edit-prof-form" id={`edit-prof-${prof.id}`} onSubmit={submitEdit}>
                 <div className="title">
-                    {!show ? <span className="edit-name-field">{item.name}</span> :
+                    {!show ? <span className="edit-name-field">{prof.name}</span> :
                         <input type="text" className="edit-name-field" value={name} onChange={nameChange} />}
                     <div>
-                        <input className="edit-quant-field" value={quantity} min="0" onChange={quantChange} onBlur={handleBlur} type="number" />
-                        <button type="button" className="item-reveal" onClick={clickLook}><FontAwesomeIcon icon={!show ? faSearchPlus : faSearchMinus} /></button>
+                        <button type="button" className="prof-reveal" onClick={clickLook}><FontAwesomeIcon icon={!show ? faSearchPlus : faSearchMinus} /></button>
                     </div>
                 </div>
                 {show && <textarea value={description} onChange={descChange} rows="8" />}
@@ -178,10 +145,10 @@ const ItemCard = ({ item }) => {
                 show && <div className="buttons">
                     {!confirm ?
                         <>
-                            <button type="submit" form={`edit-item-${item.id}`}>Save</button>
+                            <button type="submit" form={`edit-prof-${prof.id}`}>Save</button>
                             <button type='button' onClick={clickDelete}>Delete</button>
                         </> :
-                        <form onSubmit={(e) => handleDelete(e, item.id)} className='item-delete-confirm'>
+                        <form onSubmit={(e) => handleDelete(e, prof.id)} className='prof-delete-confirm'>
                             <button type='submit'>Confirm Delete</button>
                             <button type='button' onClick={clickDelete}>Cancel</button>
                         </form>}
@@ -191,4 +158,4 @@ const ItemCard = ({ item }) => {
     )
 }
 
-export default ItemCard;
+export default ProfCard;

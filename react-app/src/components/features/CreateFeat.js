@@ -19,7 +19,7 @@ const CreateForm = styled.div`
         margin-top: .5rem;
     }
 
-    #create-buttons {
+    .create-buttons {
         display: flex;
         flex-direction: row;
         justify-content: right;
@@ -79,9 +79,9 @@ const CreateFeat = ({ setMode }) => {
                 </div>
                 <div>
                     <label htmlFor="feat-description">Description (Optional)</label>
-                    <textarea id="feat-description" value={description} onChange={updateDescription} rows="5" />
+                    <textarea id="feat-description" value={description} onChange={updateDescription} rows="8" />
                 </div>
-                <div id="create-buttons">
+                <div className="create-buttons">
                     <button type="submit">Add</button>
                     <button type="button" onClick={() => {
                         setMode('base');

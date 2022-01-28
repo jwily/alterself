@@ -139,7 +139,7 @@ const FeatCard = ({ feat }) => {
                         <button type="button" className="feat-reveal" onClick={clickLook}><FontAwesomeIcon icon={!show ? faSearchPlus : faSearchMinus} /></button>
                     </div>
                 </div>
-                {show && <textarea value={description} onChange={descChange} rows="5" />}
+                {show && <textarea value={description} onChange={descChange} rows="8" />}
             </form>
             {
                 show && <div className="buttons">

@@ -13,6 +13,7 @@ import BlueBox from "../../global/BlueBox";
 import Abilities from "./Abilities";
 import Inventory from "../items/Inventory";
 import FeaturesAndTraits from "../features/Features";
+import Proficiencies from "../profs/Proficiencies";
 
 import scholar from '../../images/scholar.png';
 
@@ -187,9 +188,7 @@ const Character = () => {
                             <p>Survival (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[18])}</p>
                         </BlueBox>
 
-                        <BlueBox className="profs">
-                            <h2>Proficiencies</h2>
-                        </BlueBox>
+                        <Proficiencies />
 
                         <FeaturesAndTraits />
 
