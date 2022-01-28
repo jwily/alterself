@@ -1,11 +1,27 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 
 import { selectUser } from "../../store/session";
 import { getChars } from "../../store/characters";
 
 import CreateCharModal from "./CreateCharModal";
 import CharCard from "./CharCard";
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin-top: 5%;
+
+    ul {
+        margin-top 5%;
+        display: grid;
+        grid-template-columns: repeat(5, min-content);
+        grid-template-rows: auto;
+    }
+`
 
 const Roster = () => {
 
@@ -28,15 +44,13 @@ const Roster = () => {
     }, [data.entities.characters, data.ids])
 
     return (
-        <div>
-            <h1>{user.username}'s Roster</h1>
-            <br></br>
+        <Container>
+            <h1>Welcome to your roster, {user.username}</h1>
             <CreateCharModal />
-            <br></br>
             <ul>
                 {isLoaded && charCards}
             </ul>
-        </div>
+        </Container>
     )
 }
 
