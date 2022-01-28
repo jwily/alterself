@@ -53,6 +53,12 @@ const Card = styled.li`
         align-items: center;
         margin-bottom: 1.5rem;
     }
+
+    p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 `
 
 const Icon = styled.div`
