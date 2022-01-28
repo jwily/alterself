@@ -1,26 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import debounce from "lodash/debounce"
 
 import { deleteItem } from "../../store/items";
+import { editItem } from "../../store/items";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-    faPlusCircle,
-    faMinusCircle
+    faSearchPlus,
+    faSearchMinus
 } from '@fortawesome/free-solid-svg-icons';
 
 const Card = styled.li`
 
-    .edit-item-form {
-        display: flex;
-        flex-direction: column;
-    }
-
     .buttons {
         display: flex;
         flex-direction: row;
-        justify-content: right;
+        justify-content: space-between;
         margin-top: .25rem;
 
         button {
@@ -34,11 +31,37 @@ const Card = styled.li`
         }
     }
 
-    .title {
+    .edit-item-form {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+    }
+
+    .edit-name-field {
+        font-size: 1rem;
+        padding: .5rem;
+        width: 12.5rem;
+    }
+
+    .edit-quant-field {
+        color: gold;
+        width: 4rem;
+    }
+
+    .item-delete-confirm {
+        justify-self: end;
+    }
+
+    .item-reveal {
+        margin-lefT: .5rem;
+    }
+
+    .item-saved {
+        margin-left: .5rem;
+        color: lime;
+    }
+
+    input.edit-name-field {
+        color: gold;
     }
 
     p {
@@ -55,29 +78,17 @@ const Card = styled.li`
         text-overflow: ellipsis;
     }
 
-    .edit-name-field {
-        font-size: 1rem;
-        padding: .5rem;
-        width: 12.5rem;
-    }
-
-    .edit-quant-field {
-        color: gold;
-        width: 4rem;
-    }
-
-    input.edit-name-field {
-        color: gold;
-    }
-
     textarea {
         margin-top: .5rem;
         resize: none;
         color: gold;
     }
 
-    .item-reveal {
-        margin-lefT: .5rem;
+    .title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
 `
 
@@ -86,12 +97,53 @@ const ItemCard = ({ item }) => {
     const dispatch = useDispatch();
 
     const [show, setShow] = useState(false);
-    const [saved, setSaved] = useState(false);
     const [confirm, setConfirm] = useState(false);
+    const [saved, setSaved] = useState(false);
 
     const [name, setName] = useState(item.name);
-    const [desc, setDesc] = useState(item.description)
-    const [quant, setQuant] = useState(item.quantity)
+    const [description, setDesc] = useState(item.description)
+    const [quantity, setQuant] = useState(item.quantity)
+
+    const debouncedSave = useCallback(
+        debounce(async (data) => {
+            await dispatch(editItem(data))
+            setSaved(true);
+        }, 500),
+        [],
+    );
+
+    useEffect(() => {
+        const formData = {
+            itemId: item.id,
+            name,
+            description,
+            quantity: parseInt(quantity, 10)
+        }
+        debouncedSave(formData);
+    }, [debouncedSave, item.id, quantity, description, name])
+
+    const submitEdit = async (e) => {
+        e.preventDefault();
+        const formData = {
+            itemId: item.id,
+            name,
+            quantity: parseInt(quantity, 10),
+            description
+        };
+        const data = await dispatch(editItem(formData));
+        if (data) {
+            console.log("Errors!");
+        }
+        setShow(false);
+    }
+
+    const clickLook = () => {
+        setShow(!show);
+        setConfirm(false);
+        setName(item.name);
+        setDesc(item.description);
+        setSaved(false);
+    }
 
     const handleDelete = (e, id) => {
         e.preventDefault();
@@ -120,26 +172,23 @@ const ItemCard = ({ item }) => {
 
     return (
         <Card>
-            <form className="edit-item-form">
+            <form className="edit-item-form" id={`edit-item-${item.id}`} onSubmit={submitEdit}>
                 <div className="title">
                     {!show ? <span className="edit-name-field">{item.name}</span> :
                         <input type="text" className="edit-name-field" value={name} onChange={nameChange} />}
                     <div>
-                        <input className="edit-quant-field" value={quant} onChange={quantChange} type="number" />
-                        <button type="button" className="item-reveal" onClick={() => {
-                            setShow(!show);
-                            setConfirm(false);
-                            setSaved(false);
-                        }}><FontAwesomeIcon icon={!show ? faPlusCircle : faMinusCircle} /></button>
+                        <input className="edit-quant-field" value={quantity} onChange={quantChange} type="number" />
+                        <button type="button" className="item-reveal" onClick={clickLook}><FontAwesomeIcon icon={!show ? faSearchPlus : faSearchMinus} /></button>
                     </div>
                 </div>
-                {show && <textarea value={desc} onChange={descChange} rows="5" />}
+                {show && <textarea value={description} onChange={descChange} rows="5" />}
             </form>
             {
                 show && <div className="buttons">
-                    {saved && <span>Saved!</span>}
+                    {/* <button type="submit" form={`edit-item-${item.id}`}>Save</button> */}
+                    <span className='item-saved'>{saved && 'Saved!'}</span>
                     {!confirm ? <button type='button' onClick={clickDelete}>Delete</button> :
-                        <form onSubmit={(e) => handleDelete(e, item.id)}>
+                        <form onSubmit={(e) => handleDelete(e, item.id)} className='item-delete-confirm'>
                             <button type='submit'>Confirm Delete</button>
                             <button type='button' onClick={clickDelete}>Cancel</button>
                         </form>}
