@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faPlus,
     faGuitar,
+    faReply
 } from '@fortawesome/free-solid-svg-icons';
 
 import BlueBox from "../../global/BlueBox";
@@ -58,12 +59,12 @@ const Proficiencies = () => {
 
     const data = useSelector(state => state.profs)
 
-    const [mode, setMode] = useState('base');
+    const [add, setAdd] = useState(false);
 
     const profCards = useMemo(() => {
         return data.ids.map(id => {
             const prof = data.entities[id];
-            return <ProfCard key={prof.id} prof={prof} setMode={setMode} />
+            return <ProfCard key={prof.id} prof={prof} />
         })
     }, [data.entities, data.ids])
 
@@ -72,14 +73,18 @@ const Proficiencies = () => {
             <Container>
                 <div id="proficiencies-title">
                     <h2>
-                        {mode === 'base' && 'Proficiencies'}
-                        {mode === 'add' && "That might come in handy."}
+                        {!add && 'Proficiencies'}
+                        {add && "Bet you're pretty good"}
                     </h2>
-                    {mode === 'base' && <button type="button" onClick={() => setMode('add')}>
-                        <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faGuitar} />
-                    </button>}
+                    <button type="button" onClick={() => setAdd(!add)}>
+                        {!add &&
+                            <>
+                                <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faGuitar} />
+                            </>}
+                        {add && <FontAwesomeIcon icon={faReply} />}
+                    </button>
                 </div>
-                {mode === 'add' && <CreateProf setMode={setMode} />}
+                {add && <CreateProf setAdd={setAdd} />}
                 <ul>{profCards}</ul>
             </Container>
         </BlueBox >

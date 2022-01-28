@@ -37,7 +37,7 @@ const CreateForm = styled.div`
     }
 `
 
-const CreateItem = ({ setMode }) => {
+const CreateItem = ({ setAdd }) => {
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState(1);
@@ -100,7 +100,7 @@ const CreateItem = ({ setMode }) => {
                 <div className="create-buttons">
                     <button type="submit">Add</button>
                     <button type="button" onClick={() => {
-                        setMode('base');
+                        setAdd(false);
                         setQuantity(1);
                         setName('');
                         setDescription('');

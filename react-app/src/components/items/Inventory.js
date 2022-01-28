@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faPlus,
     faShoppingBag,
+    faReply
 } from '@fortawesome/free-solid-svg-icons';
 
 import BlueBox from "../../global/BlueBox";
@@ -58,12 +59,12 @@ const Inventory = () => {
 
     const data = useSelector(state => state.items)
 
-    const [mode, setMode] = useState('base');
+    const [add, setAdd] = useState(false);
 
     const itemCards = useMemo(() => {
         return data.ids.map(id => {
             const item = data.entities[id];
-            return <ItemCard key={item.id} item={item} setMode={setMode} />
+            return <ItemCard key={item.id} item={item} />
         })
     }, [data.entities, data.ids])
 
@@ -72,14 +73,18 @@ const Inventory = () => {
             <Container>
                 <div id="inventory-title">
                     <h2>
-                        {mode === 'base' && 'Inventory'}
-                        {mode === 'add' && 'Found something shiny?'}
+                        {!add && 'base' && 'Inventory'}
+                        {add && 'Found something shiny?'}
                     </h2>
-                    {mode === 'base' && <button type="button" onClick={() => setMode('add')}>
-                        <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faShoppingBag} />
-                    </button>}
+                    <button type="button" onClick={() => setAdd(!add)}>
+                        {!add &&
+                            <>
+                                <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faShoppingBag} />
+                            </>}
+                        {add && <FontAwesomeIcon icon={faReply} />}
+                    </button>
                 </div>
-                {mode === 'add' && <CreateItem setMode={setMode} />}
+                {add && <CreateItem setAdd={setAdd} />}
                 <ul>{itemCards}</ul>
             </Container>
         </BlueBox >
