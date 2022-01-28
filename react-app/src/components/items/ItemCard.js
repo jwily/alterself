@@ -118,7 +118,7 @@ const ItemCard = ({ item }) => {
         e.preventDefault();
         const formData = {
             itemId: item.id,
-            name,
+            name: name || item.name,
             quantity: parseInt(quantity, 10),
             description
         };

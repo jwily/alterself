@@ -7,7 +7,7 @@ import CreateFeat from "./CreateFeat";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faPlus,
-    faMedal,
+    faStar,
 } from '@fortawesome/free-solid-svg-icons';
 
 import BlueBox from "../../global/BlueBox";
@@ -16,7 +16,7 @@ import FeatCard from "./FeatCard";
 const Container = styled.div`
 
     margin: 1rem;
-    width: 20rem;
+    width: 17.5rem;
 
     h2 {
         font-size: 1.25rem;
@@ -77,7 +77,7 @@ const FeaturesAndTraits = () => {
                         {mode === 'add' && 'What makes you a hero?'}
                     </h2>
                     {mode === 'base' && <button type="button" onClick={() => setMode('add')}>
-                        <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faMedal} />
+                        <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faStar} />
                     </button>}
                 </div>
                 {mode === 'add' && <CreateFeat setMode={setMode} />}

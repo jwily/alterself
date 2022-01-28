@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
@@ -35,10 +35,10 @@ const Card = styled.li`
         flex-direction: column;
     }
 
-    .edit-feat-field {
+    .edit-name-field {
         font-size: 1rem;
         padding: .5rem;
-        width: 12.5rem;
+        width: 15rem;
     }
 
     .feat-delete-confirm {
@@ -95,7 +95,7 @@ const FeatCard = ({ feat }) => {
         e.preventDefault();
         const formData = {
             featId: feat.id,
-            name,
+            name: name || feat.name,
             description
         };
         const data = await dispatch(editFeat(formData));
