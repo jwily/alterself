@@ -73,7 +73,7 @@ const Proficiencies = () => {
                 <div id="proficiencies-title">
                     <h2>
                         {mode === 'base' && 'Proficiencies'}
-                        {mode === 'add' && "I bet you're good at that"}
+                        {mode === 'add' && "That might come in handy."}
                     </h2>
                     {mode === 'base' && <button type="button" onClick={() => setMode('add')}>
                         <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faGuitar} />
