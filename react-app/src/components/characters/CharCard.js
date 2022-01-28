@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import cursor from '../../images/FF7Cursor.png';
+import cursor from '../../images/FF8Cursor.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -69,7 +69,7 @@ const Icon = styled.div`
     border-radius: 20rem;
     // filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));;
     background-color: ${props => props.color};
-    font-family: 'Inconsolata', monospace;
+    font-family: 'Cormorant', serif;
 
     transition: all .15s;
 
