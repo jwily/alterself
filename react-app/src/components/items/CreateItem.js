@@ -17,6 +17,7 @@ const CreateForm = styled.div`
     label {
         margin-bottom: .5rem;
         margin-top: .5rem;
+        margin-left: .25rem;
     }
 
     .create-buttons {
