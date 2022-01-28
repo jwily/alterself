@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
+import cursor from '../../images/FF7Cursor.png';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faUserSlash,
@@ -67,13 +69,26 @@ const Icon = styled.div`
     border-radius: 20rem;
     // filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));;
     background-color: ${props => props.color};
-    font-family: 'Cormorant SC', serif;
+    font-family: 'Inconsolata', monospace;
 
     transition: all .15s;
 
     &:hover {
         width: 5.5rem;
         height: 5.5rem;
+    }
+
+    img {
+        position: absolute;
+        top: 8.5rem;
+        right: 13.25rem;
+        opacity: 0;
+        transition: opacity .15s;
+        height: 1.5rem;
+    }
+
+    &:hover img {
+        opacity: 1;
     }
 `
 
@@ -105,6 +120,7 @@ const CharCard = ({ char, idx, ids }) => {
                     <Icon className="roster-icon"
                         color={`rgb(${(char.str + char.con) * 5}, ${(char.dex + char.cha) * 5}, ${(char.int + char.wis) * 5})`}>
                         {char.name[0]}
+                        <img src={cursor} alt="cursor" />
                     </Icon>
                 </div>
             </Link>

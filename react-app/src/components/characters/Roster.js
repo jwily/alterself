@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useMemo, createContext } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { selectUser } from "../../store/session";
 import { getChars } from "../../store/characters";
 
 import CreateCharModal from "./CreateCharModal";
@@ -43,7 +42,6 @@ const Roster = () => {
         dispatch(getChars()).then(() => setIsLoaded(true))
     }, [dispatch])
 
-    const user = useSelector(selectUser());
     const data = useSelector(state => state.characters);
 
     const charCards = useMemo(() => {
