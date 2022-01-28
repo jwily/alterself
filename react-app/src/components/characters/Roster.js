@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -49,7 +49,7 @@ const Roster = () => {
     const charCards = useMemo(() => {
         return data.ids.map((id, idx) => {
             const char = data.entities.characters[id];
-            return <CharCard key={char.id} char={char} idx={idx} />
+            return <CharCard key={char.id} char={char} idx={idx} ids={data.ids} />
         })
     }, [data.entities.characters, data.ids])
 
