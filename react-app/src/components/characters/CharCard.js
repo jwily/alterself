@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -10,6 +10,7 @@ import {
 
 import { deleteChar } from "../../store/characters";
 import BlackBox from "../../global/BlackBox";
+import { RosterContext } from "./Roster";
 
 const Card = styled.li`
     margin: 1rem;
@@ -40,10 +41,6 @@ const Card = styled.li`
     // &:hover {
     //     filter: drop-shadow(0 0 5px rgba(212, 175, 55, .75));
     // }
-
-    opacity: 1;
-    // opacity: 0;
-    transition: opacity 1s;
 
     .icon-holder {
         width: 5.5rem;
@@ -85,12 +82,15 @@ const CharCard = ({ char, idx, ids }) => {
 
     const charLi = useRef(null);
 
-    // useEffect(() => {
-    //     const fadeIn = setTimeout(() => {
-    //         charLi.current.style.opacity = 1;
-    //     }, 250 * ((5 + idx) / 5));
-    //     return () => clearTimeout(fadeIn);
-    // }, [idx, ids])
+    useEffect(() => {
+        charLi.current.style.transition = '';
+        charLi.current.style.opacity = 0;
+        const fadeIn = setTimeout(() => {
+            charLi.current.style.opacity = 1;
+            charLi.current.style.transition = 'opacity .5s'
+        }, 250 * ((5 + idx) / 5));
+        return () => clearTimeout(fadeIn);
+    }, [idx, ids])
 
     const dispatch = useDispatch();
 
@@ -98,6 +98,10 @@ const CharCard = ({ char, idx, ids }) => {
         e.preventDefault();
         dispatch(deleteChar(id));
     }
+
+    const cardRefs = useContext(RosterContext);
+    cardRefs[char.id] = charLi;
+    console.log(cardRefs);
 
     return (
         <Card key={idx} ref={charLi}>
