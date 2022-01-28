@@ -30,6 +30,10 @@ const CreateForm = styled.div`
             margin-left: .5rem;
         }
     }
+
+    #prof-name {
+        font-size: 1rem;
+    }
 `
 
 const CreateProf = ({ setMode }) => {

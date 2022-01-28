@@ -30,6 +30,10 @@ const CreateForm = styled.div`
             margin-left: .5rem;
         }
     }
+
+    #forge-name {
+        font-size: 1rem;
+    }
 `
 
 const CreateItem = ({ setMode }) => {

@@ -30,6 +30,10 @@ const CreateForm = styled.div`
             margin-left: .5rem;
         }
     }
+
+    #feat-name {
+        font-size: 1rem;
+    }
 `
 
 const CreateFeat = ({ setMode }) => {
