@@ -1,7 +1,8 @@
+from msilib.schema import Feature
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Character, User, db, Item
-from app.forms import CreateCharacterForm, DeleteForm, ItemForm, EditAbilitiesForm
+from app.models import Character, User, db, Item, Feature, Proficiency
+from app.forms import CreateCharacterForm, DeleteForm, ItemForm, EditAbilitiesForm, FeatProfForm
 
 character_routes = Blueprint('characters', __name__)
 
@@ -118,6 +119,40 @@ def create_item(id):
         db.session.add(item)
         db.session.commit()
         return item.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@character_routes.route('/<int:id>/features', methods=['POST'])
+@login_required
+def create_feat(id):
+    form = FeatProfForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        feat = Feature(
+            char_id=id,
+            name=form.data['name'],
+            description=form.data['description']
+        )
+        db.session.add(feat)
+        db.session.commit()
+        return feat.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@character_routes.route('/<int:id>/profs', methods=['POST'])
+@login_required
+def create_prof(id):
+    form = FeatProfForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        prof = Proficiency(
+            char_id=id,
+            name=form.data['name'],
+            description=form.data['description']
+        )
+        db.session.add(prof)
+        db.session.commit()
+        return prof.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
