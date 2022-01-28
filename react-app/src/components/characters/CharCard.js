@@ -31,6 +31,9 @@ const Card = styled.li`
     // &:hover {
     //     filter: drop-shadow(0 0 5px rgba(212, 175, 55, .75));
     // }
+
+    opacity: 0;
+    transition: opacity 1s;
 `
 
 const Icon = styled.div`
@@ -65,7 +68,7 @@ const CharCard = ({ char, idx }) => {
     }
 
     return (
-        <Card key={idx} ref={charLi.current}>
+        <Card key={idx} ref={charLi}>
             <Icon className="roster-icon" color={`rgb(${(char.str + char.con) * 5}, ${(char.dex + char.cha) * 5}, ${(char.int + char.wis) * 5})`}>
                 {char.name[0]}
             </Icon>
