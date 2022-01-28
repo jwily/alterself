@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
-import { createItem } from "../../store/items";
+import { createProf } from "../../store/profs";
 
 const CreateForm = styled.div`
     div {
@@ -32,15 +32,14 @@ const CreateForm = styled.div`
         }
     }
 
-    #forge-name {
+    #prof-name {
         font-size: 1rem;
     }
 `
 
-const CreateItem = ({ setAdd }) => {
+const CreateProf = ({ setAdd }) => {
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState('');
-    const [quantity, setQuantity] = useState(1);
     const [description, setDescription] = useState('');
 
     const dispatch = useDispatch();
@@ -53,24 +52,18 @@ const CreateItem = ({ setAdd }) => {
             charId,
             name,
             description,
-            quantity
         }
-        const data = await dispatch(createItem(formData));
+        const data = await dispatch(createProf(formData));
         if (data) {
             setErrors(data);
         }
         setName('');
         setDescription('');
-        setQuantity(1)
         setErrors([]);
     };
 
     const updateName = (e) => {
         setName(e.target.value);
-    };
-
-    const updateQuantity = (e) => {
-        setQuantity(e.target.value);
     };
 
     const updateDescription = (e) => {
@@ -86,22 +79,17 @@ const CreateItem = ({ setAdd }) => {
                     ))}
                 </div>
                 <div>
-                    <label htmlFor="forge-name">Name</label>
-                    <input type="text" id="forge-name" required maxLength="255" value={name} onChange={updateName} />
+                    <label htmlFor="prof-name">Name</label>
+                    <input type="text" id="prof-name" required maxLength="255" value={name} onChange={updateName} />
                 </div>
                 <div>
-                    <label htmlFor="forge-quantity">Quantity</label>
-                    <input type="number" id="forge-quantity" value={quantity} onChange={updateQuantity} min="1" />
-                </div>
-                <div>
-                    <label htmlFor="forge-description">Description (Optional)</label>
-                    <textarea id="forge-description" value={description} onChange={updateDescription} rows="8" />
+                    <label htmlFor="prof-description">Description (Optional)</label>
+                    <textarea id="prof-description" value={description} onChange={updateDescription} rows="8" />
                 </div>
                 <div className="create-buttons">
                     <button type="submit">Add</button>
                     <button type="button" onClick={() => {
                         setAdd(false);
-                        setQuantity(1);
                         setName('');
                         setDescription('');
                         setErrors([]);
@@ -112,4 +100,4 @@ const CreateItem = ({ setAdd }) => {
     )
 }
 
-export default CreateItem
+export default CreateProf

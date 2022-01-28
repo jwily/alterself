@@ -99,7 +99,7 @@ function CreateCharModal() {
                             </div>
                             <div>
                                 <label htmlFor="create-background">Background</label>
-                                <input type="text" id="create-background" required maxLength="40" value={background} onChange={updateBackground} />
+                                <input type="text" className="create-background" required maxLength="40" value={background} onChange={updateBackground} />
                             </div>
                             <div>
                                 <button type="submit">Submit</button>

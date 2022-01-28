@@ -6,10 +6,14 @@ import styled from "styled-components";
 import { getChar } from "../../store/characters";
 import { getItems } from "../../store/items";
 import { getSkills } from "../../store/skills";
+import { getFeats } from "../../store/features";
+import { getProfs } from "../../store/profs";
 
 import BlueBox from "../../global/BlueBox";
 import Abilities from "./Abilities";
 import Inventory from "../items/Inventory";
+import FeaturesAndTraits from "../features/Features";
+import Proficiencies from "../profs/Proficiencies";
 
 import scholar from '../../images/scholar.png';
 
@@ -20,7 +24,7 @@ const Parent = styled.div`
 
 const Container = styled.div`
     display: grid;
-    grid-template-columns: repeat(5, min-content);
+    grid-template-columns: repeat(4, min-content);
     grid-template-rows: min-content min-content 1fr;
 
     .vitals {
@@ -28,16 +32,13 @@ const Container = styled.div`
         margin-left: 1rem;
 
         grid-column-start: 3;
-        grid-column-end: 6;
+        grid-column-end: 5;
         grid-row-start: 1;
         grid-row-end: 2;
     }
 
     .abilities {
         margin-right: 1rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
 
         grid-column-start: 1;
         grid-column-end: 2;
@@ -64,8 +65,7 @@ const Container = styled.div`
         grid-row-end: 3;
     }
 
-    .profs {
-        margin-left: 1rem;
+    .profs-feats {
         height: min-content;
 
         grid-column-start: 3;
@@ -73,31 +73,25 @@ const Container = styled.div`
         grid-row-start: 2;
         grid-row-end: 4;
 
-        padding: 1rem;
+        margin-bottom: 1rem;
+    }
 
-        width: 17.5rem;
+    .profs {
+        margin-left: 1rem;
+        margin-bottom: 1rem;
     }
 
     .feats {
         margin-left: 1rem;
-        height: min-content;
-
-        grid-column-start: 4;
-        grid-column-end: 5;
-        grid-row-start: 2;
-        grid-row-end: 4;
-
-        padding: 1rem;
-
-        width: 17.5rem;
     }
 
     .items {
         margin-left: 1rem;
         height: min-content;
+        margin-bottom: 1rem;
 
-        grid-column-start: 5;
-        grid-column-end: 6;
+        grid-column-start: 4;
+        grid-column-end: 5;
         grid-row-start: 2;
         grid-row-end: 4;
     }
@@ -146,6 +140,8 @@ const Character = () => {
         dispatch(getChar(charId))
             .then(() => dispatch(getSkills(charId)))
             .then(() => dispatch(getItems(charId)))
+            .then(() => dispatch(getProfs(charId)))
+            .then(() => dispatch(getFeats(charId)))
             .then(() => setIsLoaded(true))
     }, [dispatch, charId])
 
@@ -190,13 +186,10 @@ const Character = () => {
                             <p>Survival (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[18])}</p>
                         </BlueBox>
 
-                        <BlueBox className="profs">
-                            <h2>Proficiencies</h2>
-                        </BlueBox>
-
-                        <BlueBox className="feats">
-                            <h2>Features and Traits</h2>
-                        </BlueBox>
+                        <div className="profs-feats">
+                            <Proficiencies />
+                            <FeaturesAndTraits />
+                        </div>
 
                         <Inventory />
                         <button className="scholar"></button>

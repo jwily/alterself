@@ -5,24 +5,24 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faPlus,
-    faShoppingBag,
+    faGuitar,
     faReply
 } from '@fortawesome/free-solid-svg-icons';
 
 import BlueBox from "../../global/BlueBox";
-import ItemCard from "./ItemCard";
-import CreateItem from "./CreateItem";
+import ProfCard from './ProfCard'
+import CreateProf from "./CreateProf";
 
 const Container = styled.div`
 
     margin: 1rem;
-    width: 20rem;
+    width: 17.5rem;
 
     h2 {
         font-size: 1.25rem;
     }
 
-    #inventory-title {
+    #proficiencies-title {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -35,7 +35,7 @@ const Container = styled.div`
         margin-top: .25rem;
     }
 
-    .item-reveal {
+    .prof-reveal {
         width: fit-content;
         background-color: transparent;
         border: 0;
@@ -46,49 +46,49 @@ const Container = styled.div`
         cursor: pointer;
     }
 
-    .item-reveal:active {
+    .prof-reveal:active {
         background-color: rgba(51, 48, 47, 0.25);
     }
 
-    .item-reveal:hover {
+    .prof-reveal:hover {
         color: gold;
     }
 `
 
-const Inventory = () => {
+const Proficiencies = () => {
 
-    const data = useSelector(state => state.items)
+    const data = useSelector(state => state.profs)
 
     const [add, setAdd] = useState(false);
 
-    const itemCards = useMemo(() => {
+    const profCards = useMemo(() => {
         return data.ids.map(id => {
-            const item = data.entities[id];
-            return <ItemCard key={item.id} item={item} />
+            const prof = data.entities[id];
+            return <ProfCard key={prof.id} prof={prof} />
         })
     }, [data.entities, data.ids])
 
     return (
-        <BlueBox className="items">
+        <BlueBox className="profs">
             <Container>
-                <div id="inventory-title">
+                <div id="proficiencies-title">
                     <h2>
-                        {!add && 'base' && 'Inventory'}
-                        {add && 'Found something shiny?'}
+                        {!add && 'Proficiencies'}
+                        {add && "Bet you're pretty good"}
                     </h2>
                     <button type="button" onClick={() => setAdd(!add)}>
                         {!add &&
                             <>
-                                <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faShoppingBag} />
+                                <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faGuitar} />
                             </>}
                         {add && <FontAwesomeIcon icon={faReply} />}
                     </button>
                 </div>
-                {add && <CreateItem setAdd={setAdd} />}
-                <ul>{itemCards}</ul>
+                {add && <CreateProf setAdd={setAdd} />}
+                <ul>{profCards}</ul>
             </Container>
         </BlueBox >
     )
 }
 
-export default Inventory
+export default Proficiencies

@@ -1,38 +1,38 @@
-const SET_ITEMS = 'items/SET_ITEMS'
-const ADD_ITEM = 'items/ADD_ITEM'
-const REMOVE_ITEM = 'items/REMOVE_ITEM'
+const SET_PROFS = 'proficiencies/SET_PROFS'
+const ADD_PROF = 'proficiencies/ADD_PROF'
+const REMOVE_PROF = 'proficiencies/REMOVE_PROF'
 
-const setItems = (items) => ({
-    type: SET_ITEMS,
-    payload: items
+const setProfs = (profs) => ({
+    type: SET_PROFS,
+    payload: profs
 })
 
-const addItem = (item) => ({
-    type: ADD_ITEM,
-    payload: item
+const addProf = (prof) => ({
+    type: ADD_PROF,
+    payload: prof
 })
 
-const delItem = (id) => ({
-    type: REMOVE_ITEM,
+const delProf = (id) => ({
+    type: REMOVE_PROF,
     payload: id
 })
 
 const initialState = { entities: null, ids: [] };
 
-export const getItems = (charId) => async (dispatch) => {
-    const response = await fetch(`/api/characters/${charId}/items`);
+export const getProfs = (charId) => async (dispatch) => {
+    const response = await fetch(`/api/characters/${charId}/profs`);
     if (response.ok) {
         const data = await response.json();
         if (data.errors) {
             return;
         }
 
-        dispatch(setItems(data));
+        dispatch(setProfs(data));
     }
 }
 
-export const createItem = (formData) => async (dispatch) => {
-    const response = await fetch(`/api/characters/${formData.charId}/items`, {
+export const createProf = (formData) => async (dispatch) => {
+    const response = await fetch(`/api/characters/${formData.charId}/profs`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ export const createItem = (formData) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(addItem(data))
+        dispatch(addProf(data))
         return null;
     } else if (response.status < 500) {
         const data = await response.json();
@@ -54,8 +54,8 @@ export const createItem = (formData) => async (dispatch) => {
     }
 }
 
-export const editItem = (formData) => async (dispatch) => {
-    const response = await fetch(`/api/items/${formData.itemId}`, {
+export const editProf = (formData) => async (dispatch) => {
+    const response = await fetch(`/api/profs/${formData.profId}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ export const editItem = (formData) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(addItem(data))
+        dispatch(addProf(data))
         return null;
     } else if (response.status < 500) {
         const data = await response.json();
@@ -77,38 +77,14 @@ export const editItem = (formData) => async (dispatch) => {
     }
 }
 
-export const editQuantity = (formData) => async (dispatch) => {
-    const response = await fetch(`/api/items/${formData.itemId}/quantity`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-
-    if (response.ok) {
-        const data = await response.json();
-        dispatch(addItem(data))
-        return null;
-    } else if (response.status < 500) {
-        const data = await response.json();
-        if (data.errors) {
-            return data.errors;
-        }
-    } else {
-        return ['An error occurred. Please try again.']
-    }
-}
-
-
-export const deleteItem = (itemId) => async (dispatch) => {
-    const response = await fetch(`/api/items/${itemId}`, {
+export const deleteProf = (profId) => async (dispatch) => {
+    const response = await fetch(`/api/profs/${profId}`, {
         method: 'DELETE'
     })
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(delItem(data.itemId));
+        dispatch(delProf(data.profId));
         return data;
     } else if (response.status < 500) {
         const data = await response.json();
@@ -121,15 +97,15 @@ export const deleteItem = (itemId) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
     const newState = { ...state };
     switch (action.type) {
-        case SET_ITEMS:
+        case SET_PROFS:
             newState.entities = action.payload;
             newState.ids = Object.keys(action.payload);
             return newState;
-        case ADD_ITEM:
+        case ADD_PROF:
             newState.entities[action.payload.id] = action.payload;
             newState.ids = Object.keys(newState.entities);
             return newState
-        case REMOVE_ITEM:
+        case REMOVE_PROF:
             delete newState.entities[action.payload];
             newState.ids = Object.keys(newState.entities);
             return newState;

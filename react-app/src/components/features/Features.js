@@ -5,24 +5,24 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faPlus,
-    faShoppingBag,
+    faCrown,
     faReply
 } from '@fortawesome/free-solid-svg-icons';
 
 import BlueBox from "../../global/BlueBox";
-import ItemCard from "./ItemCard";
-import CreateItem from "./CreateItem";
+import FeatCard from "./FeatCard";
+import CreateFeat from "./CreateFeat";
 
 const Container = styled.div`
 
     margin: 1rem;
-    width: 20rem;
+    width: 17.5rem;
 
     h2 {
         font-size: 1.25rem;
     }
 
-    #inventory-title {
+    #features-title {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -35,7 +35,7 @@ const Container = styled.div`
         margin-top: .25rem;
     }
 
-    .item-reveal {
+    .feat-reveal {
         width: fit-content;
         background-color: transparent;
         border: 0;
@@ -46,49 +46,49 @@ const Container = styled.div`
         cursor: pointer;
     }
 
-    .item-reveal:active {
+    .feat-reveal:active {
         background-color: rgba(51, 48, 47, 0.25);
     }
 
-    .item-reveal:hover {
+    .feat-reveal:hover {
         color: gold;
     }
 `
 
-const Inventory = () => {
+const FeaturesAndTraits = () => {
 
-    const data = useSelector(state => state.items)
+    const data = useSelector(state => state.features)
 
     const [add, setAdd] = useState(false);
 
-    const itemCards = useMemo(() => {
+    const featCards = useMemo(() => {
         return data.ids.map(id => {
-            const item = data.entities[id];
-            return <ItemCard key={item.id} item={item} />
+            const feat = data.entities[id];
+            return <FeatCard key={feat.id} feat={feat} />
         })
     }, [data.entities, data.ids])
 
     return (
-        <BlueBox className="items">
+        <BlueBox className="feats">
             <Container>
-                <div id="inventory-title">
+                <div id="features-title">
                     <h2>
-                        {!add && 'base' && 'Inventory'}
-                        {add && 'Found something shiny?'}
+                        {!add && 'Features and Traits'}
+                        {add && "Special move! Hiyah!"}
                     </h2>
                     <button type="button" onClick={() => setAdd(!add)}>
                         {!add &&
                             <>
-                                <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faShoppingBag} />
+                                <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faCrown} />
                             </>}
                         {add && <FontAwesomeIcon icon={faReply} />}
                     </button>
                 </div>
-                {add && <CreateItem setAdd={setAdd} />}
-                <ul>{itemCards}</ul>
+                {add && <CreateFeat setAdd={setAdd} />}
+                <ul>{featCards}</ul>
             </Container>
         </BlueBox >
     )
 }
 
-export default Inventory
+export default FeaturesAndTraits

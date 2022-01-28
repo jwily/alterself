@@ -43,6 +43,10 @@ class Character(db.Model):
         'Skill', back_populates='character', cascade='all, delete')
     items = db.relationship(
         'Item', back_populates='character', cascade='all, delete')
+    profs = db.relationship(
+        'Proficiency', back_populates='character', cascade='all, delete')
+    features = db.relationship(
+        'Feature', back_populates='character', cascade='all, delete')
 
     def to_dict(self):
         return {
@@ -76,12 +80,21 @@ class Character(db.Model):
         }
 
     def to_dict_roster(self):
+
+        scores = {'str': self.strength,
+                  'dex': self.dexterity,
+                  'con': self.constitution,
+                  'int':  self.intelligence,
+                  'wis':  self.wisdom,
+                  'cha': self.charisma}
+
         return {
             'id': self.id,
             'name': self.name,
             'class': self.char_class,
             'race': self.race,
             'level': self.level,
+            'titleStats': {k: True for k, v in scores.items() if scores[k] >= 18},
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
         }

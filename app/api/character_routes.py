@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Character, User, db, Item
-from app.forms import CreateCharacterForm, DeleteCharForm, ItemForm, EditAbilitiesForm
+from app.models import Character, User, db, Item, Feature, Proficiency
+from app.forms import CreateCharacterForm, DeleteForm, ItemForm, EditAbilitiesForm, FeatProfForm
 
 character_routes = Blueprint('characters', __name__)
 
@@ -50,10 +50,26 @@ def get_items(id):
     return {item.id: item.to_dict() for item in items}
 
 
+@character_routes.route('/<int:id>/features', methods=['GET'])
+@login_required
+def get_feats(id):
+    features = Character.query.filter(
+        Character.id == id, Character.user_id == current_user.id).one().features
+    return {feature.id: feature.to_dict() for feature in features}
+
+
+@character_routes.route('/<int:id>/profs', methods=['GET'])
+@login_required
+def get_profs(id):
+    profs = Character.query.filter(
+        Character.id == id, Character.user_id == current_user.id).one().profs
+    return {prof.id: prof.to_dict() for prof in profs}
+
+
 @character_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_char(id):
-    form = DeleteCharForm()
+    form = DeleteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         char = Character.query.filter(
@@ -74,6 +90,7 @@ def create_char():
     form = CreateCharacterForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+
         char = Character(
             user_id=current_user.id,
             name=form.data['name'],
@@ -81,7 +98,29 @@ def create_char():
             char_class=form.data['charClass'],
             background=form.data['background'],
         )
+
         db.session.add(char)
+        db.session.commit()
+
+        langs = Proficiency(
+            char_id=char.id,
+            name='Languages'
+        )
+
+        equips = Proficiency(
+            char_id=char.id,
+            name='Arms and Armor'
+        )
+
+        tools = Proficiency(
+            char_id=char.id,
+            name='Tools'
+        )
+
+        db.session.add(langs)
+        db.session.add(equips)
+        db.session.add(tools)
+
         db.session.commit()
         return char.to_dict_roster()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
@@ -102,6 +141,40 @@ def create_item(id):
         db.session.add(item)
         db.session.commit()
         return item.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@character_routes.route('/<int:id>/features', methods=['POST'])
+@login_required
+def create_feat(id):
+    form = FeatProfForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        feat = Feature(
+            char_id=id,
+            name=form.data['name'],
+            description=form.data['description']
+        )
+        db.session.add(feat)
+        db.session.commit()
+        return feat.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@character_routes.route('/<int:id>/profs', methods=['POST'])
+@login_required
+def create_prof(id):
+    form = FeatProfForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        prof = Proficiency(
+            char_id=id,
+            name=form.data['name'],
+            description=form.data['description']
+        )
+        db.session.add(prof)
+        db.session.commit()
+        return prof.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
