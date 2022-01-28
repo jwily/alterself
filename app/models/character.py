@@ -26,12 +26,12 @@ class Character(db.Model):
     hd_max = db.Column(db.Integer, nullable=False, default=1)
     ds_pass = db.Column(db.Integer, nullable=False, default=0)
     ds_fail = db.Column(db.Integer, nullable=False, default=0)
-    strength = db.Column(db.Integer, nullable=False, default=0)
-    dexterity = db.Column(db.Integer, nullable=False, default=0)
-    constitution = db.Column(db.Integer, nullable=False, default=0)
-    intelligence = db.Column(db.Integer, nullable=False, default=0)
-    wisdom = db.Column(db.Integer, nullable=False, default=0)
-    charisma = db.Column(db.Integer, nullable=False, default=0)
+    strength = db.Column(db.Integer, nullable=False, default=10)
+    dexterity = db.Column(db.Integer, nullable=False, default=10)
+    constitution = db.Column(db.Integer, nullable=False, default=10)
+    intelligence = db.Column(db.Integer, nullable=False, default=10)
+    wisdom = db.Column(db.Integer, nullable=False, default=10)
+    charisma = db.Column(db.Integer, nullable=False, default=10)
     created_at = db.Column(
         db.DateTime, server_default=func.now(), nullable=False)
     updated_at = db.Column(

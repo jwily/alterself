@@ -44,6 +44,7 @@ def edit_item(id):
         if item:
             item.name = form.data['name']
             item.description = form.data['description']
+            item.quantity = form.data['quantity']
             db.session.commit()
             return item.to_dict()
         else:
