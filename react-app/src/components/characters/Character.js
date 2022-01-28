@@ -39,9 +39,6 @@ const Container = styled.div`
 
     .abilities {
         margin-right: 1rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
 
         grid-column-start: 1;
         grid-column-end: 2;
@@ -68,8 +65,7 @@ const Container = styled.div`
         grid-row-end: 3;
     }
 
-    .profs {
-        margin-left: 1rem;
+    .profs-feats {
         height: min-content;
 
         grid-column-start: 3;
@@ -78,19 +74,19 @@ const Container = styled.div`
         grid-row-end: 4;
     }
 
+    .profs {
+        margin-left: 1rem;
+        margin-bottom: 1rem;
+    }
+
     .feats {
         margin-left: 1rem;
-        height: min-content;
-
-        grid-column-start: 4;
-        grid-column-end: 5;
-        grid-row-start: 2;
-        grid-row-end: 4;
     }
 
     .items {
         margin-left: 1rem;
         height: min-content;
+        margin-bottom: 1rem;
 
         grid-column-start: 5;
         grid-column-end: 6;
@@ -188,9 +184,10 @@ const Character = () => {
                             <p>Survival (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[18])}</p>
                         </BlueBox>
 
-                        <Proficiencies />
-
-                        <FeaturesAndTraits />
+                        <div className="profs-feats">
+                            <Proficiencies />
+                            <FeaturesAndTraits />
+                        </div>
 
                         <Inventory />
                         <button className="scholar"></button>
