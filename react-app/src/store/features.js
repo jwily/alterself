@@ -20,7 +20,7 @@ const delFeat = (id) => ({
 const initialState = { entities: null, ids: [] };
 
 export const getFeats = (charId) => async (dispatch) => {
-    const response = await fetch(`/api/characters/${charId}/feats`);
+    const response = await fetch(`/api/characters/${charId}/features`);
     if (response.ok) {
         const data = await response.json();
         if (data.errors) {
@@ -32,7 +32,7 @@ export const getFeats = (charId) => async (dispatch) => {
 }
 
 export const createFeat = (formData) => async (dispatch) => {
-    const response = await fetch(`/api/characters/${formData.charId}/feats`, {
+    const response = await fetch(`/api/characters/${formData.charId}/features`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ export const createFeat = (formData) => async (dispatch) => {
 }
 
 export const editItem = (formData) => async (dispatch) => {
-    const response = await fetch(`/api/feats/${formData.featId}`, {
+    const response = await fetch(`/api/features/${formData.featId}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -78,7 +78,7 @@ export const editItem = (formData) => async (dispatch) => {
 }
 
 export const deleteFeat = (featId) => async (dispatch) => {
-    const response = await fetch(`/api/feats/${featId}`, {
+    const response = await fetch(`/api/features/${featId}`, {
         method: 'DELETE'
     })
 

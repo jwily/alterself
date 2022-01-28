@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required
 from app.models import Item, db
-from app.forms import DeleteItemForm, ItemForm, UpdateQuantityForm
+from app.forms import DeleteForm, ItemForm, UpdateQuantityForm
 
 item_routes = Blueprint('items', __name__)
 
@@ -20,7 +20,7 @@ def validation_errors_to_error_messages(validation_errors):
 @item_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_item(id):
-    form = DeleteItemForm()
+    form = DeleteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         item = Item.query.get(id)

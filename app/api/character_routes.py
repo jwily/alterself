@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Character, User, db, Item
-from app.forms import CreateCharacterForm, DeleteCharForm, ItemForm, EditAbilitiesForm
+from app.forms import CreateCharacterForm, DeleteForm, ItemForm, EditAbilitiesForm
 
 character_routes = Blueprint('characters', __name__)
 
@@ -50,10 +50,26 @@ def get_items(id):
     return {item.id: item.to_dict() for item in items}
 
 
+@character_routes.route('/<int:id>/features', methods=['GET'])
+@login_required
+def get_feats(id):
+    features = Character.query.filter(
+        Character.id == id, Character.user_id == current_user.id).one().features
+    return {feature.id: feature.to_dict() for feature in features}
+
+
+@character_routes.route('/<int:id>/profs', methods=['GET'])
+@login_required
+def get_profs(id):
+    profs = Character.query.filter(
+        Character.id == id, Character.user_id == current_user.id).one().profs
+    return {prof.id: prof.to_dict() for prof in profs}
+
+
 @character_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_char(id):
-    form = DeleteCharForm()
+    form = DeleteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         char = Character.query.filter(
