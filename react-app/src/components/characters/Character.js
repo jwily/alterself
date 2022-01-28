@@ -24,7 +24,7 @@ const Parent = styled.div`
 
 const Container = styled.div`
     display: grid;
-    grid-template-columns: repeat(5, min-content);
+    grid-template-columns: repeat(4, min-content);
     grid-template-rows: min-content min-content 1fr;
 
     .vitals {
@@ -32,7 +32,7 @@ const Container = styled.div`
         margin-left: 1rem;
 
         grid-column-start: 3;
-        grid-column-end: 6;
+        grid-column-end: 5;
         grid-row-start: 1;
         grid-row-end: 2;
     }
@@ -90,8 +90,8 @@ const Container = styled.div`
         height: min-content;
         margin-bottom: 1rem;
 
-        grid-column-start: 5;
-        grid-column-end: 6;
+        grid-column-start: 4;
+        grid-column-end: 5;
         grid-row-start: 2;
         grid-row-end: 4;
     }
