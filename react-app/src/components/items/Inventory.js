@@ -74,8 +74,7 @@ const Inventory = () => {
                 <div id="inventory-title">
                     <h2>
                         {mode === 'base' && 'Inventory'}
-                        {mode === 'add' && 'Add Item'}
-                        {mode === 'edit' && 'Edit Item'}
+                        {mode === 'add' && 'Find something new?'}
                     </h2>
                     {mode === 'base' && <button type="button" onClick={() => setMode('add')}>
                         <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faShoppingBag} />

@@ -99,7 +99,6 @@ const ItemCard = ({ item }) => {
 
     const [show, setShow] = useState(false);
     const [confirm, setConfirm] = useState(false);
-    const [saved, setSaved] = useState(false);
 
     const [name, setName] = useState(item.name);
     const [description, setDesc] = useState(item.description)
@@ -108,7 +107,6 @@ const ItemCard = ({ item }) => {
     const debouncedSave = useCallback(
         debounce(async (formData) => {
             await dispatch(editQuantity(formData))
-            setSaved(true);
         }, 500),
         [],
     );
@@ -141,7 +139,6 @@ const ItemCard = ({ item }) => {
         setConfirm(false);
         setName(item.name);
         setDesc(item.description);
-        setSaved(false);
     }
 
     const handleDelete = (e, id) => {
@@ -151,23 +148,23 @@ const ItemCard = ({ item }) => {
 
     const clickDelete = () => {
         setConfirm(!confirm);
-        setSaved(false);
     }
 
     const nameChange = (e) => {
         setName(e.target.value);
-        setSaved(false);
     }
 
     const quantChange = (e) => {
         setQuant(e.target.value);
-        setSaved(false);
     }
 
     const descChange = (e) => {
         setDesc(e.target.value);
-        setSaved(false);
     }
+
+    const handleBlur = (e) => {
+        if (e.target.value < 0 || !e.target.value) setQuant(0);
+    };
 
     return (
         <Card>
@@ -176,7 +173,7 @@ const ItemCard = ({ item }) => {
                     {!show ? <span className="edit-name-field">{item.name}</span> :
                         <input type="text" className="edit-name-field" value={name} onChange={nameChange} />}
                     <div>
-                        <input className="edit-quant-field" value={quantity} onChange={quantChange} type="number" />
+                        <input className="edit-quant-field" value={quantity} min="0" onChange={quantChange} onBlur={handleBlur} type="number" />
                         <button type="button" className="item-reveal" onClick={clickLook}><FontAwesomeIcon icon={!show ? faSearchPlus : faSearchMinus} /></button>
                     </div>
                 </div>
