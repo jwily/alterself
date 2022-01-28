@@ -1,38 +1,38 @@
-const SET_ITEMS = 'items/SET_ITEMS'
-const ADD_ITEM = 'items/ADD_ITEM'
-const REMOVE_ITEM = 'items/REMOVE_ITEM'
+const SET_FEATS = 'features/SET_FEATS'
+const ADD_FEAT = 'features/ADD_FEAT'
+const REMOVE_FEAT = 'features/REMOVE_FEAT'
 
-const setItems = (items) => ({
-    type: SET_ITEMS,
-    payload: items
+const setFeats = (feats) => ({
+    type: SET_FEATS,
+    payload: feats
 })
 
-const addItem = (item) => ({
-    type: ADD_ITEM,
-    payload: item
+const addFeat = (feat) => ({
+    type: ADD_FEAT,
+    payload: feat
 })
 
-const delItem = (id) => ({
-    type: REMOVE_ITEM,
+const delFeat = (id) => ({
+    type: REMOVE_FEAT,
     payload: id
 })
 
 const initialState = { entities: null, ids: [] };
 
-export const getItems = (charId) => async (dispatch) => {
-    const response = await fetch(`/api/characters/${charId}/items`);
+export const getFeats = (charId) => async (dispatch) => {
+    const response = await fetch(`/api/characters/${charId}/feats`);
     if (response.ok) {
         const data = await response.json();
         if (data.errors) {
             return;
         }
 
-        dispatch(setItems(data));
+        dispatch(setFeats(data));
     }
 }
 
-export const createItem = (formData) => async (dispatch) => {
-    const response = await fetch(`/api/characters/${formData.charId}/items`, {
+export const createFeat = (formData) => async (dispatch) => {
+    const response = await fetch(`/api/characters/${formData.charId}/feats`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ export const createItem = (formData) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(addItem(data))
+        dispatch(addFeat(data))
         return null;
     } else if (response.status < 500) {
         const data = await response.json();
@@ -55,7 +55,7 @@ export const createItem = (formData) => async (dispatch) => {
 }
 
 export const editItem = (formData) => async (dispatch) => {
-    const response = await fetch(`/api/items/${formData.itemId}`, {
+    const response = await fetch(`/api/feats/${formData.featId}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ export const editItem = (formData) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(addItem(data))
+        dispatch(addFeat(data))
         return null;
     } else if (response.status < 500) {
         const data = await response.json();
@@ -77,38 +77,14 @@ export const editItem = (formData) => async (dispatch) => {
     }
 }
 
-export const editQuantity = (formData) => async (dispatch) => {
-    const response = await fetch(`/api/items/${formData.itemId}/quantity`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-
-    if (response.ok) {
-        const data = await response.json();
-        dispatch(addItem(data))
-        return null;
-    } else if (response.status < 500) {
-        const data = await response.json();
-        if (data.errors) {
-            return data.errors;
-        }
-    } else {
-        return ['An error occurred. Please try again.']
-    }
-}
-
-
-export const deleteItem = (itemId) => async (dispatch) => {
-    const response = await fetch(`/api/items/${itemId}`, {
+export const deleteFeat = (featId) => async (dispatch) => {
+    const response = await fetch(`/api/feats/${featId}`, {
         method: 'DELETE'
     })
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(delItem(data.itemId));
+        dispatch(delFeat(data.featId));
         return data;
     } else if (response.status < 500) {
         const data = await response.json();
@@ -121,15 +97,15 @@ export const deleteItem = (itemId) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
     const newState = { ...state };
     switch (action.type) {
-        case SET_ITEMS:
+        case SET_FEATS:
             newState.entities = action.payload;
             newState.ids = Object.keys(action.payload);
             return newState;
-        case ADD_ITEM:
+        case ADD_FEAT:
             newState.entities[action.payload.id] = action.payload;
             newState.ids = Object.keys(newState.entities);
             return newState
-        case REMOVE_ITEM:
+        case REMOVE_FEAT:
             delete newState.entities[action.payload];
             newState.ids = Object.keys(newState.entities);
             return newState;
