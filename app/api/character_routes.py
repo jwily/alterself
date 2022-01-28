@@ -90,6 +90,7 @@ def create_char():
     form = CreateCharacterForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+
         char = Character(
             user_id=current_user.id,
             name=form.data['name'],
@@ -97,7 +98,29 @@ def create_char():
             char_class=form.data['charClass'],
             background=form.data['background'],
         )
+
         db.session.add(char)
+        db.session.commit()
+
+        langs = Proficiency(
+            char_id=char.id,
+            name='Languages'
+        )
+
+        equips = Proficiency(
+            char_id=char.id,
+            name='Arms and Armor'
+        )
+
+        tools = Proficiency(
+            char_id=char.id,
+            name='Tools'
+        )
+
+        db.session.add(langs)
+        db.session.add(equips)
+        db.session.add(tools)
+
         db.session.commit()
         return char.to_dict_roster()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

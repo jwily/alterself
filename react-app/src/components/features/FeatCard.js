@@ -145,7 +145,7 @@ const FeatCard = ({ feat }) => {
                 show && <div className="buttons">
                     {!confirm ?
                         <>
-                            <button type="submit" form={`edit-feat-${feat.id}`}>Save</button>
+                            <button type="submit" form={`edit-feat-${feat.id}`}>Update</button>
                             <button type='button' onClick={clickDelete}>Delete</button>
                         </> :
                         <form onSubmit={(e) => handleDelete(e, feat.id)} className='feat-delete-confirm'>

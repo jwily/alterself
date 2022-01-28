@@ -178,7 +178,7 @@ const ItemCard = ({ item }) => {
                 show && <div className="buttons">
                     {!confirm ?
                         <>
-                            <button type="submit" form={`edit-item-${item.id}`}>Save</button>
+                            <button type="submit" form={`edit-item-${item.id}`}>Update</button>
                             <button type='button' onClick={clickDelete}>Delete</button>
                         </> :
                         <form onSubmit={(e) => handleDelete(e, item.id)} className='item-delete-confirm'>

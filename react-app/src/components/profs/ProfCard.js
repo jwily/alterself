@@ -145,7 +145,7 @@ const ProfCard = ({ prof }) => {
                 show && <div className="buttons">
                     {!confirm ?
                         <>
-                            <button type="submit" form={`edit-prof-${prof.id}`}>Save</button>
+                            <button type="submit" form={`edit-prof-${prof.id}`}>Update</button>
                             <button type='button' onClick={clickDelete}>Delete</button>
                         </> :
                         <form onSubmit={(e) => handleDelete(e, prof.id)} className='prof-delete-confirm'>
