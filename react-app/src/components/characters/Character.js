@@ -72,6 +72,8 @@ const Container = styled.div`
         grid-column-end: 4;
         grid-row-start: 2;
         grid-row-end: 4;
+
+        margin-bottom: 1rem;
     }
 
     .profs {
