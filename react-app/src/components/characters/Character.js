@@ -152,8 +152,6 @@ const Character = () => {
     const charData = useSelector(state => state.characters.entities.character)
     const skillsData = useSelector(state => state.skills.entities)
 
-    console.log(charData, skillsData)
-
     return (
         <Parent>
             <Container>

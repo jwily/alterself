@@ -81,6 +81,29 @@ export const editItem = (formData) => async (dispatch) => {
     }
 }
 
+export const editQuantity = (formData) => async (dispatch) => {
+    const response = await fetch(`/api/items/${formData.itemId}/quantity`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(addItem(data))
+        return null;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
 
 export const deleteItem = (itemId) => async (dispatch) => {
     const response = await fetch(`/api/items/${itemId}`, {

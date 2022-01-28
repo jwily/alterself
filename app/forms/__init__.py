@@ -4,4 +4,5 @@ from .characters.create_char_form import CreateCharacterForm
 from .characters.delete_char_form import DeleteCharForm
 from .items.item_form import ItemForm
 from .items.delete_item_form import DeleteItemForm
+from .items.update_quantity_form import UpdateQuantityForm
 from .characters.edit_abilities_form import EditAbilitiesForm

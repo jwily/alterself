@@ -1,7 +1,7 @@
 from flask import Blueprint, request
-from flask_login import login_required, current_user
+from flask_login import login_required
 from app.models import Item, db
-from app.forms import DeleteItemForm, ItemForm
+from app.forms import DeleteItemForm, ItemForm, UpdateQuantityForm
 
 item_routes = Blueprint('items', __name__)
 
@@ -43,8 +43,23 @@ def edit_item(id):
         item = Item.query.get(id)
         if item:
             item.name = form.data['name']
-            item.quantity = form.data['quantity']
             item.description = form.data['description']
+            db.session.commit()
+            return item.to_dict()
+        else:
+            return {'error': 'Item not found.'}, 400
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@item_routes.route('/<int:id>/quantity', methods=['PATCH'])
+@login_required
+def update_quantity(id):
+    form = UpdateQuantityForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        item = Item.query.get(id)
+        if item:
+            item.quantity = form.data['quantity']
             db.session.commit()
             return item.to_dict()
         else:

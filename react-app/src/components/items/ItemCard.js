@@ -5,6 +5,7 @@ import debounce from "lodash/debounce"
 
 import { deleteItem } from "../../store/items";
 import { editItem } from "../../store/items";
+import { editQuantity } from "../../store/items";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -17,7 +18,7 @@ const Card = styled.li`
     .buttons {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: right;
         margin-top: .25rem;
 
         button {
@@ -105,8 +106,8 @@ const ItemCard = ({ item }) => {
     const [quantity, setQuant] = useState(item.quantity)
 
     const debouncedSave = useCallback(
-        debounce(async (data) => {
-            await dispatch(editItem(data))
+        debounce(async (formData) => {
+            await dispatch(editQuantity(formData))
             setSaved(true);
         }, 500),
         [],
@@ -115,12 +116,10 @@ const ItemCard = ({ item }) => {
     useEffect(() => {
         const formData = {
             itemId: item.id,
-            name,
-            description,
             quantity: parseInt(quantity, 10)
         }
         debouncedSave(formData);
-    }, [debouncedSave, item.id, quantity, description, name])
+    }, [debouncedSave, item.id, quantity])
 
     const submitEdit = async (e) => {
         e.preventDefault();
@@ -185,9 +184,11 @@ const ItemCard = ({ item }) => {
             </form>
             {
                 show && <div className="buttons">
-                    {/* <button type="submit" form={`edit-item-${item.id}`}>Save</button> */}
-                    <span className='item-saved'>{saved && 'Saved!'}</span>
-                    {!confirm ? <button type='button' onClick={clickDelete}>Delete</button> :
+                    {!confirm ?
+                        <>
+                            <button type="submit" form={`edit-item-${item.id}`}>Save</button>
+                            <button type='button' onClick={clickDelete}>Delete</button>
+                        </> :
                         <form onSubmit={(e) => handleDelete(e, item.id)} className='item-delete-confirm'>
                             <button type='submit'>Confirm Delete</button>
                             <button type='button' onClick={clickDelete}>Cancel</button>
