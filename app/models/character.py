@@ -94,7 +94,7 @@ class Character(db.Model):
             'class': self.char_class,
             'race': self.race,
             'level': self.level,
-            'titleStats': {k: True for k, v in scores if scores[k] >= 18},
+            'titleStats': {k: True for k, v in scores.items() if scores[k] >= 18},
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
         }
