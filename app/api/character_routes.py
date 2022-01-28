@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Character, User, db, Item
-from app.forms import CreateCharacterForm, DeleteCharForm, CreateItemForm, EditAbilitiesForm
+from app.forms import CreateCharacterForm, DeleteCharForm, ItemForm, EditAbilitiesForm
 
 character_routes = Blueprint('characters', __name__)
 
@@ -31,7 +31,7 @@ def get_chars():
 def get_char(id):
     char = Character.query.filter(
         Character.id == id, Character.user_id == current_user.id).one()
-    return {'character': char.to_dict()}
+    return char.to_dict()
 
 
 @character_routes.route('/<int:id>/skills', methods=['GET'])
@@ -39,7 +39,7 @@ def get_char(id):
 def get_skills(id):
     skills = Character.query.filter(
         Character.id == id, Character.user_id == current_user.id).one().skills
-    return {'entities': {skill.skill_num: True for skill in skills}}
+    return {skill.skill_num: True for skill in skills}
 
 
 @character_routes.route('/<int:id>/items', methods=['GET'])
@@ -47,7 +47,7 @@ def get_skills(id):
 def get_items(id):
     items = Character.query.filter(
         Character.id == id, Character.user_id == current_user.id).one().items
-    return {'entities': {item.id: item.to_dict() for item in items}}
+    return {item.id: item.to_dict() for item in items}
 
 
 @character_routes.route('/<int:id>', methods=['DELETE'])
@@ -90,7 +90,7 @@ def create_char():
 @character_routes.route('/<int:id>/items', methods=['POST'])
 @login_required
 def create_item(id):
-    form = CreateItemForm()
+    form = ItemForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         item = Item(
@@ -121,7 +121,7 @@ def edit_abilities(id):
             char.wisdom = form.data['wisdom']
             char.charisma = form.data['charisma']
             db.session.commit()
-            return {'character': char.to_dict()}
+            return char.to_dict()
         else:
             return {'error': 'Character not found.'}, 400
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

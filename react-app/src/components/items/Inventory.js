@@ -1,24 +1,22 @@
 import React, { useState, useMemo } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import CreateItem from "./CreateItem";
-import { deleteItem } from "../../store/items";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faPlus,
     faShoppingBag,
-    faPlusCircle,
-    faMinusCircle
 } from '@fortawesome/free-solid-svg-icons';
 
 import BlueBox from "../../global/BlueBox";
+import ItemCard from "./ItemCard";
 
 const Container = styled.div`
 
     margin: 1rem;
-    width: 17.5rem;
+    width: 20rem;
 
     h2 {
         font-size: 1.25rem;
@@ -57,70 +55,6 @@ const Container = styled.div`
     }
 `
 
-const Card = styled.li`
-
-    .buttons {
-        display: flex;
-        flex-direction: row;
-        justify-content: right;
-
-        button {
-            margin-left: .5rem;
-        }
-    }
-
-    .title {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    p {
-        padding: .5rem;
-        margin: .5rem 0;
-        background-color: rgba(51, 48, 47, 0.25);
-        font-size: .75rem;
-    }
-
-    span {
-        white-space: nowrap;
-        overflow: hidden;
-        display: block;
-        text-overflow: ellipsis;
-    }
-`
-
-const ItemCard = ({ item }) => {
-
-    const dispatch = useDispatch();
-
-    const [show, setShow] = useState(false);
-
-    const handleDelete = (e, id) => {
-        e.preventDefault();
-        dispatch(deleteItem(id));
-    }
-
-    return (
-        <Card>
-            <div className="title">
-                <span>{item.name}</span>
-                <button type="button" className="item-reveal" onClick={() => setShow(!show)}><FontAwesomeIcon icon={!show ? faPlusCircle : faMinusCircle} /></button>
-            </div>
-            {show && item.description && < p > {item.description}</p>}
-            {
-                show && <div className="buttons">
-                    <button type="button">Edit</button>
-                    <form onSubmit={(e) => handleDelete(e, item.id)}>
-                        <button type='submit'>Delete</button>
-                    </form>
-                </div>
-            }
-        </Card >
-    )
-}
-
 const Inventory = () => {
 
     const data = useSelector(state => state.items)
@@ -140,10 +74,11 @@ const Inventory = () => {
                 <div id="inventory-title">
                     <h2>
                         {mode === 'base' && 'Inventory'}
-                        {mode === 'add' && 'Add Item'}
-                        {mode === 'edit' && 'Edit Item'}
+                        {mode === 'add' && 'Found something shiny?'}
                     </h2>
-                    {mode === 'base' && <button type="button" onClick={() => setMode('add')}><FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faShoppingBag} /></button>}
+                    {mode === 'base' && <button type="button" onClick={() => setMode('add')}>
+                        <FontAwesomeIcon icon={faPlus} /> <FontAwesomeIcon icon={faShoppingBag} />
+                    </button>}
                 </div>
                 {mode === 'add' && <CreateItem setMode={setMode} />}
                 <ul>{itemCards}</ul>

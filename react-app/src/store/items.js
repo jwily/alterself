@@ -58,6 +58,52 @@ export const createItem = (formData) => async (dispatch) => {
     }
 }
 
+export const editItem = (formData) => async (dispatch) => {
+    const response = await fetch(`/api/items/${formData.itemId}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(addItem(data))
+        return null;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
+export const editQuantity = (formData) => async (dispatch) => {
+    const response = await fetch(`/api/items/${formData.itemId}/quantity`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(addItem(data))
+        return null;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
 
 export const deleteItem = (itemId) => async (dispatch) => {
     const response = await fetch(`/api/items/${itemId}`, {
@@ -80,8 +126,8 @@ export default function reducer(state = initialState, action) {
     const newState = { ...state };
     switch (action.type) {
         case SET_ITEMS:
-            newState.entities = action.payload.entities;
-            newState.ids = Object.keys(action.payload.entities);
+            newState.entities = action.payload;
+            newState.ids = Object.keys(action.payload);
             return newState;
         case ADD_ITEM:
             newState.entities[action.payload.id] = action.payload;

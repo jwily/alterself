@@ -41,11 +41,11 @@ const NavBar = () => {
           <AuthFormModal />
         </li>}
         {user && <>
-          <li>
+          {/* <li>
             <Link to='/'>
               Campaigns
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link to='/roster'>
               Roster

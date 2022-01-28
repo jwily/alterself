@@ -120,7 +120,7 @@ export default function reducer(state = initialState, action) {
             newState.ids = Object.keys(action.payload);
             return newState;
         case SET_CHAR:
-            newState.entities.character = action.payload.character;
+            newState.entities.character = action.payload;
             return newState;
         case ADD_CHAR:
             newState.entities.characters[action.payload.id] = action.payload;
