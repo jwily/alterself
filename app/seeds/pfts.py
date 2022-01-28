@@ -21,6 +21,6 @@ def seed_pfts():
 
 
 def undo_pfts():
-    db.session.execute('TRUNCATE items RESTART IDENTITY CASCADE;')
-    db.session.execute('TRUNCATE items RESTART IDENTITY CASCADE;')
+    db.session.execute('TRUNCATE proficiencies RESTART IDENTITY CASCADE;')
+    db.session.execute('TRUNCATE features RESTART IDENTITY CASCADE;')
     db.session.commit()
