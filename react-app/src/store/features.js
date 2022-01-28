@@ -54,7 +54,7 @@ export const createFeat = (formData) => async (dispatch) => {
     }
 }
 
-export const editItem = (formData) => async (dispatch) => {
+export const editFeat = (formData) => async (dispatch) => {
     const response = await fetch(`/api/features/${formData.featId}`, {
         method: 'PATCH',
         headers: {

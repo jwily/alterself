@@ -1,4 +1,3 @@
-from msilib.schema import Feature
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Character, User, db, Item, Feature, Proficiency

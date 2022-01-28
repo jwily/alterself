@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
-import { createItem } from "../../store/items";
+import { createFeat } from "../../store/features";
 
 const CreateForm = styled.div`
     div {
@@ -32,10 +32,9 @@ const CreateForm = styled.div`
     }
 `
 
-const CreateItem = ({ setMode }) => {
+const CreateFeat = ({ setMode }) => {
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState('');
-    const [quantity, setQuantity] = useState(1);
     const [description, setDescription] = useState('');
 
     const dispatch = useDispatch();
@@ -48,24 +47,18 @@ const CreateItem = ({ setMode }) => {
             charId,
             name,
             description,
-            quantity
         }
-        const data = await dispatch(createItem(formData));
+        const data = await dispatch(createFeat(formData));
         if (data) {
             setErrors(data);
         }
         setName('');
         setDescription('');
-        setQuantity(1)
         setErrors([]);
     };
 
     const updateName = (e) => {
         setName(e.target.value);
-    };
-
-    const updateQuantity = (e) => {
-        setQuantity(e.target.value);
     };
 
     const updateDescription = (e) => {
@@ -81,22 +74,17 @@ const CreateItem = ({ setMode }) => {
                     ))}
                 </div>
                 <div>
-                    <label htmlFor="forge-name">Name</label>
-                    <input type="text" id="forge-name" required maxLength="255" value={name} onChange={updateName} />
+                    <label htmlFor="feat-name">Name</label>
+                    <input type="text" id="feat-name" required maxLength="255" value={name} onChange={updateName} />
                 </div>
                 <div>
-                    <label htmlFor="forge-quantity">Quantity</label>
-                    <input type="number" id="forge-quantity" value={quantity} onChange={updateQuantity} min="1" />
-                </div>
-                <div>
-                    <label htmlFor="forge-description">Description (Optional)</label>
-                    <textarea id="forge-description" value={description} onChange={updateDescription} rows="5" />
+                    <label htmlFor="feat-description">Description (Optional)</label>
+                    <textarea id="feat-description" value={description} onChange={updateDescription} rows="5" />
                 </div>
                 <div id="create-buttons">
                     <button type="submit">Add</button>
                     <button type="button" onClick={() => {
                         setMode('base');
-                        setQuantity(1);
                         setName('');
                         setDescription('');
                         setErrors([]);
@@ -107,4 +95,4 @@ const CreateItem = ({ setMode }) => {
     )
 }
 
-export default CreateItem
+export default CreateFeat

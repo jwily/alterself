@@ -6,10 +6,13 @@ import styled from "styled-components";
 import { getChar } from "../../store/characters";
 import { getItems } from "../../store/items";
 import { getSkills } from "../../store/skills";
+import { getFeats } from "../../store/features";
+import { getProfs } from "../../store/profs";
 
 import BlueBox from "../../global/BlueBox";
 import Abilities from "./Abilities";
 import Inventory from "../items/Inventory";
+import FeaturesAndTraits from "../features/Features";
 
 import scholar from '../../images/scholar.png';
 
@@ -72,10 +75,6 @@ const Container = styled.div`
         grid-column-end: 4;
         grid-row-start: 2;
         grid-row-end: 4;
-
-        padding: 1rem;
-
-        width: 17.5rem;
     }
 
     .feats {
@@ -86,10 +85,6 @@ const Container = styled.div`
         grid-column-end: 5;
         grid-row-start: 2;
         grid-row-end: 4;
-
-        padding: 1rem;
-
-        width: 17.5rem;
     }
 
     .items {
@@ -146,6 +141,8 @@ const Character = () => {
         dispatch(getChar(charId))
             .then(() => dispatch(getSkills(charId)))
             .then(() => dispatch(getItems(charId)))
+            .then(() => dispatch(getProfs(charId)))
+            .then(() => dispatch(getFeats(charId)))
             .then(() => setIsLoaded(true))
     }, [dispatch, charId])
 
@@ -194,9 +191,7 @@ const Character = () => {
                             <h2>Proficiencies</h2>
                         </BlueBox>
 
-                        <BlueBox className="feats">
-                            <h2>Features and Traits</h2>
-                        </BlueBox>
+                        <FeaturesAndTraits />
 
                         <Inventory />
                         <button className="scholar"></button>
