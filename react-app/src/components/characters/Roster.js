@@ -13,13 +13,23 @@ const Container = styled.div`
     flex-direction: column;
     width: 100%;
     align-items: center;
-    margin-top: 5%;
+    margin-top: 5rem;
 
     ul {
-        margin-top 5%;
+        margin-top: 3.5rem;
         display: grid;
         grid-template-columns: repeat(5, min-content);
         grid-template-rows: auto;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+        filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
+        font-family: 'Cormorant SC', serif;
+    }
+
+    .roster-fa {
+        margin-right: .25rem;
     }
 `
 
@@ -45,7 +55,7 @@ const Roster = () => {
 
     return (
         <Container>
-            <h1>Welcome to your roster, {user.username}</h1>
+            <h1>Dive into an altered self</h1>
             <CreateCharModal />
             <ul>
                 {isLoaded && charCards}

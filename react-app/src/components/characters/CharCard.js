@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -23,7 +23,7 @@ const Card = styled.li`
         // border: 2px solid silver;
         // border-radius: .5rem;
         padding: 1rem;
-        width: 10rem;
+        width: 12.5rem;
     }
 
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
@@ -57,7 +57,7 @@ const CharCard = ({ char, idx }) => {
 
     return (
         <Card key={idx}>
-            <Icon color={`rgb(${(char.str + char.con) * 5}, ${(char.dex + char.cha) * 5}, ${(char.int + char.wis) * 5})`}>
+            <Icon className="roster-icon" color={`rgb(${(char.str + char.con) * 5}, ${(char.dex + char.cha) * 5}, ${(char.int + char.wis) * 5})`}>
                 {char.name[0]}
             </Icon>
             <BlackBox>
