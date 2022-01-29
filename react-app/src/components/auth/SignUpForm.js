@@ -23,17 +23,16 @@ const SignUpForm = ({ setToggle }) => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (password === repeatPassword) {
-      const formData = {
-        username,
-        firstName,
-        email,
-        password,
-      }
-      const data = await dispatch(signUp(formData));
-      if (data) {
-        setErrors(data)
-      }
+    const formData = {
+      username,
+      firstName,
+      email,
+      password,
+      repeatPassword
+    }
+    const data = await dispatch(signUp(formData));
+    if (data) {
+      setErrors(data)
     }
   };
 
@@ -106,7 +105,7 @@ const SignUpForm = ({ setToggle }) => {
           ></input>
         </div>
         <div>
-          <label htmlFor='repeat-password'>Repeat Password</label>
+          <label htmlFor='repeat-password'>Confirm Password</label>
           <input
             id='repeat-password'
             type='password'

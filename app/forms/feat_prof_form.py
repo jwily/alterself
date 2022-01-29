@@ -5,5 +5,5 @@ from wtforms.validators import DataRequired, Length
 
 class FeatProfForm(FlaskForm):
     name = StringField(validators=[DataRequired(), Length(
-        max=255, message='Feature or Proficiency name must not exceed 255 characters'), ])
+        max=255, message='Feature or Proficiency name cannot exceed 255 characters'), ])
     description = StringField()
