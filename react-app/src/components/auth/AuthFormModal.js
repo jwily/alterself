@@ -15,12 +15,9 @@ function AuthFormModal() {
                     setShowModal(false);
                     setToggle(true);
                 }}>
-                    <button type='button' onClick={() => setToggle(!toggle)}>
-                        {toggle ? 'Register' : 'Back to Login'}
-                    </button>
                     {toggle ?
-                        <LoginForm /> :
-                        <SignUpForm />}
+                        <LoginForm setToggle={setToggle} /> :
+                        <SignUpForm setToggle={setToggle} />}
                 </Modal>
             )}
         </>

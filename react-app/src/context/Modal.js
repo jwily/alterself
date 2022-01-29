@@ -27,6 +27,44 @@ const ModalBackground = styled.div`
 const ModalContent = styled(BlackBox)`
     position: absolute;
     padding: 1rem;
+
+    .modal-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        margin: 0 1rem;
+
+        form > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: .5rem;
+        }
+
+        input {
+            width: 15rem;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .modal-btns {
+            justify-content: end;
+            margin-top: 1.5rem;
+
+            button {
+                margin-left: .25rem;
+            }
+        }
+
+        h2 {
+            margin: 1rem;
+            font-family: 'Cormorant SC', serif;
+            font-size: 2.5rem;
+        }
+    }
 `
 
 const ModalContext = React.createContext();

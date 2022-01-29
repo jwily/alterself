@@ -3,7 +3,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 
-const SignUpForm = () => {
+import styled from 'styled-components';
+
+const Content = styled.div`
+  form > div {
+    width: 25rem;
+  }
+`
+
+const SignUpForm = ({ setToggle }) => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -60,74 +68,78 @@ const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={onSignUp}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
-      <div>
-        <label htmlFor='username'>User Name</label>
-        <input
-          id='username'
-          type='text'
-          onChange={updateUsername}
-          value={username}
-          required
-        ></input>
-      </div>
-      <div>
-        <label htmlFor='email'>Email</label>
-        <input
-          id='email'
-          type='text'
-          onChange={updateEmail}
-          value={email}
-          required
-        ></input>
-      </div>
-      <div>
-        <label>First Name</label>
-        <input
-          type='text'
-          onChange={updateFirstName}
-          value={firstName}
-          required
-        ></input>
-      </div>
-      <div>
-        <label>Last Name</label>
-        <input
-          type='text'
-          onChange={updateLastName}
-          value={lastName}
-          required
-        ></input>
-      </div>
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input
-          id='password'
-          type='password'
-          onChange={updatePassword}
-          value={password}
-          required
-        ></input>
-      </div>
-      <div>
-        <label htmlFor='repeat-password'>Repeat Password</label>
-        <input
-          id='repeat-password'
-          type='password'
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required
-        ></input>
-      </div>
-      <div>
-        <button type='submit'>Sign Up</button>
-      </div>
-    </form>
+    <Content className="modal-content">
+      <h2>Sign Up</h2>
+      <form onSubmit={onSignUp} autoComplete='off'>
+        <div>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
+        <div>
+          <label htmlFor='username'>User Name</label>
+          <input
+            id='username'
+            type='text'
+            onChange={updateUsername}
+            value={username}
+            required
+          ></input>
+        </div>
+        <div>
+          <label htmlFor='email'>Email</label>
+          <input
+            id='email'
+            type='text'
+            onChange={updateEmail}
+            value={email}
+            required
+          ></input>
+        </div>
+        <div>
+          <label>First Name</label>
+          <input
+            type='text'
+            onChange={updateFirstName}
+            value={firstName}
+            required
+          ></input>
+        </div>
+        <div>
+          <label>Last Name</label>
+          <input
+            type='text'
+            onChange={updateLastName}
+            value={lastName}
+            required
+          ></input>
+        </div>
+        <div>
+          <label htmlFor='password'>Password</label>
+          <input
+            id='password'
+            type='password'
+            onChange={updatePassword}
+            value={password}
+            required
+          ></input>
+        </div>
+        <div>
+          <label htmlFor='repeat-password'>Repeat Password</label>
+          <input
+            id='repeat-password'
+            type='password'
+            onChange={updateRepeatPassword}
+            value={repeatPassword}
+            required
+          ></input>
+        </div>
+        <div className="modal-btns">
+          <button type='submit'>Submit</button>
+          <button type="button" onClick={() => setToggle(true)}>Back to Login</button>
+        </div>
+      </form>
+    </Content>
   );
 };
 

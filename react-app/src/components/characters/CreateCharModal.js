@@ -9,45 +9,6 @@ import {
     faChild,
 } from '@fortawesome/free-solid-svg-icons';
 
-const CreateForm = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    margin: 0 1rem;
-
-    form > div {
-        width: 22.5rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: .5rem;
-    }
-
-    input {
-        width: 15rem;
-    }
-
-    textarea {
-        resize: none;
-    }
-
-    .create-char-btns {
-        justify-content: end;
-        margin-top: .75rem;
-
-        button {
-            margin-left: .25rem;
-        }
-    }
-
-    h2 {
-        margin: 1rem;
-        font-family: 'Cormorant SC', serif;
-        font-size: 2.5rem;
-    }
-`
-
 const RosterCreate = styled.button`
     margin-top: 1.5rem;
     border: none;
@@ -62,6 +23,12 @@ const RosterCreate = styled.button`
 
     &:hover {
         filter: drop-shadow(0px 0px 5px rgba(255, 215, 0, .75));
+    }
+`
+
+const Content = styled.div`
+    form > div {
+        width: 22.5rem;
     }
 `
 
@@ -118,7 +85,7 @@ function CreateCharModal() {
                 <Modal onClose={() => {
                     setShowModal(false);
                 }}>
-                    <CreateForm>
+                    <Content className='modal-content'>
                         <h2>The road goes ever on</h2>
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div>
@@ -142,12 +109,12 @@ function CreateCharModal() {
                                 <label htmlFor="create-background">Background</label>
                                 <input type="text" className="create-background" required maxLength="40" value={background} onChange={updateBackground} placeholder="Outlander" />
                             </div>
-                            <div className="create-char-btns">
+                            <div className="modal-btns">
                                 <button type="submit">Create</button>
                                 <button type="button" onClick={() => setShowModal(false)}>Return</button>
                             </div>
                         </form >
-                    </CreateForm>
+                    </Content>
                 </Modal>
             )}
         </>
