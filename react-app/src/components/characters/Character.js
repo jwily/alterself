@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory, Redirect } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import styled from "styled-components";
 
 import { getChar } from "../../store/characters";
@@ -130,8 +130,6 @@ const skillCalc = (level, ability, boolean) => {
 
 const Character = () => {
 
-    const history = useHistory();
-
     const { charId } = useParams();
 
     const [isLoaded, setIsLoaded] = useState(false);
@@ -152,7 +150,7 @@ const Character = () => {
                 setBadId(true);
             }
         })();
-    }, [dispatch, charId, history])
+    }, [dispatch, charId])
 
     const charData = useSelector(state => state.characters.entities.character)
     const skillsData = useSelector(state => state.skills.entities)
