@@ -7,7 +7,7 @@ export const BlackBox = styled.div`
 
     // filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));;
 
-    background: rgba(20, 20, 20, 1);
+    background: rgb(20, 20, 20);
 
     font-family: 'Inconsolata', monospace;
 

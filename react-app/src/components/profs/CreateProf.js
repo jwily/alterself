@@ -81,7 +81,7 @@ const CreateProf = ({ setAdd }) => {
                 </div>
                 <div>
                     <label htmlFor="prof-name">Proficiency Name or Category</label>
-                    <input type="text" id="prof-name" maxLength="255" value={name} onChange={updateName} />
+                    <input type="text" id="prof-name" value={name} onChange={updateName} />
                 </div>
                 <div>
                     <label htmlFor="prof-description">Description (Optional)</label>

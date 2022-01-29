@@ -94,7 +94,7 @@ const CreateItem = ({ setAdd }) => {
                 </div>
                 <div>
                     <label htmlFor="forge-name">Item Name</label>
-                    <input type="text" id="forge-name" maxLength="255" value={name} onChange={updateName} />
+                    <input type="text" id="forge-name" value={name} onChange={updateName} />
                 </div>
                 <div>
                     <label htmlFor="forge-quantity">Quantity</label>

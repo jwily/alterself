@@ -118,7 +118,7 @@ const CharCard = ({ char, idx, ids }) => {
             <Link to={`/roster/${char.id}`}>
                 <div className="icon-holder">
                     <Icon className="roster-icon"
-                        color={`rgb(${(char.str + char.con) * 5}, ${(char.wis + char.cha) * 5}, ${(char.int + char.dex) * 5})`}>
+                        color={`rgb(${(char.str + char.con) * 4.5 + 20}, ${(char.wis + char.cha) * 4.5 + 20}, ${(char.int + char.dex) * 4.5 + 20})`}>
                         {char.name[0].toUpperCase()}
                         <img src={cursor} alt="cursor" />
                     </Icon>
