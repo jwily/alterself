@@ -11,7 +11,8 @@ def seed_pfts():
 
     zex2 = Feature(
         char_id=1,
-        name='Wild Shape'
+        name='Wild Shape',
+        description='',
     )
 
     ayl1 = Proficiency(
@@ -22,7 +23,8 @@ def seed_pfts():
 
     ayl2 = Feature(
         char_id=2,
-        name='Healing Hands'
+        name='Healing Hands',
+        description='',
     )
 
     himo1 = Proficiency(
@@ -33,7 +35,8 @@ def seed_pfts():
 
     himo2 = Feature(
         char_id=3,
-        name='Darkvision'
+        name='Darkvision',
+        description='',
     )
 
     tol1 = Proficiency(
@@ -44,7 +47,8 @@ def seed_pfts():
 
     tol2 = Feature(
         char_id=4,
-        name='Agonizing Blast'
+        name='Agonizing Blast',
+        description='',
     )
 
     adv1 = Proficiency(
@@ -55,7 +59,8 @@ def seed_pfts():
 
     adv2 = Feature(
         char_id=5,
-        name='Wild Magic'
+        name='Wild Magic',
+        description='',
     )
 
     db.session.add(zex1)

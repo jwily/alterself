@@ -81,7 +81,7 @@ const CreateFeat = ({ setAdd }) => {
                 </div>
                 <div>
                     <label htmlFor="feat-name">Feature or Trait Name</label>
-                    <input type="text" id="feat-name" required maxLength="255" value={name} onChange={updateName} />
+                    <input type="text" id="feat-name" maxLength="255" value={name} onChange={updateName} />
                 </div>
                 <div>
                     <label htmlFor="feat-description">Description (Optional)</label>

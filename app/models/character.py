@@ -6,7 +6,7 @@ charTitles = {
     'dex': 'Dexterous',
     'con': 'Tough',
     'int': 'Intelligent',
-    'wis': 'Wisdom',
+    'wis': 'Wise',
     'cha': 'Charismatic',
     'strdex': 'Vigorous',
     'strcon': 'Unyielding',

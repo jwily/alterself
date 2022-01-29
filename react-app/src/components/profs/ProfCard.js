@@ -88,7 +88,7 @@ const ProfCard = ({ prof }) => {
     const [confirm, setConfirm] = useState(false);
 
     const [name, setName] = useState(prof.name);
-    const [description, setDesc] = useState(prof.description || '');
+    const [description, setDesc] = useState(prof.description);
 
     const submitEdit = async (e) => {
         e.preventDefault();

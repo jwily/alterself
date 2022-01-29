@@ -83,7 +83,6 @@ const SignUpForm = ({ setToggle }) => {
             type='text'
             onChange={updateUsername}
             value={username}
-            required
           ></input>
         </div>
         <div>
@@ -93,7 +92,6 @@ const SignUpForm = ({ setToggle }) => {
             type='text'
             onChange={updateEmail}
             value={email}
-            required
           ></input>
         </div>
         <div>
@@ -102,7 +100,6 @@ const SignUpForm = ({ setToggle }) => {
             type='text'
             onChange={updateFirstName}
             value={firstName}
-            required
           ></input>
         </div>
         <div>
@@ -111,7 +108,6 @@ const SignUpForm = ({ setToggle }) => {
             type='text'
             onChange={updateLastName}
             value={lastName}
-            required
           ></input>
         </div>
         <div>
@@ -121,7 +117,6 @@ const SignUpForm = ({ setToggle }) => {
             type='password'
             onChange={updatePassword}
             value={password}
-            required
           ></input>
         </div>
         <div>
@@ -131,7 +126,6 @@ const SignUpForm = ({ setToggle }) => {
             type='password'
             onChange={updateRepeatPassword}
             value={repeatPassword}
-            required
           ></input>
         </div>
         <div className="modal-btns">
