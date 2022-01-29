@@ -119,7 +119,7 @@ class Character(db.Model):
         key = ''.join(to_join)
 
         if not key:
-            return None
+            return 'Arising'
 
         if len(key) > 6:
             return 'Unforgettable'
