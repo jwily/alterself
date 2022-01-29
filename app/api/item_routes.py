@@ -48,7 +48,7 @@ def edit_item(id):
         item = Item.query.get(id)
         if item:
             char = Character.query.filter(
-                Character.id == id, Character.user_id == current_user.id).first()
+                Character.id == item.char_id, Character.user_id == current_user.id).first()
             char.updated_at = func.now()
             item.name = form.data['name']
             item.description = form.data['description']
@@ -69,7 +69,7 @@ def update_quantity(id):
         item = Item.query.get(id)
         if item:
             char = Character.query.filter(
-                Character.id == id, Character.user_id == current_user.id).first()
+                Character.id == item.char_id, Character.user_id == current_user.id).first()
             char.updated_at = func.now()
             item.quantity = form.data['quantity']
             db.session.commit()

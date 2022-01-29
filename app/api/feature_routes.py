@@ -27,7 +27,7 @@ def delete_feat(id):
         feat = Feature.query.get(id)
         if feat:
             char = Character.query.filter(
-                Character.id == id, Character.user_id == current_user.id).first()
+                Character.id == feat.char_id, Character.user_id == current_user.id).first()
             char.updated_at = func.now()
             db.session.delete(feat)
             db.session.commit()
@@ -47,7 +47,7 @@ def edit_feat(id):
         feat = Feature.query.get(id)
         if feat:
             char = Character.query.filter(
-                Character.id == id, Character.user_id == current_user.id).first()
+                Character.id == feat.char_id, Character.user_id == current_user.id).first()
             char.updated_at = func.now()
             feat.name = form.data['name']
             feat.description = form.data['description']

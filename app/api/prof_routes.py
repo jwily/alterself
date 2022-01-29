@@ -27,7 +27,7 @@ def delete_prof(id):
         prof = Proficiency.query.get(id)
         if prof:
             char = Character.query.filter(
-                Character.id == id, Character.user_id == current_user.id).first()
+                Character.id == prof.char_id, Character.user_id == current_user.id).first()
             char.updated_at = func.now()
             db.session.delete(prof)
             db.session.commit()
@@ -47,7 +47,7 @@ def edit_prof(id):
         prof = Proficiency.query.get(id)
         if prof:
             char = Character.query.filter(
-                Character.id == id, Character.user_id == current_user.id).first()
+                Character.id == prof.char_id, Character.user_id == current_user.id).first()
             char.updated_at = func.now()
             prof.name = form.data['name']
             prof.description = form.data['description']
