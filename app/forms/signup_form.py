@@ -35,5 +35,4 @@ class SignUpForm(FlaskForm):
     firstName = StringField(
         validators=[DataRequired('First name is required'), Length(max=40, message='First name cannot exceed 40 characters')])
     password = StringField(validators=[DataRequired('Password is required')])
-    repeat_password = StringField(
-        validators=[password_match])
+    repeatPassword = StringField(validators=[password_match])
