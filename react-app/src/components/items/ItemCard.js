@@ -102,7 +102,7 @@ const ItemCard = ({ item }) => {
     const debouncedSave = useCallback(
         debounce(async (formData) => {
             await dispatch(editQuantity(formData))
-        }, 500),
+        }, 350),
         [],
     );
 
