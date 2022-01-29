@@ -1,12 +1,15 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Length
 
 
 class CreateCharacterForm(FlaskForm):
-    name = StringField(validators=[DataRequired('Character name is required')])
+    name = StringField(validators=[DataRequired('Character name is required'), Length(
+        max=255, message='Character name must not exceed 255 characters')])
     charClass = StringField(
-        validators=[DataRequired('Character class is required')])
-    race = StringField(validators=[DataRequired('Character race is required')])
+        validators=[DataRequired('Character class is required'), Length(max=40, message='Class name must not exceed 40 characters')])
+    race = StringField(validators=[DataRequired('Character race is required'), Length(
+        max=40, message='Race name must not exceed 40 characters')])
     background = StringField(
-        validators=[DataRequired('Character background is required')])
+        validators=[DataRequired('Character background is required'),  Length(
+            max=40, message='Background name must not exceed 40 characters')])
