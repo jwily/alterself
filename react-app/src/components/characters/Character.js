@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Redirect } from "react-router-dom";
 import styled from "styled-components";
 
 import { getChar } from "../../store/characters";
@@ -134,7 +134,8 @@ const Character = () => {
 
     const { charId } = useParams();
 
-    const [isLoaded, setIsLoaded] = useState(false)
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [badId, setBadId] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -149,13 +150,17 @@ const Character = () => {
                 await dispatch(getFeats(charId));
                 setIsLoaded(true);
             } else {
-                history.push('/roster');
+                setBadId(true);
             }
         })();
     }, [dispatch, charId, history])
 
     const charData = useSelector(state => state.characters.entities.character)
     const skillsData = useSelector(state => state.skills.entities)
+
+    if (badId) return (
+        <Redirect to='/roster' />
+    )
 
     return (
         <Parent>
@@ -201,8 +206,8 @@ const Character = () => {
                         </div>
 
                         <Inventory />
-                        <button className="scholar"></button>
                     </>}
+                <button className="scholar"></button>
             </Container>
         </Parent>
     )
