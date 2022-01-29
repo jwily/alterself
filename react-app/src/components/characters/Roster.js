@@ -12,12 +12,12 @@ const Container = styled.div`
     flex-direction: column;
     width: 100%;
     align-items: center;
-    margin-top: 5rem;
+    margin-top: 4.5rem;
 
     ul {
         margin-top: 3.5rem;
         display: grid;
-        grid-template-columns: repeat(5, min-content);
+        grid-template-columns: repeat(4, min-content);
         grid-template-rows: auto;
     }
 

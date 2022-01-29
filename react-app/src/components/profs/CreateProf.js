@@ -29,7 +29,7 @@ const CreateForm = styled.div`
         margin-bottom: .5rem;
 
         button {
-            margin-left: .5rem;
+            margin-left: .25rem;
         }
     }
 

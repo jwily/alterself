@@ -10,14 +10,17 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const CreateForm = styled.div`
-    margin: 1rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
 
-    div {
+    margin: 0 1rem;
+
+    form > div {
         width: 22.5rem;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin: .5rem;
     }
 
@@ -27,6 +30,21 @@ const CreateForm = styled.div`
 
     textarea {
         resize: none;
+    }
+
+    .create-char-btns {
+        justify-content: end;
+        margin-top: .75rem;
+
+        button {
+            margin-left: .25rem;
+        }
+    }
+
+    h2 {
+        margin: 1rem;
+        font-family: 'Cormorant SC', serif;
+        font-size: 2.5rem;
     }
 `
 
@@ -101,6 +119,7 @@ function CreateCharModal() {
                     setShowModal(false);
                 }}>
                     <CreateForm>
+                        <h2>The road goes ever on</h2>
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div>
                                 {errors.map((error, ind) => (
@@ -109,22 +128,23 @@ function CreateCharModal() {
                             </div>
                             <div>
                                 <label htmlFor="create-name">Name</label>
-                                <input type="text" id="create-name" required maxLength="255" value={name} onChange={updateName} />
+                                <input type="text" id="create-name" required maxLength="255" value={name} onChange={updateName} placeholder="Nub the Noble" />
                             </div>
                             <div>
                                 <label htmlFor="create-race">Race</label>
-                                <input type="text" id="create-race" required maxLength="40" value={race} onChange={updateRace} />
+                                <input type="text" id="create-race" required maxLength="40" value={race} onChange={updateRace} placeholder="Goblin" />
                             </div>
                             <div>
                                 <label htmlFor="create-char-class">Class</label>
-                                <input type="text" id="create-char-class" required maxLength="40" value={charClass} onChange={updateClass} />
+                                <input type="text" id="create-char-class" required maxLength="40" value={charClass} onChange={updateClass} placeholder="Rogue" />
                             </div>
                             <div>
                                 <label htmlFor="create-background">Background</label>
-                                <input type="text" className="create-background" required maxLength="40" value={background} onChange={updateBackground} />
+                                <input type="text" className="create-background" required maxLength="40" value={background} onChange={updateBackground} placeholder="Outlander" />
                             </div>
-                            <div>
-                                <button type="submit">Submit</button>
+                            <div className="create-char-btns">
+                                <button type="submit">Create</button>
+                                <button type="button" onClick={() => setShowModal(false)}>Return</button>
                             </div>
                         </form >
                     </CreateForm>

@@ -14,7 +14,7 @@ import { deleteChar } from "../../store/characters";
 import BlackBox from "../../global/BlackBox";
 
 const Card = styled.li`
-    margin: 1rem;
+    margin: 1rem 1rem 1.25rem 1rem;
 
     width: 16.5rem;
 

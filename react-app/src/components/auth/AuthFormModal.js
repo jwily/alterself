@@ -7,10 +7,6 @@ function AuthFormModal() {
     const [showModal, setShowModal] = useState(false);
     const [toggle, setToggle] = useState(true);
 
-    // useEffect(() => {
-    //     return 'Unmounted';
-    // }, [])
-
     return (
         <>
             <button onClick={() => setShowModal(true)}>Log In</button>
