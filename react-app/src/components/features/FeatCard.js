@@ -88,7 +88,7 @@ const FeatCard = ({ feat }) => {
     const [confirm, setConfirm] = useState(false);
 
     const [name, setName] = useState(feat.name);
-    const [description, setDesc] = useState(feat.description || '');
+    const [description, setDesc] = useState(feat.description);
 
     const submitEdit = async (e) => {
         e.preventDefault();

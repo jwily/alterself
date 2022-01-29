@@ -1,3 +1,4 @@
+from doctest import debug_script
 from app.models import db, Item
 
 
@@ -11,12 +12,14 @@ def seed_items():
 
     zex2 = Item(
         char_id=1,
-        name='Druidic Focus'
+        name='Druidic Focus',
+        description='',
     )
 
     ayl1 = Item(
         char_id=2,
-        name='Chain Mail'
+        name='Chain Mail',
+        description='',
     )
 
     db.session.add(zex1)

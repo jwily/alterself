@@ -96,7 +96,7 @@ const ItemCard = ({ item }) => {
     const [changed, setChanged] = useState(false);
 
     const [name, setName] = useState(item.name);
-    const [description, setDesc] = useState(item.description || '')
+    const [description, setDesc] = useState(item.description)
     const [quantity, setQuant] = useState(item.quantity)
 
     const debouncedSave = useCallback(
