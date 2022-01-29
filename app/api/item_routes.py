@@ -1,7 +1,9 @@
 from flask import Blueprint, request
-from flask_login import login_required
-from app.models import Item, db
+from flask_login import login_required, current_user
+from app.models import Item, db, Character
 from app.forms import DeleteForm, ItemForm, UpdateQuantityForm
+from sqlalchemy.sql import func
+
 
 item_routes = Blueprint('items', __name__)
 
@@ -25,6 +27,9 @@ def delete_item(id):
     if form.validate_on_submit():
         item = Item.query.get(id)
         if item:
+            char = Character.query.filter(
+                Character.id == item.char_id, Character.user_id == current_user.id).first()
+            char.updated_at = func.now()
             db.session.delete(item)
             db.session.commit()
             return {'message': 'Item successfully deleted.',
@@ -42,6 +47,9 @@ def edit_item(id):
     if form.validate_on_submit():
         item = Item.query.get(id)
         if item:
+            char = Character.query.filter(
+                Character.id == item.char_id, Character.user_id == current_user.id).first()
+            char.updated_at = func.now()
             item.name = form.data['name']
             item.description = form.data['description']
             item.quantity = form.data['quantity']
@@ -60,6 +68,9 @@ def update_quantity(id):
     if form.validate_on_submit():
         item = Item.query.get(id)
         if item:
+            char = Character.query.filter(
+                Character.id == item.char_id, Character.user_id == current_user.id).first()
+            char.updated_at = func.now()
             item.quantity = form.data['quantity']
             db.session.commit()
             return item.to_dict()

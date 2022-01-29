@@ -20,7 +20,7 @@ const Card = styled.li`
         margin-top: .25rem;
 
         button {
-            margin-left: .5rem;
+            margin-left: .25rem;
         }
 
         span {

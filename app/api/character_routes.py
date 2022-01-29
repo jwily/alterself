@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Character, User, db, Item, Feature, Proficiency
 from app.forms import CreateCharacterForm, DeleteForm, ItemForm, EditAbilitiesForm, FeatProfForm
+from sqlalchemy.sql import func
 
 character_routes = Blueprint('characters', __name__)
 
@@ -30,15 +31,18 @@ def get_chars():
 @login_required
 def get_char(id):
     char = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).one()
-    return char.to_dict()
+        Character.id == id, Character.user_id == current_user.id).first()
+    if char:
+        return char.to_dict()
+    else:
+        return {'error': 'Character not found.'}, 400
 
 
 @character_routes.route('/<int:id>/skills', methods=['GET'])
 @login_required
 def get_skills(id):
     skills = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).one().skills
+        Character.id == id, Character.user_id == current_user.id).first().skills
     return {skill.skill_num: True for skill in skills}
 
 
@@ -46,7 +50,7 @@ def get_skills(id):
 @login_required
 def get_items(id):
     items = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).one().items
+        Character.id == id, Character.user_id == current_user.id).first().items
     return {item.id: item.to_dict() for item in items}
 
 
@@ -54,7 +58,7 @@ def get_items(id):
 @login_required
 def get_feats(id):
     features = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).one().features
+        Character.id == id, Character.user_id == current_user.id).first().features
     return {feature.id: feature.to_dict() for feature in features}
 
 
@@ -62,7 +66,7 @@ def get_feats(id):
 @login_required
 def get_profs(id):
     profs = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).one().profs
+        Character.id == id, Character.user_id == current_user.id).first().profs
     return {prof.id: prof.to_dict() for prof in profs}
 
 
@@ -73,7 +77,7 @@ def delete_char(id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         char = Character.query.filter(
-            Character.id == id, Character.user_id == current_user.id).one()
+            Character.id == id, Character.user_id == current_user.id).first()
         if char:
             db.session.delete(char)
             db.session.commit()
@@ -138,6 +142,9 @@ def create_item(id):
             description=form.data['description'],
             quantity=form.data['quantity']
         )
+        char = Character.query.filter(
+            Character.id == id, Character.user_id == current_user.id).first()
+        char.updated_at = func.now()
         db.session.add(item)
         db.session.commit()
         return item.to_dict()
@@ -155,6 +162,9 @@ def create_feat(id):
             name=form.data['name'],
             description=form.data['description']
         )
+        char = Character.query.filter(
+            Character.id == id, Character.user_id == current_user.id).first()
+        char.updated_at = func.now()
         db.session.add(feat)
         db.session.commit()
         return feat.to_dict()
@@ -172,6 +182,9 @@ def create_prof(id):
             name=form.data['name'],
             description=form.data['description']
         )
+        char = Character.query.filter(
+            Character.id == id, Character.user_id == current_user.id).first()
+        char.updated_at = func.now()
         db.session.add(prof)
         db.session.commit()
         return prof.to_dict()
@@ -185,7 +198,7 @@ def edit_abilities(id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         char = Character.query.filter(
-            Character.id == id, Character.user_id == current_user.id).one()
+            Character.id == id, Character.user_id == current_user.id).first()
         if char:
             char.strength = form.data['strength']
             char.dexterity = form.data['dexterity']

@@ -2,6 +2,7 @@ const SET_CHARS = 'characters/SET_CHARS';
 const SET_CHAR = 'characters/SET_CHAR';
 const ADD_CHAR = 'characters/ADD_CHAR';
 const REMOVE_CHAR = 'characters/REMOVE_CHAR';
+const MOUNT_CHAR = 'characters/MOUNT_CHAR';
 
 const setChars = (chars) => ({
     type: SET_CHARS,
@@ -20,6 +21,11 @@ const addChar = (char) => ({
 
 const delChar = (id) => ({
     type: REMOVE_CHAR,
+    payload: id
+})
+
+export const mountChar = (id) => ({
+    type: MOUNT_CHAR,
     payload: id
 })
 
@@ -42,11 +48,12 @@ export const getChar = (charId) => async (dispatch) => {
     const response = await fetch(`/api/characters/${charId}`);
     if (response.ok) {
         const data = await response.json();
-        if (data.errors) {
-            return;
+        if (data.error) {
+            return false;
         }
 
         dispatch(setChar(data));
+        return true
     }
 }
 
@@ -112,12 +119,22 @@ export const editAbilities = (formData) => async (dispatch) => {
     }
 }
 
+const sortByUpdate = (obj, arr) => {
+    arr.sort((a, b) => {
+        return new Date(obj[b].updatedAt) - new Date(obj[a].updatedAt)
+    })
+}
+
 export default function reducer(state = initialState, action) {
     const newState = { ...state };
     switch (action.type) {
+        case MOUNT_CHAR:
+            newState.entities.characters[action.payload].mounted = true;
+            return newState;
         case SET_CHARS:
             newState.entities.characters = action.payload;
             newState.ids = Object.keys(action.payload);
+            sortByUpdate(newState.entities.characters, newState.ids);
             return newState;
         case SET_CHAR:
             newState.entities.character = action.payload;
@@ -125,10 +142,12 @@ export default function reducer(state = initialState, action) {
         case ADD_CHAR:
             newState.entities.characters[action.payload.id] = action.payload;
             newState.ids = Object.keys(newState.entities.characters)
+            sortByUpdate(newState.entities.characters, newState.ids);
             return newState;
         case REMOVE_CHAR:
             delete newState.entities.characters[action.payload];
             newState.ids = Object.keys(newState.entities.characters)
+            sortByUpdate(newState.entities.characters, newState.ids);
             return newState;
         default:
             return state;

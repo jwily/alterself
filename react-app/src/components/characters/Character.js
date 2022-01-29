@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import styled from "styled-components";
 
 import { getChar } from "../../store/characters";
@@ -132,21 +132,32 @@ const Character = () => {
 
     const { charId } = useParams();
 
-    const [isLoaded, setIsLoaded] = useState(false)
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [badId, setBadId] = useState(false);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getChar(charId))
-            .then(() => dispatch(getSkills(charId)))
-            .then(() => dispatch(getItems(charId)))
-            .then(() => dispatch(getProfs(charId)))
-            .then(() => dispatch(getFeats(charId)))
-            .then(() => setIsLoaded(true))
+        (async () => {
+            const char = await dispatch(getChar(charId));
+            if (char) {
+                await dispatch(getSkills(charId));
+                await dispatch(getItems(charId));
+                await dispatch(getProfs(charId));
+                await dispatch(getFeats(charId));
+                setIsLoaded(true);
+            } else {
+                setBadId(true);
+            }
+        })();
     }, [dispatch, charId])
 
     const charData = useSelector(state => state.characters.entities.character)
     const skillsData = useSelector(state => state.skills.entities)
+
+    if (badId) return (
+        <Redirect to='/roster' />
+    )
 
     return (
         <Parent>
@@ -192,8 +203,8 @@ const Character = () => {
                         </div>
 
                         <Inventory />
-                        <button className="scholar"></button>
                     </>}
+                <button className="scholar"></button>
             </Container>
         </Parent>
     )

@@ -1,7 +1,8 @@
 from flask import Blueprint, request
-from flask_login import login_required
-from app.models import Proficiency, db
+from flask_login import login_required, current_user
+from app.models import Proficiency, db, Character
 from app.forms import FeatProfForm, DeleteForm
+from sqlalchemy.sql import func
 
 prof_routes = Blueprint('profs', __name__)
 
@@ -25,6 +26,9 @@ def delete_prof(id):
     if form.validate_on_submit():
         prof = Proficiency.query.get(id)
         if prof:
+            char = Character.query.filter(
+                Character.id == prof.char_id, Character.user_id == current_user.id).first()
+            char.updated_at = func.now()
             db.session.delete(prof)
             db.session.commit()
             return {'message': 'Item successfully deleted.',
@@ -42,6 +46,9 @@ def edit_prof(id):
     if form.validate_on_submit():
         prof = Proficiency.query.get(id)
         if prof:
+            char = Character.query.filter(
+                Character.id == prof.char_id, Character.user_id == current_user.id).first()
+            char.updated_at = func.now()
             prof.name = form.data['name']
             prof.description = form.data['description']
             db.session.commit()

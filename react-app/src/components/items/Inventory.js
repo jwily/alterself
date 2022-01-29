@@ -74,7 +74,7 @@ const Inventory = () => {
                 <div id="inventory-title">
                     <h2>
                         {!add && 'base' && 'Inventory'}
-                        {add && 'Found something shiny?'}
+                        {add && 'What do you treasure?'}
                     </h2>
                     <button type="button" onClick={() => setAdd(!add)}>
                         {!add &&

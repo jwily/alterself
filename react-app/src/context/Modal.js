@@ -2,6 +2,8 @@ import React, { useContext, useRef, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
+import BlackBox from '../global/BlackBox';
+
 const ModalContainer = styled.div`
     position: fixed;
     top: 0;
@@ -19,12 +21,50 @@ const ModalBackground = styled.div`
     right: 0;
     left: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.75);
 `
 
-const ModalContent = styled.div`
+const ModalContent = styled(BlackBox)`
     position: absolute;
-    background-color: black;
+    padding: 1rem;
+
+    .modal-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        margin: 0 1rem;
+
+        form > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: .5rem;
+        }
+
+        input {
+            width: 15rem;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .modal-btns {
+            justify-content: end;
+            margin-top: 1.5rem;
+
+            button {
+                margin-left: .25rem;
+            }
+        }
+
+        h2 {
+            margin: 1rem;
+            font-family: 'Cormorant SC', serif;
+            font-size: 2.5rem;
+        }
+    }
 `
 
 const ModalContext = React.createContext();
