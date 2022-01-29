@@ -139,6 +139,10 @@ const Character = () => {
 
     useEffect(() => {
         (async () => {
+            if (isNaN(parseInt(charId, 10))) {
+                setBadId(true);
+                return;
+            }
             const char = await dispatch(getChar(charId));
             if (char) {
                 await dispatch(getSkills(charId));

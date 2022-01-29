@@ -8,7 +8,7 @@ def seed_characters():
         name='Zexceed',
         char_class='Druid',
         race='Dragonborn',
-        background='Sailor (Pirate)',
+        background='Pirate',
         strength=12,
         dexterity=15,
         constitution=16,
