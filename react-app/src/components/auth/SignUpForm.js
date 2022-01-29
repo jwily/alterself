@@ -70,14 +70,14 @@ const SignUpForm = ({ setToggle }) => {
   return (
     <Content className="modal-content">
       <h2>Sign Up</h2>
+      <div className="modal-errors">
+        {errors.map((error, ind) => (
+          <div key={ind}>{error}</div>
+        ))}
+      </div>
       <form onSubmit={onSignUp} autoComplete='off'>
         <div>
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
-        </div>
-        <div>
-          <label htmlFor='username'>User Name</label>
+          <label htmlFor='username'>Username</label>
           <input
             id='username'
             type='text'
