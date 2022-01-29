@@ -66,6 +66,8 @@ const CreateItem = ({ setAdd }) => {
         setErrors([]);
     };
 
+
+
     const updateName = (e) => {
         setName(e.target.value);
     };
@@ -76,6 +78,10 @@ const CreateItem = ({ setAdd }) => {
 
     const updateDescription = (e) => {
         setDescription(e.target.value);
+    };
+
+    const handleBlur = (e) => {
+        if (e.target.value <= 0 || !e.target.value) setQuantity(1);
     };
 
     return (
@@ -92,7 +98,7 @@ const CreateItem = ({ setAdd }) => {
                 </div>
                 <div>
                     <label htmlFor="forge-quantity">Quantity</label>
-                    <input type="number" id="forge-quantity" value={quantity} onChange={updateQuantity} min="1" />
+                    <input type="number" id="forge-quantity" value={quantity} onBlur={handleBlur} onChange={updateQuantity} min="1" />
                 </div>
                 <div>
                     <label htmlFor="forge-description">Description (Optional)</label>

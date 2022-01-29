@@ -79,19 +79,19 @@ const Abilities = ({ charData }) => {
         debounce(async (data) => {
             await dispatch(editAbilities(data));
             console.log('Saved!')
-        }, 250),
+        }, 350),
         [],
     );
 
     useEffect(() => {
         const data = {
             charId: charData.id,
-            strength: parseInt(str, 10),
-            dexterity: parseInt(dex, 10),
-            constitution: parseInt(con, 10),
-            intelligence: parseInt(int, 10),
-            wisdom: parseInt(wis, 10),
-            charisma: parseInt(cha, 10),
+            strength: parseInt(str, 10) || 0,
+            dexterity: parseInt(dex, 10) || 0,
+            constitution: parseInt(con, 10) || 0,
+            intelligence: parseInt(int, 10) || 0,
+            wisdom: parseInt(wis, 10) || 0,
+            charisma: parseInt(cha, 10) || 0,
         }
         if (changed) debouncedSave(data);
     }, [debouncedSave, charData.id, str, dex, con, int, wis, cha, changed])
