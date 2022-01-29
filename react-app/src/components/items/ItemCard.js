@@ -93,6 +93,7 @@ const ItemCard = ({ item }) => {
 
     const [show, setShow] = useState(false);
     const [confirm, setConfirm] = useState(false);
+    const [changed, setChanged] = useState(false);
 
     const [name, setName] = useState(item.name);
     const [description, setDesc] = useState(item.description || '')
@@ -110,8 +111,11 @@ const ItemCard = ({ item }) => {
             itemId: item.id,
             quantity: parseInt(quantity, 10)
         }
-        debouncedSave(formData);
-    }, [debouncedSave, item.id, quantity])
+
+        if (changed) {
+            debouncedSave(formData);
+        }
+    }, [debouncedSave, item.id, quantity, changed])
 
     const submitEdit = async (e) => {
         e.preventDefault();
@@ -149,6 +153,7 @@ const ItemCard = ({ item }) => {
     }
 
     const quantChange = (e) => {
+        setChanged(true);
         setQuant(e.target.value);
     }
 
