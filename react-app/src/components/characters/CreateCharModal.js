@@ -95,19 +95,19 @@ function CreateCharModal() {
                             </div>
                             <div>
                                 <label htmlFor="create-name">Name</label>
-                                <input type="text" id="create-name" required maxLength="255" value={name} onChange={updateName} placeholder="Nub the Noble" />
+                                <input type="text" id="create-name" required maxLength="255" value={name} onChange={updateName} placeholder="Samwise" />
                             </div>
                             <div>
                                 <label htmlFor="create-race">Race</label>
-                                <input type="text" id="create-race" required maxLength="40" value={race} onChange={updateRace} placeholder="Goblin" />
+                                <input type="text" id="create-race" required maxLength="40" value={race} onChange={updateRace} placeholder="Halfling" />
                             </div>
                             <div>
                                 <label htmlFor="create-char-class">Class</label>
-                                <input type="text" id="create-char-class" required maxLength="40" value={charClass} onChange={updateClass} placeholder="Rogue" />
+                                <input type="text" id="create-char-class" required maxLength="40" value={charClass} onChange={updateClass} placeholder="Paladin" />
                             </div>
                             <div>
                                 <label htmlFor="create-background">Background</label>
-                                <input type="text" className="create-background" required maxLength="40" value={background} onChange={updateBackground} placeholder="Outlander" />
+                                <input type="text" className="create-background" required maxLength="40" value={background} onChange={updateBackground} placeholder="Folk Hero" />
                             </div>
                             <div className="modal-btns">
                                 <button type="submit">Create</button>
