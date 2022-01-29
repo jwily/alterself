@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import { getChar } from "../../store/characters";
@@ -130,6 +130,8 @@ const skillCalc = (level, ability, boolean) => {
 
 const Character = () => {
 
+    const history = useHistory();
+
     const { charId } = useParams();
 
     const [isLoaded, setIsLoaded] = useState(false)
@@ -137,13 +139,20 @@ const Character = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getChar(charId))
-            .then(() => dispatch(getSkills(charId)))
-            .then(() => dispatch(getItems(charId)))
-            .then(() => dispatch(getProfs(charId)))
-            .then(() => dispatch(getFeats(charId)))
-            .then(() => setIsLoaded(true))
-    }, [dispatch, charId])
+
+        (async () => {
+            const char = await dispatch(getChar(charId));
+            if (char) {
+                await dispatch(getSkills(charId));
+                await dispatch(getItems(charId));
+                await dispatch(getProfs(charId));
+                await dispatch(getFeats(charId));
+                setIsLoaded(true);
+            } else {
+                history.push('/roster');
+            }
+        })();
+    }, [dispatch, charId, history])
 
     const charData = useSelector(state => state.characters.entities.character)
     const skillsData = useSelector(state => state.skills.entities)

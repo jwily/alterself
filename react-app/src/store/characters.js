@@ -42,11 +42,12 @@ export const getChar = (charId) => async (dispatch) => {
     const response = await fetch(`/api/characters/${charId}`);
     if (response.ok) {
         const data = await response.json();
-        if (data.errors) {
-            return;
+        if (data.error) {
+            return false;
         }
 
         dispatch(setChar(data));
+        return true
     }
 }
 
