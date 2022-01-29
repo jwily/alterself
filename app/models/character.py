@@ -1,6 +1,30 @@
 from .db import db
 from sqlalchemy.sql import func
 
+charTitles = {
+    'str': 'Strong',
+    'dex': 'Dexterous',
+    'con': 'Tough',
+    'int': 'Intelligent',
+    'wis': 'Wisdom',
+    'cha': 'Charismatic',
+    'strdex': 'Vigorous',
+    'strcon': 'Unyielding',
+    'strint': 'Consummate',
+    'strwis': 'Stalwart',
+    'strcha': 'Inspiring',
+    'dexcon': 'Tireless',
+    'dexint': 'Brilliant',
+    'dexwis': 'Artful',
+    'dexcha': 'Graceful',
+    'conint': 'Unflinching',
+    'conwis': 'Resilient',
+    'concha': 'Vivacious',
+    'intwis': 'Sagacious',
+    'intcha': 'Cunning',
+    'wischa': 'Insightful',
+}
+
 
 class Character(db.Model):
     __tablename__ = 'characters'
@@ -79,14 +103,30 @@ class Character(db.Model):
             'updatedAt': self.updated_at,
         }
 
-    def to_dict_roster(self):
+    def generate_title(self):
 
-        scores = {'str': self.strength,
-                  'dex': self.dexterity,
-                  'con': self.constitution,
-                  'int':  self.intelligence,
-                  'wis':  self.wisdom,
-                  'cha': self.charisma}
+        scores = [
+            ('str', self.strength),
+            ('dex', self.dexterity),
+            ('con', self.constitution),
+            ('int', self.intelligence),
+            ('wis', self.wisdom),
+            ('cha', self.charisma),
+        ]
+
+        to_join = [k for (k, v) in scores if v >= 16]
+
+        key = ''.join(to_join)
+
+        if not key:
+            return 'Awakening'
+
+        if len(key) > 6:
+            return 'Peerless'
+
+        return charTitles[key]
+
+    def to_dict_roster(self):
 
         return {
             'id': self.id,
@@ -94,7 +134,14 @@ class Character(db.Model):
             'class': self.char_class,
             'race': self.race,
             'level': self.level,
-            'titleStats': {k: True for k, v in scores.items() if scores[k] >= 18},
+            'str': self.strength,
+            'dex': self.dexterity,
+            'con': self.constitution,
+            'int': self.intelligence,
+            'wis': self.wisdom,
+            'cha': self.charisma,
+            'background': self.background,
+            'title': self.generate_title(),
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
         }

@@ -4,6 +4,11 @@ import { useDispatch } from 'react-redux';
 import { createChar } from "../../store/characters";
 import styled from 'styled-components';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+    faChild,
+} from '@fortawesome/free-solid-svg-icons';
+
 const CreateForm = styled.div`
     margin: 1rem;
     display: flex;
@@ -22,6 +27,23 @@ const CreateForm = styled.div`
 
     textarea {
         resize: none;
+    }
+`
+
+const RosterCreate = styled.button`
+    margin-top: 1.5rem;
+    border: none;
+    background-color: transparent;
+    font-size: 1.5rem;
+    color: whitesmoke;
+    cursor: pointer;
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
+    font-family: 'Cormorant', serif;
+
+    transition: filter .15s;
+
+    &:hover {
+        filter: drop-shadow(0px 0px 5px rgba(255, 215, 0, .75));
     }
 `
 
@@ -73,7 +95,7 @@ function CreateCharModal() {
 
     return (
         <>
-            <button onClick={() => setShowModal(true)}>Create</button>
+            <RosterCreate onClick={() => setShowModal(true)}><FontAwesomeIcon className="roster-fa" icon={faChild} /> Create</RosterCreate>
             {showModal && (
                 <Modal onClose={() => {
                     setShowModal(false);

@@ -63,7 +63,6 @@ const Card = styled.li`
     span {
         white-space: nowrap;
         overflow: hidden;
-        display: block;
         text-overflow: ellipsis;
     }
 
