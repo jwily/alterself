@@ -66,17 +66,20 @@ const Abilities = ({ charData }) => {
 
     const dispatch = useDispatch()
 
-    const [str, setStr] = useState(charData.str)
-    const [dex, setDex] = useState(charData.dex)
-    const [con, setCon] = useState(charData.con)
-    const [int, setInt] = useState(charData.int)
-    const [wis, setWis] = useState(charData.wis)
-    const [cha, setCha] = useState(charData.cha)
+    const [changed, setChanged] = useState(false);
+
+    const [str, setStr] = useState(charData.str);
+    const [dex, setDex] = useState(charData.dex);
+    const [con, setCon] = useState(charData.con);
+    const [int, setInt] = useState(charData.int);
+    const [wis, setWis] = useState(charData.wis);
+    const [cha, setCha] = useState(charData.cha);
 
     const debouncedSave = useCallback(
         debounce(async (data) => {
-            await dispatch(editAbilities(data))
-        }, 500),
+            await dispatch(editAbilities(data));
+            console.log('Saved!')
+        }, 250),
         [],
     );
 
@@ -90,8 +93,8 @@ const Abilities = ({ charData }) => {
             wisdom: parseInt(wis, 10),
             charisma: parseInt(cha, 10),
         }
-        debouncedSave(data);
-    }, [debouncedSave, charData.id, str, dex, con, int, wis, cha])
+        if (changed) debouncedSave(data);
+    }, [debouncedSave, charData.id, str, dex, con, int, wis, cha, changed])
 
     const handleBlur = (e, func) => {
         if (e.target.value > 20) {
@@ -99,6 +102,36 @@ const Abilities = ({ charData }) => {
         } else if (e.target.value < 0 || !e.target.value) {
             func(0);
         }
+    };
+
+    const changeStr = (e) => {
+        setChanged(true);
+        setStr(e.target.value);
+    };
+
+    const changeDex = (e) => {
+        setChanged(true);
+        setDex(e.target.value);
+    };
+
+    const changeCon = (e) => {
+        setChanged(true);
+        setCon(e.target.value);
+    };
+
+    const changeInt = (e) => {
+        setChanged(true);
+        setInt(e.target.value);
+    };
+
+    const changeWis = (e) => {
+        setChanged(true);
+        setWis(e.target.value);
+    };
+
+    const changeCha = (e) => {
+        setChanged(true);
+        setCha(e.target.value);
     };
 
     return (
@@ -114,7 +147,7 @@ const Abilities = ({ charData }) => {
                     </label>
                     <input max="20" min="0" id={`${charData.id}-str`} type="number" value={str}
                         onBlur={(e) => handleBlur(e, setStr)}
-                        onChange={(e) => setStr(e.target.value)} />
+                        onChange={changeStr} />
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-dex`}>
@@ -126,19 +159,19 @@ const Abilities = ({ charData }) => {
                     </label>
                     <input max="20" min="0" id={`${charData.id}-dex`} type="number" value={dex}
                         onBlur={(e) => handleBlur(e, setDex)}
-                        onChange={(e) => setDex(e.target.value)} />
+                        onChange={changeDex} />
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-con`}>
                         <span>Constitution</span>
                         <div className="mod">
                             <FontAwesomeIcon icon={faHandHoldingWater} />
-                            <span>{modDisplay(con)}</span>
+                            <span>{modDisplay(dex)}</span>
                         </div>
                     </label>
                     <input max="20" min="0" id={`${charData.id}-con`} type="number" value={con}
                         onBlur={(e) => handleBlur(e, setCon)}
-                        onChange={(e) => setCon(e.target.value)} />
+                        onChange={changeCon} />
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-int`}>
@@ -150,7 +183,7 @@ const Abilities = ({ charData }) => {
                     </label>
                     <input max="20" min="0" id={`${charData.id}-int`} type="number" value={int}
                         onBlur={(e) => handleBlur(e, setInt)}
-                        onChange={(e) => setInt(e.target.value)} />
+                        onChange={changeInt} />
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-wis`}>
@@ -162,7 +195,7 @@ const Abilities = ({ charData }) => {
                     </label>
                     <input max="20" min="0" id={`${charData.id}-wis`} type="number" value={wis}
                         onBlur={(e) => handleBlur(e, setWis)}
-                        onChange={(e) => setWis(e.target.value)} />
+                        onChange={changeWis} />
                 </AbilityDiv>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-cha`}>
@@ -174,7 +207,7 @@ const Abilities = ({ charData }) => {
                     </label>
                     <input max="20" min="0" id={`${charData.id}-cha`} type="number" value={cha}
                         onBlur={(e) => handleBlur(e, setCha)}
-                        onChange={(e) => setCha(e.target.value)} />
+                        onChange={changeCha} />
                 </AbilityDiv>
             </Container>
         </BlueBox>
