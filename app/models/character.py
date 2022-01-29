@@ -140,6 +140,7 @@ class Character(db.Model):
             'int': self.intelligence,
             'wis': self.wisdom,
             'cha': self.charisma,
+            'background': self.background,
             'title': self.generate_title(),
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,

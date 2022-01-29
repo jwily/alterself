@@ -16,32 +16,26 @@ import BlackBox from "../../global/BlackBox";
 const Card = styled.li`
     margin: 1rem;
 
-    width: 15rem;
+    width: 16.5rem;
 
     display: flex;
     flex-direction: column;
     align-items: center;
 
     .roster-info {
-        // background: black;
-        // border: 2px solid silver;
-        // border-radius: .5rem;
         padding: 1rem;
-        width: 12.5rem;
+        width: 15rem;
 
         div {
+            margin-top: .5rem;
             flex-direction: row;
             display: flex;
-            align-items: center;
+            align-items: start;
             justify-content: space-between;
         }
     }
 
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
-
-    // &:hover {
-    //     filter: drop-shadow(0 0 5px rgba(212, 175, 55, .75));
-    // }
 
     .icon-holder {
         width: 5.5rem;
@@ -67,7 +61,6 @@ const Icon = styled.div`
     justify-content: center;
     font-size: 2.5rem;
     border-radius: 20rem;
-    // filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));;
     background-color: ${props => props.color};
     font-family: 'Cormorant', serif;
 
@@ -80,8 +73,8 @@ const Icon = styled.div`
 
     img {
         position: absolute;
-        top: 8.5rem;
-        right: 13.25rem;
+        top: 8.25rem;
+        right: 15.25rem;
         opacity: 0;
         transition: opacity .15s;
         height: 1.5rem;
@@ -118,7 +111,7 @@ const CharCard = ({ char, idx, ids }) => {
             <Link to={`/roster/${char.id}`}>
                 <div className="icon-holder">
                     <Icon className="roster-icon"
-                        color={`rgb(${(char.str + char.con) * 5}, ${(char.dex + char.cha) * 5}, ${(char.int + char.wis) * 5})`}>
+                        color={`rgb(${(char.str + char.con) * 5}, ${(char.wis + char.cha) * 5}, ${(char.int + char.dex) * 5})`}>
                         {char.name[0]}
                         <img src={cursor} alt="cursor" />
                     </Icon>
@@ -128,7 +121,7 @@ const CharCard = ({ char, idx, ids }) => {
                 <div className="roster-info">
                     <p>{char.name}</p>
                     <p>Level {char.level} {char.class}</p>
-                    <p>{char.race}</p>
+                    <p>{char.race} {char.background}</p>
                     <div>
                         <span>{char.title}</span>
                         <form onSubmit={(e) => handleDelete(e, char.id)}>
