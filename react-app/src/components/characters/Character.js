@@ -140,7 +140,6 @@ const Character = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-
         (async () => {
             const char = await dispatch(getChar(charId));
             if (char) {

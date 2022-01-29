@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Character, User, db, Item, Feature, Proficiency
 from app.forms import CreateCharacterForm, DeleteForm, ItemForm, EditAbilitiesForm, FeatProfForm
+from sqlalchemy.sql import func
 
 character_routes = Blueprint('characters', __name__)
 
@@ -141,6 +142,9 @@ def create_item(id):
             description=form.data['description'],
             quantity=form.data['quantity']
         )
+        char = Character.query.filter(
+            Character.id == id, Character.user_id == current_user.id).first()
+        char.updated_at = func.now()
         db.session.add(item)
         db.session.commit()
         return item.to_dict()
@@ -158,6 +162,9 @@ def create_feat(id):
             name=form.data['name'],
             description=form.data['description']
         )
+        char = Character.query.filter(
+            Character.id == id, Character.user_id == current_user.id).first()
+        char.updated_at = func.now()
         db.session.add(feat)
         db.session.commit()
         return feat.to_dict()
@@ -175,6 +182,9 @@ def create_prof(id):
             name=form.data['name'],
             description=form.data['description']
         )
+        char = Character.query.filter(
+            Character.id == id, Character.user_id == current_user.id).first()
+        char.updated_at = func.now()
         db.session.add(prof)
         db.session.commit()
         return prof.to_dict()

@@ -11,6 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import { deleteChar } from "../../store/characters";
+import { mountChar } from "../../store/characters";
 import BlackBox from "../../global/BlackBox";
 
 const Card = styled.li`
@@ -89,17 +90,20 @@ const CharCard = ({ char, idx, ids }) => {
 
     const charLi = useRef(null);
 
-    useEffect(() => {
-        charLi.current.style.opacity = 0;
-        charLi.current.style.transition = '';
-        const fadeIn = setTimeout(() => {
-            charLi.current.style.opacity = 1;
-            charLi.current.style.transition = 'opacity .75s'
-        }, 250 * ((5 + idx) / 5));
-        return () => clearTimeout(fadeIn);
-    }, [idx, ids])
-
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!char.mounted) {
+            charLi.current.style.opacity = 0;
+            charLi.current.style.transition = '';
+            const fadeIn = setTimeout(() => {
+                charLi.current.style.opacity = 1;
+                charLi.current.style.transition = 'opacity .75s'
+            }, 250 * ((5 + idx) / 5));
+            dispatch(mountChar(char.id))
+            return () => clearTimeout(fadeIn);
+        }
+    }, [idx, ids, char.id, char.mounted, dispatch])
 
     const handleDelete = (e, id) => {
         e.preventDefault();
