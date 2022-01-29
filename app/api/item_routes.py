@@ -28,7 +28,7 @@ def delete_item(id):
         item = Item.query.get(id)
         if item:
             char = Character.query.filter(
-                Character.id == id, Character.user_id == current_user.id).first()
+                Character.id == item.char_id, Character.user_id == current_user.id).first()
             char.updated_at = func.now()
             db.session.delete(item)
             db.session.commit()
