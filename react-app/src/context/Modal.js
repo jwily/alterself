@@ -50,6 +50,15 @@ const ModalContent = styled(BlackBox)`
             resize: none;
         }
 
+        .modal-errors {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: .5rem;
+            margin-bottom: 1.5rem;
+            color: rgb(236, 52, 35);
+        }
+
         .modal-btns {
             justify-content: end;
             margin-top: 1.5rem;

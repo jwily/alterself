@@ -16,7 +16,6 @@ const SignUpForm = ({ setToggle }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const user = useSelector(state => state.session.user);
@@ -28,7 +27,6 @@ const SignUpForm = ({ setToggle }) => {
       const formData = {
         username,
         firstName,
-        lastName,
         email,
         password,
       }
@@ -45,10 +43,6 @@ const SignUpForm = ({ setToggle }) => {
 
   const updateFirstName = (e) => {
     setFirstName(e.target.value);
-  };
-
-  const updateLastName = (e) => {
-    setLastName(e.target.value);
   };
 
   const updateEmail = (e) => {
@@ -70,19 +64,20 @@ const SignUpForm = ({ setToggle }) => {
   return (
     <Content className="modal-content">
       <h2>Sign Up</h2>
+      <div className="modal-errors">
+        {errors.map((error, ind) => (
+          <div key={ind}>{error}</div>
+        ))}
+      </div>
       <form onSubmit={onSignUp} autoComplete='off'>
         <div>
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
-        </div>
-        <div>
-          <label htmlFor='username'>User Name</label>
+          <label htmlFor='username'>Username</label>
           <input
             id='username'
             type='text'
             onChange={updateUsername}
             value={username}
+            maxLength={40}
           ></input>
         </div>
         <div>
@@ -92,6 +87,7 @@ const SignUpForm = ({ setToggle }) => {
             type='text'
             onChange={updateEmail}
             value={email}
+            maxLength={255}
           ></input>
         </div>
         <div>
@@ -100,14 +96,7 @@ const SignUpForm = ({ setToggle }) => {
             type='text'
             onChange={updateFirstName}
             value={firstName}
-          ></input>
-        </div>
-        <div>
-          <label>Last Name</label>
-          <input
-            type='text'
-            onChange={updateLastName}
-            value={lastName}
+            maxLength={40}
           ></input>
         </div>
         <div>

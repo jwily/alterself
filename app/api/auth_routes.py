@@ -14,7 +14,7 @@ def validation_errors_to_error_messages(validation_errors):
     errorMessages = []
     for field in validation_errors:
         for error in validation_errors[field]:
-            errorMessages.append(f'{field} : {error}')
+            errorMessages.append(f'{error}')
     return errorMessages
 
 
@@ -68,7 +68,6 @@ def sign_up():
             email=form.data['email'],
             password=form.data['password'],
             first_name=form.data['firstName'],
-            last_name=form.data['lastName'],
         )
         db.session.add(user)
         db.session.commit()

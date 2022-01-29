@@ -14,7 +14,7 @@ def validation_errors_to_error_messages(validation_errors):
     errorMessages = []
     for field in validation_errors:
         for error in validation_errors[field]:
-            errorMessages.append(f'{field} : {error}')
+            errorMessages.append(f'{error}')
     return errorMessages
 
 
@@ -34,7 +34,7 @@ def delete_prof(id):
             return {'message': 'Item successfully deleted.',
                     'profId': id}
         else:
-            return {'error': 'Proficiency not found.'}, 400
+            return {'error': 'Proficiency not found.'}, 404
     return {'error': 'An error has occurred. Please try again.'}, 401
 
 
@@ -54,5 +54,5 @@ def edit_prof(id):
             db.session.commit()
             return prof.to_dict()
         else:
-            return {'error': 'Proficiency not found.'}, 400
+            return {'error': 'Proficiency not found.'}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

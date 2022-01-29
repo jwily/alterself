@@ -46,12 +46,12 @@ const LoginForm = ({ setToggle }) => {
   return (
     <Content className='modal-content'>
       <h2>Log In</h2>
+      <div className="modal-errors">
+        {errors.map((error, ind) => (
+          <div key={ind}>{error}</div>
+        ))}
+      </div>
       <form onSubmit={onLogin}>
-        <div>
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
-        </div>
         <div>
           <label htmlFor='email'>Email</label>
           <input

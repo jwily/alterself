@@ -55,11 +55,14 @@ function CreateCharModal() {
         if (data) {
             setErrors(data);
         }
-        setShowModal(false);
-        setName('');
-        setRace('');
-        setCharClass('');
-        setBackground('');
+        else {
+            setShowModal(false);
+            setErrors([])
+            setName('');
+            setRace('');
+            setCharClass('');
+            setBackground('');
+        }
     };
 
     const updateName = (e) => {
@@ -84,34 +87,46 @@ function CreateCharModal() {
             {showModal && (
                 <Modal onClose={() => {
                     setShowModal(false);
+                    setErrors([])
+                    setName('');
+                    setRace('');
+                    setCharClass('');
+                    setBackground('');
                 }}>
                     <Content className='modal-content'>
                         <h2>The road goes ever on</h2>
+                        <div className="modal-errors">
+                            {errors.map((error, ind) => (
+                                <div key={ind}>{error}</div>
+                            ))}
+                        </div>
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div>
-                                {errors.map((error, ind) => (
-                                    <div key={ind}>{error}</div>
-                                ))}
-                            </div>
-                            <div>
                                 <label htmlFor="create-name">Name</label>
-                                <input type="text" id="create-name" maxLength="255" value={name} onChange={updateName} placeholder="Samwise" />
+                                <input type="text" id="create-name" maxLength={255} value={name} onChange={updateName} placeholder="Samwise" />
                             </div>
                             <div>
                                 <label htmlFor="create-race">Race</label>
-                                <input type="text" id="create-race" maxLength="40" value={race} onChange={updateRace} placeholder="Halfling" />
+                                <input type="text" id="create-race" maxLength={40} value={race} onChange={updateRace} placeholder="Halfling" />
                             </div>
                             <div>
                                 <label htmlFor="create-char-class">Class</label>
-                                <input type="text" id="create-char-class" maxLength="40" value={charClass} onChange={updateClass} placeholder="Paladin" />
+                                <input type="text" id="create-char-class" maxLength={40} value={charClass} onChange={updateClass} placeholder="Paladin" />
                             </div>
                             <div>
                                 <label htmlFor="create-background">Background</label>
-                                <input type="text" className="create-background" maxLength="40" value={background} onChange={updateBackground} placeholder="Folk Hero" />
+                                <input type="text" className="create-background" maxLength={40} value={background} onChange={updateBackground} placeholder="Folk Hero" />
                             </div>
                             <div className="modal-btns">
                                 <button type="submit">Create</button>
-                                <button type="button" onClick={() => setShowModal(false)}>Return</button>
+                                <button type="button" onClick={() => {
+                                    setShowModal(false);
+                                    setErrors([])
+                                    setName('');
+                                    setRace('');
+                                    setCharClass('');
+                                    setBackground('');
+                                }}>Return</button>
                             </div>
                         </form >
                     </Content>
