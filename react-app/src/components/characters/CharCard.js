@@ -52,6 +52,8 @@ const Card = styled.li`
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    opacity: 0;
 `
 
 const Icon = styled.div`
@@ -94,14 +96,15 @@ const CharCard = ({ char, idx, ids }) => {
 
     useEffect(() => {
         if (!char.mounted) {
-            charLi.current.style.opacity = 0;
-            charLi.current.style.transition = '';
+            dispatch(mountChar(char.id))
             const fadeIn = setTimeout(() => {
                 charLi.current.style.opacity = 1;
                 charLi.current.style.transition = 'opacity .75s'
             }, 250 * ((5 + idx) / 5));
-            dispatch(mountChar(char.id))
             return () => clearTimeout(fadeIn);
+        } else {
+            charLi.current.style.opacity = 1;
+            charLi.current.style.transition = '';
         }
     }, [idx, ids, char.id, char.mounted, dispatch])
 
@@ -116,7 +119,7 @@ const CharCard = ({ char, idx, ids }) => {
                 <div className="icon-holder">
                     <Icon className="roster-icon"
                         color={`rgb(${(char.str + char.con) * 5}, ${(char.wis + char.cha) * 5}, ${(char.int + char.dex) * 5})`}>
-                        {char.name[0]}
+                        {char.name[0].toUpperCase()}
                         <img src={cursor} alt="cursor" />
                     </Icon>
                 </div>
