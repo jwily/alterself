@@ -35,7 +35,7 @@ def delete_item(id):
             return {'message': 'Item successfully deleted.',
                     'itemId': id}
         else:
-            return {'error': 'Item not found.'}, 400
+            return {'error': 'Item not found.'}, 404
     return {'error': 'An error has occurred. Please try again.'}, 401
 
 
@@ -56,7 +56,7 @@ def edit_item(id):
             db.session.commit()
             return item.to_dict()
         else:
-            return {'error': 'Item not found.'}, 400
+            return {'error': 'Item not found.'}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -75,5 +75,5 @@ def update_quantity(id):
             db.session.commit()
             return item.to_dict()
         else:
-            return {'error': 'Item not found.'}, 400
+            return {'error': 'Item not found.'}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

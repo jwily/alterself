@@ -109,7 +109,7 @@ const ItemCard = ({ item }) => {
     useEffect(() => {
         const formData = {
             itemId: item.id,
-            quantity: parseInt(quantity, 10)
+            quantity: parseInt(quantity, 10) || 0
         }
 
         if (changed) {
@@ -122,7 +122,7 @@ const ItemCard = ({ item }) => {
         const formData = {
             itemId: item.id,
             name: name || item.name,
-            quantity: parseInt(quantity, 10),
+            quantity: parseInt(quantity, 10) || 0,
             description
         };
         const data = await dispatch(editItem(formData));

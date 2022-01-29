@@ -35,7 +35,7 @@ def get_char(id):
     if char:
         return char.to_dict()
     else:
-        return {'error': 'Character not found.'}, 400
+        return {'error': 'Character not found.'}, 404
 
 
 @character_routes.route('/<int:id>/skills', methods=['GET'])
@@ -84,7 +84,7 @@ def delete_char(id):
             return {'message': 'Character successfully deleted.',
                     'charId': id}
         else:
-            return {'error': 'Character not found.'}, 400
+            return {'error': 'Character not found.'}, 404
     return {'error': 'An error has occurred. Please try again.'}, 401
 
 
@@ -209,5 +209,5 @@ def edit_abilities(id):
             db.session.commit()
             return char.to_dict()
         else:
-            return {'error': 'Character not found.'}, 400
+            return {'error': 'Character not found.'}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

@@ -34,7 +34,7 @@ def delete_feat(id):
             return {'message': 'Item successfully deleted.',
                     'featId': id}
         else:
-            return {'error': 'Feature not found.'}, 400
+            return {'error': 'Feature not found.'}, 404
     return {'error': 'An error has occurred. Please try again.'}, 401
 
 
@@ -54,5 +54,5 @@ def edit_feat(id):
             db.session.commit()
             return feat.to_dict()
         else:
-            return {'error': 'Feature not found.'}, 400
+            return {'error': 'Feature not found.'}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
