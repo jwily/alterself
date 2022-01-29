@@ -4,20 +4,20 @@ from sqlalchemy.sql import func
 charTitles = {
     'str': 'Strong',
     'dex': 'Dexterous',
-    'con': 'Hardy',
+    'con': 'Tough',
     'int': 'Intelligent',
     'wis': 'Wisdom',
     'cha': 'Charismatic',
     'strdex': 'Vigorous',
-    'strcon': 'Rugged',
+    'strcon': 'Unyielding',
     'strint': 'Consummate',
     'strwis': 'Stalwart',
     'strcha': 'Inspiring',
     'dexcon': 'Tireless',
-    'dexint': 'Skillful',
+    'dexint': 'Brilliant',
     'dexwis': 'Artful',
     'dexcha': 'Graceful',
-    'conint': 'Unyielding',
+    'conint': 'Unflinching',
     'conwis': 'Resilient',
     'concha': 'Vivacious',
     'intwis': 'Sagacious',
@@ -114,15 +114,15 @@ class Character(db.Model):
             ('cha', self.charisma),
         ]
 
-        to_join = [k for (k, v) in scores if v >= 18]
+        to_join = [k for (k, v) in scores if v >= 16]
 
         key = ''.join(to_join)
 
         if not key:
-            return 'Arising'
+            return 'Awakening'
 
         if len(key) > 6:
-            return 'Unforgettable'
+            return 'Peerless'
 
         return charTitles[key]
 
