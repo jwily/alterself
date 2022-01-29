@@ -55,11 +55,14 @@ function CreateCharModal() {
         if (data) {
             setErrors(data);
         }
-        setShowModal(false);
-        setName('');
-        setRace('');
-        setCharClass('');
-        setBackground('');
+        else {
+            setShowModal(false);
+            setErrors([])
+            setName('');
+            setRace('');
+            setCharClass('');
+            setBackground('');
+        }
     };
 
     const updateName = (e) => {
@@ -84,15 +87,20 @@ function CreateCharModal() {
             {showModal && (
                 <Modal onClose={() => {
                     setShowModal(false);
+                    setErrors([])
+                    setName('');
+                    setRace('');
+                    setCharClass('');
+                    setBackground('');
                 }}>
                     <Content className='modal-content'>
                         <h2>The road goes ever on</h2>
+                        <div className="modal-errors">
+                            {errors.map((error, ind) => (
+                                <div key={ind}>{error}</div>
+                            ))}
+                        </div>
                         <form onSubmit={handleSubmit} autoComplete="off">
-                            <div>
-                                {errors.map((error, ind) => (
-                                    <div key={ind}>{error}</div>
-                                ))}
-                            </div>
                             <div>
                                 <label htmlFor="create-name">Name</label>
                                 <input type="text" id="create-name" maxLength="255" value={name} onChange={updateName} placeholder="Samwise" />
@@ -111,7 +119,14 @@ function CreateCharModal() {
                             </div>
                             <div className="modal-btns">
                                 <button type="submit">Create</button>
-                                <button type="button" onClick={() => setShowModal(false)}>Return</button>
+                                <button type="button" onClick={() => {
+                                    setShowModal(false);
+                                    setErrors([])
+                                    setName('');
+                                    setRace('');
+                                    setCharClass('');
+                                    setBackground('');
+                                }}>Return</button>
                             </div>
                         </form >
                     </Content>
