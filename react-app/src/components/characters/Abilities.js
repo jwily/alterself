@@ -165,7 +165,7 @@ const Abilities = ({ charData }) => {
                         <span>Constitution</span>
                         <div className="mod">
                             <FontAwesomeIcon icon={faHandHoldingWater} />
-                            <span>{modDisplay(dex)}</span>
+                            <span>{modDisplay(con)}</span>
                         </div>
                     </label>
                     <input max="20" min="0" id={`${charData.id}-con`} type="number" value={con}
