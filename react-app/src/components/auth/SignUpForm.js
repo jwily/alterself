@@ -77,7 +77,6 @@ const SignUpForm = ({ setToggle }) => {
             type='text'
             onChange={updateUsername}
             value={username}
-            maxLength={40}
           ></input>
         </div>
         <div>
@@ -87,7 +86,6 @@ const SignUpForm = ({ setToggle }) => {
             type='text'
             onChange={updateEmail}
             value={email}
-            maxLength={255}
           ></input>
         </div>
         <div>
@@ -96,7 +94,6 @@ const SignUpForm = ({ setToggle }) => {
             type='text'
             onChange={updateFirstName}
             value={firstName}
-            maxLength={40}
           ></input>
         </div>
         <div>
