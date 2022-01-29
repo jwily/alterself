@@ -1,6 +1,30 @@
 from .db import db
 from sqlalchemy.sql import func
 
+charTitles = {
+    'str': 'Strong',
+    'dex': 'Dexterous',
+    'con': 'Hardy',
+    'int': 'Intelligent',
+    'wis': 'Wisdom',
+    'cha': 'Charismatic',
+    'strdex': 'Vigorous',
+    'strcon': 'Rugged',
+    'strint': 'Consummate',
+    'strwis': 'Stalwart',
+    'strcha': 'Inspiring',
+    'dexcon': 'Tireless',
+    'dexint': 'Skillful',
+    'dexwis': 'Artful',
+    'dexcha': 'Graceful',
+    'conint': 'Unyielding',
+    'conwis': 'Resilient',
+    'concha': 'Vivacious',
+    'intwis': 'Sagacious',
+    'intcha': 'Cunning',
+    'wischa': 'Insightful',
+}
+
 
 class Character(db.Model):
     __tablename__ = 'characters'
@@ -79,14 +103,30 @@ class Character(db.Model):
             'updatedAt': self.updated_at,
         }
 
-    def to_dict_roster(self):
+    def generate_title(self):
 
-        scores = {'str': self.strength,
-                  'dex': self.dexterity,
-                  'con': self.constitution,
-                  'int':  self.intelligence,
-                  'wis':  self.wisdom,
-                  'cha': self.charisma}
+        scores = [
+            ('str', self.strength),
+            ('dex', self.dexterity),
+            ('con', self.constitution),
+            ('int', self.intelligence),
+            ('wis', self.wisdom),
+            ('cha', self.charisma),
+        ]
+
+        to_join = [k for (k, v) in scores if v >= 18]
+
+        key = ''.join(to_join)
+
+        if not key:
+            return None
+
+        if len(key) > 6:
+            return 'Unforgettable'
+
+        return charTitles[key]
+
+    def to_dict_roster(self):
 
         return {
             'id': self.id,
@@ -100,7 +140,7 @@ class Character(db.Model):
             'int': self.intelligence,
             'wis': self.wisdom,
             'cha': self.charisma,
-            'titleStats': {k: True for k, v in scores.items() if scores[k] >= 18},
+            'title': self.generate_title(),
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
         }

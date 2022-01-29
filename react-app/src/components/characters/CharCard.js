@@ -126,14 +126,15 @@ const CharCard = ({ char, idx, ids }) => {
             </Link>
             <BlackBox>
                 <div className="roster-info">
+                    <p>{char.name}</p>
+                    <p>Level {char.level} {char.class}</p>
+                    <p>{char.race}</p>
                     <div>
-                        <p>{char.name}</p>
+                        <span>{char.title}</span>
                         <form onSubmit={(e) => handleDelete(e, char.id)}>
                             <button type='submit'><FontAwesomeIcon icon={faUserSlash} /></button>
                         </form>
                     </div>
-                    <p>Level {char.level} {char.class}</p>
-                    <p>{char.race}</p>
                 </div>
             </BlackBox>
         </Card >
