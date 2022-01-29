@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -34,6 +34,7 @@ function App() {
         </ProtectedRoute>
         <Route path='/' exact={true}>
           <h1>My Home Page</h1>
+          <Link to='/roster'>Roster</Link>
         </Route>
         <Route path='*'>
           <Redirect to='/' />

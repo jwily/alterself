@@ -9,7 +9,8 @@ import { useSelector } from 'react-redux';
 
 const NavMain = styled.nav`
   background-color: black;
-  display: flex;
+  // display: flex;
+
   ul {
     display: flex;
     width: 100%;
@@ -23,6 +24,20 @@ const NavMain = styled.nav`
   }
 
   font-family: 'Karla', sans-serif;
+
+  button {
+    padding: 0;
+    font-size: 1rem;
+    background-color: transparent;
+    font-family: 'Karla', sans-serif;
+    border: none;
+    color: whitesmoke;
+    cursor: pointer;
+  }
+
+  button:hover {
+    color: gold;
+  }
 `
 
 const NavBar = () => {
@@ -46,11 +61,11 @@ const NavBar = () => {
               Campaigns
             </Link>
           </li> */}
-          <li>
+          {/* <li>
             <Link to='/roster'>
               Roster
             </Link>
-          </li>
+          </li> */}
           <li>
             <LogoutButton />
           </li>
