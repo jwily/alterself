@@ -73,10 +73,6 @@ const ModalContent = styled(BlackBox)`
             font-family: 'Cormorant SC', serif;
             font-size: 2.5rem;
         }
-
-        .roster-edit-btn: {
-            margin-right: 5rem;
-        }
     }
 `
 

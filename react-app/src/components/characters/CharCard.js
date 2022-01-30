@@ -15,7 +15,12 @@ import BlackBox from "../../global/BlackBox";
 import EditCharModal from "./EditCharModal";
 
 const Card = styled.li`
+
     margin: 1rem 1rem 1.25rem 1rem;
+
+    .roster-edit-btn {
+        margin-right: .25rem;
+    }
 
     width: 16.5rem;
 

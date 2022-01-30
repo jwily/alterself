@@ -3,8 +3,6 @@ const SET_CHAR = 'characters/SET_CHAR';
 const ADD_CHAR = 'characters/ADD_CHAR';
 const REMOVE_CHAR = 'characters/REMOVE_CHAR';
 const MOUNT_CHAR = 'characters/MOUNT_CHAR';
-// const POP_CHAR = 'characters/POP_CHAR'
-// const PUSH_CHAR = 'characters/PUSH_CHAR'
 
 const setChars = (chars) => ({
     type: SET_CHARS,
@@ -30,16 +28,6 @@ export const mountChar = (id) => ({
     type: MOUNT_CHAR,
     payload: id
 })
-
-// export const popChar = (id) => ({
-//     type: POP_CHAR,
-//     payload: id
-// })
-
-// export const pushChar = (id) => ({
-//     type: PUSH_CHAR,
-//     payload: id
-// })
 
 
 const initialState = { entities: { characters: null, character: null }, ids: [] };
