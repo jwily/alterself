@@ -52,11 +52,13 @@ const Container = styled.div`
     .throws, .skills {
 
         h2 {
-
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
         }
     }
 
     .throws {
+        padding: 1rem;
         margin-bottom: 1rem;
 
         grid-column-start: 2;
@@ -157,6 +159,29 @@ const Container = styled.div`
     // }
 `
 
+const SkillLiBase = styled.div`
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: .25rem;
+    margin-left: .5rem;
+    margin-right: 1rem;
+
+    .skill-li-secondary {
+        display: flex;
+        justify-content: space-between;
+        width: 4.5rem;
+    }
+
+    .skill-atr {
+        color: gold;
+    }
+
+    .skill-mod {
+    }
+`
+
 const modCalc = (score) => {
     return Math.floor((score - 10) / 2)
 }
@@ -169,7 +194,7 @@ const skillCalc = (level, ability, boolean) => {
     return (boolean ? modCalc(ability) + profCalc(level) : modCalc(ability))
 }
 
-const skills = {
+const skillsObj = {
     '0': ['Acrobatics', 'Dex', 'dex'],
     '1': ['Animal Handling', 'Wis', 'wis'],
     '2': ['Arcana', 'Int', 'int'],
@@ -190,26 +215,29 @@ const skills = {
     '17': ['Survival', 'Wis', 'wis'],
 }
 
-const skillLi = (charData, num) => {
+const SkillLi = ({ charData, skillsData, num }) => {
 
+    const level = charData.level;
+    const abilityScore = charData[skillsObj[num][2]];
+    const boolean = skillsData[num]
+    const mod = skillCalc(level, abilityScore, boolean)
 
     return (
-        <li>
-            <span>
-
-            </span>
+        <SkillLiBase>
             <div>
-                <span>
-
-                </span>
-                <span>
-
-                </span>
+                {skillsObj[num][0]}
             </div>
-        </li>
-
+            <div className="skill-li-secondary">
+                <div className="skill-atr">
+                    {skillsObj[num][1]}
+                </div>
+                <div className="skill-mod">
+                    {mod > 0 ? `+${mod}` : mod}
+                </div>
+            </div>
+        </SkillLiBase>
     )
-}
+};
 
 const Character = () => {
 
@@ -272,24 +300,13 @@ const Character = () => {
                         <BlueBox className="skills">
                             <h2>Skills</h2>
                             <ul>
-                                <li>Acrobatics (Dex) :: {skillCalc(charData.level, charData.dex, skillsData[1])}</li>
-                                <li>Animal Handling (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[2])}</li>
-                                <li>Arcana (Int) :: {skillCalc(charData.level, charData.int, skillsData[3])}</li>
-                                <li>Athletics (Str) :: {skillCalc(charData.level, charData.str, skillsData[4])}</li>
-                                <li>Deception (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[5])}</li>
-                                <li>History (Int) :: {skillCalc(charData.level, charData.int, skillsData[6])}</li>
-                                <li>Insight (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[7])}</li>
-                                <li>Intimidation (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[8])}</li>
-                                <li>Investigation (Int) :: {skillCalc(charData.level, charData.int, skillsData[9])}</li>
-                                <li>Medicine (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[10])}</li>
-                                <li>Nature (Int) :: {skillCalc(charData.level, charData.int, skillsData[11])}</li>
-                                <li>Perception (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[12])}</li>
-                                <li>Performance (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[13])}</li>
-                                <li>Persuasion (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[14])}</li>
-                                <li>Religion (Int) :: {skillCalc(charData.level, charData.int, skillsData[15])}</li>
-                                <li>Sleight of Hand (Dex) :: {skillCalc(charData.level, charData.dex, skillsData[16])}</li>
-                                <li>Stealth (Dex) :: {skillCalc(charData.level, charData.dex, skillsData[17])}</li>
-                                <li>Survival (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[18])}</li>
+                                {Object.keys(skillsObj).map(num => {
+                                    return <SkillLi
+                                        charData={charData}
+                                        skillsData={skillsData}
+                                        key={num}
+                                        num={num} />
+                                })}
                             </ul>
                         </BlueBox>
 
