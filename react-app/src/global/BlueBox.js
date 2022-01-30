@@ -11,6 +11,13 @@ const MeteorStyle = css`
     border-radius: .5rem;
 `
 
+const DragonStyle = css`
+
+    background: black;
+    border: 2.5px solid silver;
+    border-radius: .5rem;
+`
+
 const DefaultStyle = css`
 
     background: rgb(20, 20, 20);
@@ -61,6 +68,7 @@ const BlueBox = styled.div`
 
     ${(props) => props.theme === "default" && DefaultStyle}
     ${(props) => props.theme === "meteor" && MeteorStyle}
+    ${(props) => props.theme === "dragon" && DragonStyle}
 `
 
 BlueBox.defaultProps = {
