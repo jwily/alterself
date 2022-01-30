@@ -2,11 +2,6 @@ import styled from "styled-components";
 
 const BlackBox = styled.div`
 
-    // border: 2.5px solid silver;
-    // border-radius: .5rem;
-
-    // filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));;
-
     background: rgb(20, 20, 20);
 
     font-family: 'Inconsolata', monospace;
