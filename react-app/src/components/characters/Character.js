@@ -110,13 +110,13 @@ const ThemeButtons = styled.div`
 
     position: fixed;
         right: 0;
-        top: 0;
+        bottom: 0;
 
-    margin-top: 3.25rem;
-    margin-right: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 5.75rem;
 
     button {
-        font-size: 1rem;
+        font-size: 1.25rem;
         background-color: transparent;
         border: none;
         color: whitesmoke;
@@ -244,9 +244,9 @@ const Character = () => {
 
                         <Abilities charData={charData} />
 
-                        <BlueBox className="throws"></BlueBox>
+                        <BlueBox className="throws" theme={theme}></BlueBox>
 
-                        <BlueBox className="skills">
+                        <BlueBox className="skills" theme={theme}>
                             <p>Acrobatics (Dex) :: {skillCalc(charData.level, charData.dex, skillsData[1])}</p>
                             <p>Animal Handling (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[2])}</p>
                             <p>Arcana (Int) :: {skillCalc(charData.level, charData.int, skillsData[3])}</p>

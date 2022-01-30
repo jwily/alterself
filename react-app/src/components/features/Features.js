@@ -57,7 +57,8 @@ const Container = styled.div`
 
 const FeaturesAndTraits = () => {
 
-    const data = useSelector(state => state.features)
+    const data = useSelector(state => state.features);
+    const theme = useSelector(state => state.theme.selection);
 
     const [add, setAdd] = useState(false);
 
@@ -69,7 +70,7 @@ const FeaturesAndTraits = () => {
     }, [data.entities, data.ids])
 
     return (
-        <BlueBox className="feats">
+        <BlueBox className="feats" theme={theme}>
             <Container>
                 <div id="features-title">
                     <h2>
