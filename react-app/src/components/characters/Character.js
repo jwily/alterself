@@ -8,6 +8,12 @@ import { getItems } from "../../store/items";
 import { getSkills } from "../../store/skills";
 import { getFeats } from "../../store/features";
 import { getProfs } from "../../store/profs";
+import { setTheme } from "../../store/theme";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+    faMeteor,
+} from '@fortawesome/free-solid-svg-icons';
 
 import BlueBox from "../../global/BlueBox";
 import BlackBox from "../../global/BlackBox";
@@ -98,14 +104,38 @@ const Container = styled.div`
         grid-row-start: 2;
         grid-row-end: 4;
     }
+`
 
-    .scholar-div {
-        position: fixed;
+const ThemeButtons = styled.div`
+
+    position: fixed;
         right: 0;
-        bottom: 0;
-        display: flex;
-        flex-direction: column;
+        top: 0;
+
+    margin-top: 3.25rem;
+    margin-right: 1rem;
+
+    button {
+        font-size: 1rem;
+        background-color: transparent;
+        border: none;
+        color: whitesmoke;
+        opacity: .25;
+        cursor: pointer;
     }
+
+    button:hover {
+        opacity: .75;
+    }
+`
+
+const ScholarDiv = styled.div`
+
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
 
     .scholar-title {
         margin-bottom: .5rem;
@@ -193,6 +223,7 @@ const Character = () => {
     const charData = useSelector(state => state.characters.entities.character)
     const skillsData = useSelector(state => state.skills.entities)
     const helpData = useSelector(state => state.help)
+    const theme = useSelector(state => state.theme.selection)
 
     if (badId) return (
         <Redirect to='/roster' />
@@ -203,7 +234,7 @@ const Character = () => {
             <Container>
                 {isLoaded &&
                     <>
-                        <BlueBox className="vitals">
+                        <BlueBox className="vitals" theme={theme}>
                             <p>{charData.name}</p>
                             <p>Level {charData.level} {charData.race} {charData.class}</p>
                             <p>{charData.exp} Experience Points</p>
@@ -244,7 +275,11 @@ const Character = () => {
                         <Inventory />
                     </>}
 
-                <div className="scholar-div">
+                <ThemeButtons>
+                    <button type="button"><FontAwesomeIcon icon={faMeteor} /></button>
+                </ThemeButtons>
+
+                <ScholarDiv>
                     {helpData.show && <BlackBox className="scholar-errors" onMouseEnter={() => dispatch(setHide())}>
                         <div className="scholar-title">The Scholar says:</div>
                         <div className="scholar-text">
@@ -254,8 +289,8 @@ const Character = () => {
                         </div>
                         <div className="scholar-close-text">Mouse over to dismiss</div>
                     </BlackBox>}
-                    <button className="scholar"></button>
-                </div>
+                    <button className="scholar" type="button"></button>
+                </ScholarDiv>
             </Container>
         </Parent>
     )
