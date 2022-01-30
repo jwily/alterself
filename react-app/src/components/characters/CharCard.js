@@ -132,7 +132,7 @@ const CharCard = ({ char, idx, ids }) => {
                     <div>
                         <span>{char.title}</span>
                         <div>
-                            <EditCharModal char={char} />
+                            <EditCharModal char={char} idx={idx} />
                             <form onSubmit={(e) => handleDelete(e, char.id)}>
                                 <button type='submit'><FontAwesomeIcon icon={faUserSlash} /></button>
                             </form>

@@ -227,7 +227,7 @@ def edit_core(id):
             char.char_class = form.data['charClass']
             char.background = form.data['background']
             db.session.commit()
-            return char.to_dict()
+            return char.to_dict_roster()
         else:
             return {'error': 'Character not found.'}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

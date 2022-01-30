@@ -15,7 +15,7 @@ const Content = styled.div`
     }
 `
 
-function EditCharModal({ char }) {
+function EditCharModal({ char, idx }) {
 
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState(char.name);
@@ -40,12 +40,14 @@ function EditCharModal({ char }) {
             setErrors(data.errors);
         }
         else {
-            setShowModal(false);
-            setErrors([])
-            setName(data.name);
-            setRace(data.race);
-            setCharClass(data.class);
-            setBackground(data.background);
+            if (idx === 0) {
+                setShowModal(false);
+                setErrors([])
+                setName(data.name);
+                setRace(data.race);
+                setCharClass(data.class);
+                setBackground(data.background);
+            }
         }
     };
 
@@ -67,7 +69,7 @@ function EditCharModal({ char }) {
 
     return (
         <>
-            <button type="button" onClick={() => setShowModal(true)}><FontAwesomeIcon icon={faEdit} /></button>
+            <button type="button" className="roster-edit-btn" onClick={() => setShowModal(true)}><FontAwesomeIcon icon={faEdit} /></button>
             {showModal && (
                 <Modal onClose={() => {
                     setShowModal(false);
