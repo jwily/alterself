@@ -34,6 +34,8 @@ const Container = styled.div`
         margin-bottom: 1rem;
         margin-left: 1rem;
 
+        padding: 1rem;
+
         grid-column-start: 3;
         grid-column-end: 5;
         grid-row-start: 1;
@@ -65,10 +67,18 @@ const Container = styled.div`
         grid-column-end: 3;
         grid-row-start: 1;
         grid-row-end: 2;
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: .25rem;
+            margin-left: .5rem;
+            margin-right: 1rem;
+        }
     }
 
     .skills {
-        width: 20rem;
+        width: 18.5rem;
         padding: 1rem;
 
         grid-column-start: 2;
@@ -175,7 +185,7 @@ const SkillLiBase = styled.div`
     }
 
     .skill-atr {
-        color: gold;
+        color: #bebebe;
     }
 
     .skill-mod {
@@ -293,7 +303,54 @@ const Character = () => {
                         <BlueBox className="throws">
                             <h2>Saving Throws</h2>
                             <ul>
-                                <li>Strength</li>
+                                <li>
+                                    <div>
+                                        Strength
+                                    </div>
+                                    <div>
+                                        {modCalc(charData.str) > 0 ? `+${modCalc(charData.str)}` : modCalc(charData.str)}
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        Dexterity
+                                    </div>
+                                    <div>
+                                        {modCalc(charData.dex) > 0 ? `+${modCalc(charData.dex)}` : modCalc(charData.dex)}
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        Constitution
+                                    </div>
+                                    <div>
+                                        {modCalc(charData.con) > 0 ? `+${modCalc(charData.con)}` : modCalc(charData.con)}
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        Intelligence
+                                    </div>
+                                    <div>
+                                        {modCalc(charData.int) > 0 ? `+${modCalc(charData.int)}` : modCalc(charData.int)}
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        Wisdom
+                                    </div>
+                                    <div>
+                                        {modCalc(charData.wis) > 0 ? `+${modCalc(charData.wis)}` : modCalc(charData.wis)}
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        Charisma
+                                    </div>
+                                    <div>
+                                        {modCalc(charData.cha) > 0 ? `+${modCalc(charData.cha)}` : modCalc(charData.cha)}
+                                    </div>
+                                </li>
                             </ul>
                         </BlueBox>
 
