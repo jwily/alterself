@@ -5,4 +5,4 @@ from wtforms.validators import NumberRange
 
 class UpdateQuantityForm(FlaskForm):
     quantity = IntegerField(
-        validators=[NumberRange(min=0, message='Out of range error.')])
+        validators=[NumberRange(min=0, message="Item quantity must be at least 0")])

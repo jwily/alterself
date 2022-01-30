@@ -81,7 +81,7 @@ const CreateItem = ({ setAdd }) => {
     };
 
     const handleBlur = (e) => {
-        if (e.target.value <= 0 || !e.target.value) setQuantity(1);
+        if (e.target.value <= 0 || !e.target.value) setQuantity(0);
     };
 
     return (
@@ -98,7 +98,7 @@ const CreateItem = ({ setAdd }) => {
                 </div>
                 <div>
                     <label htmlFor="forge-quantity">Quantity</label>
-                    <input type="number" id="forge-quantity" value={quantity} onBlur={handleBlur} onChange={updateQuantity} min="1" />
+                    <input type="number" id="forge-quantity" value={quantity} onBlur={handleBlur} onChange={updateQuantity} min="0" />
                 </div>
                 <div>
                     <label htmlFor="forge-description">Description (Optional)</label>
