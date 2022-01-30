@@ -101,9 +101,11 @@ const Abilities = ({ charData }) => {
         if (e.target.value > 99) {
             func(99);
             dispatch(setErrors(["Oops, I can't work with ability scores lower than 0 or higher than 99."]))
-        } else if (e.target.value < 0 || !e.target.value) {
+        } else if (e.target.value < 0) {
             func(0);
             dispatch(setErrors(["Oops, I can't work with ability scores lower than 0 or higher than 99."]))
+        } else if (!e.target.value) {
+            func(0);
         }
     };
 

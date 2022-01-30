@@ -7,6 +7,8 @@ import { deleteItem } from "../../store/items";
 import { editItem } from "../../store/items";
 import { editQuantity } from "../../store/items";
 
+import { setErrors } from "../../store/help";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faSearchPlus,
@@ -162,8 +164,11 @@ const ItemCard = ({ item }) => {
     }
 
     const handleBlur = (e) => {
-        if (e.target.value < 0 || !e.target.value) {
+        if (e.target.value < 0) {
             setQuant(0);
+            dispatch(setErrors(["How can one have a negative number of items? Perhaps I require more research!"]))
+        } else if (!e.target.value) {
+            setQuant(0)
         }
     };
 
