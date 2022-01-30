@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, NumberRange, Length
 
 
 class ItemForm(FlaskForm):
-    name = StringField(validators=[DataRequired("Don't forget to identify your item!"), Length(
+    name = StringField(validators=[DataRequired("Don't forget to identify your item with a name!"), Length(
         max=255, message="What a name! Item names cannot exceed 255 characters.")])
     description = StringField()
     quantity = IntegerField(

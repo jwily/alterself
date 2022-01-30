@@ -112,7 +112,7 @@ const Container = styled.div`
     }
 
     .scholar-errors {
-        width: 25rem;
+        width: 27.5rem;
         padding: 1rem;
         background: rgba(20, 20, 20, .75);
         margin-right: 1.5rem;
@@ -122,6 +122,10 @@ const Container = styled.div`
         color: grey;
         font-size: .85rem;
         margin-top: 1rem;
+    }
+
+    .scholar-text > div {
+        margin-bottom: .5rem;
     }
 
     .scholar {
@@ -141,9 +145,9 @@ const Container = styled.div`
         margin-top: .5rem;
     }
 
-    .scholar:hover {
-        filter: drop-shadow(0 0 5px #D4AF37);
-    }
+    // .scholar:hover {
+    //     filter: drop-shadow(0 0 5px #D4AF37);
+    // }
 `
 
 const modCalc = (score) => {
