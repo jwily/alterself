@@ -89,19 +89,19 @@ function EditCharModal({ char, idx }) {
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div>
                                 <label htmlFor="create-name">Edit Name</label>
-                                <input type="text" id="create-name" value={name} onChange={updateName} placeholder="Samwise" />
+                                <input type="text" id="create-name" value={name} onChange={updateName} />
                             </div>
                             <div>
                                 <label htmlFor="create-char-class">Edit Class</label>
-                                <input type="text" id="create-char-class" value={charClass} onChange={updateClass} placeholder="Paladin" />
+                                <input type="text" id="create-char-class" value={charClass} onChange={updateClass} />
                             </div>
                             <div>
                                 <label htmlFor="create-race">Edit Race</label>
-                                <input type="text" id="create-race" value={race} onChange={updateRace} placeholder="Halfling" />
+                                <input type="text" id="create-race" value={race} onChange={updateRace} />
                             </div>
                             <div>
                                 <label htmlFor="create-background">Edit Background</label>
-                                <input type="text" className="create-background" value={background} onChange={updateBackground} placeholder="Folk Hero" />
+                                <input type="text" className="create-background" value={background} onChange={updateBackground} />
                             </div>
                             <div className="modal-btns">
                                 <button type="submit">Update</button>
