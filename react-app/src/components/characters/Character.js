@@ -23,6 +23,7 @@ import Inventory from "../items/Inventory";
 import FeaturesAndTraits from "../features/Features";
 import Proficiencies from "../profs/Proficiencies";
 import Skills from "./Skills";
+import SavingThrows from "./SavingThrows";
 
 import { setHide } from "../../store/help";
 
@@ -245,7 +246,7 @@ const Character = () => {
 
                         <Abilities charData={charData} />
 
-                        <BlueBox className="throws" theme={theme}></BlueBox>
+                        <SavingThrows charData={charData} />
 
                         <Skills charData={charData} />
 

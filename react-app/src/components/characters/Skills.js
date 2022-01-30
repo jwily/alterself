@@ -35,7 +35,6 @@ const SkillCard = ({ charData, num }) => {
 
     const name = skillsObj[num].name;
     const ability = skillsObj[num].ability.toLowerCase();
-    console.log(ability);
     const score = charData[ability];
     const mod = modCalc(score);
 
