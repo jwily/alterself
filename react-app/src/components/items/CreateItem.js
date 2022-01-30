@@ -60,8 +60,6 @@ const CreateItem = ({ setAdd }) => {
         const data = await dispatch(createItem(formData));
         if (data) {
             dispatch(setErrors(data));
-        } else if (data ** quantity < 0) {
-
         }
         else {
             setName('');

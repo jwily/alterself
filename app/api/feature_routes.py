@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Feature, db, Character
-from app.forms import FeatProfForm, DeleteForm
+from app.forms import FeatForm, DeleteForm
 from sqlalchemy.sql import func
 
 feature_routes = Blueprint('features', __name__)
@@ -41,7 +41,7 @@ def delete_feat(id):
 @feature_routes.route('/<int:id>', methods=['PATCH'])
 @login_required
 def edit_feat(id):
-    form = FeatProfForm()
+    form = FeatForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         feat = Feature.query.get(id)
