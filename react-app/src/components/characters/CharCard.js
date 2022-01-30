@@ -10,9 +10,9 @@ import {
     faUserSlash,
 } from '@fortawesome/free-solid-svg-icons';
 
-import { deleteChar } from "../../store/characters";
-import { mountChar } from "../../store/characters";
+import { deleteChar, mountChar } from "../../store/characters";
 import BlackBox from "../../global/BlackBox";
+import EditCharModal from "./EditCharModal";
 
 const Card = styled.li`
     margin: 1rem 1rem 1.25rem 1rem;
@@ -131,9 +131,12 @@ const CharCard = ({ char, idx, ids }) => {
                     <p>{char.race} {char.background}</p>
                     <div>
                         <span>{char.title}</span>
-                        <form onSubmit={(e) => handleDelete(e, char.id)}>
-                            <button type='submit'><FontAwesomeIcon icon={faUserSlash} /></button>
-                        </form>
+                        <div>
+                            <EditCharModal char={char} />
+                            <form onSubmit={(e) => handleDelete(e, char.id)}>
+                                <button type='submit'><FontAwesomeIcon icon={faUserSlash} /></button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </BlackBox>

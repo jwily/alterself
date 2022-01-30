@@ -3,6 +3,8 @@ const SET_CHAR = 'characters/SET_CHAR';
 const ADD_CHAR = 'characters/ADD_CHAR';
 const REMOVE_CHAR = 'characters/REMOVE_CHAR';
 const MOUNT_CHAR = 'characters/MOUNT_CHAR';
+// const POP_CHAR = 'characters/POP_CHAR'
+// const PUSH_CHAR = 'characters/PUSH_CHAR'
 
 const setChars = (chars) => ({
     type: SET_CHARS,
@@ -19,7 +21,7 @@ const addChar = (char) => ({
     payload: char
 })
 
-const delChar = (id) => ({
+export const delChar = (id) => ({
     type: REMOVE_CHAR,
     payload: id
 })
@@ -28,6 +30,16 @@ export const mountChar = (id) => ({
     type: MOUNT_CHAR,
     payload: id
 })
+
+// export const popChar = (id) => ({
+//     type: POP_CHAR,
+//     payload: id
+// })
+
+// export const pushChar = (id) => ({
+//     type: PUSH_CHAR,
+//     payload: id
+// })
 
 
 const initialState = { entities: { characters: null, character: null }, ids: [] };
@@ -114,6 +126,26 @@ export const editAbilities = (formData) => async (dispatch) => {
         if (data.errors) {
             return data.errors;
         }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
+export const editCore = (formData) => async (dispatch) => {
+    const response = await fetch(`/api/characters/${formData.charId}/core`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(addChar(data))
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        return data;
     } else {
         return ['An error occurred. Please try again.']
     }

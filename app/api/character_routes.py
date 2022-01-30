@@ -211,3 +211,23 @@ def edit_abilities(id):
         else:
             return {'error': 'Character not found.'}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@character_routes.route('/<int:id>/core', methods=['PATCH'])
+@login_required
+def edit_core(id):
+    form = CreateCharacterForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        char = Character.query.filter(
+            Character.id == id, Character.user_id == current_user.id).first()
+        if char:
+            char.name = form.data['name']
+            char.race = form.data['race']
+            char.char_class = form.data['charClass']
+            char.background = form.data['background']
+            db.session.commit()
+            return char.to_dict()
+        else:
+            return {'error': 'Character not found.'}, 404
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401

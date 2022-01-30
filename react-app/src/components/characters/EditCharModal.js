@@ -1,44 +1,27 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import { useDispatch } from 'react-redux';
-import { createChar } from "../../store/characters";
+import { editCore } from "../../store/characters";
 import styled from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-    faChild,
+    faEdit,
 } from '@fortawesome/free-solid-svg-icons';
-
-const RosterCreate = styled.button`
-    margin-top: 1.5rem;
-    border: none;
-    background-color: transparent;
-    font-size: 1.5rem;
-    color: whitesmoke;
-    cursor: pointer;
-    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
-    font-family: 'Cormorant', serif;
-
-    transition: filter .15s;
-
-    &:hover {
-        filter: drop-shadow(0px 0px 5px rgba(255, 215, 0, .75));
-    }
-`
 
 const Content = styled.div`
     form > div {
-        width: 22.5rem;
+        width: 25rem;
     }
 `
 
-function CreateCharModal() {
+function EditCharModal({ char }) {
 
     const [errors, setErrors] = useState([]);
-    const [name, setName] = useState('');
-    const [race, setRace] = useState('');
-    const [charClass, setCharClass] = useState('');
-    const [background, setBackground] = useState('');
+    const [name, setName] = useState(char.name);
+    const [race, setRace] = useState(char.race);
+    const [charClass, setCharClass] = useState(char.class);
+    const [background, setBackground] = useState(char.background);
     const [showModal, setShowModal] = useState(false);
 
     const dispatch = useDispatch();
@@ -46,22 +29,23 @@ function CreateCharModal() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = {
+            charId: char.id,
             name,
             race,
             charClass,
             background
         }
-        const data = await dispatch(createChar(formData));
-        if (data) {
-            setErrors(data);
+        const data = await dispatch(editCore(formData));
+        if (data.errors) {
+            setErrors(data.errors);
         }
         else {
             setShowModal(false);
             setErrors([])
-            setName('');
-            setRace('');
-            setCharClass('');
-            setBackground('');
+            setName(data.name);
+            setRace(data.race);
+            setCharClass(data.class);
+            setBackground(data.background);
         }
     };
 
@@ -83,18 +67,18 @@ function CreateCharModal() {
 
     return (
         <>
-            <RosterCreate onClick={() => setShowModal(true)}><FontAwesomeIcon className="roster-fa" icon={faChild} /> Create</RosterCreate>
+            <button type="button" onClick={() => setShowModal(true)}><FontAwesomeIcon icon={faEdit} /></button>
             {showModal && (
                 <Modal onClose={() => {
                     setShowModal(false);
                     setErrors([])
-                    setName('');
-                    setRace('');
-                    setCharClass('');
-                    setBackground('');
+                    setName(char.name);
+                    setRace(char.race);
+                    setCharClass(char.class);
+                    setBackground(char.background);
                 }}>
                     <Content className='modal-content'>
-                        <h2>The road goes ever on</h2>
+                        <h2>To greet the sun anew</h2>
                         <div className="modal-errors">
                             {errors.map((error, ind) => (
                                 <div key={ind}>{error}</div>
@@ -102,30 +86,30 @@ function CreateCharModal() {
                         </div>
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div>
-                                <label htmlFor="create-name">Name</label>
+                                <label htmlFor="create-name">Edit Name</label>
                                 <input type="text" id="create-name" value={name} onChange={updateName} placeholder="Samwise" />
                             </div>
                             <div>
-                                <label htmlFor="create-char-class">Class</label>
+                                <label htmlFor="create-char-class">Edit Class</label>
                                 <input type="text" id="create-char-class" value={charClass} onChange={updateClass} placeholder="Paladin" />
                             </div>
                             <div>
-                                <label htmlFor="create-race">Race</label>
+                                <label htmlFor="create-race">Edit Race</label>
                                 <input type="text" id="create-race" value={race} onChange={updateRace} placeholder="Halfling" />
                             </div>
                             <div>
-                                <label htmlFor="create-background">Background</label>
+                                <label htmlFor="create-background">Edit Background</label>
                                 <input type="text" className="create-background" value={background} onChange={updateBackground} placeholder="Folk Hero" />
                             </div>
                             <div className="modal-btns">
-                                <button type="submit">Create</button>
+                                <button type="submit">Update</button>
                                 <button type="button" onClick={() => {
                                     setShowModal(false);
                                     setErrors([])
-                                    setName('');
-                                    setRace('');
-                                    setCharClass('');
-                                    setBackground('');
+                                    setName(char.name);
+                                    setRace(char.race);
+                                    setCharClass(char.class);
+                                    setBackground(char.background);
                                 }}>Return</button>
                             </div>
                         </form >
@@ -136,4 +120,4 @@ function CreateCharModal() {
     );
 }
 
-export default CreateCharModal;
+export default EditCharModal;
