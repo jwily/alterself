@@ -49,6 +49,13 @@ const Container = styled.div`
         grid-row-end: 3;
     }
 
+    .throws, .skills {
+
+        h2 {
+
+        }
+    }
+
     .throws {
         margin-bottom: 1rem;
 
@@ -162,6 +169,48 @@ const skillCalc = (level, ability, boolean) => {
     return (boolean ? modCalc(ability) + profCalc(level) : modCalc(ability))
 }
 
+const skills = {
+    '0': ['Acrobatics', 'Dex', 'dex'],
+    '1': ['Animal Handling', 'Wis', 'wis'],
+    '2': ['Arcana', 'Int', 'int'],
+    '3': ['Athletics', 'Str', 'str'],
+    '4': ['Deception', 'Cha', 'cha'],
+    '5': ['History', 'Int', 'int'],
+    '6': ['Insight', 'Wis', 'wis'],
+    '7': ['Intimidation', 'Cha', 'cha'],
+    '8': ['Investigation', 'Int', 'int'],
+    '9': ['Medicine', 'Wis', 'wis'],
+    '10': ['Nature', 'Int', 'int'],
+    '11': ['Perception', 'Wis', 'wis'],
+    '12': ['Performance', 'Cha', 'cha'],
+    '13': ['Persuasion', 'Cha', 'cha'],
+    '14': ['Religion', 'Int', 'int'],
+    '15': ['Sleight of Hand', 'Dex', 'dex'],
+    '16': ['Stealth', 'Dex', 'dex'],
+    '17': ['Survival', 'Wis', 'wis'],
+}
+
+const skillLi = (charData, num) => {
+
+
+    return (
+        <li>
+            <span>
+
+            </span>
+            <div>
+                <span>
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </li>
+
+    )
+}
+
 const Character = () => {
 
     const { charId } = useParams();
@@ -213,27 +262,35 @@ const Character = () => {
 
                         <Abilities charData={charData} />
 
-                        <BlueBox className="throws"></BlueBox>
+                        <BlueBox className="throws">
+                            <h2>Saving Throws</h2>
+                            <ul>
+                                <li>Strength</li>
+                            </ul>
+                        </BlueBox>
 
                         <BlueBox className="skills">
-                            <p>Acrobatics (Dex) :: {skillCalc(charData.level, charData.dex, skillsData[1])}</p>
-                            <p>Animal Handling (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[2])}</p>
-                            <p>Arcana (Int) :: {skillCalc(charData.level, charData.int, skillsData[3])}</p>
-                            <p>Athletics (Str) :: {skillCalc(charData.level, charData.str, skillsData[4])}</p>
-                            <p>Deception (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[5])}</p>
-                            <p>History (Int) :: {skillCalc(charData.level, charData.int, skillsData[6])}</p>
-                            <p>Insight (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[7])}</p>
-                            <p>Intimidation (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[8])}</p>
-                            <p>Investigation (Int) :: {skillCalc(charData.level, charData.int, skillsData[9])}</p>
-                            <p>Medicine (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[10])}</p>
-                            <p>Nature (Int) :: {skillCalc(charData.level, charData.int, skillsData[11])}</p>
-                            <p>Perception (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[12])}</p>
-                            <p>Performance (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[13])}</p>
-                            <p>Persuasion (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[14])}</p>
-                            <p>Religion (Int) :: {skillCalc(charData.level, charData.int, skillsData[15])}</p>
-                            <p>Sleight of Hand (Dex) :: {skillCalc(charData.level, charData.dex, skillsData[16])}</p>
-                            <p>Stealth (Dex) :: {skillCalc(charData.level, charData.dex, skillsData[17])}</p>
-                            <p>Survival (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[18])}</p>
+                            <h2>Skills</h2>
+                            <ul>
+                                <li>Acrobatics (Dex) :: {skillCalc(charData.level, charData.dex, skillsData[1])}</li>
+                                <li>Animal Handling (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[2])}</li>
+                                <li>Arcana (Int) :: {skillCalc(charData.level, charData.int, skillsData[3])}</li>
+                                <li>Athletics (Str) :: {skillCalc(charData.level, charData.str, skillsData[4])}</li>
+                                <li>Deception (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[5])}</li>
+                                <li>History (Int) :: {skillCalc(charData.level, charData.int, skillsData[6])}</li>
+                                <li>Insight (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[7])}</li>
+                                <li>Intimidation (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[8])}</li>
+                                <li>Investigation (Int) :: {skillCalc(charData.level, charData.int, skillsData[9])}</li>
+                                <li>Medicine (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[10])}</li>
+                                <li>Nature (Int) :: {skillCalc(charData.level, charData.int, skillsData[11])}</li>
+                                <li>Perception (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[12])}</li>
+                                <li>Performance (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[13])}</li>
+                                <li>Persuasion (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[14])}</li>
+                                <li>Religion (Int) :: {skillCalc(charData.level, charData.int, skillsData[15])}</li>
+                                <li>Sleight of Hand (Dex) :: {skillCalc(charData.level, charData.dex, skillsData[16])}</li>
+                                <li>Stealth (Dex) :: {skillCalc(charData.level, charData.dex, skillsData[17])}</li>
+                                <li>Survival (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[18])}</li>
+                            </ul>
                         </BlueBox>
 
                         <div className="profs-feats">
