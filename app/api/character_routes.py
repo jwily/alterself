@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Character, User, db, Item, Feature, Proficiency
-from app.forms import CreateCharacterForm, DeleteForm, ItemForm, EditAbilitiesForm, FeatProfForm
+from app.forms import CreateCharacterForm, DeleteForm, ItemForm, EditAbilitiesForm, FeatForm, ProfForm
 from sqlalchemy.sql import func
 
 character_routes = Blueprint('characters', __name__)
@@ -154,7 +154,7 @@ def create_item(id):
 @character_routes.route('/<int:id>/features', methods=['POST'])
 @login_required
 def create_feat(id):
-    form = FeatProfForm()
+    form = FeatForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         feat = Feature(
@@ -174,7 +174,7 @@ def create_feat(id):
 @character_routes.route('/<int:id>/profs', methods=['POST'])
 @login_required
 def create_prof(id):
-    form = FeatProfForm()
+    form = ProfForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         prof = Proficiency(

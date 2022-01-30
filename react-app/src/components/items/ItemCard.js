@@ -7,6 +7,8 @@ import { deleteItem } from "../../store/items";
 import { editItem } from "../../store/items";
 import { editQuantity } from "../../store/items";
 
+import { setErrors } from "../../store/help";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faSearchPlus,
@@ -102,7 +104,7 @@ const ItemCard = ({ item }) => {
     const debouncedSave = useCallback(
         debounce(async (formData) => {
             await dispatch(editQuantity(formData))
-        }, 350),
+        }, 500),
         [],
     );
 
@@ -121,15 +123,16 @@ const ItemCard = ({ item }) => {
         e.preventDefault();
         const formData = {
             itemId: item.id,
-            name: name || item.name,
+            name,
             quantity: parseInt(quantity, 10) || 0,
             description
         };
         const data = await dispatch(editItem(formData));
         if (data) {
-            console.log("Errors!");
+            dispatch(setErrors(data));
+        } else {
+            setShow(false);
         }
-        setShow(false);
     }
 
     const clickLook = () => {
@@ -162,7 +165,12 @@ const ItemCard = ({ item }) => {
     }
 
     const handleBlur = (e) => {
-        if (e.target.value < 0 || !e.target.value) setQuant(0);
+        if (e.target.value < 0) {
+            setQuant(0);
+            dispatch(setErrors(["How can one have a negative number of items? Perhaps I require more research!"]))
+        } else if (!e.target.value) {
+            setQuant(0)
+        }
     };
 
     return (

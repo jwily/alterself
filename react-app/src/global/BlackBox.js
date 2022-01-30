@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const BlackBox = styled.div`
+const BlackBox = styled.div`
 
     // border: 2.5px solid silver;
     // border-radius: .5rem;

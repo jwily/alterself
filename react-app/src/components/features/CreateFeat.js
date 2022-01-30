@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { createFeat } from "../../store/features";
 
+import { setErrors } from "../../store/help";
+
 const CreateForm = styled.div`
     div {
         display: flex;
@@ -39,7 +41,6 @@ const CreateForm = styled.div`
 `
 
 const CreateFeat = ({ setAdd }) => {
-    const [errors, setErrors] = useState([]);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
@@ -56,11 +57,11 @@ const CreateFeat = ({ setAdd }) => {
         }
         const data = await dispatch(createFeat(formData));
         if (data) {
-            setErrors(data);
+            dispatch(setErrors(data));
+        } else {
+            setName('');
+            setDescription('');
         }
-        setName('');
-        setDescription('');
-        setErrors([]);
     };
 
     const updateName = (e) => {
@@ -75,11 +76,6 @@ const CreateFeat = ({ setAdd }) => {
         <CreateForm>
             <form onSubmit={handleSubmit} autoComplete="off">
                 <div>
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
-                </div>
-                <div>
                     <label htmlFor="feat-name">Feature or Trait Name</label>
                     <input type="text" id="feat-name" value={name} onChange={updateName} />
                 </div>
@@ -93,7 +89,6 @@ const CreateFeat = ({ setAdd }) => {
                         setAdd(false);
                         setName('');
                         setDescription('');
-                        setErrors([]);
                     }}>Close</button>
                 </div>
             </form>

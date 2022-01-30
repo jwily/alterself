@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { deleteProf } from "../../store/profs";
 import { editProf } from "../../store/profs";
 
+import { setErrors } from "../../store/help";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faSearchPlus,
@@ -94,14 +96,15 @@ const ProfCard = ({ prof }) => {
         e.preventDefault();
         const formData = {
             profId: prof.id,
-            name: name || prof.name,
+            name,
             description
         };
         const data = await dispatch(editProf(formData));
         if (data) {
-            console.log("Errors!");
+            dispatch(setErrors(data));
+        } else {
+            setShow(false);
         }
-        setShow(false);
     }
 
     const clickLook = () => {

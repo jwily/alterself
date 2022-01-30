@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Proficiency, db, Character
-from app.forms import FeatProfForm, DeleteForm
+from app.forms import ProfForm, DeleteForm
 from sqlalchemy.sql import func
 
 prof_routes = Blueprint('profs', __name__)
@@ -41,7 +41,7 @@ def delete_prof(id):
 @prof_routes.route('/<int:id>', methods=['PATCH'])
 @login_required
 def edit_prof(id):
-    form = FeatProfForm()
+    form = ProfForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         prof = Proficiency.query.get(id)

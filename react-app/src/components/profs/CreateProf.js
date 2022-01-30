@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { createProf } from "../../store/profs";
 
+import { setErrors } from "../../store/help";
+
 const CreateForm = styled.div`
     div {
         display: flex;
@@ -39,7 +41,6 @@ const CreateForm = styled.div`
 `
 
 const CreateProf = ({ setAdd }) => {
-    const [errors, setErrors] = useState([]);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
@@ -56,11 +57,11 @@ const CreateProf = ({ setAdd }) => {
         }
         const data = await dispatch(createProf(formData));
         if (data) {
-            setErrors(data);
+            dispatch(setErrors(data));
+        } else {
+            setName('');
+            setDescription('');
         }
-        setName('');
-        setDescription('');
-        setErrors([]);
     };
 
     const updateName = (e) => {
@@ -75,11 +76,6 @@ const CreateProf = ({ setAdd }) => {
         <CreateForm>
             <form onSubmit={handleSubmit} autoComplete="off">
                 <div>
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
-                </div>
-                <div>
                     <label htmlFor="prof-name">Proficiency Name or Category</label>
                     <input type="text" id="prof-name" value={name} onChange={updateName} />
                 </div>
@@ -93,7 +89,6 @@ const CreateProf = ({ setAdd }) => {
                         setAdd(false);
                         setName('');
                         setDescription('');
-                        setErrors([]);
                     }}>Close</button>
                 </div>
             </form>

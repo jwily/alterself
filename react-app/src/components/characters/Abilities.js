@@ -14,6 +14,8 @@ import {
     faHandPeace
 } from '@fortawesome/free-solid-svg-icons';
 
+import { setErrors } from "../../store/help";
+
 import BlueBox from "../../global/BlueBox";
 
 const Container = styled.form`
@@ -28,7 +30,7 @@ const AbilityDiv = styled.div`
     .mod {
         font-size: 1.25rem;
         margin: .75rem;
-        width: 3.75rem;
+        width: 4.5rem;
         display: flex;
         justify-content: space-between;
     }
@@ -55,8 +57,8 @@ const modCalc = (score) => {
 }
 
 const modDisplay = (score) => {
-    if (score > 20) return '+ 5';
-    else if (score < 0) return '- 5'
+    if (score > 99) return '+ 44';
+    else if (score < 0) return '- 5';
     const mod = modCalc(score);
     if (mod >= 0) return `+ ${mod}`
     else return `- ${Math.abs(mod)}`;
@@ -78,7 +80,7 @@ const Abilities = ({ charData }) => {
     const debouncedSave = useCallback(
         debounce(async (data) => {
             await dispatch(editAbilities(data));
-        }, 350),
+        }, 500),
         [],
     );
 
@@ -96,9 +98,13 @@ const Abilities = ({ charData }) => {
     }, [debouncedSave, charData.id, str, dex, con, int, wis, cha, changed])
 
     const handleBlur = (e, func) => {
-        if (e.target.value > 20) {
-            func(20);
-        } else if (e.target.value < 0 || !e.target.value) {
+        if (e.target.value > 99) {
+            func(99);
+            dispatch(setErrors(["Oops, I can't work with ability scores lower than 0 or higher than 99."]))
+        } else if (e.target.value < 0) {
+            func(0);
+            dispatch(setErrors(["Oops, I can't work with ability scores lower than 0 or higher than 99."]))
+        } else if (!e.target.value) {
             func(0);
         }
     };
@@ -144,7 +150,7 @@ const Abilities = ({ charData }) => {
                             <span>{modDisplay(str)}</span>
                         </div>
                     </label>
-                    <input max="20" min="0" id={`${charData.id}-str`} type="number" value={str}
+                    <input max="99" min="0" id={`${charData.id}-str`} type="number" value={str}
                         onBlur={(e) => handleBlur(e, setStr)}
                         onChange={changeStr} />
                 </AbilityDiv>
@@ -156,7 +162,7 @@ const Abilities = ({ charData }) => {
                             <span>{modDisplay(dex)}</span>
                         </div>
                     </label>
-                    <input max="20" min="0" id={`${charData.id}-dex`} type="number" value={dex}
+                    <input max="99" min="0" id={`${charData.id}-dex`} type="number" value={dex}
                         onBlur={(e) => handleBlur(e, setDex)}
                         onChange={changeDex} />
                 </AbilityDiv>
@@ -168,7 +174,7 @@ const Abilities = ({ charData }) => {
                             <span>{modDisplay(con)}</span>
                         </div>
                     </label>
-                    <input max="20" min="0" id={`${charData.id}-con`} type="number" value={con}
+                    <input max="99" min="0" id={`${charData.id}-con`} type="number" value={con}
                         onBlur={(e) => handleBlur(e, setCon)}
                         onChange={changeCon} />
                 </AbilityDiv>
@@ -180,7 +186,7 @@ const Abilities = ({ charData }) => {
                             <span>{modDisplay(int)}</span>
                         </div>
                     </label>
-                    <input max="20" min="0" id={`${charData.id}-int`} type="number" value={int}
+                    <input max="99" min="0" id={`${charData.id}-int`} type="number" value={int}
                         onBlur={(e) => handleBlur(e, setInt)}
                         onChange={changeInt} />
                 </AbilityDiv>
@@ -192,7 +198,7 @@ const Abilities = ({ charData }) => {
                             <span>{modDisplay(wis)}</span>
                         </div>
                     </label>
-                    <input max="20" min="0" id={`${charData.id}-wis`} type="number" value={wis}
+                    <input max="99" min="0" id={`${charData.id}-wis`} type="number" value={wis}
                         onBlur={(e) => handleBlur(e, setWis)}
                         onChange={changeWis} />
                 </AbilityDiv>
@@ -204,7 +210,7 @@ const Abilities = ({ charData }) => {
                             <span>{modDisplay(cha)}</span>
                         </div>
                     </label>
-                    <input max="20" min="0" id={`${charData.id}-cha`} type="number" value={cha}
+                    <input max="99" min="0" id={`${charData.id}-cha`} type="number" value={cha}
                         onBlur={(e) => handleBlur(e, setCha)}
                         onChange={changeCha} />
                 </AbilityDiv>
