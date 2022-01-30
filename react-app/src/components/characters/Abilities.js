@@ -14,7 +14,7 @@ import {
     faHandPeace
 } from '@fortawesome/free-solid-svg-icons';
 
-import { setErrors, setShow, setHide } from "../../store/help";
+import { setErrors } from "../../store/help";
 
 import BlueBox from "../../global/BlueBox";
 
@@ -57,7 +57,8 @@ const modCalc = (score) => {
 }
 
 const modDisplay = (score) => {
-    if (score < 0) return '- 5'
+    if (score > 99) return '+ 44';
+    else if (score < 0) return '- 5';
     const mod = modCalc(score);
     if (mod >= 0) return `+ ${mod}`
     else return `- ${Math.abs(mod)}`;
@@ -99,8 +100,10 @@ const Abilities = ({ charData }) => {
     const handleBlur = (e, func) => {
         if (e.target.value > 99) {
             func(99);
+            dispatch(setErrors(["Oops, I can't work with ability scores lower than 0 or higher than 99."]))
         } else if (e.target.value < 0 || !e.target.value) {
             func(0);
+            dispatch(setErrors(["Oops, I can't work with ability scores lower than 0 or higher than 99."]))
         }
     };
 

@@ -16,6 +16,8 @@ import Inventory from "../items/Inventory";
 import FeaturesAndTraits from "../features/Features";
 import Proficiencies from "../profs/Proficiencies";
 
+import { setHide } from "../../store/help";
+
 import scholar from '../../images/scholar.png';
 
 const Parent = styled.div`
@@ -105,11 +107,21 @@ const Container = styled.div`
         flex-direction: column;
     }
 
+    .scholar-title {
+        margin-bottom: .5rem;
+    }
+
     .scholar-errors {
-        width: 20rem;
+        width: 25rem;
         padding: 1rem;
         background: rgba(20, 20, 20, .75);
         margin-right: 1.5rem;
+    }
+
+    .scholar-close-text {
+        color: grey;
+        font-size: .85rem;
+        margin-top: 1rem;
     }
 
     .scholar {
@@ -229,14 +241,15 @@ const Character = () => {
                     </>}
 
                 <div className="scholar-div">
-                    <BlackBox className="scholar-errors">
-                        <span>The Scholar says:</span>
+                    {helpData.show && <BlackBox className="scholar-errors" onMouseEnter={() => dispatch(setHide())}>
+                        <div className="scholar-title">The Scholar says:</div>
                         <div className="scholar-text">
                             {helpData.errors.map((error, ind) => (
                                 <div key={ind}>{error}</div>
                             ))}
                         </div>
-                    </BlackBox>
+                        <div className="scholar-close-text">Mouse over to dismiss</div>
+                    </BlackBox>}
                     <button className="scholar"></button>
                 </div>
             </Container>

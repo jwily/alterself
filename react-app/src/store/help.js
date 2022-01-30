@@ -22,6 +22,7 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case SET_ERRORS:
             newState.errors = action.payload;
+            newState.show = true;
             return newState;
         case SET_SHOW:
             newState.show = true;
