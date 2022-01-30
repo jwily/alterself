@@ -10,6 +10,7 @@ import { getFeats } from "../../store/features";
 import { getProfs } from "../../store/profs";
 
 import BlueBox from "../../global/BlueBox";
+import BlackBox from "../../global/BlackBox";
 import Abilities from "./Abilities";
 import Inventory from "../items/Inventory";
 import FeaturesAndTraits from "../features/Features";
@@ -18,8 +19,8 @@ import Proficiencies from "../profs/Proficiencies";
 import scholar from '../../images/scholar.png';
 
 const Parent = styled.div`
-    padding-top: 1.5%;
-    padding-left: 1.5%;
+    padding-top: 1.5rem;
+    padding-left: 1.5rem;
 `
 
 const Container = styled.div`
@@ -96,19 +97,36 @@ const Container = styled.div`
         grid-row-end: 4;
     }
 
+    .scholar-div {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .scholar-errors {
+        width: 20rem;
+        padding: 1rem;
+        background: rgba(20, 20, 20, .75);
+        margin-right: 1.5rem;
+    }
+
     .scholar {
+        align-self: end;
+
         background-image: url(${scholar});
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50% 50%;
         width: 5rem;
         height: 5rem;
-        position: fixed;
-        right: 0;
-        bottom: 0;
+
         border: none;
         background-color: transparent;
-        margin: 1rem;
+        margin-bottom: 1rem;
+        margin-right: 1rem;
+        margin-top: .5rem;
     }
 
     .scholar:hover {
@@ -158,6 +176,7 @@ const Character = () => {
 
     const charData = useSelector(state => state.characters.entities.character)
     const skillsData = useSelector(state => state.skills.entities)
+    const helpData = useSelector(state => state.help)
 
     if (badId) return (
         <Redirect to='/roster' />
@@ -208,7 +227,18 @@ const Character = () => {
 
                         <Inventory />
                     </>}
-                <button className="scholar"></button>
+
+                <div className="scholar-div">
+                    <BlackBox className="scholar-errors">
+                        <span>The Scholar says:</span>
+                        <div className="scholar-text">
+                            {helpData.errors.map((error, ind) => (
+                                <div key={ind}>{error}</div>
+                            ))}
+                        </div>
+                    </BlackBox>
+                    <button className="scholar"></button>
+                </div>
             </Container>
         </Parent>
     )

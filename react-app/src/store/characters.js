@@ -133,6 +133,7 @@ export const editCore = (formData) => async (dispatch) => {
         return data;
     } else if (response.status < 500) {
         const data = await response.json();
+        console.log(data);
         return data;
     } else {
         return ['An error occurred. Please try again.']

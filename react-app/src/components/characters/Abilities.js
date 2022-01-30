@@ -14,6 +14,8 @@ import {
     faHandPeace
 } from '@fortawesome/free-solid-svg-icons';
 
+import { setErrors, setShow, setHide } from "../../store/help";
+
 import BlueBox from "../../global/BlueBox";
 
 const Container = styled.form`

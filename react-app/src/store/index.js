@@ -6,6 +6,7 @@ import skills from './skills'
 import items from './items'
 import features from './features'
 import profs from './profs'
+import help from './help'
 
 const rootReducer = combineReducers({
   session,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   skills,
   items,
   features,
-  profs
+  profs,
+  help
 });
 
 
