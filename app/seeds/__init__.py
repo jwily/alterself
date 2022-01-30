@@ -16,7 +16,7 @@ seed_commands = AppGroup('seed')
 def seed():
     seed_users()
     seed_characters()
-    # seed_skills()
+    seed_skills()
     seed_items()
     seed_pfts()
     # Add other seed functions here

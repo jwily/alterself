@@ -34,8 +34,6 @@ const Container = styled.div`
         margin-bottom: 1rem;
         margin-left: 1rem;
 
-        padding: 1rem;
-
         grid-column-start: 3;
         grid-column-end: 5;
         grid-row-start: 1;
@@ -51,34 +49,17 @@ const Container = styled.div`
         grid-row-end: 3;
     }
 
-    .throws, .skills {
-
-        h2 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
-    }
-
     .throws {
-        padding: 1rem;
         margin-bottom: 1rem;
 
         grid-column-start: 2;
         grid-column-end: 3;
         grid-row-start: 1;
         grid-row-end: 2;
-
-        li {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: .25rem;
-            margin-left: .5rem;
-            margin-right: 1rem;
-        }
     }
 
     .skills {
-        width: 18.5rem;
+        width: 20rem;
         padding: 1rem;
 
         grid-column-start: 2;
@@ -169,29 +150,6 @@ const Container = styled.div`
     // }
 `
 
-const SkillLiBase = styled.div`
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: .25rem;
-    margin-left: .5rem;
-    margin-right: 1rem;
-
-    .skill-li-secondary {
-        display: flex;
-        justify-content: space-between;
-        width: 4.5rem;
-    }
-
-    .skill-atr {
-        color: #bebebe;
-    }
-
-    .skill-mod {
-    }
-`
-
 const modCalc = (score) => {
     return Math.floor((score - 10) / 2)
 }
@@ -203,51 +161,6 @@ const profCalc = (level) => {
 const skillCalc = (level, ability, boolean) => {
     return (boolean ? modCalc(ability) + profCalc(level) : modCalc(ability))
 }
-
-const skillsObj = {
-    '0': ['Acrobatics', 'Dex', 'dex'],
-    '1': ['Animal Handling', 'Wis', 'wis'],
-    '2': ['Arcana', 'Int', 'int'],
-    '3': ['Athletics', 'Str', 'str'],
-    '4': ['Deception', 'Cha', 'cha'],
-    '5': ['History', 'Int', 'int'],
-    '6': ['Insight', 'Wis', 'wis'],
-    '7': ['Intimidation', 'Cha', 'cha'],
-    '8': ['Investigation', 'Int', 'int'],
-    '9': ['Medicine', 'Wis', 'wis'],
-    '10': ['Nature', 'Int', 'int'],
-    '11': ['Perception', 'Wis', 'wis'],
-    '12': ['Performance', 'Cha', 'cha'],
-    '13': ['Persuasion', 'Cha', 'cha'],
-    '14': ['Religion', 'Int', 'int'],
-    '15': ['Sleight of Hand', 'Dex', 'dex'],
-    '16': ['Stealth', 'Dex', 'dex'],
-    '17': ['Survival', 'Wis', 'wis'],
-}
-
-const SkillLi = ({ charData, skillsData, num }) => {
-
-    const level = charData.level;
-    const abilityScore = charData[skillsObj[num][2]];
-    const boolean = skillsData[num]
-    const mod = skillCalc(level, abilityScore, boolean)
-
-    return (
-        <SkillLiBase>
-            <div>
-                {skillsObj[num][0]}
-            </div>
-            <div className="skill-li-secondary">
-                <div className="skill-atr">
-                    {skillsObj[num][1]}
-                </div>
-                <div className="skill-mod">
-                    {mod > 0 ? `+${mod}` : mod}
-                </div>
-            </div>
-        </SkillLiBase>
-    )
-};
 
 const Character = () => {
 
@@ -300,71 +213,27 @@ const Character = () => {
 
                         <Abilities charData={charData} />
 
-                        <BlueBox className="throws">
-                            <h2>Saving Throws</h2>
-                            <ul>
-                                <li>
-                                    <div>
-                                        Strength
-                                    </div>
-                                    <div>
-                                        {modCalc(charData.str) > 0 ? `+${modCalc(charData.str)}` : modCalc(charData.str)}
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>
-                                        Dexterity
-                                    </div>
-                                    <div>
-                                        {modCalc(charData.dex) > 0 ? `+${modCalc(charData.dex)}` : modCalc(charData.dex)}
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>
-                                        Constitution
-                                    </div>
-                                    <div>
-                                        {modCalc(charData.con) > 0 ? `+${modCalc(charData.con)}` : modCalc(charData.con)}
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>
-                                        Intelligence
-                                    </div>
-                                    <div>
-                                        {modCalc(charData.int) > 0 ? `+${modCalc(charData.int)}` : modCalc(charData.int)}
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>
-                                        Wisdom
-                                    </div>
-                                    <div>
-                                        {modCalc(charData.wis) > 0 ? `+${modCalc(charData.wis)}` : modCalc(charData.wis)}
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>
-                                        Charisma
-                                    </div>
-                                    <div>
-                                        {modCalc(charData.cha) > 0 ? `+${modCalc(charData.cha)}` : modCalc(charData.cha)}
-                                    </div>
-                                </li>
-                            </ul>
-                        </BlueBox>
+                        <BlueBox className="throws"></BlueBox>
 
                         <BlueBox className="skills">
-                            <h2>Skills</h2>
-                            <ul>
-                                {Object.keys(skillsObj).map(num => {
-                                    return <SkillLi
-                                        charData={charData}
-                                        skillsData={skillsData}
-                                        key={num}
-                                        num={num} />
-                                })}
-                            </ul>
+                            <p>Acrobatics (Dex) :: {skillCalc(charData.level, charData.dex, skillsData[1])}</p>
+                            <p>Animal Handling (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[2])}</p>
+                            <p>Arcana (Int) :: {skillCalc(charData.level, charData.int, skillsData[3])}</p>
+                            <p>Athletics (Str) :: {skillCalc(charData.level, charData.str, skillsData[4])}</p>
+                            <p>Deception (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[5])}</p>
+                            <p>History (Int) :: {skillCalc(charData.level, charData.int, skillsData[6])}</p>
+                            <p>Insight (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[7])}</p>
+                            <p>Intimidation (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[8])}</p>
+                            <p>Investigation (Int) :: {skillCalc(charData.level, charData.int, skillsData[9])}</p>
+                            <p>Medicine (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[10])}</p>
+                            <p>Nature (Int) :: {skillCalc(charData.level, charData.int, skillsData[11])}</p>
+                            <p>Perception (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[12])}</p>
+                            <p>Performance (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[13])}</p>
+                            <p>Persuasion (Cha) :: {skillCalc(charData.level, charData.cha, skillsData[14])}</p>
+                            <p>Religion (Int) :: {skillCalc(charData.level, charData.int, skillsData[15])}</p>
+                            <p>Sleight of Hand (Dex) :: {skillCalc(charData.level, charData.dex, skillsData[16])}</p>
+                            <p>Stealth (Dex) :: {skillCalc(charData.level, charData.dex, skillsData[17])}</p>
+                            <p>Survival (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[18])}</p>
                         </BlueBox>
 
                         <div className="profs-feats">

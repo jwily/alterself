@@ -20,7 +20,6 @@ import BlueBox from "../../global/BlueBox";
 
 const Container = styled.form`
     width: 10rem;
-    margin: 1.5rem 0rem;
 `
 const AbilityDiv = styled.div`
     display: flex;
