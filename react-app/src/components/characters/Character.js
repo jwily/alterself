@@ -114,7 +114,7 @@ const ThemeButtons = styled.div`
         bottom: 0;
 
     margin-bottom: 1rem;
-    margin-right: 6rem;
+    margin-right: 5.75rem;
 
     button {
         font-size: 1rem;
