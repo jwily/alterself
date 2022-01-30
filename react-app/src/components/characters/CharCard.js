@@ -93,6 +93,13 @@ const Icon = styled.div`
     }
 `
 
+const colorGen = (char) => {
+    let red = (char.str + char.con) <= 40 ? (char.str + char.con) : 40;
+    let green = (char.wis + char.cha) <= 40 ? (char.wis + char.cha) : 40;
+    let blue = (char.int + char.dex) <= 40 ? (char.int + char.dex) : 40;
+    return `rgb(${red * 4.5 + 20}, ${green * 4.5 + 20}, ${blue * 4.5 + 20})`
+}
+
 const CharCard = ({ char, idx, ids }) => {
 
     const charLi = useRef(null);
@@ -123,7 +130,7 @@ const CharCard = ({ char, idx, ids }) => {
             <Link to={`/roster/${char.id}`}>
                 <div className="icon-holder">
                     <Icon className="roster-icon"
-                        color={`rgb(${(char.str + char.con) * 4.5 + 20}, ${(char.wis + char.cha) * 4.5 + 20}, ${(char.int + char.dex) * 4.5 + 20})`}>
+                        color={colorGen(char)}>
                         {char.name[0].toUpperCase()}
                         <img src={cursor} alt="cursor" />
                     </Icon>
