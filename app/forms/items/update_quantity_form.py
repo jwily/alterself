@@ -5,4 +5,4 @@ from wtforms.validators import NumberRange
 
 class UpdateQuantityForm(FlaskForm):
     quantity = IntegerField(
-        validators=[NumberRange(min=0, message="How can one have negative items? Hmmm perhaps this requires research.")])
+        validators=[NumberRange(min=0, message="Can one truly have negative items? Hmmm perhaps this requires research.")])

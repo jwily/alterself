@@ -167,7 +167,7 @@ const ItemCard = ({ item }) => {
     const handleBlur = (e) => {
         if (e.target.value < 0) {
             setQuant(0);
-            dispatch(setErrors(["How can one have a negative number of items? Perhaps I require more research!"]))
+            dispatch(setErrors(["Can one truly have a negative number of items? Perhaps I require more research!"]))
         } else if (!e.target.value) {
             setQuant(0)
         }
