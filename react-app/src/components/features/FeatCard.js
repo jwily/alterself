@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { deleteFeat } from "../../store/features";
 import { editFeat } from "../../store/features";
 
+import { setErrors } from "../../store/help";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faSearchPlus,
@@ -94,14 +96,15 @@ const FeatCard = ({ feat }) => {
         e.preventDefault();
         const formData = {
             featId: feat.id,
-            name: name || feat.name,
+            name,
             description
         };
         const data = await dispatch(editFeat(formData));
         if (data) {
-            console.log("Errors!");
+            dispatch(setErrors(data));
+        } else {
+            setShow(false);
         }
-        setShow(false);
     }
 
     const clickLook = () => {

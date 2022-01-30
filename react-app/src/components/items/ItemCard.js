@@ -123,15 +123,16 @@ const ItemCard = ({ item }) => {
         e.preventDefault();
         const formData = {
             itemId: item.id,
-            name: name || item.name,
+            name,
             quantity: parseInt(quantity, 10) || 0,
             description
         };
         const data = await dispatch(editItem(formData));
         if (data) {
-            console.log("Errors!");
+            dispatch(setErrors(data));
+        } else {
+            setShow(false);
         }
-        setShow(false);
     }
 
     const clickLook = () => {
