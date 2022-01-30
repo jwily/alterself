@@ -8,6 +8,13 @@ import { getItems } from "../../store/items";
 import { getSkills } from "../../store/skills";
 import { getFeats } from "../../store/features";
 import { getProfs } from "../../store/profs";
+import { setTheme } from "../../store/theme";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+    faMeteor,
+    faLeaf
+} from '@fortawesome/free-solid-svg-icons';
 
 import BlueBox from "../../global/BlueBox";
 import BlackBox from "../../global/BlackBox";
@@ -98,14 +105,39 @@ const Container = styled.div`
         grid-row-start: 2;
         grid-row-end: 4;
     }
+`
 
-    .scholar-div {
-        position: fixed;
+const ThemeButtons = styled.div`
+
+    position: fixed;
         right: 0;
         bottom: 0;
-        display: flex;
-        flex-direction: column;
+
+    margin-bottom: 1rem;
+    margin-right: 6rem;
+
+    button {
+        font-size: 1rem;
+        background-color: transparent;
+        border: none;
+        color: whitesmoke;
+        opacity: .25;
+        cursor: pointer;
+        margin-left: .5rem;
     }
+
+    button:hover, button.selected {
+        opacity: .75;
+    }
+`
+
+const ScholarDiv = styled.div`
+
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
 
     .scholar-title {
         margin-bottom: .5rem;
@@ -193,6 +225,7 @@ const Character = () => {
     const charData = useSelector(state => state.characters.entities.character)
     const skillsData = useSelector(state => state.skills.entities)
     const helpData = useSelector(state => state.help)
+    const theme = useSelector(state => state.theme.selection)
 
     if (badId) return (
         <Redirect to='/roster' />
@@ -203,7 +236,7 @@ const Character = () => {
             <Container>
                 {isLoaded &&
                     <>
-                        <BlueBox className="vitals">
+                        <BlueBox className="vitals" theme={theme}>
                             <p>{charData.name}</p>
                             <p>Level {charData.level} {charData.race} {charData.class}</p>
                             <p>{charData.exp} Experience Points</p>
@@ -213,9 +246,9 @@ const Character = () => {
 
                         <Abilities charData={charData} />
 
-                        <BlueBox className="throws"></BlueBox>
+                        <BlueBox className="throws" theme={theme}></BlueBox>
 
-                        <BlueBox className="skills">
+                        <BlueBox className="skills" theme={theme}>
                             <p>Acrobatics (Dex) :: {skillCalc(charData.level, charData.dex, skillsData[1])}</p>
                             <p>Animal Handling (Wis) :: {skillCalc(charData.level, charData.wis, skillsData[2])}</p>
                             <p>Arcana (Int) :: {skillCalc(charData.level, charData.int, skillsData[3])}</p>
@@ -244,7 +277,16 @@ const Character = () => {
                         <Inventory />
                     </>}
 
-                <div className="scholar-div">
+                <ThemeButtons>
+                    {theme === 'meteor' ?
+                        <button type="button" onClick={() => dispatch(setTheme("default"))} className="selected"><FontAwesomeIcon icon={faMeteor} /></button> :
+                        <button type="button" onClick={() => dispatch(setTheme("meteor"))}><FontAwesomeIcon icon={faMeteor} /></button>}
+                    {theme === 'dragon' ?
+                        <button type="button" onClick={() => dispatch(setTheme("default"))} className="selected"><FontAwesomeIcon icon={faLeaf} /></button> :
+                        <button type="button" onClick={() => dispatch(setTheme("dragon"))}><FontAwesomeIcon icon={faLeaf} /></button>}
+                </ThemeButtons>
+
+                <ScholarDiv>
                     {helpData.show && <BlackBox className="scholar-errors" onMouseEnter={() => dispatch(setHide())}>
                         <div className="scholar-title">The Scholar says:</div>
                         <div className="scholar-text">
@@ -254,8 +296,8 @@ const Character = () => {
                         </div>
                         <div className="scholar-close-text">Mouse over to dismiss</div>
                     </BlackBox>}
-                    <button className="scholar"></button>
-                </div>
+                    <button className="scholar" type="button"></button>
+                </ScholarDiv>
             </Container>
         </Parent>
     )

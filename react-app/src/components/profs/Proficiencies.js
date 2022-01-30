@@ -57,7 +57,8 @@ const Container = styled.div`
 
 const Proficiencies = () => {
 
-    const data = useSelector(state => state.profs)
+    const data = useSelector(state => state.profs);
+    const theme = useSelector(state => state.theme.selection);
 
     const [add, setAdd] = useState(false);
 
@@ -69,7 +70,7 @@ const Proficiencies = () => {
     }, [data.entities, data.ids])
 
     return (
-        <BlueBox className="profs">
+        <BlueBox className="profs" theme={theme}>
             <Container>
                 <div id="proficiencies-title">
                     <h2>

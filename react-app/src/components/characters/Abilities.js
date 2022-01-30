@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import debounce from "lodash/debounce"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editAbilities } from "../../store/characters";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -67,6 +67,8 @@ const modDisplay = (score) => {
 const Abilities = ({ charData }) => {
 
     const dispatch = useDispatch()
+
+    const theme = useSelector(state => state.theme.selection)
 
     const [changed, setChanged] = useState(false);
 
@@ -140,7 +142,7 @@ const Abilities = ({ charData }) => {
     };
 
     return (
-        <BlueBox className="abilities">
+        <BlueBox className="abilities" theme={theme}>
             <Container>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-str`}>

@@ -57,7 +57,8 @@ const Container = styled.div`
 
 const Inventory = () => {
 
-    const data = useSelector(state => state.items)
+    const data = useSelector(state => state.items);
+    const theme = useSelector(state => state.theme.selection);
 
     const [add, setAdd] = useState(false);
 
@@ -69,7 +70,7 @@ const Inventory = () => {
     }, [data.entities, data.ids])
 
     return (
-        <BlueBox className="items">
+        <BlueBox className="items" theme={theme}>
             <Container>
                 <div id="inventory-title">
                     <h2>
