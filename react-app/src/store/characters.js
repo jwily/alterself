@@ -19,7 +19,7 @@ const addChar = (char) => ({
     payload: char
 })
 
-const delChar = (id) => ({
+export const delChar = (id) => ({
     type: REMOVE_CHAR,
     payload: id
 })
@@ -114,6 +114,26 @@ export const editAbilities = (formData) => async (dispatch) => {
         if (data.errors) {
             return data.errors;
         }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
+export const editCore = (formData) => async (dispatch) => {
+    const response = await fetch(`/api/characters/${formData.charId}/core`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(addChar(data))
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        return data;
     } else {
         return ['An error occurred. Please try again.']
     }

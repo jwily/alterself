@@ -72,7 +72,7 @@ const LoginForm = ({ setToggle }) => {
         </div>
         <div className="modal-btns">
           <button type='submit'>Submit</button>
-          <button type="button" onClick={() => setToggle(false)}>Register</button>
+          <button type="button" onClick={() => setToggle(false)}>Sign Up</button>
         </div>
         <div>
           <span>Just want to explore?</span>
