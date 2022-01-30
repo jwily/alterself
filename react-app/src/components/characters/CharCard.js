@@ -58,7 +58,7 @@ const Card = styled.li`
         text-overflow: ellipsis;
     }
 
-    opacity: 0;
+    opacity: ${props => props.mounted ? 1 : 0};
 `
 
 const Icon = styled.div`
@@ -107,17 +107,15 @@ const CharCard = ({ char, idx, ids }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let fadeIn;
         if (!char.mounted) {
             dispatch(mountChar(char.id))
-            const fadeIn = setTimeout(() => {
+            fadeIn = setTimeout(() => {
                 charLi.current.style.opacity = 1;
                 charLi.current.style.transition = 'opacity .75s'
             }, 250 * ((5 + idx) / 5));
-            return () => clearTimeout(fadeIn);
-        } else {
-            charLi.current.style.opacity = 1;
-            charLi.current.style.transition = '';
-        }
+        };
+        return () => clearTimeout(fadeIn);
     }, [idx, ids, char.id, char.mounted, dispatch])
 
     const handleDelete = (e, id) => {
@@ -126,7 +124,7 @@ const CharCard = ({ char, idx, ids }) => {
     }
 
     return (
-        <Card key={idx} ref={charLi}>
+        <Card key={idx} ref={charLi} mounted={char.mounted}>
             <Link to={`/roster/${char.id}`}>
                 <div className="icon-holder">
                     <Icon className="roster-icon"
