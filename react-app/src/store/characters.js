@@ -19,7 +19,7 @@ const addChar = (char) => ({
     payload: char
 })
 
-export const delChar = (id) => ({
+const delChar = (id) => ({
     type: REMOVE_CHAR,
     payload: id
 })
