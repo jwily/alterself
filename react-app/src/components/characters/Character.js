@@ -124,7 +124,7 @@ const ThemeButtons = styled.div`
         cursor: pointer;
     }
 
-    button:hover {
+    button:hover, button.selected {
         opacity: .75;
     }
 `
@@ -276,7 +276,9 @@ const Character = () => {
                     </>}
 
                 <ThemeButtons>
-                    <button type="button"><FontAwesomeIcon icon={faMeteor} /></button>
+                    {theme === 'default' ?
+                        <button type="button" onClick={() => dispatch(setTheme("meteor"))}><FontAwesomeIcon icon={faMeteor} /></button> :
+                        <button type="button" onClick={() => dispatch(setTheme("default"))} className="selected"><FontAwesomeIcon icon={faMeteor} /></button>}
                 </ThemeButtons>
 
                 <ScholarDiv>

@@ -1,4 +1,4 @@
-const SET_THEME = 'theme/SET_ERRORS'
+const SET_THEME = 'theme/SET_THEME'
 
 export const setTheme = (string) => ({
     type: SET_THEME,
