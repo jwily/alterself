@@ -98,7 +98,7 @@ const CreateItem = ({ setAdd }) => {
                 </div>
                 <div>
                     <label htmlFor="forge-quantity">Quantity</label>
-                    <input type="number" id="forge-quantity" value={quantity} onBlur={handleBlur} onChange={updateQuantity} min="0" />
+                    <input type="number" id="forge-quantity" value={quantity} onBlur={handleBlur} onChange={updateQuantity} />
                 </div>
                 <div>
                     <label htmlFor="forge-description">Description (Optional)</label>

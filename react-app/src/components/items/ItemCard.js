@@ -162,7 +162,9 @@ const ItemCard = ({ item }) => {
     }
 
     const handleBlur = (e) => {
-        if (e.target.value < 0 || !e.target.value) setQuant(0);
+        if (e.target.value < 0 || !e.target.value) {
+            setQuant(0);
+        }
     };
 
     return (
