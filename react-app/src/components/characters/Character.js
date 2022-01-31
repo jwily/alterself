@@ -253,7 +253,7 @@ const Character = () => {
     const theme = useSelector(state => state.theme.selection)
 
     if (badId) return (
-        <Redirect to='/roster' />
+        <Redirect to='/' />
     )
 
     return (
