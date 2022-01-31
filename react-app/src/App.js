@@ -6,7 +6,6 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import Roster from './components/characters/Roster';
 import Character from './components/characters/Character';
 import { authenticate } from './store/session';
-import Home from './components/Home';
 import Welcome from './components/Welcome';
 
 function App() {
