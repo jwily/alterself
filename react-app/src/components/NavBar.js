@@ -14,7 +14,6 @@ import {
 
 const NavMain = styled.nav`
   background-color: black;
-  // display: flex;
 
   ul {
     display: flex;
