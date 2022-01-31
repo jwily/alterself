@@ -67,7 +67,7 @@ const Proficiencies = ({ fadeNum }) => {
     useEffect(() => {
         const fadeIn = setTimeout(() => {
             card.current.style.opacity = 1;
-        }, 100 + (fadeNum * 100));
+        }, 100 + (fadeNum * 50));
         return () => clearTimeout(fadeIn);
     }, [fadeNum])
 

@@ -13,6 +13,7 @@ const Container = styled.div`
     width: 100%;
     align-items: center;
     margin-top: 4.5rem;
+    margin-bottom: 2.5rem;
 
     ul {
         margin-top: 3rem;

@@ -225,6 +225,10 @@ const Character = () => {
     const randomized = useMemo(() => shuffle(array), [array])
 
     useEffect(() => {
+        dispatch(setHide(true));
+    }, [dispatch])
+
+    useEffect(() => {
         (async () => {
             if (isNaN(parseInt(charId, 10))) {
                 setBadId(true);
