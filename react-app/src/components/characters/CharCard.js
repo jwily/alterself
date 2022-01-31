@@ -70,7 +70,7 @@ const Icon = styled.div`
     font-size: 2.5rem;
     border-radius: 20rem;
     background-color: ${props => props.color};
-    font-family: 'Cormorant', serif;
+    font-family: 'Cormorant SC', serif;
 
     transition: all .15s;
 

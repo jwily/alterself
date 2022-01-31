@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import Roster from './components/characters/Roster';
 import Character from './components/characters/Character';
 import { authenticate } from './store/session';
+import Welcome from './components/Welcome';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
+
+  const user = useSelector(state => state.session.user);
 
   useEffect(() => {
     (async () => {
@@ -33,8 +36,7 @@ function App() {
           <Character />
         </ProtectedRoute>
         <Route path='/' exact={true}>
-          <h1>My Home Page</h1>
-          <Link to='/roster'>Roster</Link>
+          {user ? <Roster /> : <Welcome />}
         </Route>
         <Route path='*'>
           <Redirect to='/' />
