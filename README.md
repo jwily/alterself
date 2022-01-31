@@ -1,134 +1,98 @@
-# Flask React Project
+# Alter Self
 
-This is the starter for the Flask React project.
+![image](https://user-images.githubusercontent.com/87846621/151751449-9d26ce12-eff2-4e49-8990-d13ed2685fec.png)
 
-## Getting started
+https://alterself.herokuapp.com/
 
-1. Clone this repository (only this branch)
+Welcome to Alter Self, a minimalistic 5th-edition role-playing character manager designed to ease new players into the world of 5th-edition Dungeons and Dragons.
 
-   ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
-   ```
+This site serves as the creator's capstone project for his time at the App Academy coding bootcamp.
 
-2. Install dependencies
+## 1. Sign Up, Login, and Authentication
 
-      ```bash
-      pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
-      ```
+![image](https://user-images.githubusercontent.com/87846621/151751418-2a4e40ce-5c32-43dc-ad86-57ee007f3e96.png)
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-4. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file
+Basic user creation and login features are available, albeit with relatively basic security measures.
 
-5. Get into your pipenv, migrate your database, seed your database, and run your flask app
+Those wishing to explore the site's features may use the Demo Login available in the login modal.
 
-   ```bash
-   pipenv shell
-   ```
+## 2. Character Creation, Editing, and Deletion
 
-   ```bash
-   flask db upgrade
-   ```
+![image](https://user-images.githubusercontent.com/87846621/151751585-7c86a812-82ce-4df8-8745-0de4d01e10f9.png)
 
-   ```bash
-   flask seed all
-   ```
+Upon logging in, users will be greeted by the Roster page, which displays cards of all characters available to the user.
 
-   ```bash
-   flask run
-   ```
+Character creation requires four inputs: a character's name, fantasy-archetype class, fictional race, and background. Failure to provide any one of these inputs will inform users of their necessity through error messages.
 
-6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+Each character card features both an edit and a delete button. The edit button will bring up a modal nearly identical to that of character creation, with the same input requirements and error handling.
+
+Stylistically, the color of each character's button is determined by their _ability scores_ (explained further below). Similarly, the descriptor at the bottom of each character card is also determined by these scores, encouraging players to reflect upon the relationship between the math behind a character and how they are brought to life by the player.
+
+## 3. Individual Character Sheets
+
+![image](https://user-images.githubusercontent.com/87846621/151751703-468f0229-457d-44e7-990e-80bd72c55992.png)
+
+Upon selecting a character from the roster, users will be directed to a character's individual page.
+
+This "character sheet" is designed as a digital representation of the pen-and-paper forms that Dungeons and Dragons players have traditionally used to represent their fictional avatars.
+
+The left-most panel displays a character's ability scores, values that represent the character's capabilities in overcoming obstacles. The gold number inputs beneath each score are editable; the editing of these scores is a key component of Dungeons and Dragons character creation and play. Note that editing any of these values, locked between 0 and 99, will change other mathematically-linked values on the pages, such as those of the Skills section.
+
+Such gold quantity inputs, found throughout the character sheet, will save automatically on change and/or de-select of the input and its value. Debouncing is implemented to prevent scrolling from triggering a barrage of database requests.
+
+> Users who are already well-acquainted with 5th-edition D&D may note that certain character sheet values and options are either not present or not editable. Further work on this project will ensure that character sheets reflect the totality of information to be found in modern D&D characters.
+
+## 4. Profiencies, Features and Traits, Items
+
+![image](https://user-images.githubusercontent.com/87846621/151752269-81d04751-e388-4d3f-952f-ec425acedbac.png)
+
+Each character possesses several additional resources available for creation, editing, and deletion that represent further nuances to their capabilities as heroes as well as the objects, both magical and mundane, that they acquire throughout their journeys.
+
+## 5. Character Sheet Error Messages
+
+![image](https://user-images.githubusercontent.com/87846621/151752620-3968ae27-66fa-4662-94c6-17efc28a5ca8.png)
+
+Certain invalid inputs, such as changes to numbers beyond their allowed values or empty name inputs for secondary resources, will trigger an error message that can be easily dismissed with a mouse-over event.
+
+The creator hopes to make greater use of the helpful Scholar in future updates in educating new role-players in the intricacies of Dungeons and Dragons.
 
 ***
-*IMPORTANT!*
-   If you add any python dependencies to your pipfiles, you'll need to regenerate your requirements.txt before deployment.
-   You can do this by running:
 
-   ```bash
-   pipenv lock -r > requirements.txt
-   ```
+### Bonus Features and To-Dos
 
-*ALSO IMPORTANT!*
-   psycopg2-binary MUST remain a dev dependency because you can't install it on apline-linux.
-   There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
+- Complete character information display and edition to reflect basic 5th-edition D&D rules
+
+- Themes
+
+![image](https://user-images.githubusercontent.com/87846621/151752894-70579311-9b66-48d1-a3bf-b6fe7add2895.png)
+
+Toggling one of the two icons to the left of the Scholar will change the character sheet panel styling. As astute users may note, these themes are inspired by certain classic Japanese role-playing games.
+
+- Spells
+
+One large and glaring omission from the current character sheets are spell lists. Given the relatively complexity of this secondary resources, spells are to be implemented in the near future.
+
+- WebSocket and Campaigns
+
+One major goal of this project is to implement WebSockets such that players may create campaigns to which players may add their characters and edit and share their characters' information with other players in real time. The implementation of such architecture would allow for the use of Alter Self during remote play.
+
 ***
 
-## Deploy to Heroku
+### Technologies Used
 
-1. Before you deploy, don't forget to run the following command in order to
-ensure that your production environment has all of your up-to-date
-dependencies. You only have to run this command when you have installed new
-Python packages since your last deployment, but if you aren't sure, it won't
-hurt to run it again.
+Backend:
 
-   ```bash
-   pipenv lock -r > requirements.txt
-   ```
+- Python
+- Flask
+- Flask WTF & WTForms
+- SQLAlchemy
+- PostgreSQL
+- Docker
+- Heroku
 
-2. Create a new project on Heroku
-3. Under Resources click "Find more add-ons" and add the add on called "Heroku Postgres"
-4. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line)
-5. Run
+Frontend:
 
-   ```bash
-   heroku login
-   ```
-
-6. Login to the heroku container registry
-
-   ```bash
-   heroku container:login
-   ```
-
-7. Update the `REACT_APP_BASE_URL` variable in the Dockerfile.
-   This should be the full URL of your Heroku app: i.e. "https://flask-react-aa.herokuapp.com"
-8. Push your docker container to heroku from the root directory of your project.
-   (If you are using an M1 mac, follow [these steps below](#for-m1-mac-users) instead, then continue on to step 9.)
-   This will build the Dockerfile and push the image to your heroku container registry.
-
-   ```bash
-   heroku container:push web -a {NAME_OF_HEROKU_APP}
-   ```
-
-9. Release your docker container to heroku
-
-      ```bash
-      heroku container:release web -a {NAME_OF_HEROKU_APP}
-      ```
-
-10. set up your database
-
-      ```bash
-      heroku run -a {NAME_OF_HEROKU_APP} flask db upgrade
-      heroku run -a {NAME_OF_HEROKU_APP} flask seed all
-      ```
-
-11. Under Settings find "Config Vars" and add any additional/secret .env
-variables.
-
-12. profit
-
-### For M1 Mac users
-
-(Replaces **Step 8**)
-
-1. Build image with linux platform for heroku servers. Replace
-{NAME_OF_HEROKU_APP} with your own tag:
-
-   ```bash=
-   docker buildx build --platform linux/amd64 -t {NAME_OF_HEROKU_APP} .
-   ```
-
-2. Tag your app with the url for your apps registry. Make sure to use the name
-of your Heroku app in the url and tag name:
-
-   ```bash=2
-   docker tag {NAME_OF_HEROKU_APP} registry.heroku.com/{NAME_OF_HEROKU_APP}/web
-   ```
-
-3. Use docker to push the image to the Heroku container registry:
-
-   ```bash=3
-   docker push registry.heroku.com/{NAME_OF_HEROKU_APP}/web
-   ```
+- JavaScript
+- React
+- Redux
+- Styled Components
