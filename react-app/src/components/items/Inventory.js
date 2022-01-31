@@ -67,7 +67,7 @@ const Inventory = ({ fadeNum }) => {
     useEffect(() => {
         const fadeIn = setTimeout(() => {
             card.current.style.opacity = 1;
-        }, 0 + (500 * ((6 + fadeNum) / 6)));
+        }, 0 + (fadeNum * 100));
         return () => clearTimeout(fadeIn);
     }, [fadeNum])
 

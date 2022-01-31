@@ -113,7 +113,7 @@ const CharCard = ({ char, idx, ids }) => {
             fadeIn = setTimeout(() => {
                 charLi.current.style.opacity = 1;
                 charLi.current.style.transition = 'opacity .75s'
-            }, 250 * ((5 + idx) / 5));
+            }, 0 + 50 * idx);
         };
         return () => clearTimeout(fadeIn);
     }, [idx, ids, char.id, char.mounted, dispatch])

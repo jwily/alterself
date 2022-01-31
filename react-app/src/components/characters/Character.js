@@ -221,9 +221,7 @@ const Character = () => {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        setArray(shuffle(array));
-    }, [array])
+    const randomized = useMemo(() => shuffle(array), [array])
 
     console.log(array);
 
@@ -268,18 +266,18 @@ const Character = () => {
                             <p>Armor Class {10 + modCalc(charData.dex)}</p>
                         </BlueBox>
 
-                        <Abilities charData={charData} fadeNum={array[1]} />
+                        <Abilities charData={charData} fadeNum={randomized[1]} />
 
-                        <SavingThrows charData={charData} fadeNum={array[2]} />
+                        <SavingThrows charData={charData} fadeNum={randomized[2]} />
 
-                        <Skills charData={charData} fadeNum={array[3]} />
+                        <Skills charData={charData} fadeNum={randomized[3]} />
 
                         <div className="profs-feats">
-                            <Proficiencies fadeNum={array[4]} />
-                            <FeaturesAndTraits fadeNum={array[5]} />
+                            <Proficiencies fadeNum={randomized[4]} />
+                            <FeaturesAndTraits fadeNum={randomized[5]} />
                         </div>
 
-                        <Inventory fadeNum={array[6]} />
+                        <Inventory fadeNum={randomized[6]} />
                     </>}
 
                 <ThemeButtons>
