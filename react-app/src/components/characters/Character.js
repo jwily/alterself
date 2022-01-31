@@ -16,7 +16,6 @@ import {
     faLeaf
 } from '@fortawesome/free-solid-svg-icons';
 
-import BlueBox from "../../global/BlueBox";
 import BlackBox from "../../global/BlackBox";
 import Abilities from "./Abilities";
 import Inventory from "../items/Inventory";
@@ -31,11 +30,22 @@ import { setHide } from "../../store/help";
 import scholar from '../../images/scholar.png';
 
 const Parent = styled.div`
-    padding-top: 1.5rem;
-    padding-left: 1.5rem;
+
+    .loading-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1rem;
+        filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
+    }
 `
 
 const Container = styled.div`
+
+    margin-top: 1.5rem;
+    margin-left: 1.5rem;
+
     display: grid;
     grid-template-columns: repeat(4, min-content);
     grid-template-rows: min-content min-content 1fr;
@@ -177,10 +187,6 @@ const ScholarDiv = styled.div`
         margin-right: 1rem;
         margin-top: .5rem;
     }
-
-    // .scholar:hover {
-    //     filter: drop-shadow(0 0 5px #D4AF37);
-    // }
 `
 
 const modCalc = (score) => {
@@ -198,14 +204,11 @@ const skillCalc = (level, ability, boolean) => {
 function shuffle(array) {
     let currentIndex = array.length, randomIndex;
 
-    // While there remain elements to shuffle...
     while (currentIndex !== 0) {
 
-        // Pick a remaining element...
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
 
-        // And swap it with the current element.
         [array[currentIndex], array[randomIndex]] = [
             array[randomIndex], array[currentIndex]];
     }
@@ -248,16 +251,18 @@ const Character = () => {
     }, [dispatch, charId])
 
     const charData = useSelector(state => state.characters.entities.character)
-    // const skillsData = useSelector(state => state.skills.entities)
     const helpData = useSelector(state => state.help)
     const theme = useSelector(state => state.theme.selection)
 
     if (badId) return (
-        <Redirect to='/roster' />
+        <Redirect to='/' />
     )
 
     return (
         <Parent>
+            {!isLoaded &&
+                <div className="loading-message">Loading...</div>
+            }
             <Container>
                 {isLoaded &&
                     <>
