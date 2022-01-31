@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 const AuthButton = styled.button`
     margin-top: 2rem;
+    margin-bottom: 1rem;
     border: none;
     background-color: transparent;
     font-size: 1.5rem;
@@ -23,7 +24,7 @@ const AuthButton = styled.button`
 
 function WelcomeAuthModal() {
     const [showModal, setShowModal] = useState(false);
-    const [toggle, setToggle] = useState(false);
+    const [toggle, setToggle] = useState(true);
 
     return (
         <>
