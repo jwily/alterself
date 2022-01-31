@@ -12,7 +12,7 @@ const Container = styled.div`
     flex-direction: column;
     width: 100%;
     align-items: center;
-    margin-top: 4.5rem;
+    margin-top: 3rem;
     margin-bottom: 2.5rem;
 
     ul {
@@ -26,6 +26,13 @@ const Container = styled.div`
         font-size: 3.5rem;
         filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
         font-family: 'Cormorant SC', serif;
+    }
+
+    h2 {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
     }
 
     .roster-fa {
@@ -44,6 +51,7 @@ const Roster = () => {
     }, [dispatch])
 
     const data = useSelector(state => state.characters);
+    const user = useSelector(state => state.session.user)
 
     const charCards = useMemo(() => {
         return data.ids.map((id, idx) => {
@@ -55,6 +63,7 @@ const Roster = () => {
     return (
         <Container>
             <h1>Dive into an altered self</h1>
+            <h2>Hope you're well, {user.name}</h2>
             <CreateCharModal />
             <ul>
                 {isLoaded && charCards}

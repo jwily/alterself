@@ -17,7 +17,7 @@ const RosterCreate = styled.button`
     color: whitesmoke;
     cursor: pointer;
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
-    font-family: 'Cormorant', serif;
+    font-family: 'Cormorant SC', serif;
 
     transition: filter .15s;
 
