@@ -24,6 +24,7 @@ import FeaturesAndTraits from "../features/Features";
 import Proficiencies from "../profs/Proficiencies";
 import Skills from "./Skills";
 import SavingThrows from "./SavingThrows";
+import Vitals from "./Vitals";
 
 import { setHide } from "../../store/help";
 
@@ -256,13 +257,7 @@ const Character = () => {
             <Container>
                 {isLoaded &&
                     <>
-                        <BlueBox className="vitals" theme={theme}>
-                            <p>{charData.name}</p>
-                            <p>Level {charData.level} {charData.race} {charData.class}</p>
-                            <p>{charData.exp} Experience Points</p>
-                            <p>Profiency Bonus {profCalc(charData.level)}</p>
-                            <p>Armor Class {10 + modCalc(charData.dex)}</p>
-                        </BlueBox>
+                        <Vitals charData={charData} fadeNum={randomized[0]} />
 
                         <Abilities charData={charData} fadeNum={randomized[1]} />
 
