@@ -66,32 +66,22 @@ const NavBar = () => {
             Alter Self
           </Link>
         </li>
-        {!user && <li>
-          <AuthFormModal />
-        </li>}
-        {user && <>
-          {/* <li>
-            <Link to='/'>
-              Campaigns
-            </Link>
-          </li> */}
-          {/* <li>
-            <Link to='/roster'>
-              Roster
-            </Link>
-          </li> */}
-          <div className="nav-right">
-            <li>
-              <a href="https://github.com/jwily"><FontAwesomeIcon icon={faGithub} /></a>
-            </li>
-            <li>
-              <a href="https://www.linkedin.com/in/jwily/"><FontAwesomeIcon icon={faLinkedin} /></a>
-            </li>
+        <div className="nav-right">
+          <li>
+            <a href="https://github.com/jwily"><FontAwesomeIcon icon={faGithub} /></a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/jwily/"><FontAwesomeIcon icon={faLinkedin} /></a>
+          </li>
+          {!user && <li>
+            <AuthFormModal />
+          </li>}
+          {user &&
             <li>
               <LogoutButton />
             </li>
-          </div>
-        </>}
+          }
+        </div>
       </ul>
     </NavMain>
   );
