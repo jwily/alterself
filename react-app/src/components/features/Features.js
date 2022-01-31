@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
@@ -55,7 +55,16 @@ const Container = styled.div`
     }
 `
 
-const FeaturesAndTraits = () => {
+const FeaturesAndTraits = ({ fadeNum }) => {
+
+    const card = useRef(null)
+
+    useEffect(() => {
+        const fadeIn = setTimeout(() => {
+            card.current.style.opacity = 1;
+        }, 0 + (500 * ((6 + fadeNum) / 6)));
+        return () => clearTimeout(fadeIn);
+    }, [fadeNum])
 
     const data = useSelector(state => state.features);
     const theme = useSelector(state => state.theme.selection);
@@ -70,7 +79,7 @@ const FeaturesAndTraits = () => {
     }, [data.entities, data.ids])
 
     return (
-        <BlueBox className="feats" theme={theme}>
+        <BlueBox className="feats" theme={theme} ref={card}>
             <Container>
                 <div id="features-title">
                     <h2>

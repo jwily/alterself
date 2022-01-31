@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
@@ -28,13 +28,21 @@ const SavingLi = styled.li`
     margin-right: .5rem;
 `
 
-const SavingThrows = ({ charData }) => {
+const SavingThrows = ({ charData, fadeNum }) => {
 
+    const card = useRef(null)
+
+    useEffect(() => {
+        const fadeIn = setTimeout(() => {
+            card.current.style.opacity = 1;
+        }, 0 + (500 * ((6 + fadeNum) / 6)));
+        return () => clearTimeout(fadeIn);
+    }, [fadeNum])
     const theme = useSelector(state => state.theme.selection)
 
     return (
 
-        <BlueBox className="throws" theme={theme}>
+        <BlueBox className="throws" theme={theme} ref={card}>
             <Container >
                 <h2>Saving Throws</h2>
                 <ul>

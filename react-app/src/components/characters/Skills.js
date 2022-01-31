@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
@@ -65,13 +65,22 @@ const SkillLi = styled.li`
     margin-right: .5rem;
 `
 
-const Skills = ({ charData }) => {
+const Skills = ({ charData, fadeNum }) => {
 
     const theme = useSelector(state => state.theme.selection)
 
+    const card = useRef(null)
+
+    useEffect(() => {
+        const fadeIn = setTimeout(() => {
+            card.current.style.opacity = 1;
+        }, 0 + (500 * ((6 + fadeNum) / 6)));
+        return () => clearTimeout(fadeIn);
+    }, [fadeNum])
+
     return (
 
-        <BlueBox className="skills" theme={theme}>
+        <BlueBox className="skills" theme={theme} ref={card}>
             <Container >
                 <h2>Skills</h2>
                 <ul>

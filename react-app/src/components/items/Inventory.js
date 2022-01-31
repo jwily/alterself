@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
@@ -55,12 +55,21 @@ const Container = styled.div`
     }
 `
 
-const Inventory = () => {
+const Inventory = ({ fadeNum }) => {
 
     const data = useSelector(state => state.items);
     const theme = useSelector(state => state.theme.selection);
 
     const [add, setAdd] = useState(false);
+
+    const card = useRef(null)
+
+    useEffect(() => {
+        const fadeIn = setTimeout(() => {
+            card.current.style.opacity = 1;
+        }, 0 + (500 * ((6 + fadeNum) / 6)));
+        return () => clearTimeout(fadeIn);
+    }, [fadeNum])
 
     const itemCards = useMemo(() => {
         return data.ids.map(id => {
@@ -70,7 +79,7 @@ const Inventory = () => {
     }, [data.entities, data.ids])
 
     return (
-        <BlueBox className="items" theme={theme}>
+        <BlueBox className="items" theme={theme} ref={card}>
             <Container>
                 <div id="inventory-title">
                     <h2>

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
@@ -55,12 +55,21 @@ const Container = styled.div`
     }
 `
 
-const Proficiencies = () => {
+const Proficiencies = ({ fadeNum }) => {
 
     const data = useSelector(state => state.profs);
     const theme = useSelector(state => state.theme.selection);
 
     const [add, setAdd] = useState(false);
+
+    const card = useRef(null)
+
+    useEffect(() => {
+        const fadeIn = setTimeout(() => {
+            card.current.style.opacity = 1;
+        }, 0 + (500 * ((6 + fadeNum) / 6)));
+        return () => clearTimeout(fadeIn);
+    }, [fadeNum])
 
     const profCards = useMemo(() => {
         return data.ids.map(id => {
@@ -70,7 +79,7 @@ const Proficiencies = () => {
     }, [data.entities, data.ids])
 
     return (
-        <BlueBox className="profs" theme={theme}>
+        <BlueBox className="profs" theme={theme} ref={card}>
             <Container>
                 <div id="proficiencies-title">
                     <h2>

@@ -1,13 +1,13 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import session from './session'
-import characters from './characters'
-import skills from './skills'
-import items from './items'
-import features from './features'
-import profs from './profs'
-import help from './help'
-import theme from './theme'
+import session from './session';
+import characters from './characters';
+import skills from './skills';
+import items from './items';
+import features from './features';
+import profs from './profs';
+import help from './help';
+import theme from './theme';
 
 const rootReducer = combineReducers({
   session,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Redirect } from "react-router-dom";
 import styled from "styled-components";
@@ -194,14 +194,38 @@ const skillCalc = (level, ability, boolean) => {
     return (boolean ? modCalc(ability) + profCalc(level) : modCalc(ability))
 }
 
-const Character = () => {
+function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
 
+    // While there remain elements to shuffle...
+    while (currentIndex !== 0) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+}
+
+const Character = () => {
     const { charId } = useParams();
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [badId, setBadId] = useState(false);
+    const [array, setArray] = useState([0, 1, 2, 3, 4, 5, 6])
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        setArray(shuffle(array));
+    }, [array])
+
+    console.log(array);
 
     useEffect(() => {
         (async () => {
@@ -244,18 +268,18 @@ const Character = () => {
                             <p>Armor Class {10 + modCalc(charData.dex)}</p>
                         </BlueBox>
 
-                        <Abilities charData={charData} />
+                        <Abilities charData={charData} fadeNum={array[1]} />
 
-                        <SavingThrows charData={charData} />
+                        <SavingThrows charData={charData} fadeNum={array[2]} />
 
-                        <Skills charData={charData} />
+                        <Skills charData={charData} fadeNum={array[3]} />
 
                         <div className="profs-feats">
-                            <Proficiencies />
-                            <FeaturesAndTraits />
+                            <Proficiencies fadeNum={array[4]} />
+                            <FeaturesAndTraits fadeNum={array[5]} />
                         </div>
 
-                        <Inventory />
+                        <Inventory fadeNum={array[6]} />
                     </>}
 
                 <ThemeButtons>
