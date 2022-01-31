@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import styled from "styled-components";
 import debounce from "lodash/debounce"
 import { useDispatch, useSelector } from "react-redux";
@@ -64,7 +64,7 @@ const modDisplay = (score) => {
     else return `- ${Math.abs(mod)}`;
 }
 
-const Abilities = ({ charData }) => {
+const Abilities = ({ charData, fadeNum }) => {
 
     const dispatch = useDispatch()
 
@@ -85,6 +85,15 @@ const Abilities = ({ charData }) => {
         }, 500),
         [],
     );
+
+    const card = useRef(null)
+
+    useEffect(() => {
+        const fadeIn = setTimeout(() => {
+            card.current.style.opacity = 1;
+        }, 0 + (fadeNum * 100));
+        return () => clearTimeout(fadeIn);
+    }, [fadeNum])
 
     useEffect(() => {
         const data = {
@@ -142,7 +151,7 @@ const Abilities = ({ charData }) => {
     };
 
     return (
-        <BlueBox className="abilities" theme={theme}>
+        <BlueBox className="abilities" theme={theme} ref={card}>
             <Container>
                 <AbilityDiv>
                     <label htmlFor={`${charData.id}-str`}>

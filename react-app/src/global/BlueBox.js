@@ -34,6 +34,9 @@ const BlueBox = styled.div`
     // border: 2.5px solid silver;
     // border-radius: .5rem;
 
+    opacity: 0;
+    transition: opacity .75s;
+
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
 
     font-family: 'Inconsolata', monospace;
