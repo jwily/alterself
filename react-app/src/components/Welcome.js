@@ -89,10 +89,7 @@ const Welcome = () => {
                         Now, on the surface, adding rules to make-believe might seem entirely like defeating the purpose.
                     </p>
                     <p>
-                        However, when we reflect upon the relationship between creativity and limitation, we can that it's precisely the existence of such rules that would invite a group of dreamers, sitting together round a table, to bring all of their daring, cunning, and heart to bear in surmounting the obstacles placed before them.
-                    </p>
-                    <p>
-                        And roll some cool-looking dice while they're at it.
+                        However, when we reflect upon the relationship between creativity and limitation, we can see that it's precisely the existence of such rules that might invite a group of imaginative folks, sitting together round a table, to bring all of their daring, cunning, and heart to bear in surmounting the fantastical obstacles placed before them.
                     </p>
                 </div>
             </div>
@@ -109,10 +106,10 @@ const Welcome = () => {
                         Alter Self is a 5th-edition Dungeons and Dragons character manager crafted with the goal of easing new players into the world of tabletop RP.
                     </p>
                     <p>
-                        To those unfamiliar, Dungeons and Dragons is the world's most popular tabletop role-playing system. Without it, countless fictional worlds, from the dreamscapes of the Final Fantasies to the vast reaches of Skyrim and Morrowind, would never have come into existence as they live and breathe today.
+                        To those unfamiliar, Dungeons and Dragons is the world's most popular and influential tabletop role-playing game. Without it, countless fictional worlds, from the dreamscapes of the Final Fantasies to the vast reaches of Skyrim and Morrowind, would never have come into existence as they live and breathe today.
                     </p>
                     <p>
-                        Whether you're a fledgling adventurer or an experienced level 19 Hexblade Warlock, Alter Self is designed to give you a minimalistic and easy-to-read character sheet as you launch into your next great adventure.
+                        Whether you're a fledgling adventurer or an experienced level 19 Hexblade Warlock, Alter Self is designed to give you a minimalistic and easy-to-read character sheet from which to jump off into your next great adventure.
                     </p>
                 </div>
                 <div>
