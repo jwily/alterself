@@ -28,6 +28,10 @@ const NavMain = styled.nav`
     margin: 0 1rem;
   }
 
+  a {
+    margin-right: 1.25rem;
+  }
+
   a:hover {
     color: gold;
   }
@@ -66,22 +70,18 @@ const NavBar = () => {
             Alter Self
           </Link>
         </li>
-        <div className="nav-right">
-          <li>
+        <li className="nav-right">
+          <div className="about-me-links">
             <a target="_blank" rel="noopener noreferrer" href="https://github.com/jwily"><FontAwesomeIcon icon={faGithub} /></a>
-          </li>
-          <li>
             <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/jwily/"><FontAwesomeIcon icon={faLinkedin} /></a>
-          </li>
-          {!user && <li>
+          </div>
+          {!user &&
             <AuthFormModal />
-          </li>}
-          {user &&
-            <li>
-              <LogoutButton />
-            </li>
           }
-        </div>
+          {user &&
+            <LogoutButton />
+          }
+        </li>
       </ul>
     </NavMain>
   );
