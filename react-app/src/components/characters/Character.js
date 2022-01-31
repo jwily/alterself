@@ -30,11 +30,22 @@ import { setHide } from "../../store/help";
 import scholar from '../../images/scholar.png';
 
 const Parent = styled.div`
-    padding-top: 1.5rem;
-    padding-left: 1.5rem;
+
+    .loading-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1rem;
+        filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
+    }
 `
 
 const Container = styled.div`
+
+    margin-top: 1.5rem;
+    margin-left: 1.5rem;
+
     display: grid;
     grid-template-columns: repeat(4, min-content);
     grid-template-rows: min-content min-content 1fr;
@@ -249,10 +260,10 @@ const Character = () => {
 
     return (
         <Parent>
+            {!isLoaded &&
+                <div className="loading-message">Loading...</div>
+            }
             <Container>
-                {!isLoaded &&
-                    <div className="loading-message">Loading...</div>
-                }
                 {isLoaded &&
                     <>
                         <Vitals charData={charData} fadeNum={randomized[0]} />
