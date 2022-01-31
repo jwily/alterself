@@ -8,6 +8,12 @@ Welcome to Alter Self, a minimalistic role-playing character manager designed to
 
 This site serves as the creator's capstone project for his time at the App Academy coding bootcamp.
 
+### Links to wiki pages
+* [Database](https://github.com/jwily/alterself/wiki/Database)
+* [Feature List](https://github.com/jwily/alterself/wiki/Feature-List)
+* [User Stories](https://github.com/jwily/alterself/wiki/User-Stories)
+* [Wireframes](https://github.com/jwily/alterself/wiki/Wireframes)
+
 ## 1. Sign Up, Login, and Authentication
 
 ![image](https://user-images.githubusercontent.com/87846621/151751418-2a4e40ce-5c32-43dc-ad86-57ee007f3e96.png)
