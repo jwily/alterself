@@ -68,10 +68,10 @@ const NavBar = () => {
         </li>
         <div className="nav-right">
           <li>
-            <a href="https://github.com/jwily"><FontAwesomeIcon icon={faGithub} /></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://github.com/jwily"><FontAwesomeIcon icon={faGithub} /></a>
           </li>
           <li>
-            <a href="https://www.linkedin.com/in/jwily/"><FontAwesomeIcon icon={faLinkedin} /></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/jwily/"><FontAwesomeIcon icon={faLinkedin} /></a>
           </li>
           {!user && <li>
             <AuthFormModal />
