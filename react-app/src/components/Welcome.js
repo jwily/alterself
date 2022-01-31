@@ -52,6 +52,7 @@ const WelcomePage = styled.div`
     }
 
     p {
+        filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
         max-width: 45rem;
         font-size: 1rem;
         line-height: 1.5rem;
@@ -82,7 +83,7 @@ const Welcome = () => {
                         It's a common childhood experience, regardless of where we each call home, to set alight the imagination and put ourselves in the shoes of another: a star athlete, a boundless caped crusader, or perhaps even a favorite character from one of Tolkien's timeless epics.
                     </p>
                     <p>
-                        Tabletop role-playing takes this universal form of play and weaves into it a set of rules that determines everything from how high we might fly to the might of the dragons we vanquish in our dreams.
+                        Tabletop role-playing takes this universal form of play and weaves into it a set of rules that determines everything from how high we might fly to the heat of the flames of the dragons we vanquish in our dreams.
                     </p>
                     <p>
                         Now, on the surface, adding rules to make-believe might seem entirely like defeating the purpose.
