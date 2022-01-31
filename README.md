@@ -4,7 +4,7 @@
 
 https://alterself.herokuapp.com/
 
-Welcome to Alter Self, a minimalistic 5th-edition role-playing character manager designed to ease new players into the world of 5th-edition Dungeons and Dragons.
+Welcome to Alter Self, a minimalistic role-playing character manager designed to ease new players into the world of 5th-edition Dungeons and Dragons.
 
 This site serves as the creator's capstone project for his time at the App Academy coding bootcamp.
 
@@ -60,13 +60,13 @@ The creator hopes to make greater use of the helpful Scholar in future updates i
 
 ### Bonus Features and To-Dos
 
-- Complete character information display and edition to reflect basic 5th-edition D&D rules
-
 - Themes
 
 ![image](https://user-images.githubusercontent.com/87846621/151752894-70579311-9b66-48d1-a3bf-b6fe7add2895.png)
 
 Toggling one of the two icons to the left of the Scholar will change the character sheet panel styling. As astute users may note, these themes are inspired by certain classic Japanese role-playing games.
+
+- Complete character information display and edition to reflect basic 5th-edition D&D rules
 
 - Spells
 
