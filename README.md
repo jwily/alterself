@@ -99,7 +99,7 @@ Frontend:
 
 ***
 
-## Development
+### Development
 
 To run this project's code on your local machine, take the following steps:
 
@@ -117,7 +117,7 @@ To run this project's code on your local machine, take the following steps:
    1. `flask run`
    2. `npm start`
 
-## Installing new dependencies
+### Installing new dependencies
 
 If you add any python dependencies to your pipfiles (using `pipenv install`), you'll need to regenerate the `requirements.txt` before deployment.
 
