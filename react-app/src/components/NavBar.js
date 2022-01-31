@@ -29,7 +29,7 @@ const NavMain = styled.nav`
   }
 
   a {
-    margin-right: 1rem;
+    margin-right: 1.25rem;
   }
 
   a:hover {
@@ -71,8 +71,10 @@ const NavBar = () => {
           </Link>
         </li>
         <li className="nav-right">
-          <a target="_blank" rel="noopener noreferrer" href="https://github.com/jwily"><FontAwesomeIcon icon={faGithub} /></a>
-          <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/jwily/"><FontAwesomeIcon icon={faLinkedin} /></a>
+          <div className="about-me-links">
+            <a target="_blank" rel="noopener noreferrer" href="https://github.com/jwily"><FontAwesomeIcon icon={faGithub} /></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/jwily/"><FontAwesomeIcon icon={faLinkedin} /></a>
+          </div>
           {!user &&
             <AuthFormModal />
           }
