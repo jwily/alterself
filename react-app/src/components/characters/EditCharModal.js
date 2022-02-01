@@ -28,6 +28,14 @@ function EditCharModal({ char, idx }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (name === char.name
+            && race === char.race
+            && charClass === char.class
+            && background === char.background) {
+            setShowModal(false);
+            setErrors([]);
+            return;
+        }
         const formData = {
             charId: char.id,
             name,
@@ -40,12 +48,14 @@ function EditCharModal({ char, idx }) {
             setErrors(data.errors);
         }
         else {
-            setShowModal(false);
-            setErrors([])
-            setName(data.name);
-            setRace(data.race);
-            setCharClass(data.class);
-            setBackground(data.background);
+            if (idx === 0) {
+                setShowModal(false);
+                setErrors([])
+                setName(data.name);
+                setRace(data.race);
+                setCharClass(data.class);
+                setBackground(data.background);
+            }
         }
     };
 
