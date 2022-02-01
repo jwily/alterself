@@ -40,14 +40,12 @@ function EditCharModal({ char, idx }) {
             setErrors(data.errors);
         }
         else {
-            if (idx === 0) {
-                setShowModal(false);
-                setErrors([])
-                setName(data.name);
-                setRace(data.race);
-                setCharClass(data.class);
-                setBackground(data.background);
-            }
+            setShowModal(false);
+            setErrors([])
+            setName(data.name);
+            setRace(data.race);
+            setCharClass(data.class);
+            setBackground(data.background);
         }
     };
 

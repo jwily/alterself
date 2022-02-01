@@ -106,10 +106,10 @@ const Welcome = () => {
                         Alter Self is a 5th-edition Dungeons and Dragons character manager crafted with the goal of easing new players into the world of tabletop RP.
                     </p>
                     <p>
-                        To those unfamiliar, Dungeons and Dragons is the world's most popular and influential tabletop role-playing game. Without it, countless fictional worlds, from the dreamscapes of the Final Fantasies to the vast reaches of Skyrim and Morrowind, would never have come into existence as they live and breathe today.
+                        For those unfamiliar, Dungeons and Dragons is the world's most popular and influential tabletop role-playing game. Without it, countless fictional worlds, from the dreamscapes of the Final Fantasies to the vast reaches of Skyrim and Morrowind, would never have come into existence as they live and breathe today.
                     </p>
                     <p>
-                        Whether you're a fledgling adventurer or an experienced level 19 Hexblade Warlock, Alter Self is designed to give you a minimalistic and easy-to-read character sheet from which to jump off into your next great adventure.
+                        Whether you're a fledgling adventurer or an experienced level 19 Hexblade Warlock, Alter Self is designed to give you a minimalistic and easy-to-read character sheet from which to jump into your next great adventure.
                     </p>
                 </div>
                 <div>
