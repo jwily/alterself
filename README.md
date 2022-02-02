@@ -18,7 +18,7 @@ This site serves as the creator's capstone project for his time at the App Acade
 
 ![image](https://user-images.githubusercontent.com/87846621/151751418-2a4e40ce-5c32-43dc-ad86-57ee007f3e96.png)
 
-Basic user creation and login features are available, albeit with relatively basic security measures.
+Basic user creation and login features are available with password hashing.
 
 Those wishing to explore the site's features may use the Demo Login available in the login modal.
 
