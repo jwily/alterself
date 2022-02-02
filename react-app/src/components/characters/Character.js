@@ -26,6 +26,7 @@ import SavingThrows from "./SavingThrows";
 import Vitals from "./Vitals";
 
 import { setHide } from "../../store/help";
+import { setHover } from "../../store/help";
 
 import scholar from '../../images/scholar.png';
 
@@ -229,6 +230,7 @@ const Character = () => {
 
     useEffect(() => {
         dispatch(setHide(true));
+        dispatch(setHover(''));
     }, [dispatch])
 
     useEffect(() => {

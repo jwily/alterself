@@ -15,6 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import { setErrors } from "../../store/help";
+import { setHover } from "../../store/help";
 
 import BlueBox from "../../global/BlueBox";
 
@@ -153,7 +154,10 @@ const Abilities = ({ charData, fadeNum }) => {
     return (
         <BlueBox className="abilities" theme={theme} ref={card}>
             <Container>
-                <AbilityDiv>
+                <AbilityDiv
+                    onMouseEnter={() => dispatch(setHover('str'))}
+                    onMouseLeave={() => dispatch(setHover(''))}
+                >
                     <label htmlFor={`${charData.id}-str`}>
                         <span>Strength</span>
                         <div className="mod">
@@ -165,7 +169,10 @@ const Abilities = ({ charData, fadeNum }) => {
                         onBlur={(e) => handleBlur(e, setStr)}
                         onChange={changeStr} />
                 </AbilityDiv>
-                <AbilityDiv>
+                <AbilityDiv
+                    onMouseEnter={() => dispatch(setHover('dex'))}
+                    onMouseLeave={() => dispatch(setHover(''))}
+                >
                     <label htmlFor={`${charData.id}-dex`}>
                         <span>Dexterity</span>
                         <div className="mod">
@@ -177,7 +184,10 @@ const Abilities = ({ charData, fadeNum }) => {
                         onBlur={(e) => handleBlur(e, setDex)}
                         onChange={changeDex} />
                 </AbilityDiv>
-                <AbilityDiv>
+                <AbilityDiv
+                    onMouseEnter={() => dispatch(setHover('con'))}
+                    onMouseLeave={() => dispatch(setHover(''))}
+                >
                     <label htmlFor={`${charData.id}-con`}>
                         <span>Constitution</span>
                         <div className="mod">
@@ -189,7 +199,10 @@ const Abilities = ({ charData, fadeNum }) => {
                         onBlur={(e) => handleBlur(e, setCon)}
                         onChange={changeCon} />
                 </AbilityDiv>
-                <AbilityDiv>
+                <AbilityDiv
+                    onMouseEnter={() => dispatch(setHover('int'))}
+                    onMouseLeave={() => dispatch(setHover(''))}
+                >
                     <label htmlFor={`${charData.id}-int`}>
                         <span>Intelligence</span>
                         <div className="mod">
@@ -201,7 +214,10 @@ const Abilities = ({ charData, fadeNum }) => {
                         onBlur={(e) => handleBlur(e, setInt)}
                         onChange={changeInt} />
                 </AbilityDiv>
-                <AbilityDiv>
+                <AbilityDiv
+                    onMouseEnter={() => dispatch(setHover('wis'))}
+                    onMouseLeave={() => dispatch(setHover(''))}
+                >
                     <label htmlFor={`${charData.id}-wis`}>
                         <span>Wisdom</span>
                         <div className="mod">
@@ -213,7 +229,10 @@ const Abilities = ({ charData, fadeNum }) => {
                         onBlur={(e) => handleBlur(e, setWis)}
                         onChange={changeWis} />
                 </AbilityDiv>
-                <AbilityDiv>
+                <AbilityDiv
+                    onMouseEnter={() => dispatch(setHover('cha'))}
+                    onMouseLeave={() => dispatch(setHover(''))}
+                >
                     <label htmlFor={`${charData.id}-cha`}>
                         <span>Charisma</span>
                         <div className="mod">
