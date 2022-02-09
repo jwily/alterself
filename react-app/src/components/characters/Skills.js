@@ -33,13 +33,15 @@ const modCalc = (score) => {
 
 const SkillCard = ({ charData, num }) => {
 
+    const hoverState = useSelector(state => state.help.hover);
+
     const name = skillsObj[num].name;
     const ability = skillsObj[num].ability.toLowerCase();
     const score = charData[ability];
     const mod = modCalc(score);
 
     return (
-        <SkillLi>
+        <SkillLi hover={hoverState === ability}>
             <div>{name}</div>
             <div>{mod >= 0 ? `+ ${mod}` : `- ${Math.abs(mod)}`}</div>
         </SkillLi>
@@ -63,6 +65,13 @@ const SkillLi = styled.li`
     justify-content: space-between;
     margin-top: .25rem;
     margin-right: .5rem;
+
+    ${props => props.hover && `
+    color: gold;
+    // background-color: rgba(51, 48, 47, 0.25);
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
+    `}
+    transition: all .15s;
 `
 
 const Skills = ({ charData, fadeNum }) => {
