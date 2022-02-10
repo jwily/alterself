@@ -6,6 +6,7 @@ import { deleteProf } from "../../store/profs";
 import { editProf } from "../../store/profs";
 
 import { setErrors } from "../../store/help";
+import SavedMessage from "../../global/SavedMessage";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -18,17 +19,11 @@ const Card = styled.li`
     .buttons {
         display: flex;
         flex-direction: row;
-        justify-content: right;
+        justify-content: space-between;
         margin-top: .25rem;
 
         button {
             margin-left: .25rem;
-        }
-
-        span {
-            display: flex;
-            align-items: center;
-            font-size: .85rem;
         }
     }
 
@@ -88,6 +83,7 @@ const ProfCard = ({ prof }) => {
 
     const [show, setShow] = useState(false);
     const [confirm, setConfirm] = useState(false);
+    const [saved, setSaved] = useState(false);
 
     const [name, setName] = useState(prof.name);
     const [description, setDesc] = useState(prof.description);
@@ -103,7 +99,7 @@ const ProfCard = ({ prof }) => {
         if (data) {
             dispatch(setErrors(data));
         } else {
-            setShow(false);
+            setSaved(true);
         }
     }
 
@@ -112,6 +108,7 @@ const ProfCard = ({ prof }) => {
         setConfirm(false);
         setName(prof.name);
         setDesc(prof.description);
+        setSaved(false);
     }
 
     const handleDelete = (e, id) => {
@@ -145,11 +142,12 @@ const ProfCard = ({ prof }) => {
             </form>
             {
                 show && <div className="buttons">
+                    {saved ? <SavedMessage setSaved={setSaved} /> : <span></span>}
                     {!confirm ?
-                        <>
+                        <div>
                             <button type="submit" form={`edit-prof-${prof.id}`}>Update</button>
                             <button type='button' onClick={clickDelete}>Delete</button>
-                        </> :
+                        </div> :
                         <form onSubmit={(e) => handleDelete(e, prof.id)} className='prof-delete-confirm'>
                             <button type='submit'>Confirm Delete</button>
                             <button type='button' onClick={clickDelete}>Cancel</button>
