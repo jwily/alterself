@@ -13,7 +13,7 @@ const CreateForm = styled.div`
     }
 
     input, textarea {
-        color: #ffc800;
+        color: #ffcd00;
     }
 
     textarea {

@@ -51,7 +51,7 @@ const Container = styled.div`
     }
 
     .prof-reveal:hover {
-        color: #ffc800;
+        color: #ffcd00;
     }
 `
 

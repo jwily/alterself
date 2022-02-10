@@ -46,7 +46,7 @@ const AbilityDiv = styled.div`
     input {
         width: 4rem;
         padding-left: 1.25rem;
-        color: #ffc800;
+        color: #ffcd00;
         text-align: center;
     }
 
