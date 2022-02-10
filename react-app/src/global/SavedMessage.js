@@ -18,10 +18,10 @@ const SavedMessage = ({ setSaved }) => {
         const fadeOut = setTimeout(() => {
             span.current.style.transition = 'opacity .25s';
             span.current.style.opacity = 0;
-        }, 1000)
+        }, 850)
         const unmount = setTimeout(() => {
             setSaved(false);
-        }, 1250)
+        }, 1100)
         return (() => {
             clearTimeout(fadeOut);
             clearTimeout(unmount);

@@ -117,6 +117,7 @@ const ItemCard = ({ item }) => {
 
     const submitEdit = async (e) => {
         e.preventDefault();
+        if (saved) return;
         const formData = {
             itemId: item.id,
             name,

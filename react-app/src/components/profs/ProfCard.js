@@ -90,6 +90,7 @@ const ProfCard = ({ prof }) => {
 
     const submitEdit = async (e) => {
         e.preventDefault();
+        if (saved) return;
         const formData = {
             profId: prof.id,
             name,

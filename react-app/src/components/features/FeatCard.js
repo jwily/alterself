@@ -90,6 +90,7 @@ const FeatCard = ({ feat }) => {
 
     const submitEdit = async (e) => {
         e.preventDefault();
+        if (saved) return;
         const formData = {
             featId: feat.id,
             name,
