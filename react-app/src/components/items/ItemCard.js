@@ -8,6 +8,7 @@ import { editItem } from "../../store/items";
 import { editQuantity } from "../../store/items";
 
 import { setErrors } from "../../store/help";
+import SavedMessage from "../../global/SavedMessage";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -20,17 +21,11 @@ const Card = styled.li`
     .buttons {
         display: flex;
         flex-direction: row;
-        justify-content: right;
+        justify-content: space-between;
         margin-top: .25rem;
 
         button {
             margin-left: .25rem;
-        }
-
-        span {
-            display: flex;
-            align-items: center;
-            font-size: .85rem;
         }
     }
 
@@ -96,6 +91,7 @@ const ItemCard = ({ item }) => {
     const [show, setShow] = useState(false);
     const [confirm, setConfirm] = useState(false);
     const [changed, setChanged] = useState(false);
+    const [saved, setSaved] = useState(false);
 
     const [name, setName] = useState(item.name);
     const [description, setDesc] = useState(item.description)
@@ -131,7 +127,7 @@ const ItemCard = ({ item }) => {
         if (data) {
             dispatch(setErrors(data));
         } else {
-            setShow(false);
+            setSaved(true);
         }
     }
 
@@ -140,6 +136,7 @@ const ItemCard = ({ item }) => {
         setConfirm(false);
         setName(item.name);
         setDesc(item.description);
+        setSaved(false);
     }
 
     const handleDelete = (e, id) => {
@@ -188,11 +185,12 @@ const ItemCard = ({ item }) => {
             </form>
             {
                 show && <div className="buttons">
+                    {saved ? <SavedMessage setSaved={setSaved} /> : <span></span>}
                     {!confirm ?
-                        <>
+                        <div>
                             <button type="submit" form={`edit-item-${item.id}`}>Update</button>
                             <button type='button' onClick={clickDelete}>Delete</button>
-                        </> :
+                        </div> :
                         <form onSubmit={(e) => handleDelete(e, item.id)} className='item-delete-confirm'>
                             <button type='submit'>Confirm Delete</button>
                             <button type='button' onClick={clickDelete}>Cancel</button>
