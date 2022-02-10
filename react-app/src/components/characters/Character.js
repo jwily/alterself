@@ -13,7 +13,8 @@ import { setTheme } from "../../store/theme";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faMeteor,
-    faLeaf
+    faLeaf,
+    faFeather
 } from '@fortawesome/free-solid-svg-icons';
 
 import BlackBox from "../../global/BlackBox";
@@ -285,12 +286,15 @@ const Character = () => {
                     </>}
 
                 <ThemeButtons>
-                    {theme === 'meteor' ?
-                        <button type="button" onClick={() => dispatch(setTheme("default"))} className="selected"><FontAwesomeIcon icon={faMeteor} /></button> :
-                        <button type="button" onClick={() => dispatch(setTheme("meteor"))}><FontAwesomeIcon icon={faMeteor} /></button>}
                     {theme === 'dragon' ?
                         <button type="button" onClick={() => dispatch(setTheme("default"))} className="selected"><FontAwesomeIcon icon={faLeaf} /></button> :
                         <button type="button" onClick={() => dispatch(setTheme("dragon"))}><FontAwesomeIcon icon={faLeaf} /></button>}
+                    {theme === 'meteor' ?
+                        <button type="button" onClick={() => dispatch(setTheme("default"))} className="selected"><FontAwesomeIcon icon={faMeteor} /></button> :
+                        <button type="button" onClick={() => dispatch(setTheme("meteor"))}><FontAwesomeIcon icon={faMeteor} /></button>}
+                    {theme === 'lion' ?
+                        <button type="button" onClick={() => dispatch(setTheme("default"))} className="selected"><FontAwesomeIcon icon={faFeather} /></button> :
+                        <button type="button" onClick={() => dispatch(setTheme("lion"))}><FontAwesomeIcon icon={faFeather} /></button>}
                 </ThemeButtons>
 
                 <ScholarDiv>
