@@ -63,7 +63,7 @@ const SkillLi = styled.li`
 
     display: flex;
     justify-content: space-between;
-    margin-top: .25rem;
+    margin-bottom: .25rem;
     margin-right: .5rem;
 
     ${props => props.hover && `
