@@ -12,6 +12,10 @@ const CreateForm = styled.div`
         flex-direction: column;
     }
 
+    input, textarea {
+        color: #ffc800;
+    }
+
     textarea {
         resize: none;
     }

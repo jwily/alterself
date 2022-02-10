@@ -45,7 +45,7 @@ const DeleteCharModal = ({ char }) => {
                     <h2>A song of farewell</h2>
                     <form onSubmit={(e) => handleDelete(e, char.id)}>
                         <div>
-                            <p>Erase {char.name}, the {char.race} {char.class}?</p>
+                            <p>Delete {char.name}, the {char.race} {char.class}?</p>
                         </div>
                         <div className="modal-btns">
                             <button type='submit'>Confirm</button>

@@ -58,7 +58,7 @@ const BlueBox = styled.div`
     }
 
     button:hover {
-        color: gold;
+        color: #ffc800;
     }
 
     ${(props) => props.theme === "default" && DefaultStyle}

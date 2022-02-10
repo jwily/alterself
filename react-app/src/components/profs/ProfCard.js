@@ -47,7 +47,7 @@ const Card = styled.li`
     }
 
     input.edit-name-field {
-        color: gold;
+        color: #ffc800;
     }
 
     p {
@@ -66,7 +66,7 @@ const Card = styled.li`
     textarea {
         margin-top: .5rem;
         resize: none;
-        color: gold;
+        color: #ffc800;
     }
 
     .title {
