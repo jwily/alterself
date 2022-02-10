@@ -11,7 +11,7 @@ import {
 
 const Content = styled.div`
     form > div {
-        width: 17.5rem;
+        width: 20rem;
     }
 
     p {
@@ -42,10 +42,10 @@ const DeleteCharModal = ({ char }) => {
             <button type='button' onClick={() => setShowModal(true)}><FontAwesomeIcon icon={faUserSlash} /></button>
             {showModal && <Modal onClose={() => setShowModal(false)}>
                 <Content className="modal-content">
-                    <h2>A fresh start</h2>
+                    <h2>A song of farewell</h2>
                     <form onSubmit={(e) => handleDelete(e, char.id)}>
                         <div>
-                            <p>Delete {char.name}, the {char.race} {char.class}?</p>
+                            <p>Erase {char.name}, the {char.race} {char.class}?</p>
                         </div>
                         <div className="modal-btns">
                             <button type='submit'>Confirm</button>
