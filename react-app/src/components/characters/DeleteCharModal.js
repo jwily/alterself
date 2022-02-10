@@ -11,11 +11,17 @@ import {
 
 const Content = styled.div`
     form > div {
-        width: 20rem;
+        width: 17.5rem;
     }
 
     p {
         margin-top: 1rem;
+        text-align: center;
+        font-size: 1.15rem;
+        color: rgb(236, 52, 35);
+    }
+
+    p span {
         color: rgb(236, 52, 35);
     }
 `
@@ -39,7 +45,7 @@ const DeleteCharModal = ({ char }) => {
                     <h2>A fresh start</h2>
                     <form onSubmit={(e) => handleDelete(e, char.id)}>
                         <div>
-                            <p>Do you wish to erase {char.name}, the Level {char.level} {char.race} {char.class}?</p>
+                            <p>Delete {char.name}, the {char.race} {char.class}?</p>
                         </div>
                         <div className="modal-btns">
                             <button type='submit'>Confirm</button>
