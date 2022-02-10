@@ -68,7 +68,6 @@ const SkillLi = styled.li`
 
     ${props => props.hover && `
     color: gold;
-    // background-color: rgba(51, 48, 47, 0.25);
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
     `}
     transition: all .15s;
