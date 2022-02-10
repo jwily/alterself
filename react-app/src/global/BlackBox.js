@@ -31,7 +31,7 @@ const BlackBox = styled.div`
     }
 
     button:hover {
-        color: #ffc800;
+        color: #ffcd00;
     }
 `
 

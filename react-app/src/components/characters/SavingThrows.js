@@ -28,7 +28,7 @@ const SavingLi = styled.li`
     margin-right: .5rem;
 
     ${props => props.hover && `
-    color: #ffc800;
+    color: #ffcd00;
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
     `}
     transition: all .15s;

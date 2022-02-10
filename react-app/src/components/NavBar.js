@@ -32,7 +32,7 @@ const NavMain = styled.nav`
   }
 
   a:hover {
-    color: #ffc800;
+    color: #ffcd00;
   }
 
   font-family: 'Karla', sans-serif;
@@ -48,7 +48,7 @@ const NavMain = styled.nav`
   }
 
   button:hover {
-    color: #ffc800;
+    color: #ffcd00;
   }
 
   .nav-right {
