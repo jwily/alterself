@@ -5,14 +5,10 @@ import styled from "styled-components";
 
 import cursor from '../../images/FF8Cursor.png';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faUserSlash,
-} from '@fortawesome/free-solid-svg-icons';
-
-import { deleteChar, mountChar } from "../../store/characters";
+import { mountChar } from "../../store/characters";
 import BlackBox from "../../global/BlackBox";
 import EditCharModal from "./EditCharModal";
+import DeleteCharModal from "./DeleteCharModal";
 
 const Card = styled.li`
 
@@ -118,11 +114,6 @@ const CharCard = ({ char, idx, ids }) => {
         return () => clearTimeout(fadeIn);
     }, [idx, ids, char.id, char.mounted, dispatch])
 
-    const handleDelete = (e, id) => {
-        e.preventDefault();
-        dispatch(deleteChar(id));
-    }
-
     return (
         <Card key={idx} ref={charLi} mounted={char.mounted}>
             <Link to={`/roster/${char.id}`}>
@@ -143,9 +134,7 @@ const CharCard = ({ char, idx, ids }) => {
                         <span>{char.title}</span>
                         <div>
                             <EditCharModal char={char} idx={idx} />
-                            <form onSubmit={(e) => handleDelete(e, char.id)}>
-                                <button type='submit'><FontAwesomeIcon icon={faUserSlash} /></button>
-                            </form>
+                            <DeleteCharModal char={char} />
                         </div>
                     </div>
                 </div>
