@@ -1,14 +1,9 @@
 import React, { useRef, useEffect, useState, useMemo } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import debounce from "lodash/debounce"
 import { useSelector } from "react-redux";
 
 import BlueBox from "../../global/BlueBox";
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faHeart
-} from '@fortawesome/free-solid-svg-icons';
 
 import { setErrors } from "../../store/help";
 

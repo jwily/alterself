@@ -96,7 +96,7 @@ const Abilities = ({ charData, fadeNum }) => {
         const scores = [str, dex, con, int, wis, cha];
         for (let i = 0; i < 6; i++) {
             const score = scores[i];
-            if (!score || score < 0 || score > 99) {
+            if (score < 0 || score > 99) {
                 return false;
             }
         }
@@ -123,11 +123,14 @@ const Abilities = ({ charData, fadeNum }) => {
             }
             debouncedSave(data);
         }
-    }, [debouncedSave, charData.id, str, dex, con, int, wis, cha, changed])
+    }, [debouncedSave, charData.id, str, dex, con, int, wis, cha, changed, dataOkay])
 
     const handleBlur = (e, setFunc, currVal) => {
         if (!dataOkay) {
             setFunc(currVal);
+        }
+        if (!e.target.value) {
+            setFunc(0);
         }
     };
 
