@@ -103,7 +103,7 @@ const ItemCard = ({ item }) => {
             if (response) {
                 dispatch(setErrors(response))
             }
-        }, 500),
+        }, 350),
         [],
     );
 
