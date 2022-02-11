@@ -119,6 +119,28 @@ export const editAbilities = (formData) => async (dispatch) => {
     }
 }
 
+export const editVitals = (formData) => async (dispatch) => {
+    const response = await fetch(`/api/characters/${formData.charId}/vitals`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(setChar(data))
+        return null;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return ["HP scores don't usually go below zero. Unless you're one of the undead?"];
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
 export const editCore = (formData) => async (dispatch) => {
     const response = await fetch(`/api/characters/${formData.charId}/core`, {
         method: 'PATCH',

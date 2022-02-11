@@ -174,7 +174,7 @@ const ItemCard = ({ item }) => {
 
     return (
         <Card>
-            <form className="edit-item-form" id={`edit-item-${item.id}`} onSubmit={submitEdit}>
+            <form className="edit-item-form" id={`edit-item-${item.id}`} onSubmit={submitEdit} autoComplete="off">
                 <div className="title">
                     {!show ? <span className="edit-name-field">{item.name}</span> :
                         <input type="text" className="edit-name-field" value={name} onChange={nameChange} />}
