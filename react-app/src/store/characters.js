@@ -115,7 +115,7 @@ export const editAbilities = (formData) => async (dispatch) => {
             return ["Oops, I can't work with ability scores lower than 0 or higher than 99."];
         }
     } else {
-        return null;
+        return ['An error occurred. Please try again.']
     }
 }
 

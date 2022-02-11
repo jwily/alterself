@@ -82,11 +82,9 @@ const Abilities = ({ charData, fadeNum }) => {
 
     const debouncedSave = useCallback(
         debounce(async (data) => {
-            if (dataOkay) {
-                const response = await dispatch(editAbilities(data));
-                if (response) {
-                    dispatch(setErrors(response))
-                }
+            const response = await dispatch(editAbilities(data));
+            if (response) {
+                dispatch(setErrors(response))
             }
         }, 350),
         [],
@@ -116,12 +114,12 @@ const Abilities = ({ charData, fadeNum }) => {
         if (changed) {
             const data = {
                 charId: charData.id,
-                strength: parseInt(str, 10),
-                dexterity: parseInt(dex, 10),
-                constitution: parseInt(con, 10),
-                intelligence: parseInt(int, 10),
-                wisdom: parseInt(wis, 10),
-                charisma: parseInt(cha, 10),
+                strength: parseInt(str, 10) || 0,
+                dexterity: parseInt(dex, 10) || 0,
+                constitution: parseInt(con, 10) || 0,
+                intelligence: parseInt(int, 10) || 0,
+                wisdom: parseInt(wis, 10) || 0,
+                charisma: parseInt(cha, 10) || 0,
             }
             debouncedSave(data);
         }
