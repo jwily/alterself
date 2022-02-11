@@ -82,7 +82,9 @@ const Abilities = ({ charData, fadeNum }) => {
 
     const debouncedSave = useCallback(
         debounce(async (data) => {
-            await dispatch(editAbilities(data));
+            if (dataOkay) {
+                await dispatch(editAbilities(data));
+            }
         }, 500),
         [],
     );
@@ -108,8 +110,7 @@ const Abilities = ({ charData, fadeNum }) => {
     }, [fadeNum])
 
     useEffect(() => {
-        console.log(dataOkay);
-        if (changed && dataOkay) {
+        if (changed) {
             const data = {
                 charId: charData.id,
                 strength: parseInt(str, 10),
@@ -239,8 +240,8 @@ const Abilities = ({ charData, fadeNum }) => {
                         onChange={changeWis} />
                 </AbilityDiv>
                 <AbilityDiv
-                    onMouseEnter={() => dispatch(setHover('cha'))}
-                    onMouseLeave={() => dispatch(setHover(''))}
+                // onMouseEnter={() => dispatch(setHover('cha'))}
+                // onMouseLeave={() => dispatch(setHover(''))}
                 >
                     <label htmlFor={`${charData.id}-cha`}>
                         <span>Charisma</span>
