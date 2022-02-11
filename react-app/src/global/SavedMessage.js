@@ -5,6 +5,7 @@ const SavedSpan = styled.span`
 
     margin-left: .25rem;
     display: flex;
+    color: limegreen;
     align-items: center;
     font-size: .85rem;
 `

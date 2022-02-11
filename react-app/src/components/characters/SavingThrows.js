@@ -30,6 +30,7 @@ const SavingLi = styled.li`
     ${props => props.hover && `
     color: #ffcd00;
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
+    background-color: rgba(51, 48, 47, 0.15);
     `}
     transition: all .15s;
 `

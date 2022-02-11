@@ -100,6 +100,9 @@ const Container = styled.div`
     #hp-title {
     margin-top: .5rem;
     }
+
+    #char-level {
+        font-size: 1rem;
 `
 
 const LifeBar = styled.div`
@@ -172,6 +175,11 @@ const Vitals = ({ charData, fadeNum }) => {
         setHPTemp(e.target.value);
     };
 
+    const changeLevel = (e) => {
+        setChanged(true);
+        setLevel(e.target.value);
+    };
+
     const theme = useSelector(state => state.theme.selection)
 
     return (
@@ -182,7 +190,8 @@ const Vitals = ({ charData, fadeNum }) => {
                         <div>
                             <h1>{charData.name}</h1>
                             <ul>
-                                <li>Level {charData.level} {charData.class}</li>
+                                <li><label htmlFor="char-level">Level </label>
+                                    <input id="char-level" value={level} onChange={changeLevel} type="number" /> {charData.class}</li>
                                 <li>{charData.race} {charData.background}</li>
                             </ul>
                         </div>
