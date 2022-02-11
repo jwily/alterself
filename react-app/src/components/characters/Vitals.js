@@ -84,6 +84,11 @@ const Vitals = ({ charData, fadeNum }) => {
     const [hpCurr, setHPCurr] = useState(charData.hpCurr);
     const [hpMax, setHPMax] = useState(charData.hpMax);
     const [hpTemp, setHPTemp] = useState(charData.hpTemp);
+    const [ac, setAC] = useState(charData.armor);
+    const [speed, setSpeed] = useState(charData.speed);
+    const [hdCurr, setHDCurr] = useState(charData.hdCurr);
+    const [hdMax, setHDMax] = useState(charData.hdMax);
+
 
     useEffect(() => {
         const fadeIn = setTimeout(() => {
