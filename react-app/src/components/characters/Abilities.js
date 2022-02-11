@@ -123,7 +123,7 @@ const Abilities = ({ charData, fadeNum }) => {
             }
             debouncedSave(data);
         }
-    }, [debouncedSave, charData.id, str, dex, con, int, wis, cha, changed, dataOkay])
+    }, [debouncedSave, charData.id, str, dex, con, int, wis, cha, changed])
 
     const handleBlur = (e, setFunc, currVal) => {
         if (!dataOkay) {
