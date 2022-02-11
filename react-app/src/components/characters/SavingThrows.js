@@ -32,7 +32,7 @@ const SavingLi = styled.li`
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
     background-color: rgba(51, 48, 47, 0.15);
     `}
-    transition: all .15s;
+    transition: all .25s;
 `
 
 const SavingThrows = ({ charData, fadeNum }) => {
