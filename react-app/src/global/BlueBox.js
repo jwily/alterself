@@ -2,30 +2,40 @@ import styled, { css } from "styled-components";
 
 const MeteorStyle = css`
     background: rgb(9,84,173);
-    background: -moz-linear-gradient(125deg, rgba(9,84,173,1) 0%, rgba(6,40,137,1) 15%, rgba(5,13,71,1) 80%);
-    background: -webkit-linear-gradient(125deg, rgba(9,84,173,1) 0%, rgba(6,40,137,1) 15%, rgba(5,13,71,1) 80%);
-    background: linear-gradient(125deg, rgba(9,84,173,1) 0%, rgba(6,40,137,1) 15%, rgba(5,13,71,1) 80%);
+    background: -moz-linear-gradient(120deg, rgba(9,84,173,1) 0%, rgba(6,40,137,1) 15%, rgba(5,13,71,1) 85%);
+    background: -webkit-linear-gradient(120deg, rgba(9,84,173,1) 0%, rgba(6,40,137,1) 15%, rgba(5,13,71,1) 85%);
+    background: linear-gradient(120deg, rgba(9,84,173,1) 0%, rgba(6,40,137,1) 15%, rgba(5,13,71,1) 85%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0954ad",endColorstr="#050d47",GradientType=1);
 
     border: 2.5px solid silver;
     border-radius: .5rem;
 `
 
-const DragonStyle = css`
+const LionStyle = css`
+    background: rgb(60,60,60);
+    background: -moz-linear-gradient(90deg, rgba(60,60,60,1) 0%, rgba(100,100,100,1) 50%);
+    background: -webkit-linear-gradient(90deg, rgba(60,60,60,1) 0%, rgba(100,100,100,1) 50%);
+    background: linear-gradient(90deg, rgba(60,60,60,1) 0%, rgba(100,100,100,1) 50%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3c3c3c",endColorstr="#646464",GradientType=1);
 
+    border-top: 2.5px solid rgb(100, 100, 100);
+    border-left: 2.5px solid rgb(100, 100, 100);
+    border-bottom: 2.5px solid rgb(60, 60, 60);
+    border-right: 2.5px solid rgb(60, 60, 60);
+`
+
+const DragonStyle = css`
     background: black;
     border: 2.5px solid silver;
     border-radius: .5rem;
 `
 
 const DefaultStyle = css`
-
     background: rgb(20, 20, 20);
     border: 2.5px solid rgb(20, 20, 20);
 `
 
 const BlueBox = styled.div`
-
     opacity: 0;
     transition: opacity .75s;
 
@@ -64,6 +74,7 @@ const BlueBox = styled.div`
     ${(props) => props.theme === "default" && DefaultStyle}
     ${(props) => props.theme === "meteor" && MeteorStyle}
     ${(props) => props.theme === "dragon" && DragonStyle}
+    ${(props) => props.theme === "lion" && LionStyle}
 `
 
 BlueBox.defaultProps = {

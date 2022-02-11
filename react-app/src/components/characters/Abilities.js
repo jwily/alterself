@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import styled from "styled-components";
 import debounce from "lodash/debounce"
 import { useDispatch, useSelector } from "react-redux";
@@ -89,6 +89,17 @@ const Abilities = ({ charData, fadeNum }) => {
 
     const card = useRef(null)
 
+    const dataOkay = useMemo(() => {
+        const scores = [str, dex, con, int, wis, cha];
+        for (let i = 0; i < 6; i++) {
+            const score = scores[i];
+            if (!score || score < 0 || score > 99) {
+                return false;
+            }
+        }
+        return true;
+    }, [str, dex, con, int, wis, cha])
+
     useEffect(() => {
         const fadeIn = setTimeout(() => {
             card.current.style.opacity = 1;
@@ -97,16 +108,18 @@ const Abilities = ({ charData, fadeNum }) => {
     }, [fadeNum])
 
     useEffect(() => {
-        const data = {
-            charId: charData.id,
-            strength: parseInt(str, 10) || 0,
-            dexterity: parseInt(dex, 10) || 0,
-            constitution: parseInt(con, 10) || 0,
-            intelligence: parseInt(int, 10) || 0,
-            wisdom: parseInt(wis, 10) || 0,
-            charisma: parseInt(cha, 10) || 0,
+        if (changed) {
+            const data = {
+                charId: charData.id,
+                strength: parseInt(str, 10) || 0,
+                dexterity: parseInt(dex, 10) || 0,
+                constitution: parseInt(con, 10) || 0,
+                intelligence: parseInt(int, 10) || 0,
+                wisdom: parseInt(wis, 10) || 0,
+                charisma: parseInt(cha, 10) || 0,
+            }
+            debouncedSave(data);
         }
-        if (changed) debouncedSave(data);
     }, [debouncedSave, charData.id, str, dex, con, int, wis, cha, changed])
 
     const handleBlur = (e, func) => {
