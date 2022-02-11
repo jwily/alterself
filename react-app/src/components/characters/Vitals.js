@@ -1,14 +1,9 @@
 import React, { useRef, useEffect, useState, useMemo } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import debounce from "lodash/debounce"
 import { useSelector } from "react-redux";
 
 import BlueBox from "../../global/BlueBox";
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faHeart
-} from '@fortawesome/free-solid-svg-icons';
 
 import { setErrors } from "../../store/help";
 
@@ -107,7 +102,7 @@ const LifeBar = styled.div`
     ${(props) => props.width > 50 && 'background-color: yellowgreen;'}
     ${(props) => props.width <= 50 && props.width > 25 && 'background-color: goldenrod;'}
     ${(props) => props.width <= 25 && 'background-color: firebrick;'}
-    transition: width .25s;
+    transition: width .15s;
     grid-area: 1 / 1;
 `
 
@@ -115,7 +110,7 @@ const ShieldBar = styled.div`
     width: ${(props) => props.width}%;
     height: .5rem;
     background-color: slateblue;
-    transition: width .25s;
+    transition: width .15s;
     grid-area: 1 / 1;
     justify-self: end;
 `

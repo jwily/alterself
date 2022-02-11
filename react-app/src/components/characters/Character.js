@@ -191,18 +191,6 @@ const ScholarDiv = styled.div`
     }
 `
 
-const modCalc = (score) => {
-    return Math.floor((score - 10) / 2)
-}
-
-const profCalc = (level) => {
-    return (1 + Math.ceil(level / 4))
-}
-
-const skillCalc = (level, ability, boolean) => {
-    return (boolean ? modCalc(ability) + profCalc(level) : modCalc(ability))
-}
-
 function shuffle(array) {
     let currentIndex = array.length, randomIndex;
 
@@ -223,7 +211,7 @@ const Character = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [badId, setBadId] = useState(false);
-    const [array, setArray] = useState([0, 1, 2, 3, 4, 5, 6])
+    const [array] = useState([0, 1, 2, 3, 4, 5, 6])
 
     const dispatch = useDispatch();
 

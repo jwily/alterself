@@ -82,8 +82,11 @@ const Abilities = ({ charData, fadeNum }) => {
 
     const debouncedSave = useCallback(
         debounce(async (data) => {
-            await dispatch(editAbilities(data));
-        }, 500),
+            const response = await dispatch(editAbilities(data));
+            if (response) {
+                dispatch(setErrors(response))
+            }
+        }, 350),
         [],
     );
 
@@ -93,7 +96,7 @@ const Abilities = ({ charData, fadeNum }) => {
         const scores = [str, dex, con, int, wis, cha];
         for (let i = 0; i < 6; i++) {
             const score = scores[i];
-            if (!score || score < 0 || score > 99) {
+            if (score < 0 || score > 99) {
                 return false;
             }
         }
@@ -122,15 +125,12 @@ const Abilities = ({ charData, fadeNum }) => {
         }
     }, [debouncedSave, charData.id, str, dex, con, int, wis, cha, changed])
 
-    const handleBlur = (e, func) => {
-        if (e.target.value > 99) {
-            func(99);
-            dispatch(setErrors(["Oops, I can't work with ability scores lower than 0 or higher than 99."]))
-        } else if (e.target.value < 0) {
-            func(0);
-            dispatch(setErrors(["Oops, I can't work with ability scores lower than 0 or higher than 99."]))
-        } else if (!e.target.value) {
-            func(0);
+    const handleBlur = (e, setFunc, currVal) => {
+        if (!dataOkay) {
+            setFunc(currVal);
+        }
+        if (!e.target.value) {
+            setFunc(0);
         }
     };
 
@@ -175,11 +175,11 @@ const Abilities = ({ charData, fadeNum }) => {
                         <span>Strength</span>
                         <div className="mod">
                             <FontAwesomeIcon icon={faFistRaised} />
-                            <span>{modDisplay(str)}</span>
+                            <span>{modDisplay(charData.str)}</span>
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-str`} type="number" value={str}
-                        onBlur={(e) => handleBlur(e, setStr)}
+                        onBlur={(e) => handleBlur(e, setStr, charData.str)}
                         onChange={changeStr} />
                 </AbilityDiv>
                 <AbilityDiv
@@ -190,11 +190,11 @@ const Abilities = ({ charData, fadeNum }) => {
                         <span>Dexterity</span>
                         <div className="mod">
                             <FontAwesomeIcon icon={faHandPaper} />
-                            <span>{modDisplay(dex)}</span>
+                            <span>{modDisplay(charData.dex)}</span>
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-dex`} type="number" value={dex}
-                        onBlur={(e) => handleBlur(e, setDex)}
+                        onBlur={(e) => handleBlur(e, setDex, charData.dex)}
                         onChange={changeDex} />
                 </AbilityDiv>
                 <AbilityDiv
@@ -205,11 +205,11 @@ const Abilities = ({ charData, fadeNum }) => {
                         <span>Constitution</span>
                         <div className="mod">
                             <FontAwesomeIcon icon={faHandHoldingWater} />
-                            <span>{modDisplay(con)}</span>
+                            <span>{modDisplay(charData.con)}</span>
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-con`} type="number" value={con}
-                        onBlur={(e) => handleBlur(e, setCon)}
+                        onBlur={(e) => handleBlur(e, setCon, charData.con)}
                         onChange={changeCon} />
                 </AbilityDiv>
                 <AbilityDiv
@@ -220,11 +220,11 @@ const Abilities = ({ charData, fadeNum }) => {
                         <span>Intelligence</span>
                         <div className="mod">
                             <FontAwesomeIcon icon={faHandSpock} />
-                            <span>{modDisplay(int)}</span>
+                            <span>{modDisplay(charData.int)}</span>
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-int`} type="number" value={int}
-                        onBlur={(e) => handleBlur(e, setInt)}
+                        onBlur={(e) => handleBlur(e, setInt, charData.int)}
                         onChange={changeInt} />
                 </AbilityDiv>
                 <AbilityDiv
@@ -235,11 +235,11 @@ const Abilities = ({ charData, fadeNum }) => {
                         <span>Wisdom</span>
                         <div className="mod">
                             <FontAwesomeIcon icon={faHandHoldingHeart} />
-                            <span>{modDisplay(wis)}</span>
+                            <span>{modDisplay(charData.wis)}</span>
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-wis`} type="number" value={wis}
-                        onBlur={(e) => handleBlur(e, setWis)}
+                        onBlur={(e) => handleBlur(e, setWis, charData.wis)}
                         onChange={changeWis} />
                 </AbilityDiv>
                 <AbilityDiv
@@ -250,11 +250,11 @@ const Abilities = ({ charData, fadeNum }) => {
                         <span>Charisma</span>
                         <div className="mod">
                             <FontAwesomeIcon icon={faHandPeace} />
-                            <span>{modDisplay(cha)}</span>
+                            <span>{modDisplay(charData.cha)}</span>
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-cha`} type="number" value={cha}
-                        onBlur={(e) => handleBlur(e, setCha)}
+                        onBlur={(e) => handleBlur(e, setCha, charData.cha)}
                         onChange={changeCha} />
                 </AbilityDiv>
             </Container>

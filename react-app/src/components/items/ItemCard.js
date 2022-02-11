@@ -99,8 +99,11 @@ const ItemCard = ({ item }) => {
 
     const debouncedSave = useCallback(
         debounce(async (formData) => {
-            await dispatch(editQuantity(formData))
-        }, 500),
+            const response = await dispatch(editQuantity(formData));
+            if (response) {
+                dispatch(setErrors(response))
+            }
+        }, 350),
         [],
     );
 
@@ -163,10 +166,9 @@ const ItemCard = ({ item }) => {
 
     const handleBlur = (e) => {
         if (e.target.value < 0) {
-            setQuant(0);
-            dispatch(setErrors(["Can one truly have a negative number of items? Perhaps I require more research!"]))
+            setQuant(item.quantity);
         } else if (!e.target.value) {
-            setQuant(0)
+            setQuant(0);
         }
     };
 
