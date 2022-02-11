@@ -188,8 +188,11 @@ const Vitals = ({ charData, fadeNum }) => {
                         <div>
                             <h1>{charData.name}</h1>
                             <ul>
-                                <li><label htmlFor="char-level">Level </label>
-                                    <input id="char-level" value={level} onChange={changeLevel} type="number" /> {charData.class}</li>
+                                <li>
+                                    <label htmlFor="char-level">Level </label>
+                                    <span>{charData.level} {charData.class}</span>
+                                    {/* <input id="char-level" value={level} onChange={changeLevel} type="number" /> {charData.class} */}
+                                </li>
                                 <li>{charData.race} {charData.background}</li>
                             </ul>
                         </div>
@@ -197,11 +200,13 @@ const Vitals = ({ charData, fadeNum }) => {
                             <ul className="def-stats">
                                 <li>
                                     <label htmlFor="char-ac">Armor Class</label>
-                                    <input id="char-ac" type="number" value={ac} onChange={changeAC} placeholder={modCalc(charData.dex) + 10} />
+                                    <span>{modCalc(charData.dex) + 10}</span>
+                                    {/* <input id="char-ac" type="number" value={ac} onChange={changeAC} placeholder={modCalc(charData.dex) + 10} /> */}
                                 </li>
                                 <li>
                                     <label htmlFor="char-speed">Movement Speed</label>
-                                    <input id="char-speed" type="number" value={speed} onChange={changeSpeed} />
+                                    <span>{charData.speed}</span>
+                                    {/* <input id="char-speed" type="number" value={speed} onChange={changeSpeed} /> */}
                                 </li>
                             </ul>
                         </div>
