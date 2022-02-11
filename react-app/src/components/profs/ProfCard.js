@@ -131,7 +131,7 @@ const ProfCard = ({ prof }) => {
 
     return (
         <Card>
-            <form className="edit-prof-form" id={`edit-prof-${prof.id}`} onSubmit={submitEdit}>
+            <form className="edit-prof-form" id={`edit-prof-${prof.id}`} onSubmit={submitEdit} autoComplete="off">
                 <div className="title">
                     {!show ? <span className="edit-name-field">{prof.name}</span> :
                         <input type="text" className="edit-name-field" value={name} onChange={nameChange} />}

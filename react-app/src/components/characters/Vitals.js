@@ -1,11 +1,12 @@
-import React, { useRef, useEffect, useState, useMemo } from "react";
+import React, { useRef, useEffect, useState, useMemo, useCallback } from "react";
 import styled from "styled-components";
 import debounce from "lodash/debounce"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import BlueBox from "../../global/BlueBox";
 
 import { setErrors } from "../../store/help";
+import { editVitals } from "../../store/characters";
 
 const modCalc = (score) => {
     return Math.floor((score - 10) / 2)
@@ -102,7 +103,7 @@ const LifeBar = styled.div`
     ${(props) => props.width > 50 && 'background-color: yellowgreen;'}
     ${(props) => props.width <= 50 && props.width > 25 && 'background-color: goldenrod;'}
     ${(props) => props.width <= 25 && 'background-color: firebrick;'}
-    transition: width .15s;
+    transition: all .15s;
     grid-area: 1 / 1;
 `
 
@@ -110,35 +111,47 @@ const ShieldBar = styled.div`
     width: ${(props) => props.width}%;
     height: .5rem;
     background-color: slateblue;
-    transition: width .15s;
+    transition: all .15s;
     grid-area: 1 / 1;
     justify-self: end;
 `
 
 const Vitals = ({ charData, fadeNum }) => {
 
+    const dispatch = useDispatch();
+
     const card = useRef(null)
 
     const [changed, setChanged] = useState(false);
 
-    const [level, setLevel] = useState(charData.level);
+    // const [level, setLevel] = useState(charData.level);
     const [hpCurr, setHPCurr] = useState(charData.hpCurr);
     const [hpMax, setHPMax] = useState(charData.hpMax);
     const [hpTemp, setHPTemp] = useState(charData.hpTemp);
-    const [ac, setAC] = useState(charData.armor);
-    const [speed, setSpeed] = useState(charData.speed);
-    const [hdCurr, setHDCurr] = useState(charData.hdCurr);
-    const [hdMax, setHDMax] = useState(charData.hdMax);
+    // const [ac, setAC] = useState(charData.armor);
+    // const [speed, setSpeed] = useState(charData.speed);
+    // const [hdCurr, setHDCurr] = useState(charData.hdCurr);
+    // const [hdMax, setHDMax] = useState(charData.hdMax);
+
+    const debouncedSave = useCallback(
+        debounce(async (data) => {
+            const response = await dispatch(editVitals(data));
+            if (response) {
+                dispatch(setErrors(response))
+            }
+        }, 350),
+        [],
+    );
 
     const lifePercent = useMemo(() => {
-        const percent = parseInt(hpCurr / hpMax * 100, 10);
+        const percent = parseInt(charData.hpCurr / charData.hpMax * 100, 10);
         return percent >= 100 ? 100 : percent;
-    }, [hpCurr, hpMax])
+    }, [charData.hpCurr, charData.hpMax])
 
     const shieldPercent = useMemo(() => {
-        const percent = parseInt(hpTemp / hpMax * 100, 10);
+        const percent = parseInt(charData.hpTemp / charData.hpMax * 100, 10);
         return percent >= 100 ? 100 : percent;
-    }, [hpTemp, hpMax])
+    }, [charData.hpTemp, charData.hpMax])
 
     useEffect(() => {
         const fadeIn = setTimeout(() => {
@@ -147,16 +160,28 @@ const Vitals = ({ charData, fadeNum }) => {
         return () => clearTimeout(fadeIn);
     }, [fadeNum])
 
+    useEffect(() => {
+        if (changed) {
+            const data = {
+                charId: charData.id,
+                hpCurr: parseInt(hpCurr, 10) || 0,
+                hpMax: parseInt(hpMax, 10) || 0,
+                hpTemp: parseInt(hpTemp, 10) || 0,
+            }
+            debouncedSave(data);
+        }
+    }, [debouncedSave, charData.id, hpCurr, hpMax, hpTemp, changed])
 
-    const changeAC = (e) => {
-        setChanged(true);
-        setAC(e.target.value);
-    };
 
-    const changeSpeed = (e) => {
-        setChanged(true);
-        setSpeed(e.target.value);
-    };
+    // const changeAC = (e) => {
+    //     setChanged(true);
+    //     setAC(e.target.value);
+    // };
+
+    // const changeSpeed = (e) => {
+    //     setChanged(true);
+    //     setSpeed(e.target.value);
+    // };
 
     const changeHP = (e) => {
         setChanged(true);
@@ -173,9 +198,17 @@ const Vitals = ({ charData, fadeNum }) => {
         setHPTemp(e.target.value);
     };
 
-    const changeLevel = (e) => {
-        setChanged(true);
-        setLevel(e.target.value);
+    // const changeLevel = (e) => {
+    //     setChanged(true);
+    //     setLevel(e.target.value);
+    // };
+
+    const handleBlur = (e, setFunc, value) => {
+        if (e.target.value < 0) {
+            setFunc(value);
+        } else if (!e.target.value) {
+            setFunc(0);
+        }
     };
 
     const theme = useSelector(state => state.theme.selection)
@@ -183,13 +216,16 @@ const Vitals = ({ charData, fadeNum }) => {
     return (
         <BlueBox className="vitals" theme={theme} ref={card}>
             <Container theme={theme}>
-                <form>
+                <form autoComplete="off">
                     <div className='vitals-left'>
                         <div>
                             <h1>{charData.name}</h1>
                             <ul>
-                                <li><label htmlFor="char-level">Level </label>
-                                    <input id="char-level" value={level} onChange={changeLevel} type="number" /> {charData.class}</li>
+                                <li>
+                                    <label htmlFor="char-level">Level </label>
+                                    <span>{charData.level} {charData.class}</span>
+                                    {/* <input id="char-level" value={level} onChange={changeLevel} type="number" /> {charData.class} */}
+                                </li>
                                 <li>{charData.race} {charData.background}</li>
                             </ul>
                         </div>
@@ -197,11 +233,13 @@ const Vitals = ({ charData, fadeNum }) => {
                             <ul className="def-stats">
                                 <li>
                                     <label htmlFor="char-ac">Armor Class</label>
-                                    <input id="char-ac" type="number" value={ac} onChange={changeAC} placeholder={modCalc(charData.dex) + 10} />
+                                    <span>{modCalc(charData.dex) + 10}</span>
+                                    {/* <input id="char-ac" type="number" value={ac} onChange={changeAC} placeholder={modCalc(charData.dex) + 10} /> */}
                                 </li>
                                 <li>
                                     <label htmlFor="char-speed">Movement Speed</label>
-                                    <input id="char-speed" type="number" value={speed} onChange={changeSpeed} />
+                                    <span>{charData.speed}</span>
+                                    {/* <input id="char-speed" type="number" value={speed} onChange={changeSpeed} /> */}
                                 </li>
                             </ul>
                         </div>
@@ -217,11 +255,29 @@ const Vitals = ({ charData, fadeNum }) => {
                         <ul>
                             <li>
                                 <label htmlFor="char-hp">Current</label> | <label htmlFor="char-max-hp">Max: </label>
-                                <input id="char-hp" onChange={changeHP} value={hpCurr} type="number" /> | <input id="char-max-hp" onChange={changeMax} value={hpMax} type="number" />
+                                <input
+                                    id="char-hp"
+                                    onChange={changeHP}
+                                    value={hpCurr}
+                                    type="number"
+                                    min="0"
+                                    onBlur={(e) => handleBlur(e, setHPCurr, charData.hpCurr)} /> | <input
+                                    id="char-max-hp"
+                                    min="0"
+                                    onChange={changeMax}
+                                    value={hpMax}
+                                    type="number"
+                                    onBlur={(e) => handleBlur(e, setHPMax, charData.hpMax)} />
                             </li>
                             <li>
                                 <label htmlFor="char-temp">Temporary: </label>
-                                <input id="char-temp" onChange={changeTemp} value={hpTemp} type="number" />
+                                <input
+                                    id="char-temp"
+                                    onChange={changeTemp}
+                                    value={hpTemp}
+                                    type="number"
+                                    min="0"
+                                    onBlur={(e) => handleBlur(e, setHPTemp, charData.hpTemp)} />
                             </li>
                         </ul>
                     </div>

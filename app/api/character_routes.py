@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Character, User, db, Item, Feature, Proficiency
-from app.forms import CreateCharacterForm, DeleteForm, ItemForm, EditAbilitiesForm, FeatForm, ProfForm
+from app.forms import CreateCharacterForm, DeleteForm, ItemForm, EditAbilitiesForm, FeatForm, ProfForm, EditVitalsForm
 from sqlalchemy.sql import func
 
 character_routes = Blueprint('characters', __name__)
@@ -206,6 +206,25 @@ def edit_abilities(id):
             char.intelligence = form.data['intelligence']
             char.wisdom = form.data['wisdom']
             char.charisma = form.data['charisma']
+            db.session.commit()
+            return char.to_dict()
+        else:
+            return {'error': 'Character not found.'}, 404
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@character_routes.route('/<int:id>/vitals', methods=['PATCH'])
+@login_required
+def edit_vitals(id):
+    form = EditVitalsForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        char = Character.query.filter(
+            Character.id == id, Character.user_id == current_user.id).first()
+        if char:
+            char.hp_curr = form.data['hpCurr']
+            char.hp_max = form.data['hpMax']
+            char.hp_temp = form.data['hpTemp']
             db.session.commit()
             return char.to_dict()
         else:
