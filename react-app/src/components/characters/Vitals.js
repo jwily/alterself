@@ -10,6 +10,8 @@ import {
     faHeart
 } from '@fortawesome/free-solid-svg-icons';
 
+import { setErrors } from "../../store/help";
+
 const modCalc = (score) => {
     return Math.floor((score - 10) / 2)
 }
@@ -65,8 +67,9 @@ const Container = styled.div`
 
     .hp-container {
         box-sizing: content-box;
-        display: flex;
-        justify-content: space-between;
+        // display: flex;
+        // justify-content: space-between;
+        display: grid;
         height: .5rem;
         width: 100%;
         background-color: rgba(51, 48, 47, .75);
@@ -83,13 +86,6 @@ const Container = styled.div`
         border-bottom: 1px solid silver;
         border-right: 1px solid silver;
         `}
-    }
-
-    .hp-temp-bar {
-        width: ${(props) => props.width}%;
-        height: .5rem;
-        background-color: skyblue;
-        align-self: flex-end;
     }
 
     input {
@@ -111,12 +107,17 @@ const LifeBar = styled.div`
     ${(props) => props.width > 50 && 'background-color: yellowgreen;'}
     ${(props) => props.width <= 50 && props.width > 25 && 'background-color: goldenrod;'}
     ${(props) => props.width <= 25 && 'background-color: firebrick;'}
+    transition: width .25s;
+    grid-area: 1 / 1;
 `
 
 const ShieldBar = styled.div`
     width: ${(props) => props.width}%;
     height: .5rem;
     background-color: slateblue;
+    transition: width .25s;
+    grid-area: 1 / 1;
+    justify-self: end;
 `
 
 const Vitals = ({ charData, fadeNum }) => {
@@ -135,11 +136,13 @@ const Vitals = ({ charData, fadeNum }) => {
     const [hdMax, setHDMax] = useState(charData.hdMax);
 
     const lifePercent = useMemo(() => {
-        return parseInt(hpCurr / hpMax * 100, 10);
+        const percent = parseInt(hpCurr / hpMax * 100, 10);
+        return percent >= 100 ? 100 : percent;
     }, [hpCurr, hpMax])
 
     const shieldPercent = useMemo(() => {
-        return parseInt(hpTemp / hpMax * 100, 10);
+        const percent = parseInt(hpTemp / hpMax * 100, 10);
+        return percent >= 100 ? 100 : percent;
     }, [hpTemp, hpMax])
 
     useEffect(() => {
