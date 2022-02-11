@@ -103,7 +103,7 @@ const LifeBar = styled.div`
     ${(props) => props.width > 50 && 'background-color: yellowgreen;'}
     ${(props) => props.width <= 50 && props.width > 25 && 'background-color: goldenrod;'}
     ${(props) => props.width <= 25 && 'background-color: firebrick;'}
-    transition: all .15s;
+    transition: all .5s;
     grid-area: 1 / 1;
 `
 
@@ -111,7 +111,7 @@ const ShieldBar = styled.div`
     width: ${(props) => props.width}%;
     height: .5rem;
     background-color: slateblue;
-    transition: all .15s;
+    transition: all .5s;
     grid-area: 1 / 1;
     justify-self: end;
 `
@@ -247,7 +247,7 @@ const Vitals = ({ charData, fadeNum }) => {
                     <div className='vitals-right'>
                         <div id="hp-title">Hit Points</div>
                         <div className='hp-container' theme={theme}>
-                            {hpMax > 0 && <>
+                            {charData.hpMax > 0 && <>
                                 <LifeBar width={lifePercent}></LifeBar>
                                 <ShieldBar width={shieldPercent}></ShieldBar>
                             </>}
