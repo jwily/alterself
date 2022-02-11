@@ -108,29 +108,25 @@ const Abilities = ({ charData, fadeNum }) => {
     }, [fadeNum])
 
     useEffect(() => {
-        if (changed) {
+        console.log(dataOkay);
+        if (changed && dataOkay) {
             const data = {
                 charId: charData.id,
-                strength: parseInt(str, 10) || 0,
-                dexterity: parseInt(dex, 10) || 0,
-                constitution: parseInt(con, 10) || 0,
-                intelligence: parseInt(int, 10) || 0,
-                wisdom: parseInt(wis, 10) || 0,
-                charisma: parseInt(cha, 10) || 0,
+                strength: parseInt(str, 10),
+                dexterity: parseInt(dex, 10),
+                constitution: parseInt(con, 10),
+                intelligence: parseInt(int, 10),
+                wisdom: parseInt(wis, 10),
+                charisma: parseInt(cha, 10),
             }
             debouncedSave(data);
         }
-    }, [debouncedSave, charData.id, str, dex, con, int, wis, cha, changed])
+    }, [debouncedSave, charData.id, str, dex, con, int, wis, cha, changed, dataOkay])
 
-    const handleBlur = (e, func) => {
-        if (e.target.value > 99) {
-            func(99);
-            dispatch(setErrors(["Oops, I can't work with ability scores lower than 0 or higher than 99."]))
-        } else if (e.target.value < 0) {
-            func(0);
-            dispatch(setErrors(["Oops, I can't work with ability scores lower than 0 or higher than 99."]))
-        } else if (!e.target.value) {
-            func(0);
+    const handleBlur = (e, setFunc, currVal) => {
+        if (!dataOkay) {
+            setFunc(currVal);
+            dispatch(setErrors(["Oops, I can't work with ability scores lower than 0 or higher than 99."]));
         }
     };
 
@@ -179,7 +175,7 @@ const Abilities = ({ charData, fadeNum }) => {
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-str`} type="number" value={str}
-                        onBlur={(e) => handleBlur(e, setStr)}
+                        onBlur={(e) => handleBlur(e, setStr, charData.str)}
                         onChange={changeStr} />
                 </AbilityDiv>
                 <AbilityDiv
@@ -194,7 +190,7 @@ const Abilities = ({ charData, fadeNum }) => {
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-dex`} type="number" value={dex}
-                        onBlur={(e) => handleBlur(e, setDex)}
+                        onBlur={(e) => handleBlur(e, setDex, charData.dex)}
                         onChange={changeDex} />
                 </AbilityDiv>
                 <AbilityDiv
@@ -209,7 +205,7 @@ const Abilities = ({ charData, fadeNum }) => {
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-con`} type="number" value={con}
-                        onBlur={(e) => handleBlur(e, setCon)}
+                        onBlur={(e) => handleBlur(e, setCon, charData.con)}
                         onChange={changeCon} />
                 </AbilityDiv>
                 <AbilityDiv
@@ -224,7 +220,7 @@ const Abilities = ({ charData, fadeNum }) => {
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-int`} type="number" value={int}
-                        onBlur={(e) => handleBlur(e, setInt)}
+                        onBlur={(e) => handleBlur(e, setInt, charData.int)}
                         onChange={changeInt} />
                 </AbilityDiv>
                 <AbilityDiv
@@ -239,7 +235,7 @@ const Abilities = ({ charData, fadeNum }) => {
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-wis`} type="number" value={wis}
-                        onBlur={(e) => handleBlur(e, setWis)}
+                        onBlur={(e) => handleBlur(e, setWis, charData.wis)}
                         onChange={changeWis} />
                 </AbilityDiv>
                 <AbilityDiv
@@ -254,7 +250,7 @@ const Abilities = ({ charData, fadeNum }) => {
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-cha`} type="number" value={cha}
-                        onBlur={(e) => handleBlur(e, setCha)}
+                        onBlur={(e) => handleBlur(e, setCha, charData.cha)}
                         onChange={changeCha} />
                 </AbilityDiv>
             </Container>
