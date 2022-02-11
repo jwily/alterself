@@ -83,9 +83,12 @@ const Abilities = ({ charData, fadeNum }) => {
     const debouncedSave = useCallback(
         debounce(async (data) => {
             if (dataOkay) {
-                await dispatch(editAbilities(data));
+                const response = await dispatch(editAbilities(data));
+                if (response) {
+                    dispatch(setErrors(response))
+                }
             }
-        }, 500),
+        }, 350),
         [],
     );
 
@@ -127,7 +130,6 @@ const Abilities = ({ charData, fadeNum }) => {
     const handleBlur = (e, setFunc, currVal) => {
         if (!dataOkay) {
             setFunc(currVal);
-            dispatch(setErrors(["Oops, I can't work with ability scores lower than 0 or higher than 99."]));
         }
     };
 
@@ -172,7 +174,7 @@ const Abilities = ({ charData, fadeNum }) => {
                         <span>Strength</span>
                         <div className="mod">
                             <FontAwesomeIcon icon={faFistRaised} />
-                            <span>{modDisplay(str)}</span>
+                            <span>{modDisplay(charData.str)}</span>
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-str`} type="number" value={str}
@@ -187,7 +189,7 @@ const Abilities = ({ charData, fadeNum }) => {
                         <span>Dexterity</span>
                         <div className="mod">
                             <FontAwesomeIcon icon={faHandPaper} />
-                            <span>{modDisplay(dex)}</span>
+                            <span>{modDisplay(charData.dex)}</span>
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-dex`} type="number" value={dex}
@@ -202,7 +204,7 @@ const Abilities = ({ charData, fadeNum }) => {
                         <span>Constitution</span>
                         <div className="mod">
                             <FontAwesomeIcon icon={faHandHoldingWater} />
-                            <span>{modDisplay(con)}</span>
+                            <span>{modDisplay(charData.con)}</span>
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-con`} type="number" value={con}
@@ -217,7 +219,7 @@ const Abilities = ({ charData, fadeNum }) => {
                         <span>Intelligence</span>
                         <div className="mod">
                             <FontAwesomeIcon icon={faHandSpock} />
-                            <span>{modDisplay(int)}</span>
+                            <span>{modDisplay(charData.int)}</span>
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-int`} type="number" value={int}
@@ -232,7 +234,7 @@ const Abilities = ({ charData, fadeNum }) => {
                         <span>Wisdom</span>
                         <div className="mod">
                             <FontAwesomeIcon icon={faHandHoldingHeart} />
-                            <span>{modDisplay(wis)}</span>
+                            <span>{modDisplay(charData.wis)}</span>
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-wis`} type="number" value={wis}
@@ -240,14 +242,14 @@ const Abilities = ({ charData, fadeNum }) => {
                         onChange={changeWis} />
                 </AbilityDiv>
                 <AbilityDiv
-                // onMouseEnter={() => dispatch(setHover('cha'))}
-                // onMouseLeave={() => dispatch(setHover(''))}
+                    onMouseEnter={() => dispatch(setHover('cha'))}
+                    onMouseLeave={() => dispatch(setHover(''))}
                 >
                     <label htmlFor={`${charData.id}-cha`}>
                         <span>Charisma</span>
                         <div className="mod">
                             <FontAwesomeIcon icon={faHandPeace} />
-                            <span>{modDisplay(cha)}</span>
+                            <span>{modDisplay(charData.cha)}</span>
                         </div>
                     </label>
                     <input max="99" min="0" id={`${charData.id}-cha`} type="number" value={cha}
