@@ -103,7 +103,7 @@ const LifeBar = styled.div`
     ${(props) => props.width > 50 && 'background-color: yellowgreen;'}
     ${(props) => props.width <= 50 && props.width > 25 && 'background-color: goldenrod;'}
     ${(props) => props.width <= 25 && 'background-color: firebrick;'}
-    transition: width .15s;
+    transition: all .15s;
     grid-area: 1 / 1;
 `
 
@@ -111,7 +111,7 @@ const ShieldBar = styled.div`
     width: ${(props) => props.width}%;
     height: .5rem;
     background-color: slateblue;
-    transition: width .15s;
+    transition: all .15s;
     grid-area: 1 / 1;
     justify-self: end;
 `
