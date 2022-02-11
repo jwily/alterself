@@ -4,7 +4,6 @@ import styled from "styled-components";
 const SavedSpan = styled.span`
 
     margin-left: .25rem;
-    color: chartreuse;
     display: flex;
     align-items: center;
     font-size: .85rem;
