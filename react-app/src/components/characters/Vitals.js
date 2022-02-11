@@ -113,7 +113,7 @@ const ShieldBar = styled.div`
     background-color: slateblue;
     transition: all .5s;
     grid-area: 1 / 1;
-    justify-self: end;
+    // justify-self: end;
 `
 
 const Vitals = ({ charData, fadeNum }) => {
