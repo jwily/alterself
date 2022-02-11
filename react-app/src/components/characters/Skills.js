@@ -68,6 +68,7 @@ const SkillLi = styled.li`
 
     ${props => props.hover && `
     color: #ffcd00;
+    // color: violet;
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
     `}
     transition: all .15s;
