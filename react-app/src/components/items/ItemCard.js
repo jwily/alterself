@@ -105,12 +105,11 @@ const ItemCard = ({ item }) => {
     );
 
     useEffect(() => {
-        const formData = {
-            itemId: item.id,
-            quantity: parseInt(quantity, 10) || 0
-        }
-
         if (changed) {
+            const formData = {
+                itemId: item.id,
+                quantity: parseInt(quantity, 10) || 0
+            }
             debouncedSave(formData);
         }
     }, [debouncedSave, item.id, quantity, changed])
