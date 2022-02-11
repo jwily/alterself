@@ -134,7 +134,7 @@ export const editVitals = (formData) => async (dispatch) => {
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
-            return ["HP scores don't usually go below zero. Unless you're one of the undead?"];
+            return ["Hit point values don't usually go below zero. Unless... woah! Are you one of the undead?"];
         }
     } else {
         return ['An error occurred. Please try again.']
