@@ -124,12 +124,12 @@ const Vitals = ({ charData, fadeNum }) => {
 
     const [changed, setChanged] = useState(false);
 
-    // const [level, setLevel] = useState(charData.level);
+    const [level, setLevel] = useState(charData.level);
     const [hpCurr, setHPCurr] = useState(charData.hpCurr);
     const [hpMax, setHPMax] = useState(charData.hpMax);
     const [hpTemp, setHPTemp] = useState(charData.hpTemp);
-    // const [ac, setAC] = useState(charData.armor);
-    // const [speed, setSpeed] = useState(charData.speed);
+    const [ac, setAC] = useState(charData.armor);
+    const [speed, setSpeed] = useState(charData.speed);
     // const [hdCurr, setHDCurr] = useState(charData.hdCurr);
     // const [hdMax, setHDMax] = useState(charData.hdMax);
 
@@ -173,15 +173,15 @@ const Vitals = ({ charData, fadeNum }) => {
     }, [debouncedSave, charData.id, hpCurr, hpMax, hpTemp, changed])
 
 
-    // const changeAC = (e) => {
-    //     setChanged(true);
-    //     setAC(e.target.value);
-    // };
+    const changeAC = (e) => {
+        setChanged(true);
+        setAC(e.target.value);
+    };
 
-    // const changeSpeed = (e) => {
-    //     setChanged(true);
-    //     setSpeed(e.target.value);
-    // };
+    const changeSpeed = (e) => {
+        setChanged(true);
+        setSpeed(e.target.value);
+    };
 
     const changeHP = (e) => {
         setChanged(true);
@@ -198,16 +198,24 @@ const Vitals = ({ charData, fadeNum }) => {
         setHPTemp(e.target.value);
     };
 
-    // const changeLevel = (e) => {
-    //     setChanged(true);
-    //     setLevel(e.target.value);
-    // };
+    const changeLevel = (e) => {
+        setChanged(true);
+        setLevel(e.target.value);
+    };
 
-    const handleBlur = (e, setFunc, value) => {
+    const handleHPBlur = (e, setFunc, value) => {
         if (e.target.value < 0) {
             setFunc(value);
         } else if (!e.target.value) {
             setFunc(0);
+        }
+    };
+
+    const handleLvlBlur = (e) => {
+        if (e.target.value < 1) {
+            setLevel(1);
+        } else if (e.target.value > 20) {
+            setLevel(20);
         }
     };
 
@@ -223,8 +231,8 @@ const Vitals = ({ charData, fadeNum }) => {
                             <ul>
                                 <li>
                                     <label htmlFor="char-level">Level </label>
-                                    <span>{charData.level} {charData.class}</span>
-                                    {/* <input id="char-level" value={level} onChange={changeLevel} type="number" /> {charData.class} */}
+                                    {/* <span>{charData.level} {charData.class}</span> */}
+                                    <input id="char-level" value={level} onChange={changeLevel} type="number" min="1" max="20" onBlur={handleLvlBlur} /> {charData.class}
                                 </li>
                                 <li>{charData.race} {charData.background}</li>
                             </ul>
@@ -233,13 +241,14 @@ const Vitals = ({ charData, fadeNum }) => {
                             <ul className="def-stats">
                                 <li>
                                     <label htmlFor="char-ac">Armor Class</label>
-                                    <span>{modCalc(charData.dex) + 10}</span>
-                                    {/* <input id="char-ac" type="number" value={ac} onChange={changeAC} placeholder={modCalc(charData.dex) + 10} /> */}
+                                    {/* <span>{modCalc(charData.dex) + 10}</span> */}
+                                    <input id="char-ac" type="number" value={ac} onChange={changeAC} placeholder={modCalc(charData.dex) + 10} />
                                 </li>
                                 <li>
                                     <label htmlFor="char-speed">Movement Speed</label>
-                                    <span>{charData.speed}</span>
-                                    {/* <input id="char-speed" type="number" value={speed} onChange={changeSpeed} /> */}
+                                    {/* <span>{charData.speed}</span> */}
+                                    <input id="char-speed" type="number" value={speed} onChange={changeSpeed} />
+                                    {/* <span> ft</span> */}
                                 </li>
                             </ul>
                         </div>
@@ -261,13 +270,13 @@ const Vitals = ({ charData, fadeNum }) => {
                                     value={hpCurr}
                                     type="number"
                                     min="0"
-                                    onBlur={(e) => handleBlur(e, setHPCurr, charData.hpCurr)} /> | <input
+                                    onBlur={(e) => handleHPBlur(e, setHPCurr, charData.hpCurr)} /> | <input
                                     id="char-max-hp"
                                     min="0"
                                     onChange={changeMax}
                                     value={hpMax}
                                     type="number"
-                                    onBlur={(e) => handleBlur(e, setHPMax, charData.hpMax)} />
+                                    onBlur={(e) => handleHPBlur(e, setHPMax, charData.hpMax)} />
                             </li>
                             <li>
                                 <label htmlFor="char-temp">Temporary: </label>
@@ -277,7 +286,7 @@ const Vitals = ({ charData, fadeNum }) => {
                                     value={hpTemp}
                                     type="number"
                                     min="0"
-                                    onBlur={(e) => handleBlur(e, setHPTemp, charData.hpTemp)} />
+                                    onBlur={(e) => handleHPBlur(e, setHPTemp, charData.hpTemp)} />
                             </li>
                         </ul>
                     </div>
