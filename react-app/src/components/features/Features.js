@@ -63,7 +63,9 @@ const FeaturesAndTraits = ({ fadeNum }) => {
         const fadeIn = setTimeout(() => {
             card.current.style.opacity = 1;
         }, 100 + (fadeNum * 50));
-        return () => clearTimeout(fadeIn);
+        return () => {
+            clearTimeout(fadeIn)
+        };
     }, [fadeNum])
 
     const data = useSelector(state => state.features);
