@@ -1,6 +1,23 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from sqlalchemy.sql import func
+
+memberships = db.Table(
+    "memberships",
+    db.Column(
+        "user_id",
+        db.Integer,
+        db.ForeignKey("users.id"),
+        primary_key=True
+    ),
+    db.Column(
+        "campaign_id",
+        db.Integer,
+        db.ForeignKey("campaigns.id"),
+        primary_key=True
+    )
+)
 
 
 class User(db.Model, UserMixin):
@@ -13,6 +30,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     characters = db.relationship('Character', back_populates='user')
+    campaigns = db.relationship(
+        'Campaign', secondary=memberships, back_populates='users')
 
     @property
     def password(self):
@@ -32,3 +51,22 @@ class User(db.Model, UserMixin):
             'name': self.first_name,
             'email': self.email,
         }
+
+
+class Campaign(db.Model):
+    __tablename__ = 'campaigns'
+
+    id = db.Column(db.Integer, primary_key=True)
+    owner_id = db.Column(db.Integer, db.ForeignKey(
+        'users.id'), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(255), nullable=True)
+    notes = db.Column(db.Text, nullable=True)
+    created_at = db.Column(
+        db.DateTime, server_default=func.now(), nullable=False)
+    updated_at = db.Column(
+        db.DateTime, server_default=func.now(), onupdate=func.now(), nullable=False
+    )
+
+    users = db.relationship('User', secondary=memberships,
+                            back_populates='campaigns')
