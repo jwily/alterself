@@ -30,8 +30,9 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     characters = db.relationship('Character', back_populates='user')
-    campaigns = db.relationship(
-        'Campaign', secondary=memberships, back_populates='users')
+    owned_campaigns = db.relationship('Campaign', back_populates='owner')
+    joined_campaigns = db.relationship(
+        'Campaign', secondary=memberships, back_populates='members')
 
     @property
     def password(self):
@@ -68,5 +69,6 @@ class Campaign(db.Model):
         db.DateTime, server_default=func.now(), onupdate=func.now(), nullable=False
     )
 
-    users = db.relationship('User', secondary=memberships,
-                            back_populates='campaigns')
+    owner = db.relationship('User', back_populates='owned_campaigns')
+    members = db.relationship(
+        'User', secondary=memberships, back_populates='joined_campaigns')
