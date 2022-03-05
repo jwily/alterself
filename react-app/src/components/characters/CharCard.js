@@ -111,7 +111,9 @@ const CharCard = ({ char, idx, ids }) => {
                 charLi.current.style.transition = 'opacity .75s'
             }, 100 + 50 * idx);
         };
-        return () => clearTimeout(fadeIn);
+        return () => {
+            clearTimeout(fadeIn)
+        };
     }, [idx, ids, char.id, char.mounted, dispatch])
 
     return (
