@@ -30,7 +30,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     characters = db.relationship('Character', back_populates='user')
-    owned_campaigns = db.relationship('Campaign', back_populates='owner')
+    owned_campaigns = db.relationship('Campaign', back_populates='user')
     joined_campaigns = db.relationship(
         'Campaign', secondary=memberships, back_populates='members')
 
@@ -51,6 +51,8 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'name': self.first_name,
             'email': self.email,
+            # 'owned': {room.id: room.to_dict() for room in self.owned_campaigns},
+            # 'joined': {room.id: room.to_dict() for room in self.joined_campaigns}
         }
 
 
@@ -58,7 +60,7 @@ class Campaign(db.Model):
     __tablename__ = 'campaigns'
 
     id = db.Column(db.Integer, primary_key=True)
-    owner_id = db.Column(db.Integer, db.ForeignKey(
+    user_id = db.Column(db.Integer, db.ForeignKey(
         'users.id'), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=True)
@@ -69,6 +71,16 @@ class Campaign(db.Model):
         db.DateTime, server_default=func.now(), onupdate=func.now(), nullable=False
     )
 
-    owner = db.relationship('User', back_populates='owned_campaigns')
+    user = db.relationship('User', back_populates='owned_campaigns')
     members = db.relationship(
         'User', secondary=memberships, back_populates='joined_campaigns')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'notes': self.notes,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
+        }
