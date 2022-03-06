@@ -72,6 +72,7 @@ class Campaign(db.Model):
     )
 
     user = db.relationship('User', back_populates='owned_campaigns')
+    characters = db.relationship('Character', back_populates='campaign')
     members = db.relationship(
         'User', secondary=memberships, back_populates='joined_campaigns')
 
