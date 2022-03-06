@@ -82,8 +82,6 @@ def seed_characters():
 
     db.session.commit()
 
-    print('***', zexceed.campaign)
-
 
 def undo_characters():
     db.session.execute('TRUNCATE characters RESTART IDENTITY CASCADE;')
