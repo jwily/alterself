@@ -33,6 +33,8 @@ class Character(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    campaign_id = db.Column(db.Integer, db.ForeignKey(
+        'campaigns.id'), nullable=True)
     name = db.Column(db.String(255), nullable=False)
     char_class = db.Column(db.String(40), nullable=False)
     sub_class = db.Column(db.String(40), nullable=True, default='')
@@ -63,6 +65,7 @@ class Character(db.Model):
     )
 
     user = db.relationship('User', back_populates='characters')
+    campaign = db.relationship('Campaign', back_populates='characters')
     skills = db.relationship(
         'Skill', back_populates='character', cascade='all, delete')
     items = db.relationship(
@@ -144,5 +147,5 @@ class Character(db.Model):
             'background': self.background,
             'title': self.generate_title(),
             'createdAt': self.created_at,
-            'updatedAt': self.updated_at,
+            'updatedAt': self.updated_at
         }

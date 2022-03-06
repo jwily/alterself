@@ -1,4 +1,4 @@
-from app.models import db, User
+from app.models import db, User, Campaign
 
 
 # Adds a demo user, you can add other users here if you want
@@ -10,9 +10,18 @@ def seed_users():
     rinoa = User(
         username='Heartilly', email='shooting@star.com', password='password', first_name='Rinoa')
 
+    arr = Campaign(user_id=1, name="A Realm Reborn")
+
+    hw = Campaign(user_id=2, name="Heavensward")
+
     db.session.add(demo)
     db.session.add(squall)
     db.session.add(rinoa)
+
+    db.session.add(arr)
+    db.session.add(hw)
+
+    demo.joined_campaigns.append(hw)
 
     db.session.commit()
 

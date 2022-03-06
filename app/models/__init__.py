@@ -1,5 +1,5 @@
 from .db import db
-from .user import User
+from .user import User, Campaign
 from .character import Character
 from .skill import Skill
 from .item import Item

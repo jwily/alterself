@@ -5,6 +5,7 @@ def seed_characters():
 
     zexceed = Character(
         user_id=1,
+        campaign_id=2,
         name='Zexceed',
         char_class='Druid',
         race='Dragonborn',
