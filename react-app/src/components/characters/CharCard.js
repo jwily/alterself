@@ -40,8 +40,8 @@ const Card = styled.li`
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
 
     .icon-holder {
-        width: 5.5rem;
-        height: 5.5rem;
+        width: 6.5rem;
+        height: 6.5rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -58,8 +58,8 @@ const Card = styled.li`
 `
 
 const Icon = styled.div`
-    width: 5rem;
-    height: 5rem;
+    width: 6rem;
+    height: 6rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,13 +71,13 @@ const Icon = styled.div`
     transition: all .15s;
 
     &:hover {
-        width: 5.5rem;
-        height: 5.5rem;
+        width: 6.5rem;
+        height: 6.5rem;
     }
 
-    img {
+    .cursor-img {
         position: absolute;
-        top: 8.25rem;
+        top: 9.25rem;
         right: 15.25rem;
         opacity: 0;
         transition: opacity .15s;
@@ -87,6 +87,16 @@ const Icon = styled.div`
     &:hover img {
         opacity: 1;
     }
+`
+
+const Portrait = styled.div`
+    width: 5rem;
+    height: 5rem;
+    border-radius: 20rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: ${props => props.img};
 `
 
 const colorGen = (char) => {
@@ -120,11 +130,11 @@ const CharCard = ({ char, idx, ids }) => {
         <Card key={idx} ref={charLi} mounted={char.mounted}>
             <Link to={`/roster/${char.id}`}>
                 <div className="icon-holder">
-                    <Icon className="roster-icon"
+                    {<Icon className="roster-icon"
                         color={colorGen(char)}>
-                        {char.name[0].toUpperCase()}
-                        <img src={cursor} alt="cursor" />
-                    </Icon>
+                        {!char.img ? char.name[0].toUpperCase() : <Portrait img={char.img} />}
+                        <img className="cursor-img" src={cursor} alt="cursor" />
+                    </Icon>}
                 </div>
             </Link>
             <BlackBox>

@@ -136,6 +136,7 @@ class Character(db.Model):
 
         return {
             'id': self.id,
+            'img': self.image.url if self.image else None,
             'name': self.name,
             'class': self.char_class,
             'race': self.race,

@@ -16,7 +16,7 @@ const Container = styled.div`
     margin-bottom: 2.5rem;
 
     ul {
-        margin-top: 3rem;
+        margin-top: 2.5rem;
         display: grid;
         grid-template-columns: repeat(4, min-content);
         grid-template-rows: auto;
