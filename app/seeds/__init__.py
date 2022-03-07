@@ -4,6 +4,7 @@ from .characters import seed_characters, undo_characters
 from .skills import seed_skills, undo_skills
 from .items import seed_items, undo_items
 from .pfts import seed_pfts, undo_pfts
+from .images import seed_images, undo_images
 
 
 # Creates a seed group to hold our commands
@@ -15,6 +16,7 @@ seed_commands = AppGroup('seed')
 @seed_commands.command('all')
 def seed():
     seed_users()
+    seed_images()
     seed_characters()
     seed_skills()
     seed_items()
@@ -29,5 +31,6 @@ def undo():
     undo_items()
     undo_skills()
     undo_characters()
+    undo_images()
     undo_users()
     # Add other undo functions here

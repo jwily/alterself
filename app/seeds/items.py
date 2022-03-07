@@ -1,4 +1,3 @@
-from doctest import debug_script
 from app.models import db, Item
 
 
