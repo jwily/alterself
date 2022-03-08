@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import cursor from '../../images/FF8Cursor.png';
 
@@ -57,23 +57,49 @@ const Card = styled.li`
     opacity: ${props => props.mounted ? 1 : 0};
 `
 
-const Icon = styled.div`
-    width: 6rem;
-    height: 6rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    border-radius: 20rem;
+const Color = css`
     background-color: ${props => props.color};
-    font-family: 'Cormorant SC', serif;
-
-    transition: all .15s;
 
     &:hover {
         width: 6.5rem;
         height: 6.5rem;
     }
+`
+
+const NoColor = css`
+    &:hover {
+        width: 6.5rem;
+        height: 6.5rem;
+        background-color: ${props => props.color};
+    }
+`
+
+const Portrait = styled.div`
+    width: 6rem;
+    height: 6rem;
+    border-radius: 20rem;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url(${props => props.img});
+`
+
+const Icon = styled.div`
+
+    ${(props) => props.img ? NoColor : Color}
+
+    width: 6rem;
+    height: 6rem;
+    font-size: 2.5rem;
+    border-radius: 20rem;
+    font-family: 'Cormorant SC', serif;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all .15s;
 
     .cursor-img {
         position: absolute;
@@ -87,16 +113,6 @@ const Icon = styled.div`
     &:hover img {
         opacity: 1;
     }
-`
-
-const Portrait = styled.div`
-    width: 5rem;
-    height: 5rem;
-    border-radius: 20rem;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-image: url(${props => props.img});
 `
 
 const colorGen = (char) => {
@@ -130,11 +146,12 @@ const CharCard = ({ char, idx, ids }) => {
         <Card key={idx} ref={charLi} mounted={char.mounted}>
             <Link to={`/roster/${char.id}`}>
                 <div className="icon-holder">
-                    {<Icon className="roster-icon"
-                        color={colorGen(char)}>
+                    <Icon className="roster-icon"
+                        color={colorGen(char)}
+                        img={char.img}>
                         {!char.img ? char.name[0].toUpperCase() : <Portrait img={char.img} />}
                         <img className="cursor-img" src={cursor} alt="cursor" />
-                    </Icon>}
+                    </Icon>
                 </div>
             </Link>
             <BlackBox>
