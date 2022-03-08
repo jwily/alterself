@@ -35,6 +35,7 @@ def seed_characters():
 
     himo = Character(
         user_id=1,
+        image_id=3,
         name='Himo',
         char_class='Monk',
         race='Wood Elf',

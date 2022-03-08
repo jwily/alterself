@@ -67,10 +67,16 @@ const Color = css`
 `
 
 const NoColor = css`
+
     &:hover {
+        background-color: ${props => props.color};
+
+        div {
+            filter: drop-shadow(0px 0px .5rem ${props => props.color});
+        }
+
         width: 6.5rem;
         height: 6.5rem;
-        background-color: ${props => props.color};
     }
 `
 
