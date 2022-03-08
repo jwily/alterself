@@ -96,7 +96,7 @@ const Portrait = styled.div`
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    background-image: ${props => props.img};
+    background-image: url(${props => props.img});
 `
 
 const colorGen = (char) => {
