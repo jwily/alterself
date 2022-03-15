@@ -3,6 +3,7 @@ from app.models import db, Image
 from flask_login import current_user, login_required
 from app.aws import (
     upload_file_to_s3, allowed_file, get_unique_filename)
+from io import BytesIO
 
 image_routes = Blueprint("images", __name__)
 
@@ -14,6 +15,11 @@ def upload_image():
         return {"errors": "image required"}, 400
 
     image = request.files["image"]
+    # image_bytes = BytesIO(image.stream.read())
+    # image_object = Image.open(image_bytes)
+    # size = image_object.size
+
+    # print(size)
 
     if not allowed_file(image.filename):
         return {"errors": "file type not permitted"}, 400
@@ -30,7 +36,7 @@ def upload_image():
 
     url = upload["url"]
     # flask_login allows us to get the current user from the request
-    new_image = Image(user=current_user, url=url)
+    new_image = Image(user_id=current_user.id, url=url)
     db.session.add(new_image)
     db.session.commit()
     return {"url": url}

@@ -6,6 +6,7 @@ import { getChars } from "../../store/characters";
 
 import CreateCharModal from "./CreateCharModal";
 import CharCard from "./CharCard";
+import UploadPicture from "./UploadPicture";
 
 const Container = styled.div`
     display: flex;
@@ -65,6 +66,7 @@ const Roster = () => {
             <h1>Dive into an altered self</h1>
             <h2>Hope you're well, {user.name}</h2>
             <CreateCharModal />
+            <UploadPicture />
             <ul>
                 {isLoaded && charCards}
             </ul>
