@@ -56,6 +56,11 @@ const Card = styled.li`
         display: flex;
         align-items: center;
         margin-bottom: 1.5rem;
+        transition: padding .15s;
+    }
+
+    .roster-link:hover {
+        padding-bottom: .5rem;
     }
 `
 
@@ -89,11 +94,11 @@ const Icon = styled.div`
     align-items: center;
     justify-content: center;
 
-    transition: all .15s;
+    // transition: all .15s;
 
-    &:hover {
-        margin-bottom: .5rem;
-    }
+    // &:hover {
+    //     margin-bottom: .5rem;
+    // }
 `
 
 const colorGen = (char) => {
@@ -125,12 +130,12 @@ const CharCard = ({ char, idx, ids }) => {
 
     return (
         <Card key={idx} ref={charLi} mounted={char.mounted}>
-            <Link to={`/roster/${char.id}`} className="roster-link">
+            <Link to={`/roster/${char.id}`} className="roster-link"
+                onMouseEnter={() => dispatch(setHover(char.name))}
+                onMouseLeave={() => dispatch(setHover(''))}>
                 <Icon className="roster-icon"
                     color={colorGen(char)}
-                    img={char.img}
-                    onMouseEnter={() => dispatch(setHover(char.name))}
-                    onMouseLeave={() => dispatch(setHover(''))}>
+                    img={char.img}>
                     {!char.img ? char.name[0].toUpperCase() : <Portrait src={char.img} alt={`${char.name}'s portrait`} />}
                 </Icon>
             </Link>
