@@ -1,11 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import cursor from '../../images/FF8Cursor.png';
 
 import { mountChar } from "../../store/characters";
+import { setHover } from "../../store/help";
+
 import BlackBox from "../../global/BlackBox";
 import EditCharModal from "./EditCharModal";
 import DeleteCharModal from "./DeleteCharModal";
@@ -64,20 +66,13 @@ const Portrait = styled.img`
     border-radius: 10rem;
 `
 
-const IconHolder = styled.div`
-
-    .cursor-img {
-        position: absolute;
-        top: 9.25rem;
-        right: 15.25rem;
-        opacity: 0;
-        transition: opacity .15s;
-        height: 1.5rem;
-    }
-
-    &:hover .cursor-img {
-        opacity: 1;
-    }
+const Cursor = styled.img`
+    position: absolute;
+    top: 9.25rem;
+    right: 15.25rem;
+    opacity: ${props => props.hover ? 1 : 0};
+    transition: opacity .15s;
+    height: 1.5rem;
 `
 
 const Icon = styled.div`
@@ -111,7 +106,7 @@ const colorGen = (char) => {
 const CharCard = ({ char, idx, ids }) => {
 
     const charLi = useRef(null);
-
+    const hoverState = useSelector(state => state.help.hover);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -132,17 +127,19 @@ const CharCard = ({ char, idx, ids }) => {
         <Card key={idx} ref={charLi} mounted={char.mounted}>
             <Link to={`/roster/${char.id}`}>
                 <div className="icon-holder">
-                    <IconHolder>
+                    <div>
                         <Icon className="roster-icon"
                             color={colorGen(char)}
-                            img={char.img}>
+                            img={char.img}
+                            onMouseEnter={() => dispatch(setHover(char.name))}
+                            onMouseLeave={() => dispatch(setHover(''))}>
                             {!char.img ? char.name[0].toUpperCase() : <Portrait src={char.img} alt={`${char.name}'s portrait`} />}
                         </Icon>
-                        <img className="cursor-img" src={cursor} alt="cursor" />
-                    </IconHolder>
+                    </div>
                 </div>
             </Link>
             <BlackBox>
+                <Cursor src={cursor} alt="cursor" hover={hoverState === char.name} />
                 <div className="roster-info">
                     <p>{char.name}</p>
                     <p>Level {char.level} {char.class}</p>
