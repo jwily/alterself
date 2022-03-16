@@ -93,12 +93,6 @@ const Icon = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-
-    // transition: all .15s;
-
-    // &:hover {
-    //     margin-bottom: .5rem;
-    // }
 `
 
 const colorGen = (char) => {
@@ -134,8 +128,7 @@ const CharCard = ({ char, idx, ids }) => {
                 onMouseEnter={() => dispatch(setHover(char.name))}
                 onMouseLeave={() => dispatch(setHover(''))}>
                 <Icon className="roster-icon"
-                    color={colorGen(char)}
-                    img={char.img}>
+                    color={colorGen(char)}>
                     {!char.img ? char.name[0].toUpperCase() : <Portrait src={char.img} alt={`${char.name}'s portrait`} />}
                 </Icon>
             </Link>
