@@ -66,7 +66,7 @@ const Roster = () => {
             <h1>Dive into an altered self</h1>
             <h2>Hope you're well, {user.name}</h2>
             <CreateCharModal />
-            <UploadPicture />
+            {/* <UploadPicture /> */}
             <ul>
                 {isLoaded && charCards}
             </ul>

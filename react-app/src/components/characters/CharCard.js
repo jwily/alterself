@@ -80,15 +80,15 @@ const NoColor = css`
     }
 `
 
-const Portrait = styled.div`
+const Portrait = styled.img`
     width: 5.5rem;
     height: 5.5rem;
     border-radius: 10rem;
 
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-image: url(${props => props.img});
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    // background-position: center center;
+    // background-image: url(${props => props.img});
 `
 
 const IconHolder = styled.div`
@@ -101,7 +101,7 @@ const IconHolder = styled.div`
         height: 1.5rem;
     }
 
-    &:hover img {
+    &:hover .cursor-img {
         opacity: 1;
     }
 `
@@ -164,7 +164,7 @@ const CharCard = ({ char, idx, ids }) => {
                         <Icon className="roster-icon"
                             color={colorGen(char)}
                             img={char.img}>
-                            {!char.img ? char.name[0].toUpperCase() : <Portrait img={char.img} />}
+                            {!char.img ? char.name[0].toUpperCase() : <Portrait src={char.img} alt={`${char.name}'s portrait`} />}
                         </Icon>
                         <img className="cursor-img" src={cursor} alt="cursor" />
                     </IconHolder>
