@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 import cursor from '../../images/FF8Cursor.png';
 
@@ -57,38 +57,10 @@ const Card = styled.li`
     opacity: ${props => props.mounted ? 1 : 0};
 `
 
-const Color = css`
-    background-color: ${props => props.color};
-
-    &:hover {
-        // width: 6.5rem;
-        // height: 6.5rem;
-    }
-`
-
-const NoColor = css`
-
-    &:hover {
-        // background-color: ${props => props.color};
-
-        // div {
-        //     filter: drop-shadow(0px 0px .5rem ${props => props.color});
-        // }
-
-        // width: 6.5rem;
-        // height: 6.5rem;
-    }
-`
-
 const Portrait = styled.img`
     width: 5.5rem;
     height: 5.5rem;
     border-radius: 10rem;
-
-    // background-size: cover;
-    // background-repeat: no-repeat;
-    // background-position: center center;
-    // background-image: url(${props => props.img});
 `
 
 const IconHolder = styled.div`
@@ -107,8 +79,6 @@ const IconHolder = styled.div`
 `
 
 const Icon = styled.div`
-
-    ${(props) => props.img ? NoColor : Color}
 
     background-color: ${props => props.color};
 
