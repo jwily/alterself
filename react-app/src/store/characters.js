@@ -3,6 +3,7 @@ const SET_CHAR = 'characters/SET_CHAR';
 const ADD_CHAR = 'characters/ADD_CHAR';
 const REMOVE_CHAR = 'characters/REMOVE_CHAR';
 const MOUNT_CHAR = 'characters/MOUNT_CHAR';
+const UNMOUNT_CHARS = 'characters/UNMOUNT_CHARS'
 
 const setChars = (chars) => ({
     type: SET_CHARS,
@@ -27,6 +28,10 @@ const delChar = (id) => ({
 export const mountChar = (id) => ({
     type: MOUNT_CHAR,
     payload: id
+})
+
+export const unmountAll = () => ({
+    type: UNMOUNT_CHARS
 })
 
 
@@ -172,6 +177,11 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case MOUNT_CHAR:
             newState.entities.characters[action.payload].mounted = true;
+            return newState;
+        case UNMOUNT_CHARS:
+            for (const id in newState.entities.characters) {
+                newState.entities.characters[id].mounted = false;
+            }
             return newState;
         case SET_CHARS:
             newState.entities.characters = action.payload;

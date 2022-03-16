@@ -28,6 +28,7 @@ import Vitals from "./Vitals";
 
 import { setHide } from "../../store/help";
 import { setHover } from "../../store/help";
+import { unmountAll } from "../../store/characters";
 
 import scholar from '../../images/scholar.png';
 
@@ -218,6 +219,7 @@ const Character = () => {
     const randomized = useMemo(() => shuffle(array), [array])
 
     useEffect(() => {
+        dispatch(unmountAll())
         dispatch(setHide(true));
         dispatch(setHover(''));
     }, [dispatch])
