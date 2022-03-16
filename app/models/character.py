@@ -32,6 +32,8 @@ class Character(db.Model):
     # Expects name, class, race, background from user
 
     id = db.Column(db.Integer, primary_key=True)
+    image_id = db.Column(db.Integer, db.ForeignKey(
+        'images.id'), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     campaign_id = db.Column(db.Integer, db.ForeignKey(
         'campaigns.id'), nullable=True)
@@ -65,6 +67,7 @@ class Character(db.Model):
     )
 
     user = db.relationship('User', back_populates='characters')
+    image = db.relationship('Image', back_populates='characters')
     campaign = db.relationship('Campaign', back_populates='characters')
     skills = db.relationship(
         'Skill', back_populates='character', cascade='all, delete')
@@ -133,6 +136,7 @@ class Character(db.Model):
 
         return {
             'id': self.id,
+            'img': self.image.url if self.image else None,
             'name': self.name,
             'class': self.char_class,
             'race': self.race,

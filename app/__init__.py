@@ -12,6 +12,7 @@ from .api.character_routes import character_routes
 from .api.item_routes import item_routes
 from .api.prof_routes import prof_routes
 from .api.feature_routes import feature_routes
+from .api.image_routes import image_routes
 
 from .seeds import seed_commands
 
@@ -39,6 +40,7 @@ app.register_blueprint(character_routes, url_prefix='/api/characters')
 app.register_blueprint(item_routes, url_prefix='/api/items')
 app.register_blueprint(feature_routes, url_prefix='/api/features')
 app.register_blueprint(prof_routes, url_prefix='/api/profs')
+app.register_blueprint(image_routes, url_prefix='/api/images')
 db.init_app(app)
 Migrate(app, db)
 

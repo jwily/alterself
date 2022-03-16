@@ -5,6 +5,7 @@ def seed_characters():
 
     zexceed = Character(
         user_id=1,
+        image_id=1,
         campaign_id=2,
         name='Zexceed',
         char_class='Druid',
@@ -34,6 +35,7 @@ def seed_characters():
 
     himo = Character(
         user_id=1,
+        image_id=3,
         name='Himo',
         char_class='Monk',
         race='Wood Elf',
@@ -48,6 +50,7 @@ def seed_characters():
 
     toland = Character(
         user_id=1,
+        image_id=2,
         name='Toland Albios',
         char_class='Warlock',
         race='Half-Elf',

@@ -12,7 +12,7 @@ import DeleteCharModal from "./DeleteCharModal";
 
 const Card = styled.li`
 
-    margin: 1rem 1rem 1.25rem 1rem;
+    margin: 0rem 1rem 2.5rem 1rem;
 
     .roster-edit-btn {
         margin-right: .25rem;
@@ -40,8 +40,8 @@ const Card = styled.li`
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
 
     .icon-holder {
-        width: 5.5rem;
-        height: 5.5rem;
+        width: 6.5rem;
+        height: 6.5rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -57,35 +57,47 @@ const Card = styled.li`
     opacity: ${props => props.mounted ? 1 : 0};
 `
 
-const Icon = styled.div`
-    width: 5rem;
-    height: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    border-radius: 20rem;
-    background-color: ${props => props.color};
-    font-family: 'Cormorant SC', serif;
+const Portrait = styled.img`
 
-    transition: all .15s;
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 10rem;
+`
 
-    &:hover {
-        width: 5.5rem;
-        height: 5.5rem;
-    }
+const IconHolder = styled.div`
 
-    img {
+    .cursor-img {
         position: absolute;
-        top: 8.25rem;
+        top: 9.25rem;
         right: 15.25rem;
         opacity: 0;
         transition: opacity .15s;
         height: 1.5rem;
     }
 
-    &:hover img {
+    &:hover .cursor-img {
         opacity: 1;
+    }
+`
+
+const Icon = styled.div`
+
+    background-color: ${props => props.color};
+
+    width: 6rem;
+    height: 6rem;
+    font-size: 2.5rem;
+    border-radius: 10rem;
+    font-family: 'Cormorant SC', serif;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all .15s;
+
+    &:hover {
+        margin-bottom: .5rem;
     }
 `
 
@@ -120,11 +132,14 @@ const CharCard = ({ char, idx, ids }) => {
         <Card key={idx} ref={charLi} mounted={char.mounted}>
             <Link to={`/roster/${char.id}`}>
                 <div className="icon-holder">
-                    <Icon className="roster-icon"
-                        color={colorGen(char)}>
-                        {char.name[0].toUpperCase()}
-                        <img src={cursor} alt="cursor" />
-                    </Icon>
+                    <IconHolder>
+                        <Icon className="roster-icon"
+                            color={colorGen(char)}
+                            img={char.img}>
+                            {!char.img ? char.name[0].toUpperCase() : <Portrait src={char.img} alt={`${char.name}'s portrait`} />}
+                        </Icon>
+                        <img className="cursor-img" src={cursor} alt="cursor" />
+                    </IconHolder>
                 </div>
             </Link>
             <BlackBox>
