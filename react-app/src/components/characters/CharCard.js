@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import cursor from '../../images/FF8Cursor.png';
 
@@ -57,26 +57,41 @@ const Card = styled.li`
     opacity: ${props => props.mounted ? 1 : 0};
 `
 
-const Portrait = styled.div`
-    width: 6rem;
-    height: 6rem;
-    border-radius: 5rem;
-    // border: .5rem solid transparent;
-
-    background-color: darkgrey;
+const Color = css`
+    background-color: ${props => props.color};
 
     &:hover {
-        width: 6.5rem;
-        height: 6.5rem;
+        // width: 6.5rem;
+        // height: 6.5rem;
     }
+`
 
-    transition: all .15s;
+const NoColor = css`
 
-    // background-size: cover;
-    // background-repeat: no-repeat;
-    // background-position: center center;
-    // background-image: url(${props => props.img});
+    &:hover {
+        // background-color: ${props => props.color};
 
+        // div {
+        //     filter: drop-shadow(0px 0px .5rem ${props => props.color});
+        // }
+
+        // width: 6.5rem;
+        // height: 6.5rem;
+    }
+`
+
+const Portrait = styled.div`
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 10rem;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url(${props => props.img});
+`
+
+const IconHolder = styled.div`
     .cursor-img {
         position: absolute;
         top: 9.25rem;
@@ -86,24 +101,21 @@ const Portrait = styled.div`
         height: 1.5rem;
     }
 
-    &:hover .cursor-img {
+    &:hover img {
         opacity: 1;
     }
 `
 
 const Icon = styled.div`
 
-    background-color: ${props => props.color};
+    ${(props) => props.img ? NoColor : Color}
 
-    &:hover {
-        width: 6.5rem;
-        height: 6.5rem;
-    }
+    background-color: ${props => props.color};
 
     width: 6rem;
     height: 6rem;
     font-size: 2.5rem;
-    border-radius: 5rem;
+    border-radius: 10rem;
     font-family: 'Cormorant SC', serif;
 
     display: flex;
@@ -112,17 +124,8 @@ const Icon = styled.div`
 
     transition: all .15s;
 
-    .cursor-img {
-        position: absolute;
-        top: 9.25rem;
-        right: 15.25rem;
-        opacity: 0;
-        transition: opacity .15s;
-        height: 1.5rem;
-    }
-
-    &:hover .cursor-img {
-        opacity: 1;
+    &:hover {
+        margin-bottom: .5rem;
     }
 `
 
@@ -157,17 +160,14 @@ const CharCard = ({ char, idx, ids }) => {
         <Card key={idx} ref={charLi} mounted={char.mounted}>
             <Link to={`/roster/${char.id}`}>
                 <div className="icon-holder">
-                    {!char.img ?
+                    <IconHolder>
                         <Icon className="roster-icon"
                             color={colorGen(char)}
                             img={char.img}>
-                            {char.name[0].toUpperCase()}
-                            <img className="cursor-img" src={cursor} alt="cursor" />
-                        </Icon> :
-                        <Portrait>
-                            {/* <img className="img-portrait" src={char.img} alt={`${char.name}'s portrait`} /> */}
-                            <img className="cursor-img" src={cursor} alt="cursor" />
-                        </Portrait>}
+                            {!char.img ? char.name[0].toUpperCase() : <Portrait img={char.img} />}
+                        </Icon>
+                        <img className="cursor-img" src={cursor} alt="cursor" />
+                    </IconHolder>
                 </div>
             </Link>
             <BlackBox>
