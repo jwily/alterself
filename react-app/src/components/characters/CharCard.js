@@ -12,7 +12,7 @@ import DeleteCharModal from "./DeleteCharModal";
 
 const Card = styled.li`
 
-    margin: 1rem 1rem 1.25rem 1rem;
+    margin: 0rem 1rem 2.5rem 1rem;
 
     .roster-edit-btn {
         margin-right: .25rem;
@@ -58,12 +58,14 @@ const Card = styled.li`
 `
 
 const Portrait = styled.img`
+
     width: 5.5rem;
     height: 5.5rem;
     border-radius: 10rem;
 `
 
 const IconHolder = styled.div`
+
     .cursor-img {
         position: absolute;
         top: 9.25rem;
