@@ -55,7 +55,7 @@ const Card = styled.li`
         border-radius: 10rem;
         display: flex;
         align-items: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.75rem;
         transition: padding .15s;
     }
 
@@ -73,7 +73,7 @@ const Portrait = styled.img`
 
 const Cursor = styled.img`
     position: absolute;
-    top: 9.25rem;
+    top: 9rem;
     right: 15.25rem;
     opacity: ${props => props.hover ? 1 : 0};
     transition: opacity .15s;
