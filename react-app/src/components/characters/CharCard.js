@@ -41,15 +41,6 @@ const Card = styled.li`
 
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
 
-    .icon-holder {
-        width: 6.5rem;
-        height: 6.5rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 1.5rem;
-    }
-
     p {
         white-space: nowrap;
         overflow: hidden;
@@ -57,6 +48,15 @@ const Card = styled.li`
     }
 
     opacity: ${props => props.mounted ? 1 : 0};
+
+    .roster-link {
+        width: 6rem;
+        height: 6rem;
+        border-radius: 10rem;
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
 `
 
 const Portrait = styled.img`
@@ -125,18 +125,14 @@ const CharCard = ({ char, idx, ids }) => {
 
     return (
         <Card key={idx} ref={charLi} mounted={char.mounted}>
-            <Link to={`/roster/${char.id}`}>
-                <div className="icon-holder">
-                    <div>
-                        <Icon className="roster-icon"
-                            color={colorGen(char)}
-                            img={char.img}
-                            onMouseEnter={() => dispatch(setHover(char.name))}
-                            onMouseLeave={() => dispatch(setHover(''))}>
-                            {!char.img ? char.name[0].toUpperCase() : <Portrait src={char.img} alt={`${char.name}'s portrait`} />}
-                        </Icon>
-                    </div>
-                </div>
+            <Link to={`/roster/${char.id}`} className="roster-link">
+                <Icon className="roster-icon"
+                    color={colorGen(char)}
+                    img={char.img}
+                    onMouseEnter={() => dispatch(setHover(char.name))}
+                    onMouseLeave={() => dispatch(setHover(''))}>
+                    {!char.img ? char.name[0].toUpperCase() : <Portrait src={char.img} alt={`${char.name}'s portrait`} />}
+                </Icon>
             </Link>
             <BlackBox>
                 <Cursor src={cursor} alt="cursor" hover={hoverState === char.name} />
