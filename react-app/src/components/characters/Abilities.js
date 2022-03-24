@@ -65,7 +65,7 @@ const modDisplay = (score) => {
     else return `- ${Math.abs(mod)}`;
 }
 
-const Abilities = ({ charData, fadeNum }) => {
+const Abilities = ({ charData, fadeNum, setHover }) => {
 
     const dispatch = useDispatch()
 
@@ -170,8 +170,10 @@ const Abilities = ({ charData, fadeNum }) => {
         <BlueBox className="abilities" theme={theme} ref={card}>
             <Container>
                 <AbilityDiv
-                    onMouseEnter={() => dispatch(setHover('str'))}
-                    onMouseLeave={() => dispatch(setHover(''))}
+                    // onMouseEnter={() => dispatch(setHover('str'))}
+                    // onMouseLeave={() => dispatch(setHover(''))}
+                    onMouseEnter={() => setHover('str')}
+                    onMouseLeave={() => setHover('')}
                 >
                     <label htmlFor={`${charData.id}-str`}>
                         <span>Strength</span>
@@ -185,8 +187,10 @@ const Abilities = ({ charData, fadeNum }) => {
                         onChange={changeStr} />
                 </AbilityDiv>
                 <AbilityDiv
-                    onMouseEnter={() => dispatch(setHover('dex'))}
-                    onMouseLeave={() => dispatch(setHover(''))}
+                    // onMouseEnter={() => dispatch(setHover('dex'))}
+                    // onMouseLeave={() => dispatch(setHover(''))}
+                    onMouseEnter={() => setHover('dex')}
+                    onMouseLeave={() => setHover('')}
                 >
                     <label htmlFor={`${charData.id}-dex`}>
                         <span>Dexterity</span>
@@ -200,8 +204,10 @@ const Abilities = ({ charData, fadeNum }) => {
                         onChange={changeDex} />
                 </AbilityDiv>
                 <AbilityDiv
-                    onMouseEnter={() => dispatch(setHover('con'))}
-                    onMouseLeave={() => dispatch(setHover(''))}
+                    // onMouseEnter={() => dispatch(setHover('con'))}
+                    // onMouseLeave={() => dispatch(setHover(''))}
+                    onMouseEnter={() => setHover('con')}
+                    onMouseLeave={() => setHover('')}
                 >
                     <label htmlFor={`${charData.id}-con`}>
                         <span>Constitution</span>
@@ -215,8 +221,10 @@ const Abilities = ({ charData, fadeNum }) => {
                         onChange={changeCon} />
                 </AbilityDiv>
                 <AbilityDiv
-                    onMouseEnter={() => dispatch(setHover('int'))}
-                    onMouseLeave={() => dispatch(setHover(''))}
+                    // onMouseEnter={() => dispatch(setHover('int'))}
+                    // onMouseLeave={() => dispatch(setHover(''))}
+                    onMouseEnter={() => setHover('int')}
+                    onMouseLeave={() => setHover('')}
                 >
                     <label htmlFor={`${charData.id}-int`}>
                         <span>Intelligence</span>
@@ -230,8 +238,10 @@ const Abilities = ({ charData, fadeNum }) => {
                         onChange={changeInt} />
                 </AbilityDiv>
                 <AbilityDiv
-                    onMouseEnter={() => dispatch(setHover('wis'))}
-                    onMouseLeave={() => dispatch(setHover(''))}
+                    // onMouseEnter={() => dispatch(setHover('wis'))}
+                    // onMouseLeave={() => dispatch(setHover(''))}
+                    onMouseEnter={() => setHover('wis')}
+                    onMouseLeave={() => setHover('')}
                 >
                     <label htmlFor={`${charData.id}-wis`}>
                         <span>Wisdom</span>
@@ -245,8 +255,10 @@ const Abilities = ({ charData, fadeNum }) => {
                         onChange={changeWis} />
                 </AbilityDiv>
                 <AbilityDiv
-                    onMouseEnter={() => dispatch(setHover('cha'))}
-                    onMouseLeave={() => dispatch(setHover(''))}
+                    // onMouseEnter={() => dispatch(setHover('cha'))}
+                    // onMouseLeave={() => dispatch(setHover(''))}
+                    onMouseEnter={() => setHover('cha')}
+                    onMouseLeave={() => setHover('')}
                 >
                     <label htmlFor={`${charData.id}-cha`}>
                         <span>Charisma</span>

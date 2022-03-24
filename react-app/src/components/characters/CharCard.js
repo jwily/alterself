@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -105,8 +105,10 @@ const colorGen = (char) => {
 const CharCard = ({ char, idx, ids }) => {
 
     const charLi = useRef(null);
-    const hoverState = useSelector(state => state.help.hover);
+    // const hoverState = useSelector(state => state.help.hover);
     const dispatch = useDispatch();
+
+    const [hover, setHover] = useState(false)
 
     useEffect(() => {
         let fadeIn;
@@ -125,15 +127,17 @@ const CharCard = ({ char, idx, ids }) => {
     return (
         <Card key={idx} ref={charLi} mounted={char.mounted}>
             <Link to={`/roster/${char.id}`} className="roster-link"
-                onMouseEnter={() => dispatch(setHover(char.name))}
-                onMouseLeave={() => dispatch(setHover(''))}>
+                // onMouseEnter={() => dispatch(setHover(char.name))}
+                // onMouseLeave={() => dispatch(setHover(''))}>
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}>
                 <Icon className="roster-icon"
                     color={colorGen(char)}>
                     {!char.img ? char.name[0].toUpperCase() : <Portrait src={char.img} alt={`${char.name}'s portrait`} />}
                 </Icon>
             </Link>
             <BlackBox>
-                <Cursor src={cursor} alt="cursor" hover={hoverState === char.name} />
+                <Cursor src={cursor} alt="cursor" hover={hover} />
                 <div className="roster-info">
                     <p>{char.name}</p>
                     <p>Level {char.level} {char.class}</p>

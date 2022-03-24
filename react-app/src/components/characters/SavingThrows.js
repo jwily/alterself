@@ -35,9 +35,9 @@ const SavingLi = styled.li`
     transition: all .25s;
 `
 
-const SavingThrows = ({ charData, fadeNum }) => {
+const SavingThrows = ({ charData, fadeNum, hover }) => {
 
-    const hoverState = useSelector(state => state.help.hover);
+    // const hoverState = useSelector(state => state.help.hover);
 
     const card = useRef(null)
 
@@ -57,27 +57,27 @@ const SavingThrows = ({ charData, fadeNum }) => {
             <Container >
                 <h2>Saving Throws</h2>
                 <ul>
-                    <SavingLi hover={hoverState === 'str'}>
+                    <SavingLi hover={hover === 'str'}>
                         <div>Strength</div>
                         <div>{modCalc(charData.str) >= 0 ? `+ ${modCalc(charData.str)}` : `- ${Math.abs(modCalc(charData.str))}`}</div>
                     </SavingLi>
-                    <SavingLi hover={hoverState === 'dex'}>
+                    <SavingLi hover={hover === 'dex'}>
                         <div>Dexterity</div>
                         <div>{modCalc(charData.dex) >= 0 ? `+ ${modCalc(charData.dex)}` : `- ${Math.abs(modCalc(charData.dex))}`}</div>
                     </SavingLi>
-                    <SavingLi hover={hoverState === 'con'}>
+                    <SavingLi hover={hover === 'con'}>
                         <div>Constitution</div>
                         <div>{modCalc(charData.con) >= 0 ? `+ ${modCalc(charData.con)}` : `- ${Math.abs(modCalc(charData.con))}`}</div>
                     </SavingLi>
-                    <SavingLi hover={hoverState === 'int'}>
+                    <SavingLi hover={hover === 'int'}>
                         <div>Intelligence</div>
                         <div>{modCalc(charData.int) >= 0 ? `+ ${modCalc(charData.int)}` : `- ${Math.abs(modCalc(charData.int))}`}</div>
                     </SavingLi>
-                    <SavingLi hover={hoverState === 'wis'}>
+                    <SavingLi hover={hover === 'wis'}>
                         <div>Wisdom</div>
                         <div>{modCalc(charData.wis) >= 0 ? `+ ${modCalc(charData.wis)}` : `- ${Math.abs(modCalc(charData.wis))}`}</div>
                     </SavingLi>
-                    <SavingLi hover={hoverState === 'cha'}>
+                    <SavingLi hover={hover === 'cha'}>
                         <div>Charisma</div>
                         <div>{modCalc(charData.cha) >= 0 ? `+ ${modCalc(charData.cha)}` : `- ${Math.abs(modCalc(charData.cha))}`}</div>
                     </SavingLi>
