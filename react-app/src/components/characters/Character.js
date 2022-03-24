@@ -48,6 +48,7 @@ const Container = styled.div`
 
     margin-top: 1.5rem;
     margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
 
     display: grid;
     grid-template-columns: repeat(4, min-content);
@@ -208,21 +209,24 @@ function shuffle(array) {
 }
 
 const Character = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        // dispatch(unmountAll())
+        dispatch(setHide(true));
+        // dispatch(setHover(''));
+    }, [dispatch])
+
     const { charId } = useParams();
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [badId, setBadId] = useState(false);
     const [array] = useState([0, 1, 2, 3, 4, 5, 6])
 
-    const dispatch = useDispatch();
+    const [hover, setHover] = useState('')
 
     const randomized = useMemo(() => shuffle(array), [array])
-
-    useEffect(() => {
-        dispatch(unmountAll())
-        dispatch(setHide(true));
-        dispatch(setHover(''));
-    }, [dispatch])
 
     useEffect(() => {
         (async () => {
@@ -261,11 +265,11 @@ const Character = () => {
                     <>
                         <Vitals charData={charData} fadeNum={randomized[0]} />
 
-                        <Abilities charData={charData} fadeNum={randomized[1]} />
+                        <Abilities charData={charData} fadeNum={randomized[1]} setHover={setHover} />
 
-                        <SavingThrows charData={charData} fadeNum={randomized[2]} />
+                        <SavingThrows charData={charData} fadeNum={randomized[2]} hover={hover} />
 
-                        <Skills charData={charData} fadeNum={randomized[3]} />
+                        <Skills charData={charData} fadeNum={randomized[3]} hover={hover} />
 
                         <div className="profs-feats">
                             <Proficiencies fadeNum={randomized[4]} />

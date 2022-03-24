@@ -116,7 +116,7 @@ const ShieldBar = styled.div`
     // justify-self: end;
 `
 
-const Vitals = ({ charData, fadeNum }) => {
+const Vitals = ({ charData, fadeNum, hover }) => {
 
     const dispatch = useDispatch();
 
