@@ -78,9 +78,33 @@ class Character(db.Model):
     features = db.relationship(
         'Feature', back_populates='character', cascade='all, delete')
 
+    def generate_title(self):
+
+        scores = [
+            ('str', self.strength),
+            ('dex', self.dexterity),
+            ('con', self.constitution),
+            ('int', self.intelligence),
+            ('wis', self.wisdom),
+            ('cha', self.charisma),
+        ]
+
+        to_join = [k for (k, v) in scores if v >= 16]
+
+        key = ''.join(to_join)
+
+        if not key:
+            return 'Awakening'
+
+        if len(key) > 6:
+            return 'Peerless'
+
+        return charTitles[key]
+
     def to_dict(self):
         return {
             'id': self.id,
+            'img': self.image.url if self.image else None,
             'userId': self.user_id,
             'name': self.name,
             'class': self.char_class,
@@ -107,30 +131,12 @@ class Character(db.Model):
             'cha': self.charisma,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
+            'mounted': False,
+            'title': self.generate_title(),
+            'itemsById': [item.id for item in self.items],
+            # 'featsById': [],
+            # 'profsById': [],
         }
-
-    def generate_title(self):
-
-        scores = [
-            ('str', self.strength),
-            ('dex', self.dexterity),
-            ('con', self.constitution),
-            ('int', self.intelligence),
-            ('wis', self.wisdom),
-            ('cha', self.charisma),
-        ]
-
-        to_join = [k for (k, v) in scores if v >= 16]
-
-        key = ''.join(to_join)
-
-        if not key:
-            return 'Awakening'
-
-        if len(key) > 6:
-            return 'Peerless'
-
-        return charTitles[key]
 
     def to_dict_roster(self):
 
@@ -151,5 +157,5 @@ class Character(db.Model):
             'background': self.background,
             'title': self.generate_title(),
             'createdAt': self.created_at,
-            'updatedAt': self.updated_at
+            'updatedAt': self.updated_at,
         }

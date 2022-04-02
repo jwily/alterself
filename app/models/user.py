@@ -30,6 +30,9 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     characters = db.relationship('Character', back_populates='user')
+    items = db.relationship('Item', back_populates='user')
+    features = db.relationship('Feature', back_populates='user')
+    profs = db.relationship('Proficiency', back_populates='user')
     owned_campaigns = db.relationship('Campaign', back_populates='user')
     joined_campaigns = db.relationship(
         'Campaign', secondary=memberships, back_populates='members')

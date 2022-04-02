@@ -8,6 +8,7 @@ class Feature(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     char_id = db.Column(db.Integer, db.ForeignKey(
         'characters.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=True)
     created_at = db.Column(
@@ -17,6 +18,7 @@ class Feature(db.Model):
     )
 
     character = db.relationship('Character', back_populates='features')
+    user = db.relationship('User', back_populates='features')
 
     def to_dict(self):
         return {
