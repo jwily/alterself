@@ -2,7 +2,7 @@ const SET_FEATS = 'features/SET_FEATS'
 const ADD_FEAT = 'features/ADD_FEAT'
 const REMOVE_FEAT = 'features/REMOVE_FEAT'
 
-const setFeats = (feats) => ({
+export const setFeats = (feats) => ({
     type: SET_FEATS,
     payload: feats
 })

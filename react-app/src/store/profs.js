@@ -2,7 +2,7 @@ const SET_PROFS = 'proficiencies/SET_PROFS'
 const ADD_PROF = 'proficiencies/ADD_PROF'
 const REMOVE_PROF = 'proficiencies/REMOVE_PROF'
 
-const setProfs = (profs) => ({
+export const setProfs = (profs) => ({
     type: SET_PROFS,
     payload: profs
 })

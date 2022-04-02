@@ -2,7 +2,7 @@ const SET_ITEMS = 'items/SET_ITEMS'
 const ADD_ITEM = 'items/ADD_ITEM'
 const REMOVE_ITEM = 'items/REMOVE_ITEM'
 
-const setItems = (items) => ({
+export const setItems = (items) => ({
     type: SET_ITEMS,
     payload: items
 })

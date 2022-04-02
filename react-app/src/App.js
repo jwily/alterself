@@ -8,6 +8,10 @@ import Character from './components/characters/Character';
 import { authenticate } from './store/session';
 import Welcome from './components/Welcome';
 
+import { setItems } from './store/items';
+import { setFeats } from './store/features';
+import { setProfs } from './store/profs';
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -17,6 +21,13 @@ function App() {
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
+      const response = await fetch(`/api/characters/all`);
+      if (response.ok) {
+        const data = await response.json();
+        dispatch(setItems(data.items));
+        dispatch(setFeats(data.feats));
+        dispatch(setProfs(data.profs));
+      }
       setLoaded(true);
     })();
   }, [dispatch]);
