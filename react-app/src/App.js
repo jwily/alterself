@@ -8,6 +8,7 @@ import Character from './components/characters/Character';
 import { authenticate } from './store/session';
 import Welcome from './components/Welcome';
 
+import { setChars } from './store/characters';
 import { setItems } from './store/items';
 import { setFeats } from './store/features';
 import { setProfs } from './store/profs';
@@ -21,16 +22,24 @@ function App() {
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
-      const response = await fetch(`/api/characters/all`);
-      if (response.ok) {
-        const data = await response.json();
-        dispatch(setItems(data.items));
-        dispatch(setFeats(data.feats));
-        dispatch(setProfs(data.profs));
-      }
       setLoaded(true);
     })();
   }, [dispatch]);
+
+  useEffect(() => {
+    (async () => {
+      if (user) {
+        const response = await fetch(`/api/characters/${user.id}`);
+        if (response.ok) {
+          const data = await response.json();
+          dispatch(setChars(data.chars))
+          dispatch(setItems(data.items));
+          dispatch(setFeats(data.feats));
+          dispatch(setProfs(data.profs));
+        }
+      }
+    })();
+  }, [dispatch, user])
 
   if (!loaded) {
     return null;

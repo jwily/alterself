@@ -15,7 +15,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import { setErrors } from "../../store/help";
-import { setHover } from "../../store/help";
 
 import BlueBox from "../../global/BlueBox";
 

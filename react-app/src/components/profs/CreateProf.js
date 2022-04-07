@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import { createProf } from "../../store/profs";
 
@@ -45,12 +46,13 @@ const CreateForm = styled.div`
 `
 
 const CreateProf = ({ setAdd }) => {
+
+    const { charId } = useParams();
+
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
     const dispatch = useDispatch();
-
-    const charId = useSelector((state) => state.characters.entities.character.id)
 
     const handleSubmit = async (e) => {
         e.preventDefault();

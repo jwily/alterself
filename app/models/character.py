@@ -134,8 +134,8 @@ class Character(db.Model):
             'mounted': False,
             'title': self.generate_title(),
             'itemsById': [item.id for item in self.items],
-            # 'featsById': [],
-            # 'profsById': [],
+            'featsById': [feature.id for feature in self.features],
+            'profsById': [prof.id for prof in self.profs],
         }
 
     def to_dict_roster(self):

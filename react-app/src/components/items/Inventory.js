@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
@@ -57,6 +58,9 @@ const Container = styled.div`
 
 const Inventory = ({ fadeNum }) => {
 
+    const { charId } = useParams();
+
+    const order = useSelector(state => state.characters.entities[charId].itemsById)
     const data = useSelector(state => state.items);
     const theme = useSelector(state => state.theme.selection);
 
@@ -74,11 +78,11 @@ const Inventory = ({ fadeNum }) => {
     }, [fadeNum])
 
     const itemCards = useMemo(() => {
-        return data.ids.map(id => {
+        return order.map(id => {
             const item = data.entities[id];
             return <ItemCard key={item.id} item={item} />
         })
-    }, [data.entities, data.ids])
+    }, [data.entities, order])
 
     return (
         <BlueBox className="items" theme={theme} ref={card}>

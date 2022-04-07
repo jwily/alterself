@@ -20,17 +20,17 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
-@character_routes.route('/', methods=['GET'])
-@login_required
-def get_chars():
-    user = User.query.get(current_user.id)
-    return {char.id: char.to_dict_roster() for char in user.characters}
+# @character_routes.route('/', methods=['GET'])
+# @login_required
+# def get_chars():
+#     user = User.query.get(current_user.id)
+#     return {char.id: char.to_dict() for char in user.characters}
 
 
-@character_routes.route('/all', methods=['GET'])
+@character_routes.route('/<int:id>', methods=['GET'])
 @login_required
-def get_all():
-    user = User.query.get(current_user.id)
+def get_data(id):
+    user = User.query.get(id)
     chars = {char.id: char.to_dict() for char in user.characters}
     items = {item.id: item.to_dict() for item in user.items}
     profs = {prof.id: prof.to_dict() for prof in user.profs}
@@ -41,49 +41,6 @@ def get_all():
         'profs': profs,
         'feats': feats
     }
-
-
-@character_routes.route('/<int:id>', methods=['GET'])
-@login_required
-def get_char(id):
-    char = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).first()
-    if char:
-        return char.to_dict()
-    else:
-        return {'error': 'Character not found.'}, 404
-
-
-@character_routes.route('/<int:id>/skills', methods=['GET'])
-@login_required
-def get_skills(id):
-    skills = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).first().skills
-    return {skill.skill_num: True for skill in skills}
-
-
-@character_routes.route('/<int:id>/items', methods=['GET'])
-@login_required
-def get_items(id):
-    items = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).first().items
-    return {item.id: item.to_dict() for item in items}
-
-
-@character_routes.route('/<int:id>/features', methods=['GET'])
-@login_required
-def get_feats(id):
-    features = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).first().features
-    return {feature.id: feature.to_dict() for feature in features}
-
-
-@character_routes.route('/<int:id>/profs', methods=['GET'])
-@login_required
-def get_profs(id):
-    profs = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).first().profs
-    return {prof.id: prof.to_dict() for prof in profs}
 
 
 @character_routes.route('/<int:id>', methods=['DELETE'])
@@ -124,16 +81,19 @@ def create_char():
 
         langs = Proficiency(
             char_id=char.id,
+            user_id=current_user.id,
             name='Languages'
         )
 
         equips = Proficiency(
             char_id=char.id,
+            user_id=current_user.id,
             name='Arms and Armor'
         )
 
         tools = Proficiency(
             char_id=char.id,
+            user_id=current_user.id,
             name='Tools'
         )
 
@@ -153,6 +113,7 @@ def create_item(id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         item = Item(
+            user_id=current_user.id,
             char_id=id,
             name=form.data['name'],
             description=form.data['description'],
@@ -174,6 +135,7 @@ def create_feat(id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         feat = Feature(
+            user_id=current_user.id,
             char_id=id,
             name=form.data['name'],
             description=form.data['description']
@@ -194,6 +156,7 @@ def create_prof(id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         prof = Proficiency(
+            user_id=current_user.id,
             char_id=id,
             name=form.data['name'],
             description=form.data['description']
