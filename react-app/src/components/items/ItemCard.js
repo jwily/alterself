@@ -101,9 +101,11 @@ const ItemCard = ({ item }) => {
 
     const debouncedSave = useCallback(
         debounce(async (formData) => {
-            const response = await dispatch(editQuantity(formData));
-            if (response) {
-                dispatch(setErrors(response))
+            const data = await dispatch(editQuantity(formData));
+            if (data.errors) {
+                dispatch(setErrors(data.errors))
+            } else {
+                dispatch(updateChar(data))
             }
         }, 350),
         [],
@@ -129,10 +131,11 @@ const ItemCard = ({ item }) => {
             description
         };
         const data = await dispatch(editItem(formData));
-        if (data) {
-            dispatch(setErrors(data));
+        if (data.errors) {
+            dispatch(setErrors(data.errors));
         } else {
             setSaved(true);
+            dispatch(updateChar(data));
         }
     }
 
@@ -144,9 +147,14 @@ const ItemCard = ({ item }) => {
         setSaved(false);
     }
 
-    const handleDelete = (e, id) => {
+    const handleDelete = async (e, id) => {
         e.preventDefault();
-        dispatch(deleteItem(id));
+        const data = await dispatch(deleteItem(id));
+        if (data.errors) {
+            dispatch(setErrors(data.errors));
+        } else {
+            dispatch(delCharItem(data));
+        }
     }
 
     const clickDelete = () => {

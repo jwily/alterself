@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { createProf } from "../../store/profs";
+import { createProf, setProfs } from "../../store/profs";
+import { setCharProf } from "../../store/characters";
 
 import { setErrors } from "../../store/help";
 
@@ -62,11 +63,12 @@ const CreateProf = ({ setAdd }) => {
             description,
         }
         const data = await dispatch(createProf(formData));
-        if (data) {
-            dispatch(setErrors(data));
+        if (data.errors) {
+            dispatch(setErrors(data.errors));
         } else {
             setName('');
             setDescription('');
+            dispatch(setCharProf(data));
         }
     };
 

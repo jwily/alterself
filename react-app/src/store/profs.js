@@ -19,18 +19,6 @@ const delProf = (id) => ({
 
 const initialState = { entities: {}, ids: [] };
 
-export const getProfs = (charId) => async (dispatch) => {
-    const response = await fetch(`/api/characters/${charId}/profs`);
-    if (response.ok) {
-        const data = await response.json();
-        if (data.errors) {
-            return;
-        }
-
-        dispatch(setProfs(data));
-    }
-}
-
 export const createProf = (formData) => async (dispatch) => {
     const response = await fetch(`/api/characters/${formData.charId}/profs`, {
         method: 'POST',
@@ -43,7 +31,7 @@ export const createProf = (formData) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addProf(data))
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
@@ -66,7 +54,7 @@ export const editProf = (formData) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addProf(data))
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {

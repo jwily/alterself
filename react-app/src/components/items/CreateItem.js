@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { createItem } from "../../store/items";
+import { setCharItem } from "../../store/characters";
 
 import { setErrors } from "../../store/help";
 
@@ -64,13 +65,14 @@ const CreateItem = ({ setAdd }) => {
             quantity
         }
         const data = await dispatch(createItem(formData));
-        if (data) {
-            dispatch(setErrors(data));
+        if (data.errors) {
+            dispatch(setErrors(data.errors));
         }
         else {
             setName('');
             setDescription('');
             setQuantity(1);
+            dispatch(setCharItem(data));
         }
     };
 

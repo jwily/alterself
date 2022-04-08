@@ -249,8 +249,18 @@ export default function reducer(state = initialState, action) {
             newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
             sortByUpdate(newState.entities, newState.ids);
             return newState;
+        case DELETE_CHAR_ITEM:
+            newState.entities[action.payload.charId].itemsById = action.payload.newArray;
+            newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
+            sortByUpdate(newState.entities, newState.ids);
+            return newState;
         case DELETE_CHAR_FEAT:
             newState.entities[action.payload.charId].featsById = action.payload.newArray;
+            newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
+            sortByUpdate(newState.entities, newState.ids);
+            return newState;
+        case DELETE_CHAR_PROF:
+            newState.entities[action.payload.charId].profsById = action.payload.newArray;
             newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
             sortByUpdate(newState.entities, newState.ids);
             return newState;

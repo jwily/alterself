@@ -19,18 +19,6 @@ const delFeat = (id) => ({
 
 const initialState = { entities: {}, ids: [] };
 
-export const getFeats = (charId) => async (dispatch) => {
-    const response = await fetch(`/api/characters/${charId}/features`);
-    if (response.ok) {
-        const data = await response.json();
-        if (data.errors) {
-            return;
-        }
-
-        dispatch(setFeats(data));
-    }
-}
-
 export const createFeat = (formData) => async (dispatch) => {
     const response = await fetch(`/api/characters/${formData.charId}/features`, {
         method: 'POST',

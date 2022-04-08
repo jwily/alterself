@@ -102,7 +102,7 @@ const FeatCard = ({ feat }) => {
             dispatch(setErrors(data.errors));
         } else {
             setSaved(true);
-            dispatch(updateChar(data))
+            dispatch(updateChar(data));
         }
     }
 
@@ -120,7 +120,7 @@ const FeatCard = ({ feat }) => {
         if (data.errors) {
             dispatch(setErrors(data.errors));
         } else {
-            dispatch(delCharFeat(data))
+            dispatch(delCharFeat(data));
         }
     }
 

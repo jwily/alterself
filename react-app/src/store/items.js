@@ -19,18 +19,6 @@ const delItem = (id) => ({
 
 const initialState = { entities: {}, ids: [] };
 
-export const getItems = (charId) => async (dispatch) => {
-    const response = await fetch(`/api/characters/${charId}/items`);
-    if (response.ok) {
-        const data = await response.json();
-        if (data.errors) {
-            return;
-        }
-
-        dispatch(setItems(data));
-    }
-}
-
 export const createItem = (formData) => async (dispatch) => {
     const response = await fetch(`/api/characters/${formData.charId}/items`, {
         method: 'POST',
@@ -43,7 +31,7 @@ export const createItem = (formData) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addItem(data))
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
@@ -66,7 +54,7 @@ export const editItem = (formData) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addItem(data))
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
@@ -89,7 +77,7 @@ export const editQuantity = (formData) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addItem(data))
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
