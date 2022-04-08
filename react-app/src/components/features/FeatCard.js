@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { deleteFeat } from "../../store/features";
 import { editFeat } from "../../store/features";
+import { updateChar, delCharFeat } from "../../store/characters";
 
 import { setErrors } from "../../store/help";
 import SavedMessage from "../../global/SavedMessage";
@@ -97,10 +98,11 @@ const FeatCard = ({ feat }) => {
             description
         };
         const data = await dispatch(editFeat(formData));
-        if (data) {
-            dispatch(setErrors(data));
+        if (data.errors) {
+            dispatch(setErrors(data.errors));
         } else {
             setSaved(true);
+            dispatch(updateChar(data));
         }
     }
 
@@ -112,9 +114,14 @@ const FeatCard = ({ feat }) => {
         setSaved(false);
     }
 
-    const handleDelete = (e, id) => {
+    const handleDelete = async (e, id) => {
         e.preventDefault();
-        dispatch(deleteFeat(id));
+        const data = await dispatch(deleteFeat(id));
+        if (data.errors) {
+            dispatch(setErrors(data.errors));
+        } else {
+            dispatch(delCharFeat(data));
+        }
     }
 
     const clickDelete = () => {

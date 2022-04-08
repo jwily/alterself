@@ -33,10 +33,13 @@ def delete_item(id):
             db.session.delete(item)
             db.session.commit()
             return {'message': 'Item successfully deleted.',
-                    'itemId': id}
+                    'itemId': id,
+                    'charId': item.char_id,
+                    'newArray': [item.id for item in char.items],
+                    'updatedAt': char.updated_at}
         else:
-            return {'error': 'Item not found.'}, 404
-    return {'error': 'An error has occurred. Please try again.'}, 401
+            return {'errors': ['Item not found.']}, 404
+    return {'errors': ['An error has occurred. Please try again.']}, 401
 
 
 @item_routes.route('/<int:id>', methods=['PATCH'])
@@ -56,7 +59,7 @@ def edit_item(id):
             db.session.commit()
             return item.to_dict()
         else:
-            return {'error': 'Item not found.'}, 404
+            return {'errors': ['Item not found.']}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -75,5 +78,5 @@ def update_quantity(id):
             db.session.commit()
             return item.to_dict()
         else:
-            return {'error': 'Item not found.'}, 404
+            return {'errors': ['Item not found.']}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

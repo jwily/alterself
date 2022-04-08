@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { deleteProf } from "../../store/profs";
 import { editProf } from "../../store/profs";
 
+import { updateChar, delCharProf } from "../../store/characters";
+
 import { setErrors } from "../../store/help";
 import SavedMessage from "../../global/SavedMessage";
 
@@ -97,10 +99,11 @@ const ProfCard = ({ prof }) => {
             description
         };
         const data = await dispatch(editProf(formData));
-        if (data) {
-            dispatch(setErrors(data));
+        if (data.errors) {
+            dispatch(setErrors(data.errors));
         } else {
             setSaved(true);
+            dispatch(updateChar(data));
         }
     }
 
@@ -112,9 +115,14 @@ const ProfCard = ({ prof }) => {
         setSaved(false);
     }
 
-    const handleDelete = (e, id) => {
+    const handleDelete = async (e, id) => {
         e.preventDefault();
-        dispatch(deleteProf(id));
+        const data = await dispatch(deleteProf(id));
+        if (data.errors) {
+            dispatch(setErrors(data.errors));
+        } else {
+            dispatch(delCharProf(data));
+        }
     }
 
     const clickDelete = () => {

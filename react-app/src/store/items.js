@@ -2,7 +2,7 @@ const SET_ITEMS = 'items/SET_ITEMS'
 const ADD_ITEM = 'items/ADD_ITEM'
 const REMOVE_ITEM = 'items/REMOVE_ITEM'
 
-const setItems = (items) => ({
+export const setItems = (items) => ({
     type: SET_ITEMS,
     payload: items
 })
@@ -17,19 +17,7 @@ const delItem = (id) => ({
     payload: id
 })
 
-const initialState = { entities: null, ids: [] };
-
-export const getItems = (charId) => async (dispatch) => {
-    const response = await fetch(`/api/characters/${charId}/items`);
-    if (response.ok) {
-        const data = await response.json();
-        if (data.errors) {
-            return;
-        }
-
-        dispatch(setItems(data));
-    }
-}
+const initialState = { entities: {}, ids: [] };
 
 export const createItem = (formData) => async (dispatch) => {
     const response = await fetch(`/api/characters/${formData.charId}/items`, {
@@ -43,7 +31,7 @@ export const createItem = (formData) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addItem(data))
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
@@ -66,7 +54,7 @@ export const editItem = (formData) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addItem(data))
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
@@ -89,7 +77,7 @@ export const editQuantity = (formData) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addItem(data))
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {

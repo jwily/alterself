@@ -1,12 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import cursor from '../../images/FF8Cursor.png';
 
 import { mountChar } from "../../store/characters";
-import { setHover } from "../../store/help";
 
 import BlackBox from "../../global/BlackBox";
 import EditCharModal from "./EditCharModal";

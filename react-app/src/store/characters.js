@@ -1,18 +1,26 @@
 const SET_CHARS = 'characters/SET_CHARS';
-const SET_CHAR = 'characters/SET_CHAR';
 const ADD_CHAR = 'characters/ADD_CHAR';
 const REMOVE_CHAR = 'characters/REMOVE_CHAR';
+const CLEAR_CHARS = 'characters/CLEAR_CHARS';
 const MOUNT_CHAR = 'characters/MOUNT_CHAR';
-const UNMOUNT_CHARS = 'characters/UNMOUNT_CHARS'
+const UNMOUNT_CHARS = 'characters/UNMOUNT_CHARS';
 
-const setChars = (chars) => ({
+const UPDATE_CHAR = 'characters/UPDATE_CHAR';
+
+const SET_CHAR_ITEM = 'characters/SET_CHAR_ITEM';
+const DELETE_CHAR_ITEM = 'characters/DELETE_CHAR_ITEM';
+const SET_CHAR_FEAT = 'characters/SET_CHAR_FEAT';
+const DELETE_CHAR_FEAT = 'characters/DELETE_CHAR_FEAT';
+const SET_CHAR_PROF = 'characters/SET_CHAR_PROF';
+const DELETE_CHAR_PROF = 'characters/DELETE_CHAR_PROF';
+
+export const setChars = (chars) => ({
     type: SET_CHARS,
     payload: chars
 })
 
-const setChar = (char) => ({
-    type: SET_CHAR,
-    payload: char
+export const clearChars = () => ({
+    type: CLEAR_CHARS
 })
 
 const addChar = (char) => ({
@@ -34,33 +42,42 @@ export const unmountAll = () => ({
     type: UNMOUNT_CHARS
 })
 
+export const setCharItem = (item) => ({
+    type: SET_CHAR_ITEM,
+    payload: item
+})
 
-const initialState = { entities: { characters: null, character: null }, ids: [] };
+export const setCharFeat = (feat) => ({
+    type: SET_CHAR_FEAT,
+    payload: feat
+})
 
-export const getChars = () => async (dispatch) => {
-    const response = await fetch(`/api/characters/`);
-    if (response.ok) {
-        const data = await response.json();
-        if (data.errors) {
-            return;
-        }
+export const setCharProf = (prof) => ({
+    type: SET_CHAR_PROF,
+    payload: prof
+})
 
-        dispatch(setChars(data));
-    }
-}
+export const delCharItem = (item) => ({
+    type: DELETE_CHAR_ITEM,
+    payload: item
+})
 
-export const getChar = (charId) => async (dispatch) => {
-    const response = await fetch(`/api/characters/${charId}`);
-    if (response.ok) {
-        const data = await response.json();
-        if (data.error) {
-            return false;
-        }
+export const delCharFeat = (feat) => ({
+    type: DELETE_CHAR_FEAT,
+    payload: feat
+})
 
-        dispatch(setChar(data));
-        return true
-    }
-}
+export const delCharProf = (prof) => ({
+    type: DELETE_CHAR_PROF,
+    payload: prof
+})
+
+export const updateChar = (time) => ({
+    type: UPDATE_CHAR,
+    payload: time
+})
+
+const initialState = { entities: {}, ids: [] };
 
 export const createChar = (formData) => async (dispatch) => {
     const response = await fetch('/api/characters/', {
@@ -112,7 +129,7 @@ export const editAbilities = (formData) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json();
-        dispatch(setChar(data))
+        dispatch(addChar(data))
         return null;
     } else if (response.status < 500) {
         const data = await response.json();
@@ -134,7 +151,7 @@ export const editVitals = (formData) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json();
-        dispatch(setChar(data))
+        dispatch(addChar(data))
         return null;
     } else if (response.status < 500) {
         const data = await response.json();
@@ -176,30 +193,71 @@ export default function reducer(state = initialState, action) {
     const newState = { ...state };
     switch (action.type) {
         case MOUNT_CHAR:
-            newState.entities.characters[action.payload].mounted = true;
+            newState.entities[action.payload].mounted = true;
             return newState;
         case UNMOUNT_CHARS:
-            for (const id in newState.entities.characters) {
-                newState.entities.characters[id].mounted = false;
+            for (const id in newState.entities) {
+                newState.entities[id].mounted = false;
             }
             return newState;
+        case CLEAR_CHARS:
+            return {
+                entities: {}, ids: []
+            }
         case SET_CHARS:
-            newState.entities.characters = action.payload;
+            newState.entities = action.payload;
             newState.ids = Object.keys(action.payload);
-            sortByUpdate(newState.entities.characters, newState.ids);
-            return newState;
-        case SET_CHAR:
-            newState.entities.character = action.payload;
+            sortByUpdate(newState.entities, newState.ids);
             return newState;
         case ADD_CHAR:
-            newState.entities.characters[action.payload.id] = action.payload;
-            newState.ids = Object.keys(newState.entities.characters)
-            sortByUpdate(newState.entities.characters, newState.ids);
+            newState.entities[action.payload.id] = action.payload;
+            newState.ids = Object.keys(newState.entities)
+            sortByUpdate(newState.entities, newState.ids);
             return newState;
         case REMOVE_CHAR:
-            delete newState.entities.characters[action.payload];
-            newState.ids = Object.keys(newState.entities.characters)
-            sortByUpdate(newState.entities.characters, newState.ids);
+            delete newState.entities[action.payload];
+            newState.ids = Object.keys(newState.entities)
+            sortByUpdate(newState.entities, newState.ids);
+            return newState;
+        case SET_CHAR_ITEM:
+            const newItems = [...newState.entities[action.payload.charId].itemsById];
+            newItems.push(action.payload.id);
+            newState.entities[action.payload.charId].itemsById = newItems;
+            newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
+            sortByUpdate(newState.entities, newState.ids);
+            return newState;
+        case SET_CHAR_FEAT:
+            const newFeats = [...newState.entities[action.payload.charId].featsById];
+            newFeats.push(action.payload.id);
+            newState.entities[action.payload.charId].featsById = newFeats;
+            newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
+            sortByUpdate(newState.entities, newState.ids);
+            return newState;
+        case SET_CHAR_PROF:
+            const newProfs = [...newState.entities[action.payload.charId].profsById];
+            newProfs.push(action.payload.id);
+            newState.entities[action.payload.charId].profsById = newProfs;
+            newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
+            sortByUpdate(newState.entities, newState.ids);
+            return newState;
+        case UPDATE_CHAR:
+            newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
+            sortByUpdate(newState.entities, newState.ids);
+            return newState;
+        case DELETE_CHAR_ITEM:
+            newState.entities[action.payload.charId].itemsById = action.payload.newArray;
+            newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
+            sortByUpdate(newState.entities, newState.ids);
+            return newState;
+        case DELETE_CHAR_FEAT:
+            newState.entities[action.payload.charId].featsById = action.payload.newArray;
+            newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
+            sortByUpdate(newState.entities, newState.ids);
+            return newState;
+        case DELETE_CHAR_PROF:
+            newState.entities[action.payload.charId].profsById = action.payload.newArray;
+            newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
+            sortByUpdate(newState.entities, newState.ids);
             return newState;
         default:
             return state;

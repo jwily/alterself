@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faDAndD,
 } from '@fortawesome/free-brands-svg-icons';
+
+import { clearChars } from '../store/characters';
 
 import WelcomeAuthModal from "./auth/WelcomeAuthModal";
 
@@ -70,6 +73,13 @@ const WelcomePage = styled.div`
 `
 
 const Welcome = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(clearChars())
+    }, [dispatch])
+
     return (
         <WelcomePage>
             <div className="welcome-title">

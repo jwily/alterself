@@ -3,11 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, Redirect } from "react-router-dom";
 import styled from "styled-components";
 
-import { getChar } from "../../store/characters";
-import { getItems } from "../../store/items";
-import { getSkills } from "../../store/skills";
-import { getFeats } from "../../store/features";
-import { getProfs } from "../../store/profs";
 import { setTheme } from "../../store/theme";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -27,21 +22,16 @@ import SavingThrows from "./SavingThrows";
 import Vitals from "./Vitals";
 
 import { setHide } from "../../store/help";
-import { setHover } from "../../store/help";
 import { unmountAll } from "../../store/characters";
 
 import scholar from '../../images/scholar.png';
 
 const Parent = styled.div`
+    width: 100%;
+    height: 100%;
 
-    .loading-message {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 1rem;
-        filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
-    }
+    display: flex;
+    justify-content: center;
 `
 
 const Container = styled.div`
@@ -213,98 +203,68 @@ const Character = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // dispatch(unmountAll())
+        dispatch(unmountAll())
         dispatch(setHide(true));
-        // dispatch(setHover(''));
     }, [dispatch])
 
     const { charId } = useParams();
 
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [badId, setBadId] = useState(false);
     const [array] = useState([0, 1, 2, 3, 4, 5, 6])
 
     const [hover, setHover] = useState('')
 
     const randomized = useMemo(() => shuffle(array), [array])
 
-    useEffect(() => {
-        (async () => {
-            if (isNaN(parseInt(charId, 10))) {
-                setBadId(true);
-                return;
-            }
-            const char = await dispatch(getChar(charId));
-            if (char) {
-                await dispatch(getSkills(charId));
-                await dispatch(getItems(charId));
-                await dispatch(getProfs(charId));
-                await dispatch(getFeats(charId));
-                setIsLoaded(true);
-            } else {
-                setBadId(true);
-            }
-        })();
-    }, [dispatch, charId])
-
-    const charData = useSelector(state => state.characters.entities.character)
+    const charData = useSelector(state => state.characters.entities[charId])
     const helpData = useSelector(state => state.help)
     const theme = useSelector(state => state.theme.selection)
 
-    if (badId) return (
+    if (!charData) return (
         <Redirect to='/' />
     )
 
     return (
-        <Parent>
-            {!isLoaded &&
-                <div className="loading-message">Loading...</div>
-            }
-            <Container>
-                {isLoaded &&
-                    <>
-                        <Vitals charData={charData} fadeNum={randomized[0]} />
+        <Container>
+            <Vitals charData={charData} fadeNum={randomized[0]} />
 
-                        <Abilities charData={charData} fadeNum={randomized[1]} setHover={setHover} />
+            <Abilities charData={charData} fadeNum={randomized[1]} setHover={setHover} />
 
-                        <SavingThrows charData={charData} fadeNum={randomized[2]} hover={hover} />
+            <SavingThrows charData={charData} fadeNum={randomized[2]} hover={hover} />
 
-                        <Skills charData={charData} fadeNum={randomized[3]} hover={hover} />
+            <Skills charData={charData} fadeNum={randomized[3]} hover={hover} />
 
-                        <div className="profs-feats">
-                            <Proficiencies fadeNum={randomized[4]} />
-                            <FeaturesAndTraits fadeNum={randomized[5]} />
-                        </div>
+            <div className="profs-feats">
+                <Proficiencies fadeNum={randomized[4]} />
+                <FeaturesAndTraits fadeNum={randomized[5]} />
+            </div>
 
-                        <Inventory fadeNum={randomized[6]} />
-                    </>}
+            <Inventory fadeNum={randomized[6]} />
 
-                <ThemeButtons>
-                    {theme === 'dragon' ?
-                        <button type="button" onClick={() => dispatch(setTheme("default"))} className="selected"><FontAwesomeIcon icon={faLeaf} /></button> :
-                        <button type="button" onClick={() => dispatch(setTheme("dragon"))}><FontAwesomeIcon icon={faLeaf} /></button>}
-                    {theme === 'meteor' ?
-                        <button type="button" onClick={() => dispatch(setTheme("default"))} className="selected"><FontAwesomeIcon icon={faMeteor} /></button> :
-                        <button type="button" onClick={() => dispatch(setTheme("meteor"))}><FontAwesomeIcon icon={faMeteor} /></button>}
-                    {theme === 'lion' ?
-                        <button type="button" onClick={() => dispatch(setTheme("default"))} className="selected"><FontAwesomeIcon icon={faFeather} /></button> :
-                        <button type="button" onClick={() => dispatch(setTheme("lion"))}><FontAwesomeIcon icon={faFeather} /></button>}
-                </ThemeButtons>
+            <ThemeButtons>
+                {theme === 'dragon' ?
+                    <button type="button" onClick={() => dispatch(setTheme("default"))} className="selected"><FontAwesomeIcon icon={faLeaf} /></button> :
+                    <button type="button" onClick={() => dispatch(setTheme("dragon"))}><FontAwesomeIcon icon={faLeaf} /></button>}
+                {theme === 'meteor' ?
+                    <button type="button" onClick={() => dispatch(setTheme("default"))} className="selected"><FontAwesomeIcon icon={faMeteor} /></button> :
+                    <button type="button" onClick={() => dispatch(setTheme("meteor"))}><FontAwesomeIcon icon={faMeteor} /></button>}
+                {theme === 'lion' ?
+                    <button type="button" onClick={() => dispatch(setTheme("default"))} className="selected"><FontAwesomeIcon icon={faFeather} /></button> :
+                    <button type="button" onClick={() => dispatch(setTheme("lion"))}><FontAwesomeIcon icon={faFeather} /></button>}
+            </ThemeButtons>
 
-                <ScholarDiv>
-                    {helpData.show && <BlackBox className="scholar-errors" onMouseEnter={() => dispatch(setHide())}>
-                        <div className="scholar-title">The Scholar says:</div>
-                        <div className="scholar-text">
-                            {helpData.errors.map((error, ind) => (
-                                <div key={ind}>{error}</div>
-                            ))}
-                        </div>
-                        <div className="scholar-close-text">Mouse over to dismiss</div>
-                    </BlackBox>}
-                    <button className="scholar" type="button"></button>
-                </ScholarDiv>
-            </Container>
-        </Parent>
+            <ScholarDiv>
+                {helpData.show && <BlackBox className="scholar-errors" onMouseEnter={() => dispatch(setHide())}>
+                    <div className="scholar-title">The Scholar says:</div>
+                    <div className="scholar-text">
+                        {helpData.errors.map((error, ind) => (
+                            <div key={ind}>{error}</div>
+                        ))}
+                    </div>
+                    <div className="scholar-close-text">Mouse over to dismiss</div>
+                </BlackBox>}
+                <button className="scholar" type="button"></button>
+            </ScholarDiv>
+        </Container>
     )
 }
 

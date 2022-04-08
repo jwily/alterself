@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -57,6 +58,8 @@ const Container = styled.div`
 
 const FeaturesAndTraits = ({ fadeNum }) => {
 
+    const { charId } = useParams()
+
     const card = useRef(null)
 
     useEffect(() => {
@@ -68,17 +71,18 @@ const FeaturesAndTraits = ({ fadeNum }) => {
         };
     }, [fadeNum])
 
+    const order = useSelector(state => state.characters.entities[charId].featsById)
     const data = useSelector(state => state.features);
     const theme = useSelector(state => state.theme.selection);
 
     const [add, setAdd] = useState(false);
 
     const featCards = useMemo(() => {
-        return data.ids.map(id => {
+        return order.map(id => {
             const feat = data.entities[id];
             return <FeatCard key={feat.id} feat={feat} />
         })
-    }, [data.entities, data.ids])
+    }, [data.entities, order])
 
     return (
         <BlueBox className="feats" theme={theme} ref={card}>

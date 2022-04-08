@@ -1,8 +1,6 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-
-import { getChars } from "../../store/characters";
 
 import CreateCharModal from "./CreateCharModal";
 import CharCard from "./CharCard";
@@ -43,23 +41,15 @@ const Container = styled.div`
 
 const Roster = () => {
 
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getChars()).then(() => setIsLoaded(true))
-    }, [dispatch])
-
     const data = useSelector(state => state.characters);
     const user = useSelector(state => state.session.user)
 
     const charCards = useMemo(() => {
         return data.ids.map((id, idx) => {
-            const char = data.entities.characters[id];
+            const char = data.entities[id];
             return <CharCard key={char.id} char={char} idx={idx} ids={data.ids} />
         })
-    }, [data.entities.characters, data.ids])
+    }, [data.entities, data.ids])
 
     return (
         <Container>
@@ -68,7 +58,7 @@ const Roster = () => {
             <CreateCharModal />
             {/* <UploadPicture /> */}
             <ul>
-                {isLoaded && charCards}
+                {charCards}
             </ul>
         </Container>
     )

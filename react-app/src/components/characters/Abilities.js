@@ -15,7 +15,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import { setErrors } from "../../store/help";
-import { setHover } from "../../store/help";
 
 import BlueBox from "../../global/BlueBox";
 
@@ -166,111 +165,63 @@ const Abilities = ({ charData, fadeNum, setHover }) => {
         setCha(e.target.value);
     };
 
+    const Ability = ({ attr, name, icon, state, setState, changeFunc }) => {
+        return (<AbilityDiv
+            onMouseEnter={() => setHover(attr)}
+            onMouseLeave={() => setHover('')}
+        >
+            <label htmlFor={`${charData.id}-${attr}`}>
+                <span>{name}</span>
+                <div className="mod">
+                    <FontAwesomeIcon icon={icon} />
+                    <span>{modDisplay(charData[attr])}</span>
+                </div>
+            </label>
+            <input max="99" min="0" id={`${charData.id}-${attr}`} type="number" value={state}
+                onBlur={(e) => handleBlur(e, setState, charData[attr])}
+                onChange={changeFunc} />
+        </AbilityDiv>)
+    }
+
     return (
         <BlueBox className="abilities" theme={theme} ref={card}>
             <Container>
-                <AbilityDiv
-                    // onMouseEnter={() => dispatch(setHover('str'))}
-                    // onMouseLeave={() => dispatch(setHover(''))}
-                    onMouseEnter={() => setHover('str')}
-                    onMouseLeave={() => setHover('')}
-                >
-                    <label htmlFor={`${charData.id}-str`}>
-                        <span>Strength</span>
-                        <div className="mod">
-                            <FontAwesomeIcon icon={faFistRaised} />
-                            <span>{modDisplay(charData.str)}</span>
-                        </div>
-                    </label>
-                    <input max="99" min="0" id={`${charData.id}-str`} type="number" value={str}
-                        onBlur={(e) => handleBlur(e, setStr, charData.str)}
-                        onChange={changeStr} />
-                </AbilityDiv>
-                <AbilityDiv
-                    // onMouseEnter={() => dispatch(setHover('dex'))}
-                    // onMouseLeave={() => dispatch(setHover(''))}
-                    onMouseEnter={() => setHover('dex')}
-                    onMouseLeave={() => setHover('')}
-                >
-                    <label htmlFor={`${charData.id}-dex`}>
-                        <span>Dexterity</span>
-                        <div className="mod">
-                            <FontAwesomeIcon icon={faHandPaper} />
-                            <span>{modDisplay(charData.dex)}</span>
-                        </div>
-                    </label>
-                    <input max="99" min="0" id={`${charData.id}-dex`} type="number" value={dex}
-                        onBlur={(e) => handleBlur(e, setDex, charData.dex)}
-                        onChange={changeDex} />
-                </AbilityDiv>
-                <AbilityDiv
-                    // onMouseEnter={() => dispatch(setHover('con'))}
-                    // onMouseLeave={() => dispatch(setHover(''))}
-                    onMouseEnter={() => setHover('con')}
-                    onMouseLeave={() => setHover('')}
-                >
-                    <label htmlFor={`${charData.id}-con`}>
-                        <span>Constitution</span>
-                        <div className="mod">
-                            <FontAwesomeIcon icon={faHandHoldingWater} />
-                            <span>{modDisplay(charData.con)}</span>
-                        </div>
-                    </label>
-                    <input max="99" min="0" id={`${charData.id}-con`} type="number" value={con}
-                        onBlur={(e) => handleBlur(e, setCon, charData.con)}
-                        onChange={changeCon} />
-                </AbilityDiv>
-                <AbilityDiv
-                    // onMouseEnter={() => dispatch(setHover('int'))}
-                    // onMouseLeave={() => dispatch(setHover(''))}
-                    onMouseEnter={() => setHover('int')}
-                    onMouseLeave={() => setHover('')}
-                >
-                    <label htmlFor={`${charData.id}-int`}>
-                        <span>Intelligence</span>
-                        <div className="mod">
-                            <FontAwesomeIcon icon={faHandSpock} />
-                            <span>{modDisplay(charData.int)}</span>
-                        </div>
-                    </label>
-                    <input max="99" min="0" id={`${charData.id}-int`} type="number" value={int}
-                        onBlur={(e) => handleBlur(e, setInt, charData.int)}
-                        onChange={changeInt} />
-                </AbilityDiv>
-                <AbilityDiv
-                    // onMouseEnter={() => dispatch(setHover('wis'))}
-                    // onMouseLeave={() => dispatch(setHover(''))}
-                    onMouseEnter={() => setHover('wis')}
-                    onMouseLeave={() => setHover('')}
-                >
-                    <label htmlFor={`${charData.id}-wis`}>
-                        <span>Wisdom</span>
-                        <div className="mod">
-                            <FontAwesomeIcon icon={faHandHoldingHeart} />
-                            <span>{modDisplay(charData.wis)}</span>
-                        </div>
-                    </label>
-                    <input max="99" min="0" id={`${charData.id}-wis`} type="number" value={wis}
-                        onBlur={(e) => handleBlur(e, setWis, charData.wis)}
-                        onChange={changeWis} />
-                </AbilityDiv>
-                <AbilityDiv
-                    // onMouseEnter={() => dispatch(setHover('cha'))}
-                    // onMouseLeave={() => dispatch(setHover(''))}
-                    onMouseEnter={() => setHover('cha')}
-                    onMouseLeave={() => setHover('')}
-                >
-                    <label htmlFor={`${charData.id}-cha`}>
-                        <span>Charisma</span>
-                        <div className="mod">
-                            <FontAwesomeIcon icon={faHandPeace} />
-                            <span>{modDisplay(charData.cha)}</span>
-                        </div>
-                    </label>
-                    <input max="99" min="0" id={`${charData.id}-cha`} type="number" value={cha}
-                        onBlur={(e) => handleBlur(e, setCha, charData.cha)}
-                        onChange={changeCha} />
-                </AbilityDiv>
+                <Ability attr='str'
+                    name='Strength'
+                    icon={faFistRaised}
+                    state={str}
+                    setState={setStr}
+                    changeFunc={changeStr} />
+                <Ability attr='dex'
+                    name='Dexterity'
+                    icon={faHandPaper}
+                    state={dex}
+                    setState={setDex}
+                    changeFunc={changeDex} />
+                <Ability attr='con'
+                    name='Constitution'
+                    icon={faHandHoldingWater}
+                    state={con}
+                    setState={setCon}
+                    changeFunc={changeCon} />
+                <Ability attr='int'
+                    name='Intelligence'
+                    icon={faHandSpock}
+                    state={int}
+                    setState={setInt}
+                    changeFunc={changeInt} />
+                <Ability attr='wis'
+                    name='Wisdom'
+                    icon={faHandHoldingHeart}
+                    state={wis}
+                    setState={setWis}
+                    changeFunc={changeWis} />
+                <Ability attr='cha'
+                    name='Charisma'
+                    icon={faHandPeace}
+                    state={cha}
+                    setState={setCha}
+                    changeFunc={changeCha} />
             </Container>
         </BlueBox>
     )

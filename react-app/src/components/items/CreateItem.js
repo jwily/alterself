@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import { createItem } from "../../store/items";
+import { setCharItem } from "../../store/characters";
 
 import { setErrors } from "../../store/help";
 
@@ -45,13 +47,14 @@ const CreateForm = styled.div`
 `
 
 const CreateItem = ({ setAdd }) => {
+
+    const { charId } = useParams();
+
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState(1);
     const [description, setDescription] = useState('');
 
     const dispatch = useDispatch();
-
-    const charId = useSelector((state) => state.characters.entities.character.id)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -62,17 +65,16 @@ const CreateItem = ({ setAdd }) => {
             quantity
         }
         const data = await dispatch(createItem(formData));
-        if (data) {
-            dispatch(setErrors(data));
+        if (data.errors) {
+            dispatch(setErrors(data.errors));
         }
         else {
             setName('');
             setDescription('');
             setQuantity(1);
+            dispatch(setCharItem(data));
         }
     };
-
-
 
     const updateName = (e) => {
         setName(e.target.value);

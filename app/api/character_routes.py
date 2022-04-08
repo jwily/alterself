@@ -20,54 +20,20 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
-@character_routes.route('/', methods=['GET'])
-@login_required
-def get_chars():
-    chars = User.query.get(current_user.id).characters
-    return {char.id: char.to_dict_roster() for char in chars}
-
-
 @character_routes.route('/<int:id>', methods=['GET'])
 @login_required
-def get_char(id):
-    char = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).first()
-    if char:
-        return char.to_dict()
-    else:
-        return {'error': 'Character not found.'}, 404
-
-
-@character_routes.route('/<int:id>/skills', methods=['GET'])
-@login_required
-def get_skills(id):
-    skills = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).first().skills
-    return {skill.skill_num: True for skill in skills}
-
-
-@character_routes.route('/<int:id>/items', methods=['GET'])
-@login_required
-def get_items(id):
-    items = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).first().items
-    return {item.id: item.to_dict() for item in items}
-
-
-@character_routes.route('/<int:id>/features', methods=['GET'])
-@login_required
-def get_feats(id):
-    features = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).first().features
-    return {feature.id: feature.to_dict() for feature in features}
-
-
-@character_routes.route('/<int:id>/profs', methods=['GET'])
-@login_required
-def get_profs(id):
-    profs = Character.query.filter(
-        Character.id == id, Character.user_id == current_user.id).first().profs
-    return {prof.id: prof.to_dict() for prof in profs}
+def get_data(id):
+    if id == current_user.id:
+        chars = {char.id: char.to_dict() for char in current_user.characters}
+        items = {item.id: item.to_dict() for item in current_user.items}
+        profs = {prof.id: prof.to_dict() for prof in current_user.profs}
+        feats = {feat.id: feat.to_dict() for feat in current_user.features}
+        return {
+            'chars': chars,
+            'items': items,
+            'profs': profs,
+            'feats': feats
+        }
 
 
 @character_routes.route('/<int:id>', methods=['DELETE'])
@@ -84,8 +50,8 @@ def delete_char(id):
             return {'message': 'Character successfully deleted.',
                     'charId': id}
         else:
-            return {'error': 'Character not found.'}, 404
-    return {'error': 'An error has occurred. Please try again.'}, 401
+            return {'errors': ['Character not found.']}, 404
+    return {'errors': ['An error has occurred. Please try again.']}, 401
 
 
 @character_routes.route('/', methods=['POST'])
@@ -108,16 +74,19 @@ def create_char():
 
         langs = Proficiency(
             char_id=char.id,
+            user_id=current_user.id,
             name='Languages'
         )
 
         equips = Proficiency(
             char_id=char.id,
+            user_id=current_user.id,
             name='Arms and Armor'
         )
 
         tools = Proficiency(
             char_id=char.id,
+            user_id=current_user.id,
             name='Tools'
         )
 
@@ -126,7 +95,7 @@ def create_char():
         db.session.add(tools)
 
         db.session.commit()
-        return char.to_dict_roster()
+        return char.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -137,6 +106,7 @@ def create_item(id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         item = Item(
+            user_id=current_user.id,
             char_id=id,
             name=form.data['name'],
             description=form.data['description'],
@@ -158,6 +128,7 @@ def create_feat(id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         feat = Feature(
+            user_id=current_user.id,
             char_id=id,
             name=form.data['name'],
             description=form.data['description']
@@ -178,6 +149,7 @@ def create_prof(id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         prof = Proficiency(
+            user_id=current_user.id,
             char_id=id,
             name=form.data['name'],
             description=form.data['description']
@@ -209,7 +181,7 @@ def edit_abilities(id):
             db.session.commit()
             return char.to_dict()
         else:
-            return {'error': 'Character not found.'}, 404
+            return {'errors': ['Character not found.']}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -228,7 +200,7 @@ def edit_vitals(id):
             db.session.commit()
             return char.to_dict()
         else:
-            return {'error': 'Character not found.'}, 404
+            return {'errors': ['Character not found.']}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -246,7 +218,7 @@ def edit_core(id):
             char.char_class = form.data['charClass']
             char.background = form.data['background']
             db.session.commit()
-            return char.to_dict_roster()
+            return char.to_dict()
         else:
-            return {'error': 'Character not found.'}, 404
+            return {'errors': ['Character not found.']}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

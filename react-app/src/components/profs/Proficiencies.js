@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -57,6 +58,9 @@ const Container = styled.div`
 
 const Proficiencies = ({ fadeNum }) => {
 
+    const { charId } = useParams();
+
+    const order = useSelector(state => state.characters.entities[charId].profsById)
     const data = useSelector(state => state.profs);
     const theme = useSelector(state => state.theme.selection);
 
@@ -74,11 +78,11 @@ const Proficiencies = ({ fadeNum }) => {
     }, [fadeNum])
 
     const profCards = useMemo(() => {
-        return data.ids.map(id => {
+        return order.map(id => {
             const prof = data.entities[id];
             return <ProfCard key={prof.id} prof={prof} />
         })
-    }, [data.entities, data.ids])
+    }, [data.entities, order])
 
     return (
         <BlueBox className="profs" theme={theme} ref={card}>

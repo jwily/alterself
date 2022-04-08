@@ -2,7 +2,7 @@ const SET_PROFS = 'proficiencies/SET_PROFS'
 const ADD_PROF = 'proficiencies/ADD_PROF'
 const REMOVE_PROF = 'proficiencies/REMOVE_PROF'
 
-const setProfs = (profs) => ({
+export const setProfs = (profs) => ({
     type: SET_PROFS,
     payload: profs
 })
@@ -17,19 +17,7 @@ const delProf = (id) => ({
     payload: id
 })
 
-const initialState = { entities: null, ids: [] };
-
-export const getProfs = (charId) => async (dispatch) => {
-    const response = await fetch(`/api/characters/${charId}/profs`);
-    if (response.ok) {
-        const data = await response.json();
-        if (data.errors) {
-            return;
-        }
-
-        dispatch(setProfs(data));
-    }
-}
+const initialState = { entities: {}, ids: [] };
 
 export const createProf = (formData) => async (dispatch) => {
     const response = await fetch(`/api/characters/${formData.charId}/profs`, {
@@ -43,7 +31,7 @@ export const createProf = (formData) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addProf(data))
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
@@ -66,7 +54,7 @@ export const editProf = (formData) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addProf(data))
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {

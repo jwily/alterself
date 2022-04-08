@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import { createFeat } from "../../store/features";
+import { setCharFeat } from "../../store/characters";
 
 import { setErrors } from "../../store/help";
 
@@ -45,12 +47,13 @@ const CreateForm = styled.div`
 `
 
 const CreateFeat = ({ setAdd }) => {
+
+    const { charId } = useParams();
+
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
     const dispatch = useDispatch();
-
-    const charId = useSelector((state) => state.characters.entities.character.id)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -60,11 +63,12 @@ const CreateFeat = ({ setAdd }) => {
             description,
         }
         const data = await dispatch(createFeat(formData));
-        if (data) {
-            dispatch(setErrors(data));
+        if (data.errors) {
+            dispatch(setErrors(data.errors));
         } else {
             setName('');
             setDescription('');
+            dispatch(setCharFeat(data));
         }
     };
 

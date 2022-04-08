@@ -2,7 +2,7 @@ const SET_FEATS = 'features/SET_FEATS'
 const ADD_FEAT = 'features/ADD_FEAT'
 const REMOVE_FEAT = 'features/REMOVE_FEAT'
 
-const setFeats = (feats) => ({
+export const setFeats = (feats) => ({
     type: SET_FEATS,
     payload: feats
 })
@@ -17,19 +17,7 @@ const delFeat = (id) => ({
     payload: id
 })
 
-const initialState = { entities: null, ids: [] };
-
-export const getFeats = (charId) => async (dispatch) => {
-    const response = await fetch(`/api/characters/${charId}/features`);
-    if (response.ok) {
-        const data = await response.json();
-        if (data.errors) {
-            return;
-        }
-
-        dispatch(setFeats(data));
-    }
-}
+const initialState = { entities: {}, ids: [] };
 
 export const createFeat = (formData) => async (dispatch) => {
     const response = await fetch(`/api/characters/${formData.charId}/features`, {
@@ -43,11 +31,11 @@ export const createFeat = (formData) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addFeat(data))
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
-            return data.errors;
+            return data;
         }
     } else {
         return ['An error occurred. Please try again.']
@@ -66,11 +54,11 @@ export const editFeat = (formData) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addFeat(data))
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
-            return data.errors;
+            return data;
         }
     } else {
         return ['An error occurred. Please try again.']
@@ -88,7 +76,9 @@ export const deleteFeat = (featId) => async (dispatch) => {
         return data;
     } else if (response.status < 500) {
         const data = await response.json();
-        return data.error;
+        if (data.errors) {
+            return data;
+        }
     } else {
         return ['An error occurred. Please try again.']
     }
