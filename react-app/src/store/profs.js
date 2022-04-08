@@ -17,7 +17,7 @@ const delProf = (id) => ({
     payload: id
 })
 
-const initialState = { entities: null, ids: [] };
+const initialState = { entities: {}, ids: [] };
 
 export const getProfs = (charId) => async (dispatch) => {
     const response = await fetch(`/api/characters/${charId}/profs`);

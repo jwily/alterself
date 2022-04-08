@@ -5,7 +5,7 @@ const setSkills = (skills) => ({
     payload: skills
 })
 
-const initialState = { entities: null };
+const initialState = { entities: {} };
 
 export const getSkills = (charId) => async (dispatch) => {
     const response = await fetch(`/api/characters/${charId}/skills`, {

@@ -31,11 +31,14 @@ def delete_feat(id):
             char.updated_at = func.now()
             db.session.delete(feat)
             db.session.commit()
-            return {'message': 'Item successfully deleted.',
-                    'featId': id}
+            return {'message': 'Feature successfully deleted.',
+                    'featId': id,
+                    'charId': feat.char_id,
+                    'newArray': [feat.id for feat in char.features],
+                    'updatedAt': char.updated_at}
         else:
-            return {'error': 'Feature not found.'}, 404
-    return {'error': 'An error has occurred. Please try again.'}, 401
+            return {'errors': ['Feature not found.']}, 404
+    return {'errors': ['An error has occurred. Please try again.']}, 401
 
 
 @feature_routes.route('/<int:id>', methods=['PATCH'])
@@ -54,5 +57,5 @@ def edit_feat(id):
             db.session.commit()
             return feat.to_dict()
         else:
-            return {'error': 'Feature not found.'}, 404
+            return {'errors': ['Feature not found.']}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

@@ -31,15 +31,18 @@ def delete_prof(id):
             char.updated_at = func.now()
             db.session.delete(prof)
             db.session.commit()
-            return {'message': 'Item successfully deleted.',
-                    'profId': id}
+            return {'message': 'Proficiency successfully deleted.',
+                    'profId': id,
+                    'charId': prof.char_id,
+                    'newArray': [prof.id for prof in char.profs],
+                    'updatedAt': char.updated_at}
         else:
-            return {'error': 'Proficiency not found.'}, 404
-    return {'error': 'An error has occurred. Please try again.'}, 401
+            return {'errors': ['Proficiency not found.']}, 404
+    return {'errors': ['An error has occurred. Please try again.']}, 401
 
 
-@prof_routes.route('/<int:id>', methods=['PATCH'])
-@login_required
+@ prof_routes.route('/<int:id>', methods=['PATCH'])
+@ login_required
 def edit_prof(id):
     form = ProfForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -54,5 +57,5 @@ def edit_prof(id):
             db.session.commit()
             return prof.to_dict()
         else:
-            return {'error': 'Proficiency not found.'}, 404
+            return {'errors': ['Proficiency not found.']}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

@@ -24,6 +24,7 @@ class Proficiency(db.Model):
         return {
             'id': self.id,
             'name': self.name,
+            'charId': self.char_id,
             'description': self.description,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,

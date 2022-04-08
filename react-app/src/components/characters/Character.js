@@ -26,6 +26,14 @@ import { unmountAll } from "../../store/characters";
 
 import scholar from '../../images/scholar.png';
 
+const Parent = styled.div`
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+`
+
 const Container = styled.div`
 
     margin-top: 1.5rem;

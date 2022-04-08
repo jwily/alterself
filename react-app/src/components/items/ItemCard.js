@@ -7,6 +7,8 @@ import { deleteItem } from "../../store/items";
 import { editItem } from "../../store/items";
 import { editQuantity } from "../../store/items";
 
+import { updateChar, delCharItem } from "../../store/characters";
+
 import { setErrors } from "../../store/help";
 import SavedMessage from "../../global/SavedMessage";
 

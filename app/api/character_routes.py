@@ -20,27 +20,20 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
-# @character_routes.route('/', methods=['GET'])
-# @login_required
-# def get_chars():
-#     user = User.query.get(current_user.id)
-#     return {char.id: char.to_dict() for char in user.characters}
-
-
 @character_routes.route('/<int:id>', methods=['GET'])
 @login_required
 def get_data(id):
-    user = User.query.get(id)
-    chars = {char.id: char.to_dict() for char in user.characters}
-    items = {item.id: item.to_dict() for item in user.items}
-    profs = {prof.id: prof.to_dict() for prof in user.profs}
-    feats = {feat.id: feat.to_dict() for feat in user.features}
-    return {
-        'chars': chars,
-        'items': items,
-        'profs': profs,
-        'feats': feats
-    }
+    if id == current_user.id:
+        chars = {char.id: char.to_dict() for char in current_user.characters}
+        items = {item.id: item.to_dict() for item in current_user.items}
+        profs = {prof.id: prof.to_dict() for prof in current_user.profs}
+        feats = {feat.id: feat.to_dict() for feat in current_user.features}
+        return {
+            'chars': chars,
+            'items': items,
+            'profs': profs,
+            'feats': feats
+        }
 
 
 @character_routes.route('/<int:id>', methods=['DELETE'])
@@ -57,8 +50,8 @@ def delete_char(id):
             return {'message': 'Character successfully deleted.',
                     'charId': id}
         else:
-            return {'error': 'Character not found.'}, 404
-    return {'error': 'An error has occurred. Please try again.'}, 401
+            return {'errors': ['Character not found.']}, 404
+    return {'errors': ['An error has occurred. Please try again.']}, 401
 
 
 @character_routes.route('/', methods=['POST'])
@@ -102,7 +95,7 @@ def create_char():
         db.session.add(tools)
 
         db.session.commit()
-        return char.to_dict_roster()
+        return char.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -188,7 +181,7 @@ def edit_abilities(id):
             db.session.commit()
             return char.to_dict()
         else:
-            return {'error': 'Character not found.'}, 404
+            return {'errors': ['Character not found.']}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -207,7 +200,7 @@ def edit_vitals(id):
             db.session.commit()
             return char.to_dict()
         else:
-            return {'error': 'Character not found.'}, 404
+            return {'errors': ['Character not found.']}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -225,7 +218,7 @@ def edit_core(id):
             char.char_class = form.data['charClass']
             char.background = form.data['background']
             db.session.commit()
-            return char.to_dict_roster()
+            return char.to_dict()
         else:
-            return {'error': 'Character not found.'}, 404
+            return {'errors': ['Character not found.']}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

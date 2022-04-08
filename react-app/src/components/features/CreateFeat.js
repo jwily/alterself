@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { createFeat } from "../../store/features";
+import { setCharFeat } from "../../store/characters";
 
 import { setErrors } from "../../store/help";
 
@@ -62,11 +63,12 @@ const CreateFeat = ({ setAdd }) => {
             description,
         }
         const data = await dispatch(createFeat(formData));
-        if (data) {
-            dispatch(setErrors(data));
+        if (data.errors) {
+            dispatch(setErrors(data.errors));
         } else {
             setName('');
             setDescription('');
+            dispatch(setCharFeat(data));
         }
     };
 

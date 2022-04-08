@@ -137,25 +137,3 @@ class Character(db.Model):
             'featsById': [feature.id for feature in self.features],
             'profsById': [prof.id for prof in self.profs],
         }
-
-    def to_dict_roster(self):
-
-        return {
-            'id': self.id,
-            'img': self.image.url if self.image else None,
-            'name': self.name,
-            'class': self.char_class,
-            'race': self.race,
-            'level': self.level,
-            'str': self.strength,
-            'dex': self.dexterity,
-            'con': self.constitution,
-            'int': self.intelligence,
-            'wis': self.wisdom,
-            'cha': self.charisma,
-            'mounted': False,
-            'background': self.background,
-            'title': self.generate_title(),
-            'createdAt': self.created_at,
-            'updatedAt': self.updated_at,
-        }

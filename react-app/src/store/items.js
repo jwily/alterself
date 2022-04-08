@@ -17,7 +17,7 @@ const delItem = (id) => ({
     payload: id
 })
 
-const initialState = { entities: null, ids: [] };
+const initialState = { entities: {}, ids: [] };
 
 export const getItems = (charId) => async (dispatch) => {
     const response = await fetch(`/api/characters/${charId}/items`);

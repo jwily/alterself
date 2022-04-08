@@ -23,6 +23,7 @@ class Feature(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
+            'charId': self.char_id,
             'name': self.name,
             'description': self.description,
             'createdAt': self.created_at,

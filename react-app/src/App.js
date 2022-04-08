@@ -5,9 +5,9 @@ import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import Roster from './components/characters/Roster';
 import Character from './components/characters/Character';
-import { authenticate } from './store/session';
 import Welcome from './components/Welcome';
 
+import { authenticate } from './store/session';
 import { setChars } from './store/characters';
 import { setItems } from './store/items';
 import { setFeats } from './store/features';
@@ -15,6 +15,7 @@ import { setProfs } from './store/profs';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false)
   const dispatch = useDispatch();
 
   const user = useSelector(state => state.session.user);
@@ -27,6 +28,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
+    setDataLoaded(false);
     (async () => {
       if (user) {
         const response = await fetch(`/api/characters/${user.id}`);
@@ -36,7 +38,11 @@ function App() {
           dispatch(setItems(data.items));
           dispatch(setFeats(data.feats));
           dispatch(setProfs(data.profs));
+          setDataLoaded(true);
         }
+      }
+      else {
+        setDataLoaded(true);
       }
     })();
   }, [dispatch, user])
@@ -48,7 +54,7 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
-      <Switch>
+      {dataLoaded && <Switch>
         <ProtectedRoute path='/roster' exact={true} >
           <Roster />
         </ProtectedRoute>
@@ -61,7 +67,7 @@ function App() {
         <Route path='*'>
           <Redirect to='/' />
         </Route>
-      </Switch>
+      </Switch>}
     </BrowserRouter>
   );
 }

@@ -17,7 +17,7 @@ const delFeat = (id) => ({
     payload: id
 })
 
-const initialState = { entities: null, ids: [] };
+const initialState = { entities: {}, ids: [] };
 
 export const getFeats = (charId) => async (dispatch) => {
     const response = await fetch(`/api/characters/${charId}/features`);
@@ -43,11 +43,11 @@ export const createFeat = (formData) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addFeat(data))
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
-            return data.errors;
+            return data;
         }
     } else {
         return ['An error occurred. Please try again.']
@@ -66,11 +66,11 @@ export const editFeat = (formData) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addFeat(data))
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
-            return data.errors;
+            return data;
         }
     } else {
         return ['An error occurred. Please try again.']
@@ -85,10 +85,13 @@ export const deleteFeat = (featId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(delFeat(data.featId));
+        console.log(data);
         return data;
     } else if (response.status < 500) {
         const data = await response.json();
-        return data.error;
+        if (data.errors) {
+            return data;
+        }
     } else {
         return ['An error occurred. Please try again.']
     }

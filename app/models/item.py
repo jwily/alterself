@@ -25,6 +25,7 @@ class Item(db.Model):
         return {
             'id': self.id,
             'name': self.name,
+            'charId': self.char_id,
             'quantity': self.quantity,
             'description': self.description,
             'createdAt': self.created_at,
