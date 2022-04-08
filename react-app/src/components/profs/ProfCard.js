@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { deleteProf } from "../../store/profs";
 import { editProf } from "../../store/profs";
 
-import { updateChar, delCharProf, setCharProf } from "../../store/characters";
+import { updateChar, delCharProf } from "../../store/characters";
 
 import { setErrors } from "../../store/help";
 import SavedMessage from "../../global/SavedMessage";
