@@ -73,7 +73,6 @@ export const deleteFeat = (featId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(delFeat(data.featId));
-        console.log(data);
         return data;
     } else if (response.status < 500) {
         const data = await response.json();

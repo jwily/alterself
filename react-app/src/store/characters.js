@@ -1,10 +1,9 @@
 const SET_CHARS = 'characters/SET_CHARS';
 const ADD_CHAR = 'characters/ADD_CHAR';
 const REMOVE_CHAR = 'characters/REMOVE_CHAR';
-const SORT_CHARS = 'characters/SORT_CHARS'
-const CLEAR_CHARS = 'characters/CLEAR_CHARS'
+const CLEAR_CHARS = 'characters/CLEAR_CHARS';
 const MOUNT_CHAR = 'characters/MOUNT_CHAR';
-const UNMOUNT_CHARS = 'characters/UNMOUNT_CHARS'
+const UNMOUNT_CHARS = 'characters/UNMOUNT_CHARS';
 
 const UPDATE_CHAR = 'characters/UPDATE_CHAR';
 
@@ -41,10 +40,6 @@ export const mountChar = (id) => ({
 
 export const unmountAll = () => ({
     type: UNMOUNT_CHARS
-})
-
-export const sortAll = () => ({
-    type: SORT_CHARS
 })
 
 export const setCharItem = (item) => ({
