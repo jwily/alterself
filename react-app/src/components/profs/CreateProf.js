@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { createProf, setProfs } from "../../store/profs";
+import { createProf } from "../../store/profs";
 import { setCharProf } from "../../store/characters";
 
 import { setErrors } from "../../store/help";
