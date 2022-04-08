@@ -42,8 +42,8 @@ def delete_item(id):
     return {'errors': ['An error has occurred. Please try again.']}, 401
 
 
-@ item_routes.route('/<int:id>', methods=['PATCH'])
-@ login_required
+@item_routes.route('/<int:id>', methods=['PATCH'])
+@login_required
 def edit_item(id):
     form = ItemForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -63,8 +63,8 @@ def edit_item(id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-@ item_routes.route('/<int:id>/quantity', methods=['PATCH'])
-@ login_required
+@item_routes.route('/<int:id>/quantity', methods=['PATCH'])
+@login_required
 def update_quantity(id):
     form = UpdateQuantityForm()
     form['csrf_token'].data = request.cookies['csrf_token']

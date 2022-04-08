@@ -41,8 +41,8 @@ def delete_prof(id):
     return {'errors': ['An error has occurred. Please try again.']}, 401
 
 
-@ prof_routes.route('/<int:id>', methods=['PATCH'])
-@ login_required
+@prof_routes.route('/<int:id>', methods=['PATCH'])
+@login_required
 def edit_prof(id):
     form = ProfForm()
     form['csrf_token'].data = request.cookies['csrf_token']
