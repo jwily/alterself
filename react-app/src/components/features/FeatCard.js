@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { deleteFeat } from "../../store/features";
 import { editFeat } from "../../store/features";
-import { updateChar, delCharFeat } from "../../store/characters";
+import { updateChar, delResource } from "../../store/characters";
 
 import { setErrors } from "../../store/help";
 import SavedMessage from "../../global/SavedMessage";
@@ -120,7 +120,8 @@ const FeatCard = ({ feat }) => {
         if (data.errors) {
             dispatch(setErrors(data.errors));
         } else {
-            dispatch(delCharFeat(data));
+            data.arrName = 'featsById'
+            dispatch(delResource(data));
         }
     }
 

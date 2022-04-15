@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { createFeat } from "../../store/features";
-import { setCharFeat } from "../../store/characters";
+import { setResource } from "../../store/characters";
 
 import { setErrors } from "../../store/help";
 
@@ -68,7 +68,8 @@ const CreateFeat = ({ setAdd }) => {
         } else {
             setName('');
             setDescription('');
-            dispatch(setCharFeat(data));
+            data.arrName = 'featsById';
+            dispatch(setResource(data));
         }
     };
 

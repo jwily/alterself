@@ -7,12 +7,8 @@ const UNMOUNT_CHARS = 'characters/UNMOUNT_CHARS';
 
 const UPDATE_CHAR = 'characters/UPDATE_CHAR';
 
-const SET_CHAR_ITEM = 'characters/SET_CHAR_ITEM';
-const DELETE_CHAR_ITEM = 'characters/DELETE_CHAR_ITEM';
-const SET_CHAR_FEAT = 'characters/SET_CHAR_FEAT';
-const DELETE_CHAR_FEAT = 'characters/DELETE_CHAR_FEAT';
-const SET_CHAR_PROF = 'characters/SET_CHAR_PROF';
-const DELETE_CHAR_PROF = 'characters/DELETE_CHAR_PROF';
+const SET_RESOURCE = 'characters/SET_RESOURCE';
+const DEL_RESOURCE = 'characters/DELETE_CHAR_ITEM';
 
 export const setChars = (chars) => ({
     type: SET_CHARS,
@@ -42,34 +38,14 @@ export const unmountAll = () => ({
     type: UNMOUNT_CHARS
 })
 
-export const setCharItem = (item) => ({
-    type: SET_CHAR_ITEM,
-    payload: item
+export const setResource = (data) => ({
+    type: SET_RESOURCE,
+    payload: data
 })
 
-export const setCharFeat = (feat) => ({
-    type: SET_CHAR_FEAT,
-    payload: feat
-})
-
-export const setCharProf = (prof) => ({
-    type: SET_CHAR_PROF,
-    payload: prof
-})
-
-export const delCharItem = (item) => ({
-    type: DELETE_CHAR_ITEM,
-    payload: item
-})
-
-export const delCharFeat = (feat) => ({
-    type: DELETE_CHAR_FEAT,
-    payload: feat
-})
-
-export const delCharProf = (prof) => ({
-    type: DELETE_CHAR_PROF,
-    payload: prof
+export const delResource = (data) => ({
+    type: DEL_RESOURCE,
+    payload: data
 })
 
 export const updateChar = (time) => ({
@@ -219,24 +195,10 @@ export default function reducer(state = initialState, action) {
             newState.ids = Object.keys(newState.entities)
             sortByUpdate(newState.entities, newState.ids);
             return newState;
-        case SET_CHAR_ITEM:
-            const newItems = [...newState.entities[action.payload.charId].itemsById];
+        case SET_RESOURCE:
+            const newItems = [...newState.entities[action.payload.charId][action.payload.arrName]];
             newItems.push(action.payload.id);
-            newState.entities[action.payload.charId].itemsById = newItems;
-            newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
-            sortByUpdate(newState.entities, newState.ids);
-            return newState;
-        case SET_CHAR_FEAT:
-            const newFeats = [...newState.entities[action.payload.charId].featsById];
-            newFeats.push(action.payload.id);
-            newState.entities[action.payload.charId].featsById = newFeats;
-            newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
-            sortByUpdate(newState.entities, newState.ids);
-            return newState;
-        case SET_CHAR_PROF:
-            const newProfs = [...newState.entities[action.payload.charId].profsById];
-            newProfs.push(action.payload.id);
-            newState.entities[action.payload.charId].profsById = newProfs;
+            newState.entities[action.payload.charId][action.payload.arrName] = newItems;
             newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
             sortByUpdate(newState.entities, newState.ids);
             return newState;
@@ -244,18 +206,8 @@ export default function reducer(state = initialState, action) {
             newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
             sortByUpdate(newState.entities, newState.ids);
             return newState;
-        case DELETE_CHAR_ITEM:
-            newState.entities[action.payload.charId].itemsById = action.payload.newArray;
-            newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
-            sortByUpdate(newState.entities, newState.ids);
-            return newState;
-        case DELETE_CHAR_FEAT:
-            newState.entities[action.payload.charId].featsById = action.payload.newArray;
-            newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
-            sortByUpdate(newState.entities, newState.ids);
-            return newState;
-        case DELETE_CHAR_PROF:
-            newState.entities[action.payload.charId].profsById = action.payload.newArray;
+        case DEL_RESOURCE:
+            newState.entities[action.payload.charId][action.payload.arrName] = action.payload.newArray;
             newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
             sortByUpdate(newState.entities, newState.ids);
             return newState;
