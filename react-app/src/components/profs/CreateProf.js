@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { createProf } from "../../store/profs";
-import { setCharProf } from "../../store/characters";
+import { setResource } from "../../store/characters";
 
 import { setErrors } from "../../store/help";
 
@@ -68,7 +68,8 @@ const CreateProf = ({ setAdd }) => {
         } else {
             setName('');
             setDescription('');
-            dispatch(setCharProf(data));
+            data.arrName = 'profsById'
+            dispatch(setResource(data));
         }
     };
 

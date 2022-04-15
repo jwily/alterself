@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { deleteProf } from "../../store/profs";
 import { editProf } from "../../store/profs";
 
-import { updateChar, delCharProf } from "../../store/characters";
+import { updateChar, delResource } from "../../store/characters";
 
 import { setErrors } from "../../store/help";
 import SavedMessage from "../../global/SavedMessage";
@@ -121,7 +121,8 @@ const ProfCard = ({ prof }) => {
         if (data.errors) {
             dispatch(setErrors(data.errors));
         } else {
-            dispatch(delCharProf(data));
+            data.arrName = 'profsById'
+            dispatch(delResource(data));
         }
     }
 

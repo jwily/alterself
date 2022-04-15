@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { createItem } from "../../store/items";
-import { setCharItem } from "../../store/characters";
+import { setResource } from "../../store/characters";
 
 import { setErrors } from "../../store/help";
 
@@ -72,7 +72,8 @@ const CreateItem = ({ setAdd }) => {
             setName('');
             setDescription('');
             setQuantity(1);
-            dispatch(setCharItem(data));
+            data.arrName = 'itemsById'
+            dispatch(setResource(data));
         }
     };
 

@@ -7,7 +7,7 @@ import { deleteItem } from "../../store/items";
 import { editItem } from "../../store/items";
 import { editQuantity } from "../../store/items";
 
-import { updateChar, delCharItem } from "../../store/characters";
+import { updateChar, delResource } from "../../store/characters";
 
 import { setErrors } from "../../store/help";
 import SavedMessage from "../../global/SavedMessage";
@@ -153,7 +153,8 @@ const ItemCard = ({ item }) => {
         if (data.errors) {
             dispatch(setErrors(data.errors));
         } else {
-            dispatch(delCharItem(data));
+            data.arrName = 'itemsById'
+            dispatch(delResource(data));
         }
     }
 
