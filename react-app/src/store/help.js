@@ -1,7 +1,7 @@
-const SET_ERRORS = 'help/SET_ERRORS'
-const SET_SHOW = 'help/SET_SHOW'
-const SET_HIDE = 'help/SET_HIDE'
-const SET_HOVER = 'help/SET_HOVER'
+const SET_ERRORS = 'help/SET_ERRORS';
+const SET_SHOW = 'help/SET_SHOW';
+const SET_HIDE = 'help/SET_HIDE';
+const SET_HOVER = 'help/SET_HOVER';
 
 export const setErrors = (errors) => ({
     type: SET_ERRORS,
