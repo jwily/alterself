@@ -8,6 +8,7 @@ import features from './features';
 import profs from './profs';
 import help from './help';
 import theme from './theme';
+import images from './images';
 
 const rootReducer = combineReducers({
   session,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   features,
   profs,
   help,
-  theme
+  theme,
+  images
 });
 
 

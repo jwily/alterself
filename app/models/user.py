@@ -36,6 +36,7 @@ class User(db.Model, UserMixin):
     owned_campaigns = db.relationship('Campaign', back_populates='user')
     joined_campaigns = db.relationship(
         'Campaign', secondary=memberships, back_populates='members')
+    images = db.relationship('Image', back_populates='user')
 
     @property
     def password(self):

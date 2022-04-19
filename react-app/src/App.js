@@ -12,6 +12,7 @@ import { setChars } from './store/characters';
 import { setItems } from './store/items';
 import { setFeats } from './store/features';
 import { setProfs } from './store/profs';
+import { setImages } from './store/images'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -38,6 +39,7 @@ function App() {
           dispatch(setItems(data.items));
           dispatch(setFeats(data.feats));
           dispatch(setProfs(data.profs));
+          dispatch(setImages(data.imgs));
           setDataLoaded(true);
         }
       }
