@@ -13,6 +13,7 @@ class Image(db.Model):
         db.DateTime, server_default=func.now(), nullable=False)
 
     characters = db.relationship('Character', back_populates='image')
+    user = db.relationship('User', back_populates='images')
 
     def to_dict(self):
         return {
