@@ -39,7 +39,7 @@ const Container = styled.div`
     }
 `
 
-const Roster = () => {
+const Roster = ({ dataLoaded }) => {
 
     const data = useSelector(state => state.characters);
     const user = useSelector(state => state.session.user)
@@ -58,7 +58,7 @@ const Roster = () => {
             <CreateCharModal />
             {/* <UploadPicture /> */}
             <ul>
-                {charCards}
+                {dataLoaded && charCards}
             </ul>
         </Container>
     )
