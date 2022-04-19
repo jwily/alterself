@@ -56,20 +56,20 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
-      {dataLoaded && <Switch>
+      <Switch>
         <ProtectedRoute path='/roster' exact={true} >
           <Roster />
         </ProtectedRoute>
         <ProtectedRoute path='/roster/:charId'>
-          <Character />
+          {dataLoaded && <Character />}
         </ProtectedRoute>
         <Route path='/' exact={true}>
-          {user ? <Roster /> : <Welcome />}
+          {user ? <Roster dataLoaded={dataLoaded} /> : <Welcome />}
         </Route>
         <Route path='*'>
           <Redirect to='/' />
         </Route>
-      </Switch>}
+      </Switch>
     </BrowserRouter>
   );
 }
