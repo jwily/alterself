@@ -90,7 +90,7 @@ const CreateFeat = ({ setAdd }) => {
                 </div>
                 <div>
                     <label htmlFor="feat-description">Description (Optional)</label>
-                    <textarea id="feat-description" value={description} onChange={updateDescription} rows="8" spellCheck={false} />
+                    <textarea id="feat-description" value={description} onChange={updateDescription} rows="8" />
                 </div>
                 <div className="create-buttons">
                     <button type="submit">Add</button>

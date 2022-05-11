@@ -108,7 +108,7 @@ const CreateItem = ({ setAdd }) => {
                 </div>
                 <div>
                     <label htmlFor="forge-description">Description (Optional)</label>
-                    <textarea id="forge-description" value={description} onChange={updateDescription} rows="8" spellCheck={false} />
+                    <textarea id="forge-description" value={description} onChange={updateDescription} rows="8" />
                 </div>
                 <div className="create-buttons">
                     <button type="submit">Add</button>

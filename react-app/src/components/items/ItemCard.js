@@ -194,7 +194,7 @@ const ItemCard = ({ item }) => {
                         <button type="button" className="item-reveal" onClick={clickLook}><FontAwesomeIcon icon={!show ? faSearchPlus : faSearchMinus} /></button>
                     </div>
                 </div>
-                {show && <textarea value={description} onChange={descChange} rows="8" spellCheck={false} />}
+                {show && <textarea value={description} onChange={descChange} rows="8" />}
             </form>
             {
                 show && <div className="buttons">

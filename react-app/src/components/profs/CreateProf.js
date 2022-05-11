@@ -90,7 +90,7 @@ const CreateProf = ({ setAdd }) => {
                 </div>
                 <div>
                     <label htmlFor="prof-description">Description (Optional)</label>
-                    <textarea id="prof-description" value={description} onChange={updateDescription} rows="8" spellCheck={false} />
+                    <textarea id="prof-description" value={description} onChange={updateDescription} rows="8" />
                 </div>
                 <div className="create-buttons">
                     <button type="submit">Add</button>
