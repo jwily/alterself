@@ -17,8 +17,6 @@ const delFeat = (id) => ({
     payload: id
 })
 
-const initialState = { entities: {}, ids: [] };
-
 export const createFeat = (formData) => async (dispatch) => {
     const response = await fetch(`/api/characters/${formData.charId}/features`, {
         method: 'POST',
@@ -84,20 +82,19 @@ export const deleteFeat = (featId) => async (dispatch) => {
     }
 }
 
+const initialState = {};
+
 export default function reducer(state = initialState, action) {
-    const newState = { ...state };
+    let newState = { ...state };
     switch (action.type) {
         case SET_FEATS:
-            newState.entities = action.payload;
-            newState.ids = Object.keys(action.payload);
+            newState = action.payload;
             return newState;
         case ADD_FEAT:
-            newState.entities[action.payload.id] = action.payload;
-            newState.ids = Object.keys(newState.entities);
+            newState[action.payload.id] = action.payload;
             return newState
         case REMOVE_FEAT:
-            delete newState.entities[action.payload];
-            newState.ids = Object.keys(newState.entities);
+            delete newState[action.payload];
             return newState;
         default:
             return state;

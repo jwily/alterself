@@ -5,8 +5,6 @@ const setSkills = (skills) => ({
     payload: skills
 })
 
-const initialState = { entities: {} };
-
 export const getSkills = (charId) => async (dispatch) => {
     const response = await fetch(`/api/characters/${charId}/skills`, {
         headers: {
@@ -22,6 +20,8 @@ export const getSkills = (charId) => async (dispatch) => {
         dispatch(setSkills(data));
     }
 }
+
+const initialState = { entities: {} };
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {

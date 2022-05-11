@@ -79,10 +79,10 @@ const Proficiencies = ({ fadeNum }) => {
 
     const profCards = useMemo(() => {
         return order.map(id => {
-            const prof = data.entities[id];
-            return <ProfCard key={prof.id} prof={prof} />
+            const prof = data[id];
+            return prof ? <ProfCard key={prof.id} prof={prof} /> : null
         })
-    }, [data.entities, order])
+    }, [data, order])
 
     return (
         <BlueBox className="profs" theme={theme} ref={card}>

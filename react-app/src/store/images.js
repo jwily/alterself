@@ -17,8 +17,6 @@ const delImage = (id) => ({
     payload: id
 })
 
-const initialState = { entities: {}, ids: [] };
-
 const sortByCreated = (obj, arr) => {
     arr.sort((a, b) => {
         return new Date(obj[b].createdAt) - new Date(obj[a].createdAt)
@@ -67,8 +65,10 @@ export const deleteFeat = (imageId) => async (dispatch) => {
     }
 }
 
+const initialState = { entities: {}, ids: [] };
+
 export default function reducer(state = initialState, action) {
-    const newState = { ...state };
+    const newState = { entities: { ...state.entities }, ids: [...state.ids] };
     switch (action.type) {
         case SET_IMAGES:
             newState.entities = action.payload;

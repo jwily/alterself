@@ -53,8 +53,6 @@ export const updateChar = (time) => ({
     payload: time
 })
 
-const initialState = { entities: {}, ids: [] };
-
 export const createChar = (formData) => async (dispatch) => {
     const response = await fetch('/api/characters/', {
         method: 'POST',
@@ -165,8 +163,10 @@ const sortByUpdate = (obj, arr) => {
     })
 }
 
+const initialState = { entities: {}, ids: [] };
+
 export default function reducer(state = initialState, action) {
-    const newState = { ...state };
+    const newState = { entities: { ...state.entities }, ids: [...state.ids] };
     switch (action.type) {
         case MOUNT_CHAR:
             newState.entities[action.payload].mounted = true;
@@ -191,8 +191,10 @@ export default function reducer(state = initialState, action) {
             sortByUpdate(newState.entities, newState.ids);
             return newState;
         case REMOVE_CHAR:
+            // const newEntities = { ...newState.entities };
             delete newState.entities[action.payload];
-            newState.ids = Object.keys(newState.entities)
+            // This is just mutating "entities", which is not "new"
+            newState.ids = Object.keys(newState.entities);
             sortByUpdate(newState.entities, newState.ids);
             return newState;
         case SET_RESOURCE:
