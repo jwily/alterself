@@ -5,8 +5,6 @@ import styled from "styled-components";
 
 import cursor from '../../images/FF8Cursor.png';
 
-import { mountChar } from "../../store/characters";
-
 import BlackBox from "../../global/BlackBox";
 import EditCharModal from "./EditCharModal";
 import DeleteCharModal from "./DeleteCharModal";
@@ -101,33 +99,32 @@ const colorGen = (char) => {
     return `rgb(${red * 4.5 + 20}, ${green * 4.5 + 20}, ${blue * 4.5 + 20})`
 }
 
-const CharCard = ({ char, idx, ids }) => {
+const CharCard = ({ char, idx }) => {
 
     const charLi = useRef(null);
-    // const hoverState = useSelector(state => state.help.hover);
     const dispatch = useDispatch();
 
     const [hover, setHover] = useState(false)
+    const [mounted, setMounted] = useState(false)
 
     useEffect(() => {
+        console.log(char.name, idx, mounted)
         let fadeIn;
-        if (!char.mounted) {
-            dispatch(mountChar(char.id))
+        if (!mounted) {
             fadeIn = setTimeout(() => {
                 charLi.current.style.opacity = 1;
                 charLi.current.style.transition = 'opacity .75s'
+                setMounted(true)
             }, 100 + 50 * idx);
-        };
+        }
         return () => {
             clearTimeout(fadeIn)
         };
-    }, [idx, ids, char.id, char.mounted, dispatch])
+    }, [idx, dispatch, mounted])
 
     return (
-        <Card key={idx} ref={charLi} mounted={char.mounted}>
+        <Card key={idx} ref={charLi} mounted={mounted}>
             <Link to={`/roster/${char.id}`} className="roster-link"
-                // onMouseEnter={() => dispatch(setHover(char.name))}
-                // onMouseLeave={() => dispatch(setHover(''))}>
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}>
                 <Icon className="roster-icon"
@@ -144,7 +141,7 @@ const CharCard = ({ char, idx, ids }) => {
                     <div>
                         <span>{char.title}</span>
                         <div>
-                            <EditCharModal char={char} idx={idx} />
+                            <EditCharModal char={char} idx={idx} setMounted={setMounted} />
                             <DeleteCharModal char={char} />
                         </div>
                     </div>

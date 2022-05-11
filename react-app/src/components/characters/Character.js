@@ -22,17 +22,8 @@ import SavingThrows from "./SavingThrows";
 import Vitals from "./Vitals";
 
 import { setHide } from "../../store/help";
-import { unmountAll } from "../../store/characters";
 
 import scholar from '../../images/scholar.png';
-
-const Parent = styled.div`
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    justify-content: center;
-`
 
 const Container = styled.div`
 
@@ -203,7 +194,6 @@ const Character = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(unmountAll())
         dispatch(setHide(true));
     }, [dispatch])
 

@@ -15,7 +15,7 @@ const Content = styled.div`
     }
 `
 
-function EditCharModal({ char, idx }) {
+function EditCharModal({ char, idx, setMounted }) {
 
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState(char.name);
@@ -51,10 +51,10 @@ function EditCharModal({ char, idx }) {
             if (idx === 0) {
                 setShowModal(false);
                 setErrors([])
-                setName(data.name);
-                setRace(data.race);
-                setCharClass(data.class);
-                setBackground(data.background);
+                // Weird fading conditions probably something to do with disapperance of modal
+            }
+            else {
+                setMounted(false)
             }
         }
     };
