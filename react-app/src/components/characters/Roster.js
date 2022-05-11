@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -43,8 +43,11 @@ const Roster = ({ dataLoaded }) => {
 
     const data = useSelector(state => state.characters);
     const user = useSelector(state => state.session.user)
+    const [memoCount, setMemoCount] = useState(0)
 
     const charCards = useMemo(() => {
+        setMemoCount(count => count + 1);
+        console.log(`Memo Activated x ${memoCount}`);
         return data.ids.map((id, idx) => {
             const char = data.entities[id];
             return <CharCard key={char.id} char={char} idx={idx} ids={data.ids} />
