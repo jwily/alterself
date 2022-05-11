@@ -188,13 +188,13 @@ const ItemCard = ({ item }) => {
             <form className="edit-item-form" id={`edit-item-${item.id}`} onSubmit={submitEdit} autoComplete="off">
                 <div className="title">
                     {!show ? <span className="edit-name-field">{item.name}</span> :
-                        <input type="text" className="edit-name-field" value={name} onChange={nameChange} />}
+                        <input type="text" className="edit-name-field" value={name} onChange={nameChange} spellCheck={false} />}
                     <div>
                         <input className="edit-quant-field" value={quantity} min="0" onChange={quantChange} onBlur={handleBlur} type="number" />
                         <button type="button" className="item-reveal" onClick={clickLook}><FontAwesomeIcon icon={!show ? faSearchPlus : faSearchMinus} /></button>
                     </div>
                 </div>
-                {show && <textarea value={description} onChange={descChange} rows="8" />}
+                {show && <textarea value={description} onChange={descChange} rows="8" spellCheck={false} />}
             </form>
             {
                 show && <div className="buttons">

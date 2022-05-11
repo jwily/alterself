@@ -59,6 +59,7 @@ const LoginForm = ({ setToggle }) => {
             type='text'
             value={email}
             onChange={updateEmail}
+            spellCheck={false}
           />
         </div>
         <div>

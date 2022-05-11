@@ -86,11 +86,11 @@ const CreateFeat = ({ setAdd }) => {
             <form onSubmit={handleSubmit} autoComplete="off">
                 <div>
                     <label htmlFor="feat-name">Feature or Trait Name</label>
-                    <input type="text" id="feat-name" value={name} onChange={updateName} />
+                    <input type="text" id="feat-name" value={name} onChange={updateName} spellCheck={false} />
                 </div>
                 <div>
                     <label htmlFor="feat-description">Description (Optional)</label>
-                    <textarea id="feat-description" value={description} onChange={updateDescription} rows="8" />
+                    <textarea id="feat-description" value={description} onChange={updateDescription} rows="8" spellCheck={false} />
                 </div>
                 <div className="create-buttons">
                     <button type="submit">Add</button>

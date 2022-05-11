@@ -86,11 +86,11 @@ const CreateProf = ({ setAdd }) => {
             <form onSubmit={handleSubmit} autoComplete="off">
                 <div>
                     <label htmlFor="prof-name">Proficiency Name or Category</label>
-                    <input type="text" id="prof-name" value={name} onChange={updateName} />
+                    <input type="text" id="prof-name" value={name} onChange={updateName} spellCheck={false} />
                 </div>
                 <div>
                     <label htmlFor="prof-description">Description (Optional)</label>
-                    <textarea id="prof-description" value={description} onChange={updateDescription} rows="8" />
+                    <textarea id="prof-description" value={description} onChange={updateDescription} rows="8" spellCheck={false} />
                 </div>
                 <div className="create-buttons">
                     <button type="submit">Add</button>

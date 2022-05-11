@@ -100,7 +100,7 @@ const CreateItem = ({ setAdd }) => {
             <form onSubmit={handleSubmit} autoComplete="off">
                 <div>
                     <label htmlFor="forge-name">Item Name</label>
-                    <input type="text" id="forge-name" value={name} onChange={updateName} />
+                    <input type="text" id="forge-name" value={name} onChange={updateName} spellCheck={false} />
                 </div>
                 <div>
                     <label htmlFor="forge-quantity">Quantity</label>
@@ -108,7 +108,7 @@ const CreateItem = ({ setAdd }) => {
                 </div>
                 <div>
                     <label htmlFor="forge-description">Description (Optional)</label>
-                    <textarea id="forge-description" value={description} onChange={updateDescription} rows="8" />
+                    <textarea id="forge-description" value={description} onChange={updateDescription} rows="8" spellCheck={false} />
                 </div>
                 <div className="create-buttons">
                     <button type="submit">Add</button>

@@ -142,12 +142,12 @@ const FeatCard = ({ feat }) => {
             <form className="edit-feat-form" id={`edit-feat-${feat.id}`} onSubmit={submitEdit} autoComplete="off">
                 <div className="title">
                     {!show ? <span className="edit-name-field">{feat.name}</span> :
-                        <input type="text" className="edit-name-field" value={name} onChange={nameChange} />}
+                        <input type="text" className="edit-name-field" value={name} onChange={nameChange} spellCheck={false} />}
                     <div>
                         <button type="button" className="feat-reveal" onClick={clickLook}><FontAwesomeIcon icon={!show ? faSearchPlus : faSearchMinus} /></button>
                     </div>
                 </div>
-                {show && <textarea value={description} onChange={descChange} rows="8" />}
+                {show && <textarea value={description} onChange={descChange} rows="8" spellCheck={false} />}
             </form>
             {
                 show && <div className="buttons">
