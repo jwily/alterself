@@ -166,7 +166,7 @@ const sortByUpdate = (obj, arr) => {
 const initialState = { entities: {}, ids: [] };
 
 export default function reducer(state = initialState, action) {
-    const newState = { entities: { ...state.entities }, ids: [...state.ids] };
+    const newState = { ...state };
     switch (action.type) {
         case MOUNT_CHAR:
             newState.entities[action.payload].mounted = true;
