@@ -131,7 +131,6 @@ class Character(db.Model):
             'cha': self.charisma,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
-            'mounted': False,
             'title': self.generate_title(),
             'itemsById': [item.id for item in self.items],
             'featsById': [feature.id for feature in self.features],

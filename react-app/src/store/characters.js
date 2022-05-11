@@ -2,8 +2,6 @@ const SET_CHARS = 'characters/SET_CHARS';
 const ADD_CHAR = 'characters/ADD_CHAR';
 const REMOVE_CHAR = 'characters/REMOVE_CHAR';
 const CLEAR_CHARS = 'characters/CLEAR_CHARS';
-const MOUNT_CHAR = 'characters/MOUNT_CHAR';
-const UNMOUNT_CHARS = 'characters/UNMOUNT_CHARS';
 
 const UPDATE_CHAR = 'characters/UPDATE_CHAR';
 
@@ -29,15 +27,6 @@ const delChar = (id) => ({
     payload: id
 })
 
-export const mountChar = (id) => ({
-    type: MOUNT_CHAR,
-    payload: id
-})
-
-export const unmountAll = () => ({
-    type: UNMOUNT_CHARS
-})
-
 export const setResource = (data) => ({
     type: SET_RESOURCE,
     payload: data
@@ -52,8 +41,6 @@ export const updateChar = (time) => ({
     type: UPDATE_CHAR,
     payload: time
 })
-
-const initialState = { entities: {}, ids: [] };
 
 export const createChar = (formData) => async (dispatch) => {
     const response = await fetch('/api/characters/', {
@@ -165,17 +152,11 @@ const sortByUpdate = (obj, arr) => {
     })
 }
 
+const initialState = { entities: {}, ids: [] };
+
 export default function reducer(state = initialState, action) {
-    const newState = { ...state };
+    const newState = { entities: { ...state.entities }, ids: [...state.ids] };
     switch (action.type) {
-        case MOUNT_CHAR:
-            newState.entities[action.payload].mounted = true;
-            return newState;
-        case UNMOUNT_CHARS:
-            for (const id in newState.entities) {
-                newState.entities[id].mounted = false;
-            }
-            return newState;
         case CLEAR_CHARS:
             return {
                 entities: {}, ids: []
@@ -191,8 +172,10 @@ export default function reducer(state = initialState, action) {
             sortByUpdate(newState.entities, newState.ids);
             return newState;
         case REMOVE_CHAR:
+            // const newEntities = { ...newState.entities };
             delete newState.entities[action.payload];
-            newState.ids = Object.keys(newState.entities)
+            // This is just mutating "entities", which is not "new"
+            newState.ids = Object.keys(newState.entities);
             sortByUpdate(newState.entities, newState.ids);
             return newState;
         case SET_RESOURCE:

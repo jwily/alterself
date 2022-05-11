@@ -86,7 +86,7 @@ const CreateFeat = ({ setAdd }) => {
             <form onSubmit={handleSubmit} autoComplete="off">
                 <div>
                     <label htmlFor="feat-name">Feature or Trait Name</label>
-                    <input type="text" id="feat-name" value={name} onChange={updateName} />
+                    <input type="text" id="feat-name" value={name} onChange={updateName} spellCheck={false} />
                 </div>
                 <div>
                     <label htmlFor="feat-description">Description (Optional)</label>

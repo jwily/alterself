@@ -3,9 +3,27 @@ from app.models import db, Image
 from flask_login import current_user, login_required
 from app.aws import (
     upload_file_to_s3, allowed_file, get_unique_filename)
+from app.forms import DeleteForm
 from io import BytesIO
 
 image_routes = Blueprint("images", __name__)
+
+
+@image_routes.route("/<int:id>", methods=["DELETE"])
+@login_required
+def delete_image():
+    form = DeleteForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        image = Image.query.get(id)
+        if image:
+            db.session.delete(image)
+            db.session.commit()
+            return {'message': 'Image successfully deleted.',
+                    'imageId': id}
+        else:
+            return {'errors': ['Image not found.']}, 404
+    return {'errors': ['An error has occurred. Please try again.']}, 401
 
 
 @image_routes.route("", methods=["POST"])
@@ -39,4 +57,4 @@ def upload_image():
     new_image = Image(user_id=current_user.id, url=url)
     db.session.add(new_image)
     db.session.commit()
-    return {"url": url}
+    return new_image.to_dict()

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -41,22 +41,26 @@ const Container = styled.div`
 
 const Roster = ({ dataLoaded }) => {
 
-    const data = useSelector(state => state.characters);
+    const data = useSelector(state => state.characters.entities);
+    const ids = useSelector(state => state.characters.ids)
     const user = useSelector(state => state.session.user)
+    // const [memoCount, setMemoCount] = useState(0)
 
     const charCards = useMemo(() => {
-        return data.ids.map((id, idx) => {
-            const char = data.entities[id];
-            return <CharCard key={char.id} char={char} idx={idx} ids={data.ids} />
+        // setMemoCount(count => count + 1);
+        // console.log(`Memo Activated x ${memoCount}`);
+        return ids.map((id, idx) => {
+            const char = data[id];
+            return <CharCard key={char.id} char={char} idx={idx} ids={ids} />
         })
-    }, [data.entities, data.ids])
+    }, [data, ids])
 
     return (
         <Container>
             <h1>Dive into an altered self</h1>
             <h2>Hope you're well, {user.name}</h2>
             <CreateCharModal />
-            {/* <UploadPicture /> */}
+            <UploadPicture />
             <ul>
                 {dataLoaded && charCards}
             </ul>

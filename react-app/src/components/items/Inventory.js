@@ -79,10 +79,10 @@ const Inventory = ({ fadeNum }) => {
 
     const itemCards = useMemo(() => {
         return order.map(id => {
-            const item = data.entities[id];
-            return <ItemCard key={item.id} item={item} />
+            const item = data[id];
+            return item ? <ItemCard key={item.id} item={item} /> : null
         })
-    }, [data.entities, order])
+    }, [data, order])
 
     return (
         <BlueBox className="items" theme={theme} ref={card}>

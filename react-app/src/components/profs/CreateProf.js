@@ -86,7 +86,7 @@ const CreateProf = ({ setAdd }) => {
             <form onSubmit={handleSubmit} autoComplete="off">
                 <div>
                     <label htmlFor="prof-name">Proficiency Name or Category</label>
-                    <input type="text" id="prof-name" value={name} onChange={updateName} />
+                    <input type="text" id="prof-name" value={name} onChange={updateName} spellCheck={false} />
                 </div>
                 <div>
                     <label htmlFor="prof-description">Description (Optional)</label>

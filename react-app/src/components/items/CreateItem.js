@@ -100,7 +100,7 @@ const CreateItem = ({ setAdd }) => {
             <form onSubmit={handleSubmit} autoComplete="off">
                 <div>
                     <label htmlFor="forge-name">Item Name</label>
-                    <input type="text" id="forge-name" value={name} onChange={updateName} />
+                    <input type="text" id="forge-name" value={name} onChange={updateName} spellCheck={false} />
                 </div>
                 <div>
                     <label htmlFor="forge-quantity">Quantity</label>

@@ -15,7 +15,7 @@ const Content = styled.div`
     }
 `
 
-function EditCharModal({ char, idx }) {
+function EditCharModal({ char, idx, setMounted }) {
 
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState(char.name);
@@ -51,10 +51,10 @@ function EditCharModal({ char, idx }) {
             if (idx === 0) {
                 setShowModal(false);
                 setErrors([])
-                setName(data.name);
-                setRace(data.race);
-                setCharClass(data.class);
-                setBackground(data.background);
+                // Weird fading conditions probably something to do with disapperance of modal
+            }
+            else {
+                setMounted(false)
             }
         }
     };
@@ -97,19 +97,19 @@ function EditCharModal({ char, idx }) {
                         <form onSubmit={handleSubmit} autoComplete="off">
                             <div>
                                 <label htmlFor="create-name">Edit Name</label>
-                                <input type="text" id="create-name" value={name} onChange={updateName} />
+                                <input type="text" id="create-name" value={name} onChange={updateName} spellCheck={false} />
                             </div>
                             <div>
                                 <label htmlFor="create-char-class">Edit Class</label>
-                                <input type="text" id="create-char-class" value={charClass} onChange={updateClass} />
+                                <input type="text" id="create-char-class" value={charClass} onChange={updateClass} spellCheck={false} />
                             </div>
                             <div>
                                 <label htmlFor="create-race">Edit Race</label>
-                                <input type="text" id="create-race" value={race} onChange={updateRace} />
+                                <input type="text" id="create-race" value={race} onChange={updateRace} spellCheck={false} />
                             </div>
                             <div>
                                 <label htmlFor="create-background">Edit Background</label>
-                                <input type="text" className="create-background" value={background} onChange={updateBackground} />
+                                <input type="text" className="create-background" value={background} onChange={updateBackground} spellCheck={false} />
                             </div>
                             <div className="modal-btns">
                                 <button type="submit">Update</button>

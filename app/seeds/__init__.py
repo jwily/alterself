@@ -34,3 +34,20 @@ def undo():
     undo_images()
     undo_users()
     # Add other undo functions here
+
+
+@seed_commands.command('reset')
+def reset():
+    undo_pfts()
+    undo_items()
+    undo_skills()
+    undo_characters()
+    undo_images()
+    undo_users()
+
+    seed_users()
+    seed_images()
+    seed_characters()
+    seed_skills()
+    seed_items()
+    seed_pfts()

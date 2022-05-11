@@ -79,10 +79,10 @@ const FeaturesAndTraits = ({ fadeNum }) => {
 
     const featCards = useMemo(() => {
         return order.map(id => {
-            const feat = data.entities[id];
-            return <FeatCard key={feat.id} feat={feat} />
+            const feat = data[id];
+            return feat ? <FeatCard key={feat.id} feat={feat} /> : null
         })
-    }, [data.entities, order])
+    }, [data, order])
 
     return (
         <BlueBox className="feats" theme={theme} ref={card}>

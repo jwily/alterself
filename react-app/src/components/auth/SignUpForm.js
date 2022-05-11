@@ -76,6 +76,7 @@ const SignUpForm = ({ setToggle }) => {
             type='text'
             onChange={updateUsername}
             value={username}
+            spellCheck={false}
           ></input>
         </div>
         <div>
@@ -85,6 +86,7 @@ const SignUpForm = ({ setToggle }) => {
             type='text'
             onChange={updateEmail}
             value={email}
+            spellCheck={false}
           ></input>
         </div>
         <div>
@@ -93,6 +95,7 @@ const SignUpForm = ({ setToggle }) => {
             type='text'
             onChange={updateFirstName}
             value={firstName}
+            spellCheck={false}
           ></input>
         </div>
         <div>
