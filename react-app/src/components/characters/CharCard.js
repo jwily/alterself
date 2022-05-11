@@ -108,7 +108,6 @@ const CharCard = ({ char, idx }) => {
     const [mounted, setMounted] = useState(false)
 
     useEffect(() => {
-        console.log(char.name, idx, mounted)
         let fadeIn;
         if (!mounted) {
             fadeIn = setTimeout(() => {
