@@ -1,4 +1,8 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, {
+    useState,
+    // useCallback,
+    useEffect
+} from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import debounce from "lodash/debounce"
@@ -86,6 +90,15 @@ const Card = styled.li`
     }
 `
 
+const dbItemSave = debounce(async (formData, dispatch) => {
+    const data = await dispatch(editQuantity(formData));
+    if (data.errors) {
+        dispatch(setErrors(data.errors))
+    } else {
+        dispatch(updateChar(data))
+    }
+}, 350)
+
 const ItemCard = ({ item }) => {
 
     const dispatch = useDispatch();
@@ -99,17 +112,17 @@ const ItemCard = ({ item }) => {
     const [description, setDesc] = useState(item.description)
     const [quantity, setQuant] = useState(item.quantity)
 
-    const debouncedSave = useCallback(
-        debounce(async (formData) => {
-            const data = await dispatch(editQuantity(formData));
-            if (data.errors) {
-                dispatch(setErrors(data.errors))
-            } else {
-                dispatch(updateChar(data))
-            }
-        }, 350),
-        [],
-    );
+    // const debouncedSave = useCallback(
+    //     debounce(async (formData) => {
+    //         const data = await dispatch(editQuantity(formData));
+    //         if (data.errors) {
+    //             dispatch(setErrors(data.errors))
+    //         } else {
+    //             dispatch(updateChar(data))
+    //         }
+    //     }, 350),
+    //     [],
+    // );
 
     useEffect(() => {
         if (changed) {
@@ -117,9 +130,9 @@ const ItemCard = ({ item }) => {
                 itemId: item.id,
                 quantity: parseInt(quantity, 10) || 0
             }
-            debouncedSave(formData);
+            dbItemSave(formData, dispatch);
         }
-    }, [debouncedSave, item.id, quantity, changed])
+    }, [dispatch, item.id, quantity, changed])
 
     const submitEdit = async (e) => {
         e.preventDefault();

@@ -1,4 +1,7 @@
-import React, { useRef, useEffect, useState, useMemo, useCallback } from "react";
+import React, {
+    useRef, useEffect, useState, useMemo,
+    // useCallback
+} from "react";
 import styled from "styled-components";
 import debounce from "lodash/debounce"
 import { useSelector, useDispatch } from "react-redux";
@@ -116,6 +119,13 @@ const ShieldBar = styled.div`
     // justify-self: end;
 `
 
+const dbVitalsSave = debounce(async (data, dispatch) => {
+    const response = await dispatch(editVitals(data));
+    if (response) {
+        dispatch(setErrors(response))
+    }
+}, 350)
+
 const Vitals = ({ charData, fadeNum, hover }) => {
 
     const dispatch = useDispatch();
@@ -133,15 +143,15 @@ const Vitals = ({ charData, fadeNum, hover }) => {
     // const [hdCurr, setHDCurr] = useState(charData.hdCurr);
     // const [hdMax, setHDMax] = useState(charData.hdMax);
 
-    const debouncedSave = useCallback(
-        debounce(async (data) => {
-            const response = await dispatch(editVitals(data));
-            if (response) {
-                dispatch(setErrors(response))
-            }
-        }, 350),
-        [],
-    );
+    // const debouncedSave = useCallback(
+    //     debounce(async (data) => {
+    //         const response = await dispatch(editVitals(data));
+    //         if (response) {
+    //             dispatch(setErrors(response))
+    //         }
+    //     }, 350),
+    //     [],
+    // );
 
     const lifePercent = useMemo(() => {
         const percent = parseInt(charData.hpCurr / charData.hpMax * 100, 10);
@@ -170,9 +180,9 @@ const Vitals = ({ charData, fadeNum, hover }) => {
                 hpMax: parseInt(hpMax, 10) || 0,
                 hpTemp: parseInt(hpTemp, 10) || 0,
             }
-            debouncedSave(data);
+            dbVitalsSave(data, dispatch);
         }
-    }, [debouncedSave, charData.id, hpCurr, hpMax, hpTemp, changed])
+    }, [dispatch, charData.id, hpCurr, hpMax, hpTemp, changed])
 
 
     // const changeAC = (e) => {
