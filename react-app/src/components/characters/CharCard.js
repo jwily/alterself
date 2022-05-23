@@ -112,7 +112,7 @@ const CharCard = ({ char, idx }) => {
         // console.log(char.name, idx, mounted)
         if (!mounted) {
             fadeIn = setTimeout(() => {
-                console.log('Timeout')
+                // console.log('Timeout')
                 charLi.current.style.opacity = 1;
                 charLi.current.style.transition = 'opacity .75s'
                 setMounted(true)
