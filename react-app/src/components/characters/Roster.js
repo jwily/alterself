@@ -55,12 +55,19 @@ const Roster = ({ dataLoaded }) => {
         })
     }, [data, ids])
 
+    // const CharCards = () => {
+    //     return ids.map((id, idx) => {
+    //         const char = data[id];
+    //         return <CharCard key={char.id} char={char} idx={idx} ids={ids} />
+    //     })
+    // }
+
     return (
         <Container>
             <h1>Dive into an altered self</h1>
             <h2>Hope you're well, {user.name}</h2>
             <CreateCharModal />
-            <UploadPicture />
+            {/* <UploadPicture /> */}
             <ul>
                 {dataLoaded && charCards}
             </ul>
