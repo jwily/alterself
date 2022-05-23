@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import React, {
+    useState,
+    useEffect,
+    // useCallback,
+    useRef,
+    useMemo
+} from "react";
 import styled from "styled-components";
 import debounce from "lodash/debounce"
 import { useDispatch, useSelector } from "react-redux";
@@ -64,6 +70,13 @@ const modDisplay = (score) => {
     else return `- ${Math.abs(mod)}`;
 }
 
+const dbScoresSave = debounce(async (data, dispatch) => {
+    const response = await dispatch(editAbilities(data));
+    if (response) {
+        dispatch(setErrors(response))
+    }
+}, 350)
+
 const Ability = ({ attr, name, icon, state, setState, changeFunc, setHover, charData, handleBlur }) => {
     return (<AbilityDiv
         onMouseEnter={() => setHover(attr)}
@@ -97,15 +110,15 @@ const Abilities = ({ charData, fadeNum, setHover }) => {
     const [wis, setWis] = useState(charData.wis);
     const [cha, setCha] = useState(charData.cha);
 
-    const debouncedSave = useCallback(
-        debounce(async (data) => {
-            const response = await dispatch(editAbilities(data));
-            if (response) {
-                dispatch(setErrors(response))
-            }
-        }, 350),
-        [],
-    );
+    // const debouncedSave = useCallback(
+    //     debounce(async (data) => {
+    //         const response = await dispatch(editAbilities(data));
+    //         if (response) {
+    //             dispatch(setErrors(response))
+    //         }
+    //     }, 350),
+    //     [],
+    // );
 
     const card = useRef(null)
 
@@ -140,9 +153,9 @@ const Abilities = ({ charData, fadeNum, setHover }) => {
                 wisdom: parseInt(wis, 10) || 0,
                 charisma: parseInt(cha, 10) || 0,
             }
-            debouncedSave(data);
+            dbScoresSave(data, dispatch);
         }
-    }, [debouncedSave, charData.id, str, dex, con, int, wis, cha, changed])
+    }, [dispatch, charData.id, str, dex, con, int, wis, cha, changed])
 
     const handleBlur = (e, setFunc, currVal) => {
         if (!dataOkay) {
