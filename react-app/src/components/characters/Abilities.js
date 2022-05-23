@@ -64,6 +64,24 @@ const modDisplay = (score) => {
     else return `- ${Math.abs(mod)}`;
 }
 
+const Ability = ({ attr, name, icon, state, setState, changeFunc, setHover, charData, handleBlur }) => {
+    return (<AbilityDiv
+        onMouseEnter={() => setHover(attr)}
+        onMouseLeave={() => setHover('')}
+    >
+        <label htmlFor={`${charData.id}-${attr}`}>
+            <span>{name}</span>
+            <div className="mod">
+                <FontAwesomeIcon icon={icon} />
+                <span>{modDisplay(charData[attr])}</span>
+            </div>
+        </label>
+        <input max="99" min="0" id={`${charData.id}-${attr}`} type="number" value={state}
+            onBlur={(e) => handleBlur(e, setState, charData[attr])}
+            onChange={changeFunc} />
+    </AbilityDiv>)
+}
+
 const Abilities = ({ charData, fadeNum, setHover }) => {
 
     const dispatch = useDispatch()
@@ -165,24 +183,6 @@ const Abilities = ({ charData, fadeNum, setHover }) => {
         setCha(e.target.value);
     };
 
-    const Ability = ({ attr, name, icon, state, setState, changeFunc }) => {
-        return (<AbilityDiv
-            onMouseEnter={() => setHover(attr)}
-            onMouseLeave={() => setHover('')}
-        >
-            <label htmlFor={`${charData.id}-${attr}`}>
-                <span>{name}</span>
-                <div className="mod">
-                    <FontAwesomeIcon icon={icon} />
-                    <span>{modDisplay(charData[attr])}</span>
-                </div>
-            </label>
-            <input max="99" min="0" id={`${charData.id}-${attr}`} type="number" value={state}
-                onBlur={(e) => handleBlur(e, setState, charData[attr])}
-                onChange={changeFunc} />
-        </AbilityDiv>)
-    }
-
     return (
         <BlueBox className="abilities" theme={theme} ref={card}>
             <Container>
@@ -191,36 +191,54 @@ const Abilities = ({ charData, fadeNum, setHover }) => {
                     icon={faFistRaised}
                     state={str}
                     setState={setStr}
+                    charData={charData}
+                    setHover={setHover}
+                    handleBlur={handleBlur}
                     changeFunc={changeStr} />
                 <Ability attr='dex'
                     name='Dexterity'
                     icon={faHandPaper}
                     state={dex}
                     setState={setDex}
+                    charData={charData}
+                    setHover={setHover}
+                    handleBlur={handleBlur}
                     changeFunc={changeDex} />
                 <Ability attr='con'
                     name='Constitution'
                     icon={faHandHoldingWater}
                     state={con}
                     setState={setCon}
+                    charData={charData}
+                    setHover={setHover}
+                    handleBlur={handleBlur}
                     changeFunc={changeCon} />
                 <Ability attr='int'
                     name='Intelligence'
                     icon={faHandSpock}
                     state={int}
                     setState={setInt}
+                    charData={charData}
+                    setHover={setHover}
+                    handleBlur={handleBlur}
                     changeFunc={changeInt} />
                 <Ability attr='wis'
                     name='Wisdom'
                     icon={faHandHoldingHeart}
                     state={wis}
                     setState={setWis}
+                    charData={charData}
+                    setHover={setHover}
+                    handleBlur={handleBlur}
                     changeFunc={changeWis} />
                 <Ability attr='cha'
                     name='Charisma'
                     icon={faHandPeace}
                     state={cha}
                     setState={setCha}
+                    charData={charData}
+                    setHover={setHover}
+                    handleBlur={handleBlur}
                     changeFunc={changeCha} />
             </Container>
         </BlueBox>

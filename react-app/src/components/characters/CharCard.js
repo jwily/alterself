@@ -109,8 +109,10 @@ const CharCard = ({ char, idx }) => {
 
     useEffect(() => {
         let fadeIn;
+        // console.log(char.name, idx, mounted)
         if (!mounted) {
             fadeIn = setTimeout(() => {
+                console.log('Timeout')
                 charLi.current.style.opacity = 1;
                 charLi.current.style.transition = 'opacity .75s'
                 setMounted(true)
