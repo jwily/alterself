@@ -10,7 +10,7 @@ image_routes = Blueprint("images", __name__)
 
 
 @image_routes.route("/<int:id>", methods=["DELETE"])
-# @login_required
+@login_required
 def delete_image(id):
     form = DeleteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -18,9 +18,9 @@ def delete_image(id):
         image = Image.query.get(id)
         if image:
             key = image.url.split('/')[-1]
-            delete_file(key)
             db.session.delete(image)
             db.session.commit()
+            delete_file(key)
             return {'message': 'Image successfully deleted.',
                     'imageId': id}
         else:

@@ -27,6 +27,10 @@ def get_unique_filename(filename):
 
 def delete_file(filename):
     s3.delete_object(Bucket=BUCKET_NAME, Key=filename)
+    # try:
+    #     s3.delete_object(Bucket=BUCKET_NAME, Key=filename)
+    # except Exception as e:
+    #     return {"errors": str(e)}
 
 
 def upload_file_to_s3(file, acl="public-read"):

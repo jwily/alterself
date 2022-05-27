@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { useDispatch } from "react-redux";
 
-import { addImage } from "../../store/images";
+import { addImage, createImage } from "../../store/images";
 import { editImage } from "../../store/characters";
 
 const UploadForm = styled.form`

@@ -57,7 +57,7 @@ function EditCharModal({ char, idx, setMounted }) {
             else {
                 setMounted(false)
             }
-            window.scrollTo(0, 0)
+            // window.scrollTo(0, 0)
         }
     };
 
