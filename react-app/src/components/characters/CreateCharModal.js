@@ -8,6 +8,8 @@ import { Modal } from '../../context/Modal';
 import { useDispatch } from 'react-redux';
 import { createChar } from "../../store/characters";
 
+import { deleteImage } from '../../store/images';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faChild,
@@ -83,10 +85,10 @@ function CreateCharModal() {
     const [race, setRace] = useState('');
     const [charClass, setCharClass] = useState('');
     const [background, setBackground] = useState('');
-    const [img, setImg] = useState('');
+    const [img, setImg] = useState(null);
 
     const [showModal, setShowModal] = useState(false);
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState(null);
 
     const dispatch = useDispatch();
 
@@ -101,8 +103,8 @@ function CreateCharModal() {
         setRace('');
         setCharClass('');
         setBackground('');
-        setImg('');
-        setStatus('');
+        setImg(null);
+        setStatus(null);
     };
 
     const handleSubmit = async (e) => {
@@ -121,6 +123,10 @@ function CreateCharModal() {
             closeScript();
         }
     };
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+    }
 
     const updateName = (e) => {
         setName(e.target.value);
@@ -155,7 +161,7 @@ function CreateCharModal() {
                         {status !== 'choose' && <div className='create-body'>
                             <IconHolder>
                                 <Icon>
-                                    {img ? <Portrait src={img} alt="new character portrait" /> : name[0]?.toUpperCase()}
+                                    {img ? <Portrait src={images.entities[img].url} alt="new character portrait" /> : name[0]?.toUpperCase()}
                                 </Icon>
                                 {status !== 'upload' ? <>
                                     <button id="choose-btn"
@@ -183,7 +189,7 @@ function CreateCharModal() {
                                                 setStatus('')
                                             }}
                                             type="button">
-                                            Cancel Upload
+                                            Return
                                         </button>
                                     </>}
                             </IconHolder>

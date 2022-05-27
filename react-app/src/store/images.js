@@ -7,7 +7,7 @@ export const setImages = (images) => ({
     payload: images
 })
 
-const addImage = (image) => ({
+export const addImage = (image) => ({
     type: ADD_IMAGE,
     payload: image
 })
@@ -23,30 +23,28 @@ const sortByCreated = (obj, arr) => {
     })
 }
 
-export const createImage = (formData) => async (dispatch) => {
-    const response = await fetch(`/api/images`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
+// export const createImage = (formData) => async (dispatch) => {
+//     const response = await fetch(`/api/images`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(formData)
+//     })
 
-    if (response.ok) {
-        const data = await response.json();
-        dispatch(addImage(data))
-        return data;
-    } else if (response.status < 500) {
-        const data = await response.json();
-        if (data.errors) {
-            return data.errors;
-        }
-    } else {
-        return ['An error occurred. Please try again.']
-    }
-}
+//     if (response.ok) {
+//         const data = await response.json();
+//         dispatch(addImage(data))
+//         return data;
+//     } else if (response.status < 500) {
+//         const data = await response.json();
+//         return data;
+//     } else {
+//         return ['An error occurred. Please try again.']
+//     }
+// }
 
-export const deleteFeat = (imageId) => async (dispatch) => {
+export const deleteImage = (imageId) => async (dispatch) => {
     const response = await fetch(`/api/images/${imageId}`, {
         method: 'DELETE'
     })
@@ -57,9 +55,7 @@ export const deleteFeat = (imageId) => async (dispatch) => {
         return data;
     } else if (response.status < 500) {
         const data = await response.json();
-        if (data.errors) {
-            return data.error;
-        }
+        return data;
     } else {
         return ['An error occurred. Please try again.']
     }

@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import { useDispatch } from "react-redux";
 
+import { addImage } from "../../store/images";
+
 const UploadForm = styled.form`
     width: 23.5rem;
     height: 14rem;
@@ -71,22 +73,34 @@ const UploadPicture = ({ closeScript, setStatus, setImg, setErrors }) => {
             // some sort of loading message is a good idea
             setImageLoading(true);
 
+            // const data = await dispatch(createImage(formData));
+            // if (data.errors) {
+            //     setErrors(data.errors);
+            // }
+            // else {
+            //     setImg(data.id);
+            //     setChanged(false);
+            // }
+
+            // setImageLoading(false)
+
             const res = await fetch('/api/images', {
                 method: "POST",
                 body: formData,
             });
             if (res.ok) {
                 const data = await res.json();
-                setImageLoading(false);
+                dispatch(addImage(data));
                 setImg(data.id);
+                setImageLoading(false);
                 setChanged(false);
             }
             else {
                 setImageLoading(false);
-                // a real app would probably use more advanced
-                // error handling
                 console.log("error");
             }
+
+
         }
     }
 
@@ -122,10 +136,10 @@ const UploadPicture = ({ closeScript, setStatus, setImg, setErrors }) => {
                 <p>A square portrait of your character works best!</p>
             </div>
             <div className="modal-btns">
-                <button type="button"
+                {/* <button type="button"
                     onClick={() => {
                         setStatus('')
-                    }}>Back</button>
+                    }}>Back to Create</button> */}
                 <button type="button" onClick={closeScript}>Close</button>
             </div>
         </UploadForm >

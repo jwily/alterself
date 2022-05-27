@@ -65,6 +65,7 @@ const CreateItem = ({ setAdd }) => {
             quantity
         }
         const data = await dispatch(createItem(formData));
+        console.log(data);
         if (data.errors) {
             dispatch(setErrors(data.errors));
         }
