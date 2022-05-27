@@ -41,6 +41,11 @@ const Content = styled.div`
     .create-body {
         display: flex;
     }
+
+    .char-form-body {
+        display: flex;
+        flex-direction: column;
+    }
 `
 
 const IconHolder = styled.div`
@@ -60,7 +65,7 @@ const Icon = styled.div`
     border-radius: 10rem;
     font-family: 'Cormorant SC', serif;
 
-    margin-top: .5rem;
+    margin-top: .25rem;
     margin-bottom: .85rem;
     margin-left: .5rem;
     margin-right: .5rem;
@@ -77,9 +82,66 @@ const Portrait = styled.img`
     border-radius: 10rem;
 `
 
-function CreateCharModal() {
+const IconDiv = ({ img, name, status, setStatus, setErrors, setImg, setChanged }) => {
 
+    const dispatch = useDispatch();
     const images = useSelector(state => state.images);
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        if (img) {
+            const data = await dispatch(deleteImage(img));
+            if (data.errors) {
+                setErrors(data.errors);
+            }
+            else {
+                setImg(null);
+                setChanged(true);
+            }
+        }
+    }
+
+    return <IconHolder>
+        <Icon>
+            {img ?
+                <Portrait src={images.entities[img]?.url} alt="new character portrait" /> :
+                name[0]?.toUpperCase()}
+        </Icon>
+        {status !== 'upload' ? <>
+            <button id="choose-btn"
+                onClick={() => {
+                    setStatus('choose')
+                }}
+                type="button">
+                Browse
+            </button>
+            <button
+                onClick={() => {
+                    setStatus('upload')
+                }}
+                type="button">
+                Upload
+            </button>
+        </> :
+            <>
+                <form onSubmit={handleDelete}>
+                    <button id="choose-btn"
+                        type="submit">
+                        Clear
+                    </button>
+                </form>
+                <button
+                    onClick={() => {
+                        setStatus('')
+                    }}
+                    type="button">
+                    Return
+                </button>
+            </>}
+    </IconHolder>
+}
+
+function CreateCharModal() {
 
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState('');
@@ -127,20 +189,6 @@ function CreateCharModal() {
         }
     };
 
-    const handleDelete = async (e) => {
-        e.preventDefault();
-        if (img) {
-            const data = await dispatch(deleteImage(img));
-            if (data.errors) {
-                setErrors(data.errors);
-            }
-            else {
-                setImg(null);
-                setChanged(true);
-            }
-        }
-    }
-
     const updateName = (e) => {
         setName(e.target.value);
     };
@@ -172,74 +220,49 @@ function CreateCharModal() {
                             ))}
                         </div>
                         {status !== 'choose' && <div className='create-body'>
-                            <IconHolder>
-                                <Icon>
-                                    {img ? <Portrait src={images.entities[img]?.url} alt="new character portrait" /> : name[0]?.toUpperCase()}
-                                </Icon>
-                                {status !== 'upload' ? <>
-                                    <button id="choose-btn"
-                                        onClick={() => {
-                                            setStatus('choose')
-                                        }}
-                                        type="button">
-                                        Browse
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            setStatus('upload')
-                                        }}
-                                        type="button">
-                                        Upload
-                                    </button>
-                                </> :
-                                    <>
-                                        <form onSubmit={handleDelete}>
-                                            <button id="choose-btn"
-                                                type="submit">
-                                                Clear
-                                            </button>
-                                        </form>
-                                        <button
-                                            onClick={() => {
-                                                setStatus('')
-                                            }}
-                                            type="button">
-                                            Return
-                                        </button>
-                                    </>}
-                            </IconHolder>
-                            {!status && <form onSubmit={handleSubmit} autoComplete="off">
-                                <div>
-                                    <label htmlFor="create-name">Name</label>
-                                    <input type="text" id="create-name" value={name} onChange={updateName} placeholder="Samwise" spellCheck={false} />
-                                </div>
-                                <div>
-                                    <label htmlFor="create-char-class">Class</label>
-                                    <input type="text" id="create-char-class" value={charClass} onChange={updateClass} placeholder="Paladin" spellCheck={false} />
-                                </div>
-                                <div>
-                                    <label htmlFor="create-race">Race</label>
-                                    <input type="text" id="create-race" value={race} onChange={updateRace} placeholder="Halfling" spellCheck={false} />
-                                </div>
-                                <div>
-                                    <label htmlFor="create-background">Background</label>
-                                    <input type="text" className="create-background" value={background} onChange={updateBackground} placeholder="Folk Hero" spellCheck={false} />
-                                </div>
+                            <IconDiv
+                                img={img}
+                                setImg={setImg}
+                                name={name}
+                                status={status}
+                                setStatus={setStatus}
+                                setChanged={setChanged}
+                                setErrors={setErrors}
+                            />
+                            <div className="char-form-body">
+                                {!status && <form onSubmit={handleSubmit} autoComplete="off">
+                                    <div>
+                                        <label htmlFor="create-name">Name</label>
+                                        <input type="text" id="create-name" value={name} onChange={updateName} placeholder="Samwise" spellCheck={false} />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="create-char-class">Class</label>
+                                        <input type="text" id="create-char-class" value={charClass} onChange={updateClass} placeholder="Paladin" spellCheck={false} />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="create-race">Race</label>
+                                        <input type="text" id="create-race" value={race} onChange={updateRace} placeholder="Halfling" spellCheck={false} />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="create-background">Background</label>
+                                        <input type="text" className="create-background" value={background} onChange={updateBackground} placeholder="Folk Hero" spellCheck={false} />
+                                    </div>
+                                </form >}
+                                {status === 'upload' &&
+                                    <div>
+                                        <UploadPicture
+                                            closeScript={closeScript}
+                                            setImg={setImg}
+                                            changed={changed}
+                                            setChanged={setChanged}
+                                            setStatus={setStatus}
+                                            setErrors={setErrors} />
+                                    </div>}
                                 <div className="modal-btns">
                                     <button type="submit">Create</button>
                                     <button type="button" onClick={closeScript}>Close</button>
                                 </div>
-                            </form >}
-                            {status === 'upload' &&
-                                <div>
-                                    <UploadPicture
-                                        closeScript={closeScript}
-                                        setImg={setImg}
-                                        changed={changed}
-                                        setChanged={setChanged}
-                                        setStatus={setStatus}
-                                        setErrors={setErrors} />
-                                </div>}
+                            </div>
                         </div>}
                     </Content>
                 </Modal>

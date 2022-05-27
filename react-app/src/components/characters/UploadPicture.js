@@ -7,7 +7,7 @@ import { addImage } from "../../store/images";
 
 const UploadForm = styled.form`
     width: 23.5rem;
-    height: 14rem;
+    height: 10.5rem;
 
     display: flex;
     flex-direction: column;
@@ -42,6 +42,7 @@ const UploadForm = styled.form`
     #upload-text {
         display: flex;
         flex-direction: column;
+        padding-bottom: 4rem;
     }
 
     label {
@@ -133,13 +134,6 @@ const UploadPicture = ({ closeScript, setStatus, setImg, setErrors, changed, set
             <div id="upload-text">
                 <p>.png, .jpg, .jpeg, and .gif files permitted.</p>
                 <p>A square portrait of your character works best!</p>
-            </div>
-            <div className="modal-btns">
-                {/* <button type="button"
-                    onClick={() => {
-                        setStatus('')
-                    }}>Back to Create</button> */}
-                <button type="button" onClick={closeScript}>Close</button>
             </div>
         </UploadForm >
     )
