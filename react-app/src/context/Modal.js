@@ -42,10 +42,6 @@ const ModalContent = styled(BlackBox)`
             margin: .5rem;
         }
 
-        input {
-            width: 15rem;
-        }
-
         textarea {
             resize: none;
         }

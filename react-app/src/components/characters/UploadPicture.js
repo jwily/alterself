@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { useDispatch } from "react-redux";
@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { addImage } from "../../store/images";
 
 const UploadForm = styled.form`
-    width: 23.5rem;
+    width: 26rem;
     height: 10.5rem;
 
     display: flex;
@@ -56,7 +56,7 @@ const UploadForm = styled.form`
     }
 `
 
-const UploadPicture = ({ closeScript, setStatus, setImg, setErrors, changed, setChanged }) => {
+const UploadPicture = ({ setImg, setErrors, changed, setChanged }) => {
 
     const dispatch = useDispatch();
 

@@ -1,12 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import cursor from '../../images/FF8Cursor.png';
 
 import BlackBox from "../../global/BlackBox";
-import EditCharModal from "./EditCharModal";
+import CreateEditModal from "./CreateEditModal";
 import DeleteCharModal from "./DeleteCharModal";
 
 const Card = styled.li`
@@ -101,6 +101,8 @@ const colorGen = (char) => {
 
 const CharCard = ({ char, idx }) => {
 
+    const data = useSelector(state => state.images.entities);
+
     const charLi = useRef(null);
     const dispatch = useDispatch();
 
@@ -130,7 +132,8 @@ const CharCard = ({ char, idx }) => {
                 onMouseLeave={() => setHover(false)}>
                 <Icon className="roster-icon"
                     color={colorGen(char)}>
-                    {!char.img ? char.name[0].toUpperCase() : <Portrait src={char.img} alt={`${char.name}'s portrait`} />}
+                    {!char.img ? char.name[0].toUpperCase() :
+                        <Portrait src={data[char.img].url} alt={`${char.name}'s portrait`} />}
                 </Icon>
             </Link>
             <BlackBox>
@@ -142,7 +145,7 @@ const CharCard = ({ char, idx }) => {
                     <div>
                         <span>{char.title}</span>
                         <div>
-                            <EditCharModal char={char} idx={idx} setMounted={setMounted} />
+                            <CreateEditModal edit={true} char={char} idx={idx} setMounted={setMounted} />
                             <DeleteCharModal char={char} />
                         </div>
                     </div>
