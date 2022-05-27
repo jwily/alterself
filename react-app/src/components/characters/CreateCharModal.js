@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+
+import { useSelector } from 'react-redux';
 
 import UploadPicture from './UploadPicture';
 import { Modal } from '../../context/Modal';
@@ -74,6 +76,8 @@ const Portrait = styled.img`
 
 function CreateCharModal() {
 
+    const images = useSelector(state => state.images);
+
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState('');
     const [race, setRace] = useState('');
@@ -85,6 +89,10 @@ function CreateCharModal() {
     const [status, setStatus] = useState('');
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        setErrors([])
+    }, [status])
 
     const closeScript = () => {
         setShowModal(false);
@@ -149,28 +157,35 @@ function CreateCharModal() {
                                 <Icon>
                                     {img ? <Portrait src={img} alt="new character portrait" /> : name[0]?.toUpperCase()}
                                 </Icon>
-                                <button id="choose-btn"
-                                    onClick={() => {
-                                        setStatus('choose')
-                                    }}
-                                    type="button">
-                                    Select
-                                </button>
-                                {status !== 'upload' ?
+                                {status !== 'upload' ? <>
+                                    <button id="choose-btn"
+                                        onClick={() => {
+                                            setStatus('choose')
+                                        }}
+                                        type="button">
+                                        Browse
+                                    </button>
                                     <button
                                         onClick={() => {
                                             setStatus('upload')
                                         }}
                                         type="button">
                                         Upload
-                                    </button> :
-                                    <button
-                                        onClick={() => {
-                                            setStatus('')
-                                        }}
-                                        type="button">
-                                        Cancel Upload
-                                    </button>}
+                                    </button>
+                                </> :
+                                    <>
+                                        <button id="choose-btn"
+                                            type="button">
+                                            Clear
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                setStatus('')
+                                            }}
+                                            type="button">
+                                            Cancel Upload
+                                        </button>
+                                    </>}
                             </IconHolder>
                             {!status && <form onSubmit={handleSubmit} autoComplete="off">
                                 <div>

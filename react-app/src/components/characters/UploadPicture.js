@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
+import { useDispatch } from "react-redux";
+
 const UploadForm = styled.form`
     width: 23.5rem;
     height: 14rem;
@@ -53,6 +55,8 @@ const UploadForm = styled.form`
 
 const UploadPicture = ({ closeScript, setStatus, setImg, setErrors }) => {
 
+    const dispatch = useDispatch();
+
     const [image, setImage] = useState(null);
     const [imageLoading, setImageLoading] = useState(false);
     const [changed, setChanged] = useState(false);
@@ -74,7 +78,7 @@ const UploadPicture = ({ closeScript, setStatus, setImg, setErrors }) => {
             if (res.ok) {
                 const data = await res.json();
                 setImageLoading(false);
-                setImg(data.url);
+                setImg(data.id);
                 setChanged(false);
             }
             else {

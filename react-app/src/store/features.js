@@ -32,9 +32,7 @@ export const createFeat = (formData) => async (dispatch) => {
         return data;
     } else if (response.status < 500) {
         const data = await response.json();
-        if (data.errors) {
-            return data;
-        }
+        return data;
     } else {
         return ['An error occurred. Please try again.']
     }
@@ -55,9 +53,7 @@ export const editFeat = (formData) => async (dispatch) => {
         return data;
     } else if (response.status < 500) {
         const data = await response.json();
-        if (data.errors) {
-            return data;
-        }
+        return data;
     } else {
         return ['An error occurred. Please try again.']
     }
@@ -74,9 +70,7 @@ export const deleteFeat = (featId) => async (dispatch) => {
         return data;
     } else if (response.status < 500) {
         const data = await response.json();
-        if (data.errors) {
-            return data;
-        }
+        return data;
     } else {
         return ['An error occurred. Please try again.']
     }
