@@ -30,6 +30,41 @@ const Content = styled.div`
     form > div {
         width: 22.5rem;
     }
+
+    .create-body {
+        display: flex;
+    }
+`
+
+const IconHolder = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-left: .5rem;
+    margin-right: 2.5rem;
+
+    #choose-btn {
+        margin-right: .25rem;
+    }
+
+    // border: 1px solid red;
+`
+
+const Icon = styled.div`
+    background-color: rgb(80, 80, 80);
+    width: 6rem;
+    height: 6rem;
+    font-size: 2.5rem;
+    border-radius: 10rem;
+    font-family: 'Cormorant SC', serif;
+
+    margin-top: .5rem;
+    margin-bottom: .85rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 function CreateCharModal() {
@@ -40,6 +75,7 @@ function CreateCharModal() {
     const [charClass, setCharClass] = useState('');
     const [background, setBackground] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [status, setStatus] = useState(null);
 
     const dispatch = useDispatch();
 
@@ -83,7 +119,9 @@ function CreateCharModal() {
 
     return (
         <>
-            <RosterCreate onClick={() => setShowModal(true)}><FontAwesomeIcon className="roster-fa" icon={faChild} /> Create</RosterCreate>
+            <RosterCreate onClick={() => setShowModal(true)}>
+                <FontAwesomeIcon className="roster-fa" icon={faChild} /> Create
+            </RosterCreate>
             {showModal && (
                 <Modal onClose={() => {
                     setShowModal(false);
@@ -92,43 +130,61 @@ function CreateCharModal() {
                     setRace('');
                     setCharClass('');
                     setBackground('');
+                    setStatus(null);
                 }}>
                     <Content className='modal-content'>
-                        <h2>The road goes ever on</h2>
-                        <div className="modal-errors">
-                            {errors.map((error, ind) => (
-                                <div key={ind}>{error}</div>
-                            ))}
-                        </div>
-                        <form onSubmit={handleSubmit} autoComplete="off">
-                            <div>
-                                <label htmlFor="create-name">Name</label>
-                                <input type="text" id="create-name" value={name} onChange={updateName} placeholder="Samwise" spellCheck={false} />
+                        {!status && <>
+                            <h2>The road goes ever on</h2>
+                            <div className="modal-errors">
+                                {errors.map((error, ind) => (
+                                    <div key={ind}>{error}</div>
+                                ))}
                             </div>
-                            <div>
-                                <label htmlFor="create-char-class">Class</label>
-                                <input type="text" id="create-char-class" value={charClass} onChange={updateClass} placeholder="Paladin" spellCheck={false} />
+                            <div className='create-body'>
+                                <IconHolder>
+                                    <Icon>
+                                        {name[0]}
+                                    </Icon>
+                                    <div>
+                                        <button id="choose-btn">
+                                            Choose
+                                        </button>
+                                        <button>
+                                            Upload
+                                        </button>
+                                    </div>
+                                </IconHolder>
+                                <form onSubmit={handleSubmit} autoComplete="off">
+                                    <div>
+                                        <label htmlFor="create-name">Name</label>
+                                        <input type="text" id="create-name" value={name} onChange={updateName} placeholder="Samwise" spellCheck={false} />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="create-char-class">Class</label>
+                                        <input type="text" id="create-char-class" value={charClass} onChange={updateClass} placeholder="Paladin" spellCheck={false} />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="create-race">Race</label>
+                                        <input type="text" id="create-race" value={race} onChange={updateRace} placeholder="Halfling" spellCheck={false} />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="create-background">Background</label>
+                                        <input type="text" className="create-background" value={background} onChange={updateBackground} placeholder="Folk Hero" spellCheck={false} />
+                                    </div>
+                                    <div className="modal-btns">
+                                        <button type="submit">Create</button>
+                                        <button type="button" onClick={() => {
+                                            setShowModal(false);
+                                            setErrors([])
+                                            setName('');
+                                            setRace('');
+                                            setCharClass('');
+                                            setBackground('');
+                                        }}>Return</button>
+                                    </div>
+                                </form >
                             </div>
-                            <div>
-                                <label htmlFor="create-race">Race</label>
-                                <input type="text" id="create-race" value={race} onChange={updateRace} placeholder="Halfling" spellCheck={false} />
-                            </div>
-                            <div>
-                                <label htmlFor="create-background">Background</label>
-                                <input type="text" className="create-background" value={background} onChange={updateBackground} placeholder="Folk Hero" spellCheck={false} />
-                            </div>
-                            <div className="modal-btns">
-                                <button type="submit">Create</button>
-                                <button type="button" onClick={() => {
-                                    setShowModal(false);
-                                    setErrors([])
-                                    setName('');
-                                    setRace('');
-                                    setCharClass('');
-                                    setBackground('');
-                                }}>Return</button>
-                            </div>
-                        </form >
+                        </>}
                     </Content>
                 </Modal>
             )}
