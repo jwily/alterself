@@ -8,18 +8,12 @@ def seed_images():
         url='https://alterself.s3.us-west-1.amazonaws.com/zexceed.png'
     )
 
-    toland = Image(
-        user_id=1,
-        url='https://alterself.s3.us-west-1.amazonaws.com/toland.jpg'
-    )
-
     himo = Image(
         user_id=1,
         url='https://alterself.s3.us-west-1.amazonaws.com/himo.jpg'
     )
 
     db.session.add(zexceed)
-    db.session.add(toland)
     db.session.add(himo)
 
     db.session.commit()

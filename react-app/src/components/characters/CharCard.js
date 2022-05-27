@@ -62,7 +62,7 @@ const Card = styled.li`
 `
 
 const Portrait = styled.img`
-
+    object-fit: cover;
     width: 5.5rem;
     height: 5.5rem;
     border-radius: 10rem;

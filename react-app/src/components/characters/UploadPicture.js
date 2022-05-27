@@ -55,13 +55,12 @@ const UploadForm = styled.form`
     }
 `
 
-const UploadPicture = ({ closeScript, setStatus, setImg, setErrors }) => {
+const UploadPicture = ({ closeScript, setStatus, setImg, setErrors, changed, setChanged }) => {
 
     const dispatch = useDispatch();
 
     const [image, setImage] = useState(null);
     const [imageLoading, setImageLoading] = useState(false);
-    const [changed, setChanged] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

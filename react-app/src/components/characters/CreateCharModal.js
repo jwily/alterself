@@ -71,6 +71,7 @@ const Icon = styled.div`
 `
 
 const Portrait = styled.img`
+    object-fit: cover;
     width: 5.5rem;
     height: 5.5rem;
     border-radius: 10rem;
@@ -86,6 +87,8 @@ function CreateCharModal() {
     const [charClass, setCharClass] = useState('');
     const [background, setBackground] = useState('');
     const [img, setImg] = useState(null);
+
+    const [changed, setChanged] = useState(false);
 
     const [showModal, setShowModal] = useState(false);
     const [status, setStatus] = useState(null);
@@ -126,6 +129,16 @@ function CreateCharModal() {
 
     const handleDelete = async (e) => {
         e.preventDefault();
+        if (img) {
+            const data = await dispatch(deleteImage(img));
+            if (data.errors) {
+                setErrors(data.errors);
+            }
+            else {
+                setImg(null);
+                setChanged(true);
+            }
+        }
     }
 
     const updateName = (e) => {
@@ -161,7 +174,7 @@ function CreateCharModal() {
                         {status !== 'choose' && <div className='create-body'>
                             <IconHolder>
                                 <Icon>
-                                    {img ? <Portrait src={images.entities[img].url} alt="new character portrait" /> : name[0]?.toUpperCase()}
+                                    {img ? <Portrait src={images.entities[img]?.url} alt="new character portrait" /> : name[0]?.toUpperCase()}
                                 </Icon>
                                 {status !== 'upload' ? <>
                                     <button id="choose-btn"
@@ -180,10 +193,12 @@ function CreateCharModal() {
                                     </button>
                                 </> :
                                     <>
-                                        <button id="choose-btn"
-                                            type="button">
-                                            Clear
-                                        </button>
+                                        <form onSubmit={handleDelete}>
+                                            <button id="choose-btn"
+                                                type="submit">
+                                                Clear
+                                            </button>
+                                        </form>
                                         <button
                                             onClick={() => {
                                                 setStatus('')
@@ -220,6 +235,8 @@ function CreateCharModal() {
                                     <UploadPicture
                                         closeScript={closeScript}
                                         setImg={setImg}
+                                        changed={changed}
+                                        setChanged={setChanged}
                                         setStatus={setStatus}
                                         setErrors={setErrors} />
                                 </div>}
