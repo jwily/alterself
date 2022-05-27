@@ -132,7 +132,7 @@ class Character(db.Model):
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
             'title': self.generate_title(),
-            'itemsById': [item.id for item in self.items],
-            'featsById': [feature.id for feature in self.features],
-            'profsById': [prof.id for prof in self.profs],
+            'itemsById': sorted([item.id for item in self.items]),
+            'featsById': sorted([feature.id for feature in self.features]),
+            'profsById': sorted([prof.id for prof in self.profs]),
         }
