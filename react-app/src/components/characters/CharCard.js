@@ -133,7 +133,7 @@ const CharCard = ({ char, idx }) => {
                 <Icon className="roster-icon"
                     color={colorGen(char)}>
                     {!char.img ? char.name[0].toUpperCase() :
-                        <Portrait src={data[char.img].url} alt={`${char.name}'s portrait`} />}
+                        <Portrait src={data[char.img]?.url} alt={`${char.name}'s portrait`} />}
                 </Icon>
             </Link>
             <BlackBox>

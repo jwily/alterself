@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
 import { addImage } from "../../store/images";
+import { editImage } from "../../store/characters";
 
 const UploadForm = styled.form`
     width: 26rem;
@@ -56,7 +57,7 @@ const UploadForm = styled.form`
     }
 `
 
-const UploadPicture = ({ setImg, setErrors, changed, setChanged }) => {
+const UploadPicture = ({ edit, charId, setImg, setErrors, changed, setChanged }) => {
 
     const dispatch = useDispatch();
 
@@ -73,17 +74,6 @@ const UploadPicture = ({ setImg, setErrors, changed, setChanged }) => {
             // some sort of loading message is a good idea
             setImageLoading(true);
 
-            // const data = await dispatch(createImage(formData));
-            // if (data.errors) {
-            //     setErrors(data.errors);
-            // }
-            // else {
-            //     setImg(data.id);
-            //     setChanged(false);
-            // }
-
-            // setImageLoading(false)
-
             const res = await fetch('/api/images', {
                 method: "POST",
                 body: formData,
@@ -94,10 +84,14 @@ const UploadPicture = ({ setImg, setErrors, changed, setChanged }) => {
                 setImg(data.id);
                 setImageLoading(false);
                 setChanged(false);
+                // if (edit) {
+                //     const res = await dispatch(editImage({ charId, imgId: data.id }));
+                //     if (res.errors) setErrors(res.errors);
+                // }
             }
             else {
                 setImageLoading(false);
-                console.log("error");
+                setErrors(['An error has occurred. Please try again.']);
             }
 
 

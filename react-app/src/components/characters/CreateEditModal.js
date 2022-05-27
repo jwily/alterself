@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import UploadPicture from './UploadPicture';
 import { Modal } from '../../context/Modal';
 import { useDispatch } from 'react-redux';
-import { createChar, editCore } from "../../store/characters";
+import { createChar, editCore, editImage } from "../../store/characters";
 
 import { deleteImage } from '../../store/images';
 
@@ -70,7 +70,7 @@ const IconHolder = styled.div`
 `
 
 const Icon = styled.div`
-    background-color: rgb(110, 110, 110);
+    background-color: ${props => props.color};
     width: 6rem;
     height: 6rem;
     font-size: 2.5rem;
@@ -94,7 +94,15 @@ const Portrait = styled.img`
     border-radius: 10rem;
 `
 
-const IconDiv = ({ img, name, status, setStatus, setErrors, setImg, setChanged }) => {
+const colorGen = (char) => {
+    if (!char.id) return `rgb(110, 110, 110)`;
+    let red = (char.str + char.con) <= 40 ? (char.str + char.con) : 40;
+    let green = (char.wis + char.cha) <= 40 ? (char.wis + char.cha) : 40;
+    let blue = (char.int + char.dex) <= 40 ? (char.int + char.dex) : 40;
+    return `rgb(${red * 4.5 + 20}, ${green * 4.5 + 20}, ${blue * 4.5 + 20})`
+}
+
+const IconDiv = ({ edit, img, char, name, status, setStatus, setErrors, setImg, setChanged }) => {
 
     const dispatch = useDispatch();
     const images = useSelector(state => state.images.entities);
@@ -107,16 +115,22 @@ const IconDiv = ({ img, name, status, setStatus, setErrors, setImg, setChanged }
                 setErrors(data.errors);
             }
             else {
-                setImg(null);
+                setImg(0);
                 setChanged(true);
+                // if (edit) {
+                //     const res = await (dispatch(editImage({ charId: char.id, imgId: 0 })));
+                //     if (res.errors) {
+                //         setErrors(res.errors);
+                //     }
+                // }
             }
         }
     }
 
     return <IconHolder>
-        <Icon>
+        <Icon color={colorGen(char)}>
             {img ?
-                <Portrait src={images[img].url} alt="new character portrait" /> :
+                <Portrait src={images[img]?.url} alt="new character portrait" /> :
                 name[0]?.toUpperCase()}
         </Icon>
         {status !== 'upload' ? <>
@@ -136,15 +150,22 @@ const IconDiv = ({ img, name, status, setStatus, setErrors, setImg, setChanged }
             </button>
         </> :
             <>
-                <form onSubmit={handleDelete}>
+                {/* <form onSubmit={handleDelete}>
                     <button id="choose-btn"
                         type="submit">
                         Clear
                     </button>
-                </form>
+                </form> */}
+                <button id="choose-btn"
+                    type="button"
+                    onClick={() => {
+                        setImg(0);
+                    }}>
+                    Clear
+                </button>
                 <button
                     onClick={() => {
-                        setStatus('')
+                        setStatus('');
                     }}
                     type="button">
                     Return
@@ -160,7 +181,7 @@ const CreateEditModal = ({ edit = false, char = {}, idx, setMounted }) => {
     const [race, setRace] = useState('');
     const [charClass, setCharClass] = useState('');
     const [background, setBackground] = useState('');
-    const [img, setImg] = useState(null);
+    const [img, setImg] = useState(0);
 
     const [changed, setChanged] = useState(false);
 
@@ -170,23 +191,19 @@ const CreateEditModal = ({ edit = false, char = {}, idx, setMounted }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        setErrors([])
-    }, [status])
-
-    useEffect(() => {
         if (edit) {
             setName(char.name);
             setRace(char.race);
             setCharClass(char.class);
             setBackground(char.background);
-            setImg(char.img);
+            setImg(char.img ? char.img : 0);
         }
         else {
             setName('');
             setRace('');
             setCharClass('');
             setBackground('');
-            setImg(null)
+            setImg(0)
         }
         setErrors([]);
         setStatus(null);
@@ -202,7 +219,8 @@ const CreateEditModal = ({ edit = false, char = {}, idx, setMounted }) => {
             name,
             race,
             charClass,
-            background
+            background,
+            img
         }
         const data = await dispatch(createChar(formData));
         if (data) {
@@ -218,9 +236,9 @@ const CreateEditModal = ({ edit = false, char = {}, idx, setMounted }) => {
         if (name === char.name
             && race === char.race
             && charClass === char.class
-            && background === char.background) {
+            && background === char.background
+            && img === char.img) {
             setShowModal(false);
-            setErrors([]);
             return;
         }
         const formData = {
@@ -228,7 +246,8 @@ const CreateEditModal = ({ edit = false, char = {}, idx, setMounted }) => {
             name,
             race,
             charClass,
-            background
+            background,
+            img
         }
         const data = await dispatch(editCore(formData));
         if (data.errors) {
@@ -237,7 +256,6 @@ const CreateEditModal = ({ edit = false, char = {}, idx, setMounted }) => {
         else {
             if (idx === 0) {
                 setShowModal(false);
-                setErrors([])
                 // Weird fading conditions probably something to do with disapperance of modal
             }
             else {
@@ -284,7 +302,9 @@ const CreateEditModal = ({ edit = false, char = {}, idx, setMounted }) => {
                         </div>
                         {status !== 'choose' && <div className='create-body'>
                             <IconDiv
+                                edit={edit}
                                 img={img}
+                                char={char}
                                 setImg={setImg}
                                 name={name}
                                 status={status}
@@ -294,7 +314,7 @@ const CreateEditModal = ({ edit = false, char = {}, idx, setMounted }) => {
                             />
                             <div className="char-form-body">
                                 {!status && (edit ?
-                                    <form onSubmit={handleEdit} autoComplete="off" id="edit=form">
+                                    <form onSubmit={handleEdit} autoComplete="off" id="edit-form">
                                         <div>
                                             <label htmlFor="edit-name">Edit Name</label>
                                             <input type="text" id="edit-name" value={name} onChange={updateName} spellCheck={false} />
@@ -333,6 +353,8 @@ const CreateEditModal = ({ edit = false, char = {}, idx, setMounted }) => {
                                 {status === 'upload' &&
                                     <div>
                                         <UploadPicture
+                                            charId={char.id}
+                                            edit={edit}
                                             setImg={setImg}
                                             changed={changed}
                                             setChanged={setChanged}

@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Character, User, db, Item, Feature, Proficiency
-from app.forms import CreateCharacterForm, DeleteForm, ItemForm, EditAbilitiesForm, FeatForm, ProfForm, EditVitalsForm
+from app.models import Character, User, db, Item, Feature, Proficiency, Image
+from app.forms import CreateCharacterForm, DeleteForm, ItemForm, EditAbilitiesForm, FeatForm, ProfForm, EditVitalsForm, EditImageForm
 from sqlalchemy.sql import func
 
 character_routes = Blueprint('characters', __name__)
@@ -70,6 +70,12 @@ def create_char():
             char_class=form.data['charClass'],
             background=form.data['background'],
         )
+
+        if form.data['img']:
+            image = Image.query.filter(
+                Image.id == form.data['img'], Image.user_id == current_user.id).first()
+
+            char.image = image
 
         db.session.add(char)
         db.session.commit()
@@ -219,8 +225,38 @@ def edit_core(id):
             char.race = form.data['race']
             char.char_class = form.data['charClass']
             char.background = form.data['background']
+
+            if form.data['img']:
+                image = Image.query.filter(
+                    Image.id == form.data['img'], Image.user_id == current_user.id).first()
+                char.image = image
+            else:
+                char.image = None
+
             db.session.commit()
             return char.to_dict()
         else:
             return {'errors': ['Character not found.']}, 404
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+# @character_routes.route('/<int:id>/img', methods=['PATCH'])
+# @login_required
+# def edit_img(id):
+#     form = EditImageForm()
+#     form['csrf_token'].data = request.cookies['csrf_token']
+#     if form.validate_on_submit():
+#         char = Character.query.filter(
+#             Character.id == id, Character.user_id == current_user.id).first()
+#         if char:
+#             if form.data['img']:
+#                 image = Image.query.filter(
+#                     Image.id == form.data['img'], Image.user_id == current_user.id).first()
+#                 char.image = image
+#             else:
+#                 char.image = None
+#             db.session.commit()
+#             return {'charId': id, 'imgId': form.data['img'], 'updatedAt': char.updated_at}
+#         else:
+#             return {'errors': ['Character not found.']}, 404
+#     return {'errors': ['An error has occurred. Please try again.']}, 401

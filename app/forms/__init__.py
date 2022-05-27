@@ -6,5 +6,6 @@ from .delete_form import DeleteForm
 from .items.update_quantity_form import UpdateQuantityForm
 from .characters.edit_abilities_form import EditAbilitiesForm
 from .characters.edit_vitals_form import EditVitalsForm
+from .characters.img_form import EditImageForm
 from .feat_form import FeatForm
 from .prof_form import ProfForm
