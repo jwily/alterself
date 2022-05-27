@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 import CreateCharModal from "./CreateCharModal";
 import CharCard from "./CharCard";
-import UploadPicture from "./UploadPicture";
 
 const Container = styled.div`
     display: flex;
@@ -41,9 +40,9 @@ const Container = styled.div`
 
 const Roster = ({ dataLoaded }) => {
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
+    // useEffect(() => {
+    //     window.scrollTo(0, 0)
+    // }, [])
 
     const data = useSelector(state => state.characters.entities);
     const ids = useSelector(state => state.characters.ids)
@@ -71,7 +70,7 @@ const Roster = ({ dataLoaded }) => {
             <h1>Dive into an altered self</h1>
             <h2>Hope you're well, {user.name}</h2>
             <CreateCharModal />
-            <UploadPicture />
+            {/* <UploadPicture /> */}
             <ul>
                 {dataLoaded && charCards}
             </ul>

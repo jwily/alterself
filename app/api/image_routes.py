@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from app.aws import (
     upload_file_to_s3, allowed_file, get_unique_filename)
 from app.forms import DeleteForm
-from io import BytesIO
+# from io import BytesIO
 
 image_routes = Blueprint("images", __name__)
 

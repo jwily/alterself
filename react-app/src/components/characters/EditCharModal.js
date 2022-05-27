@@ -12,6 +12,7 @@ import {
 const Content = styled.div`
     form > div {
         width: 25rem;
+        height: 2rem;
     }
 `
 
@@ -120,7 +121,7 @@ function EditCharModal({ char, idx, setMounted }) {
                                     setRace(char.race);
                                     setCharClass(char.class);
                                     setBackground(char.background);
-                                }}>Return</button>
+                                }}>Close</button>
                             </div>
                         </form >
                     </Content>

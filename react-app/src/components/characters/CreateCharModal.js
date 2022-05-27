@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
+
+import UploadPicture from './UploadPicture';
 import { Modal } from '../../context/Modal';
 import { useDispatch } from 'react-redux';
 import { createChar } from "../../store/characters";
-import styled from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -29,6 +31,7 @@ const RosterCreate = styled.button`
 const Content = styled.div`
     form > div {
         width: 22.5rem;
+        height: 2rem;
     }
 
     .create-body {
@@ -43,12 +46,6 @@ const IconHolder = styled.div`
 
     margin-left: .5rem;
     margin-right: 2.5rem;
-
-    #choose-btn {
-        margin-right: .25rem;
-    }
-
-    // border: 1px solid red;
 `
 
 const Icon = styled.div`
@@ -61,10 +58,18 @@ const Icon = styled.div`
 
     margin-top: .5rem;
     margin-bottom: .85rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
 
     display: flex;
     align-items: center;
     justify-content: center;
+`
+
+const Portrait = styled.img`
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 10rem;
 `
 
 function CreateCharModal() {
@@ -74,10 +79,23 @@ function CreateCharModal() {
     const [race, setRace] = useState('');
     const [charClass, setCharClass] = useState('');
     const [background, setBackground] = useState('');
+    const [img, setImg] = useState('');
+
     const [showModal, setShowModal] = useState(false);
-    const [status, setStatus] = useState(null);
+    const [status, setStatus] = useState('');
 
     const dispatch = useDispatch();
+
+    const closeScript = () => {
+        setShowModal(false);
+        setErrors([])
+        setName('');
+        setRace('');
+        setCharClass('');
+        setBackground('');
+        setImg('');
+        setStatus('');
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -92,12 +110,7 @@ function CreateCharModal() {
             setErrors(data);
         }
         else {
-            setShowModal(false);
-            setErrors([])
-            setName('');
-            setRace('');
-            setCharClass('');
-            setBackground('');
+            closeScript();
         }
     };
 
@@ -123,71 +136,77 @@ function CreateCharModal() {
                 <FontAwesomeIcon className="roster-fa" icon={faChild} /> Create
             </RosterCreate>
             {showModal && (
-                <Modal onClose={() => {
-                    setShowModal(false);
-                    setErrors([])
-                    setName('');
-                    setRace('');
-                    setCharClass('');
-                    setBackground('');
-                    setStatus(null);
-                }}>
+                <Modal onClose={closeScript}>
                     <Content className='modal-content'>
-                        {!status && <>
-                            <h2>The road goes ever on</h2>
-                            <div className="modal-errors">
-                                {errors.map((error, ind) => (
-                                    <div key={ind}>{error}</div>
-                                ))}
-                            </div>
-                            <div className='create-body'>
-                                <IconHolder>
-                                    <Icon>
-                                        {name[0]}
-                                    </Icon>
-                                    <div>
-                                        <button id="choose-btn">
-                                            Choose
-                                        </button>
-                                        <button>
-                                            Upload
-                                        </button>
-                                    </div>
-                                </IconHolder>
-                                <form onSubmit={handleSubmit} autoComplete="off">
-                                    <div>
-                                        <label htmlFor="create-name">Name</label>
-                                        <input type="text" id="create-name" value={name} onChange={updateName} placeholder="Samwise" spellCheck={false} />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="create-char-class">Class</label>
-                                        <input type="text" id="create-char-class" value={charClass} onChange={updateClass} placeholder="Paladin" spellCheck={false} />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="create-race">Race</label>
-                                        <input type="text" id="create-race" value={race} onChange={updateRace} placeholder="Halfling" spellCheck={false} />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="create-background">Background</label>
-                                        <input type="text" className="create-background" value={background} onChange={updateBackground} placeholder="Folk Hero" spellCheck={false} />
-                                    </div>
-                                    <div className="modal-btns">
-                                        <button type="submit">Create</button>
-                                        <button type="button" onClick={() => {
-                                            setShowModal(false);
-                                            setErrors([])
-                                            setName('');
-                                            setRace('');
-                                            setCharClass('');
-                                            setBackground('');
-                                        }}>Return</button>
-                                    </div>
-                                </form >
-                            </div>
-                        </>}
+                        <h2>The road goes ever on</h2>
+                        <div className="modal-errors">
+                            {errors.map((error, ind) => (
+                                <div key={ind}>{error}</div>
+                            ))}
+                        </div>
+                        {status !== 'choose' && <div className='create-body'>
+                            <IconHolder>
+                                <Icon>
+                                    {img ? <Portrait src={img} alt="new character portrait" /> : name[0]?.toUpperCase()}
+                                </Icon>
+                                <button id="choose-btn"
+                                    onClick={() => {
+                                        setStatus('choose')
+                                    }}
+                                    type="button">
+                                    Select
+                                </button>
+                                {status !== 'upload' ?
+                                    <button
+                                        onClick={() => {
+                                            setStatus('upload')
+                                        }}
+                                        type="button">
+                                        Upload
+                                    </button> :
+                                    <button
+                                        onClick={() => {
+                                            setStatus('')
+                                        }}
+                                        type="button">
+                                        Cancel Upload
+                                    </button>}
+                            </IconHolder>
+                            {!status && <form onSubmit={handleSubmit} autoComplete="off">
+                                <div>
+                                    <label htmlFor="create-name">Name</label>
+                                    <input type="text" id="create-name" value={name} onChange={updateName} placeholder="Samwise" spellCheck={false} />
+                                </div>
+                                <div>
+                                    <label htmlFor="create-char-class">Class</label>
+                                    <input type="text" id="create-char-class" value={charClass} onChange={updateClass} placeholder="Paladin" spellCheck={false} />
+                                </div>
+                                <div>
+                                    <label htmlFor="create-race">Race</label>
+                                    <input type="text" id="create-race" value={race} onChange={updateRace} placeholder="Halfling" spellCheck={false} />
+                                </div>
+                                <div>
+                                    <label htmlFor="create-background">Background</label>
+                                    <input type="text" className="create-background" value={background} onChange={updateBackground} placeholder="Folk Hero" spellCheck={false} />
+                                </div>
+                                <div className="modal-btns">
+                                    <button type="submit">Create</button>
+                                    <button type="button" onClick={closeScript}>Close</button>
+                                </div>
+                            </form >}
+                            {status === 'upload' &&
+                                <div>
+                                    <UploadPicture
+                                        closeScript={closeScript}
+                                        setImg={setImg}
+                                        setStatus={setStatus}
+                                        setErrors={setErrors} />
+                                </div>}
+                        </div>}
                     </Content>
                 </Modal>
-            )}
+            )
+            }
         </>
     );
 }
