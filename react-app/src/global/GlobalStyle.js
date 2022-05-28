@@ -11,8 +11,16 @@ const GlobalStyle = createGlobalStyle`
         list-style-type: none;
     }
 
+    html {
+        min-height: 100%;
+        background: rgb(37,47,72);
+        background: -moz-linear-gradient(190deg, rgba(37,47,72,1) 0%, rgba(115,110,159,1) 100%);
+        background: -webkit-linear-gradient(190deg, rgba(37,47,72,1) 0%, rgba(115,110,159,1) 100%);
+        background: linear-gradient(190deg, rgba(37,47,72,1) 0%, rgba(115,110,159,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#252f48",endColorstr="#736e9f",GradientType=1);
+    }
+
     body {
-        background-color: rgb(51, 48, 47);
         font-family: 'Karla', sans-serif;
         color: whitesmoke;
     }

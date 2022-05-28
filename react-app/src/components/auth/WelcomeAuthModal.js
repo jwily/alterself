@@ -5,11 +5,11 @@ import SignUpForm from './SignUpForm';
 import styled from 'styled-components';
 
 const AuthButton = styled.button`
-    margin-top: 2rem;
+    // margin-top: 2rem;
     margin-bottom: 1rem;
     border: none;
     background-color: transparent;
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: whitesmoke;
     cursor: pointer;
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
@@ -18,7 +18,7 @@ const AuthButton = styled.button`
     transition: filter .15s;
 
     &:hover {
-        filter: drop-shadow(0px 0px 5px rgba(255, 215, 0, .75));
+        filter: drop-shadow(0px 0px 5px rgba(255, 185, 0, .75));
     }
 `
 

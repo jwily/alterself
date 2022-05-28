@@ -27,7 +27,7 @@ const RosterCreate = styled.button`
     transition: filter .15s;
 
     &:hover {
-        filter: drop-shadow(0px 0px 5px rgba(255, 215, 0, .75));
+        filter: drop-shadow(0px 0px 5px rgba(255, 185, 0, .75));
     }
 `
 

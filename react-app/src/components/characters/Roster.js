@@ -6,6 +6,7 @@ import CreateEditModal from "./CreateEditModal";
 import CharCard from "./CharCard";
 
 const Container = styled.div`
+
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -60,7 +61,7 @@ const Roster = ({ dataLoaded }) => {
 
     return (
         <Container>
-            <h1>Dive into an altered self</h1>
+            <h1>~ Dive into an altered self ~</h1>
             <h2>Hope you're well, {user.name}</h2>
             <CreateEditModal />
             <ul>
