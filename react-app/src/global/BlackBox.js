@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const BlackBox = styled.div`
 
-    background: rgb(20, 20, 20);
+    background: rgb(25, 25, 25);
 
     font-family: 'Inconsolata', monospace;
 
