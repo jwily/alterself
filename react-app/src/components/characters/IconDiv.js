@@ -80,12 +80,20 @@ const IconDiv = ({ edit, img, char, name, status, setStatus, setErrors, setImg, 
         </Icon>
         {status !== 'upload' ?
             <>
-                <button id="choose-btn"
+                {/* <button id="choose-btn"
                     // onClick={() => {
                     //     setStatus('choose')
                     // }}
                     type="button">
                     Browse
+                </button> */}
+                <button id="choose-btn"
+                    type="button"
+                    onClick={() => {
+                        setImg(0);
+                        setChanged(true);
+                    }}>
+                    Clear
                 </button>
                 <button
                     onClick={() => {
