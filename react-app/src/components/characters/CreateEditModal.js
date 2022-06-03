@@ -117,6 +117,11 @@ const CreateEditModal = ({ edit = false, char = {}, idx, setMounted }) => {
 
     const handleEdit = async (e) => {
         e.preventDefault();
+        console.log(name === char.name
+            && race === char.race
+            && charClass === char.class
+            && background === char.background
+            && img === char.img)
         if (name === char.name
             && race === char.race
             && charClass === char.class
@@ -251,7 +256,7 @@ const CreateEditModal = ({ edit = false, char = {}, idx, setMounted }) => {
                                     </div>}
                                 <div className="modal-btns">
                                     {!status ? <button type="submit" form={edit ? "edit-form" : "create-form"}>{edit ? 'Update' : 'Create'}</button> :
-                                        <button type="button" onClick={handleBack}>Back to {edit ? 'Update' : 'Create'}</button>}
+                                        <button type="button" onClick={handleBack}>Return to {edit ? 'Update' : 'Create'}</button>}
                                     <button type="button" onClick={closeScript}>Close</button>
                                 </div>
                             </div>

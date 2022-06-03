@@ -104,7 +104,7 @@ class Character(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'img': self.image.id if self.image else None,
+            'img': self.image.id if self.image else 0,
             'userId': self.user_id,
             'name': self.name,
             'class': self.char_class,

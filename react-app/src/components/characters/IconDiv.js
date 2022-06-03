@@ -47,8 +47,6 @@ const colorGen = (char) => {
 
 const IconDiv = ({ edit, img, char, name, status, setStatus, setErrors, setImg, setChanged }) => {
 
-    console.log(colorGen(char))
-
     const dispatch = useDispatch();
     const images = useSelector(state => state.images.entities);
 
