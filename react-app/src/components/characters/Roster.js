@@ -35,7 +35,7 @@ const Container = styled.div`
     }
 
     .roster-fa {
-        margin-right: .25rem;
+        margin-right: .5rem;
     }
 `
 

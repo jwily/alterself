@@ -4,6 +4,11 @@ import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
 import styled from 'styled-components';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+    faDungeon
+} from '@fortawesome/free-solid-svg-icons';
+
 const AuthButton = styled.button`
     // margin-top: 2rem;
     margin-bottom: 1rem;
@@ -20,6 +25,10 @@ const AuthButton = styled.button`
     &:hover {
         filter: drop-shadow(0px 0px 5px rgba(255, 185, 0, .75));
     }
+
+    .fa {
+        margin-right: .5rem;
+    }
 `
 
 function WelcomeAuthModal() {
@@ -28,7 +37,8 @@ function WelcomeAuthModal() {
 
     return (
         <>
-            <AuthButton onClick={() => setShowModal(true)}>Get Started</AuthButton>
+            <AuthButton onClick={() => setShowModal(true)}>
+                <FontAwesomeIcon className="fa" icon={faDungeon} />Get Started</AuthButton>
             {showModal && (
                 <Modal onClose={() => {
                     setShowModal(false);

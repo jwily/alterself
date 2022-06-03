@@ -13,11 +13,11 @@ const GlobalStyle = createGlobalStyle`
 
     html {
         min-height: 100%;
-        background: rgb(31,39,60);
-        background: -moz-linear-gradient(190deg, rgba(31,39,60,1) 0%, rgba(128,123,178,1) 100%);
-        background: -webkit-linear-gradient(190deg, rgba(31,39,60,1) 0%, rgba(128,123,178,1) 100%);
-        background: linear-gradient(190deg, rgba(31,39,60,1) 0%, rgba(128,123,178,1) 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#1f273c",endColorstr="#807bb2",GradientType=1);
+        background: rgb(48,50,78);
+        background: -moz-linear-gradient(190deg, rgba(48,50,78,1) 0%, rgba(122,141,189,1) 100%);
+        background: -webkit-linear-gradient(190deg, rgba(48,50,78,1) 0%, rgba(122,141,189,1) 100%);
+        background: linear-gradient(190deg, rgba(48,50,78,1) 0%, rgba(122,141,189,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#30324e",endColorstr="#7a8dbd",GradientType=1);
     }
 
     body {

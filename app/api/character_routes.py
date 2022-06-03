@@ -20,22 +20,22 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
-@character_routes.route('/<int:id>', methods=['GET'])
-@login_required
-def get_data(id):
-    if id == current_user.id:
-        chars = {char.id: char.to_dict() for char in current_user.characters}
-        items = {item.id: item.to_dict() for item in current_user.items}
-        profs = {prof.id: prof.to_dict() for prof in current_user.profs}
-        feats = {feat.id: feat.to_dict() for feat in current_user.features}
-        imgs = {img.id: img.to_dict() for img in current_user.images}
-        return {
-            'chars': chars,
-            'items': items,
-            'profs': profs,
-            'feats': feats,
-            'imgs': imgs
-        }
+# @character_routes.route('/<int:id>', methods=['GET'])
+# @login_required
+# def get_data(id):
+#     if id == current_user.id:
+#         chars = {char.id: char.to_dict() for char in current_user.characters}
+#         items = {item.id: item.to_dict() for item in current_user.items}
+#         profs = {prof.id: prof.to_dict() for prof in current_user.profs}
+#         feats = {feat.id: feat.to_dict() for feat in current_user.features}
+#         imgs = {img.id: img.to_dict() for img in current_user.images}
+#         return {
+#             'chars': chars,
+#             'items': items,
+#             'profs': profs,
+#             'feats': feats,
+#             'imgs': imgs
+#         }
 
 
 @character_routes.route('/<int:id>', methods=['DELETE'])

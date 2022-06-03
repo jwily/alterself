@@ -149,6 +149,11 @@ const CreateEditModal = ({ edit = false, char = {}, idx, setMounted }) => {
         }
     };
 
+    const handleBack = (e) => {
+        e.preventDefault();
+        setStatus(null);
+    }
+
     const updateName = (e) => {
         setName(e.target.value);
     };
@@ -244,21 +249,16 @@ const CreateEditModal = ({ edit = false, char = {}, idx, setMounted }) => {
                                             setChanged={setChanged}
                                             setErrors={setErrors} />
                                     </div>}
-                                {edit ?
-                                    <div className="modal-btns">
-                                        {!status && <button type="submit" form="edit-form">Update</button>}
-                                        <button type="button" onClick={closeScript}>Close</button>
-                                    </div> :
-                                    <div className="modal-btns">
-                                        {!status && <button type="submit" form="create-form">Create</button>}
-                                        <button type="button" onClick={closeScript}>Close</button>
-                                    </div>}
+                                <div className="modal-btns">
+                                    {!status ? <button type="submit" form={edit ? "edit-form" : "create-form"}>{edit ? 'Update' : 'Create'}</button> :
+                                        <button type="button" onClick={handleBack}>Back to {edit ? 'Update' : 'Create'}</button>}
+                                    <button type="button" onClick={closeScript}>Close</button>
+                                </div>
                             </div>
                         </div>}
                     </Content>
                 </Modal>
-            )
-            }
+            )}
         </>
     );
 }

@@ -9,6 +9,10 @@ const Content = styled.div`
   form > div {
     width: 25rem;
   }
+
+  input {
+    width: 15rem;
+  }
 `
 
 const SignUpForm = ({ setToggle }) => {

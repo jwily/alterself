@@ -52,6 +52,7 @@ const AbilityDiv = styled.div`
         width: 4rem;
         padding-left: 1.25rem;
         color: #ffcd00;
+        // color: gold;
         text-align: center;
     }
 
