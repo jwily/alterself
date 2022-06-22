@@ -38,7 +38,7 @@ const Portrait = styled.img`
 `
 
 const colorGen = (char) => {
-    if (!char.id) return `rgb(110, 110, 110)`;
+    if (!char.id) return `#6E6E6E`;
     let red = (char.str + char.con) <= 40 ? (char.str + char.con) : 40;
     let green = (char.wis + char.cha) <= 40 ? (char.wis + char.cha) : 40;
     let blue = (char.int + char.dex) <= 40 ? (char.int + char.dex) : 40;

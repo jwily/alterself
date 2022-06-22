@@ -27,7 +27,7 @@ const AuthButton = styled.button`
     }
 
     .fa {
-        margin-right: .5rem;
+        margin-right: .75rem;
     }
 `
 

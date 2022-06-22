@@ -35,7 +35,7 @@ const Container = styled.div`
     }
 
     .roster-fa {
-        margin-right: .5rem;
+        margin-right: .25rem;
     }
 `
 
@@ -61,7 +61,7 @@ const Roster = ({ dataLoaded }) => {
 
     return (
         <Container>
-            <h1>~ Dive into an altered self ~</h1>
+            <h1>Dive into an altered self</h1>
             <h2>Hope you're well, {user.name}</h2>
             <CreateEditModal />
             <ul>

@@ -88,12 +88,12 @@ const Container = styled.div`
     }
 
     input {
-    color: #ffcd00;
-    width: 3.5rem;
+        color: #ffcd00;
+        width: 3.5rem;
     }
 
     #hp-title {
-    margin-top: .5rem;
+        margin-top: .5rem;
     }
 
     #char-level {

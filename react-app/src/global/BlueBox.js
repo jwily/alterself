@@ -44,7 +44,7 @@ const BlueBox = styled.div`
     font-family: 'Inconsolata', monospace;
 
     input, textarea {
-        background-color: rgba(51, 48, 47, 0.25);
+        background-color: rgba(51, 48, 47, 0.35);
         border: 0;
         color: whitesmoke;
         padding: 0.5rem;

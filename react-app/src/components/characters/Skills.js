@@ -67,10 +67,10 @@ const SkillLi = styled.li`
     margin-right: .5rem;
 
     ${props => props.hover && `
-    // color: #ffcd00;
-    color: limegreen;
+    color: #ffcd00;
+    // color: #ff4d73;
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .75));
-    background-color: rgba(51, 48, 47, 0.15);
+    background-color: rgba(51, 48, 47, 0.35);
     `}
     transition: all .5s;
 `
