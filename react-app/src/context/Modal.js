@@ -42,10 +42,6 @@ const ModalContent = styled(BlackBox)`
             margin: .5rem;
         }
 
-        input {
-            width: 15rem;
-        }
-
         textarea {
             resize: none;
         }
@@ -60,8 +56,12 @@ const ModalContent = styled(BlackBox)`
         }
 
         .modal-btns {
+            display: flex;
             justify-content: end;
             margin-top: 1.5rem;
+            margin-bottom: .5rem;
+            margin-left: .5rem;
+            margin-right: .5rem;
 
             button {
                 margin-left: .25rem;

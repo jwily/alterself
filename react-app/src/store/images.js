@@ -7,7 +7,7 @@ export const setImages = (images) => ({
     payload: images
 })
 
-const addImage = (image) => ({
+export const addImage = (image) => ({
     type: ADD_IMAGE,
     payload: image
 })
@@ -38,15 +38,13 @@ export const createImage = (formData) => async (dispatch) => {
         return data;
     } else if (response.status < 500) {
         const data = await response.json();
-        if (data.errors) {
-            return data;
-        }
+        return data;
     } else {
         return ['An error occurred. Please try again.']
     }
 }
 
-export const deleteFeat = (imageId) => async (dispatch) => {
+export const deleteImage = (imageId) => async (dispatch) => {
     const response = await fetch(`/api/images/${imageId}`, {
         method: 'DELETE'
     })
@@ -57,9 +55,7 @@ export const deleteFeat = (imageId) => async (dispatch) => {
         return data;
     } else if (response.status < 500) {
         const data = await response.json();
-        if (data.errors) {
-            return data;
-        }
+        return data;
     } else {
         return ['An error occurred. Please try again.']
     }

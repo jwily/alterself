@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 const BlackBox = styled.div`
 
-    background: rgb(20, 20, 20);
+    background: rgb(25, 25, 25);
 
     font-family: 'Inconsolata', monospace;
 
     input, textarea {
-        background-color: rgba(51, 48, 47, 0.25);
+        background-color: rgba(51, 48, 47, 0.35);
         border: 0;
         color: whitesmoke;
         padding: 0.5rem;
@@ -27,7 +27,7 @@ const BlackBox = styled.div`
     }
 
     button:active {
-        background-color: rgba(51, 48, 47, 0.25);
+        background-color: rgba(51, 48, 47, 0.35);
     }
 
     button:hover {

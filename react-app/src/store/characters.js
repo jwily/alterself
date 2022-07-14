@@ -4,6 +4,7 @@ const REMOVE_CHAR = 'characters/REMOVE_CHAR';
 const CLEAR_CHARS = 'characters/CLEAR_CHARS';
 
 const UPDATE_CHAR = 'characters/UPDATE_CHAR';
+// const UPDATE_IMG = 'characters/UPDATE_IMG';
 
 const SET_RESOURCE = 'characters/SET_RESOURCE';
 const DEL_RESOURCE = 'characters/DELETE_CHAR_ITEM';
@@ -41,6 +42,11 @@ export const updateChar = (time) => ({
     type: UPDATE_CHAR,
     payload: time
 })
+
+// export const updateImg = (data) => ({
+//     type: UPDATE_IMG,
+//     payload: data
+// })
 
 export const createChar = (formData) => async (dispatch) => {
     const response = await fetch('/api/characters/', {
@@ -146,6 +152,26 @@ export const editCore = (formData) => async (dispatch) => {
     }
 }
 
+// export const editImage = (formData) => async (dispatch) => {
+//     const response = await fetch(`api/characters/${formData.charId}/img`, {
+//         method: 'PATCH',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ img: formData.imgId })
+//     })
+//     if (response.ok) {
+//         const data = await response.json();
+//         dispatch(updateImg(data))
+//         return data;
+//     } else if (response.status < 500) {
+//         const data = await response.json();
+//         return data;
+//     } else {
+//         return ['An error occurred. Please try again.']
+//     }
+// }
+
 const sortByUpdate = (obj, arr) => {
     arr.sort((a, b) => {
         return new Date(obj[b].updatedAt) - new Date(obj[a].updatedAt)
@@ -179,16 +205,25 @@ export default function reducer(state = initialState, action) {
             sortByUpdate(newState.entities, newState.ids);
             return newState;
         case SET_RESOURCE:
-            const newItems = [...newState.entities[action.payload.charId][action.payload.arrName]];
-            newItems.push(action.payload.id);
-            newState.entities[action.payload.charId][action.payload.arrName] = newItems;
+            const newArray = [...newState.entities[action.payload.charId][action.payload.arrName]];
+            newArray.push(action.payload.id);
+            newState.entities[action.payload.charId][action.payload.arrName] = newArray;
             newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
             sortByUpdate(newState.entities, newState.ids);
             return newState;
         case UPDATE_CHAR:
-            newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;
+            const updateChar = { ...newState.entities[action.payload.charId] };
+            updateChar.updatedAt = action.payload.updatedAt;
+            newState.entities[action.payload.charId] = updateChar;
             sortByUpdate(newState.entities, newState.ids);
             return newState;
+        // case UPDATE_IMG:
+        //     const newImgChar = { ...newState.entities[action.payload.charId] };
+        //     newImgChar.img = action.payload.imgId;
+        //     newImgChar.updatedAt = action.payload.updatedAt;
+        //     newState.entities[action.payload.charId] = newImgChar;
+        //     sortByUpdate(newState.entities, newState.ids);
+        //     return newState;
         case DEL_RESOURCE:
             newState.entities[action.payload.charId][action.payload.arrName] = action.payload.newArray;
             newState.entities[action.payload.charId].updatedAt = action.payload.updatedAt;

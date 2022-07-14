@@ -2,23 +2,25 @@ from flask import Blueprint, request
 from app.models import db, Image
 from flask_login import current_user, login_required
 from app.aws import (
-    upload_file_to_s3, allowed_file, get_unique_filename)
+    upload_file_to_s3, allowed_file, get_unique_filename, delete_file)
 from app.forms import DeleteForm
-from io import BytesIO
+# from io import BytesIO
 
 image_routes = Blueprint("images", __name__)
 
 
 @image_routes.route("/<int:id>", methods=["DELETE"])
 @login_required
-def delete_image():
+def delete_image(id):
     form = DeleteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         image = Image.query.get(id)
         if image:
+            key = image.url.split('/')[-1]
             db.session.delete(image)
             db.session.commit()
+            delete_file(key)
             return {'message': 'Image successfully deleted.',
                     'imageId': id}
         else:
@@ -30,7 +32,7 @@ def delete_image():
 @login_required
 def upload_image():
     if "image" not in request.files:
-        return {"errors": "image required"}, 400
+        return {"errors": ["Image required"]}, 400
 
     image = request.files["image"]
     # image_bytes = BytesIO(image.stream.read())
@@ -40,7 +42,7 @@ def upload_image():
     # print(size)
 
     if not allowed_file(image.filename):
-        return {"errors": "file type not permitted"}, 400
+        return {"errors": ["File type not permitted"]}, 400
 
     image.filename = get_unique_filename(image.filename)
 

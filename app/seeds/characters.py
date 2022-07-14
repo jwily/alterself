@@ -35,7 +35,7 @@ def seed_characters():
 
     himo = Character(
         user_id=1,
-        image_id=3,
+        image_id=2,
         name='Himo',
         char_class='Monk',
         race='Wood Elf',
@@ -50,7 +50,7 @@ def seed_characters():
 
     toland = Character(
         user_id=1,
-        image_id=2,
+        image_id=3,
         name='Toland Albios',
         char_class='Warlock',
         race='Half-Elf',

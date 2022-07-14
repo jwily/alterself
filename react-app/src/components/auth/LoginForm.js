@@ -11,6 +11,11 @@ const Content = styled.div`
 
   span {
     font-size: .85rem;
+  }
+
+  input {
+    width: 15rem;
+  }
 `
 
 const LoginForm = ({ setToggle }) => {

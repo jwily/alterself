@@ -43,12 +43,13 @@ const WelcomePage = styled.div`
     }
 
     .welcome-title {
-        padding: 7.5rem;
+        // padding: 7.5rem;
+        padding-top: 7.5rem;
         width: 60rem;
     }
 
     .welcome-intro {
-        background-color: rgb(25, 24, 23);=
+        background-color: rgba(25, 24, 23, .5);=
     }
 
     .welcome-info {
@@ -86,6 +87,9 @@ const Welcome = () => {
                 <h1>A L T E R S E L F</h1>
                 <div className="dnd-logo"><FontAwesomeIcon icon={faDAndD} /></div>
             </div>
+            <div>
+                <WelcomeAuthModal />
+            </div>
             <div className="welcome-intro">
                 <h2>What is tabletop role-playing?</h2>
                 <div className="text-box">
@@ -121,9 +125,6 @@ const Welcome = () => {
                     <p>
                         Whether you're a fledgling adventurer or an experienced level 19 Hexblade Warlock, Alter Self is designed to give you a minimalistic and easy-to-read character sheet from which to jump into your next great adventure.
                     </p>
-                </div>
-                <div>
-                    <WelcomeAuthModal />
                 </div>
             </div>
         </WelcomePage>

@@ -31,8 +31,8 @@ const DragonStyle = css`
 `
 
 const DefaultStyle = css`
-    background: rgb(20, 20, 20);
-    border: 2.5px solid rgb(20, 20, 20);
+    background: rgb(25, 25, 25);
+    border: 2.5px solid rgb(25, 25, 25);
 `
 
 const BlueBox = styled.div`
@@ -44,7 +44,7 @@ const BlueBox = styled.div`
     font-family: 'Inconsolata', monospace;
 
     input, textarea {
-        background-color: rgba(51, 48, 47, 0.25);
+        background-color: rgba(51, 48, 47, 0.35);
         border: 0;
         color: whitesmoke;
         padding: 0.5rem;

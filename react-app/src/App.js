@@ -32,10 +32,10 @@ function App() {
     setDataLoaded(false);
     (async () => {
       if (user) {
-        const response = await fetch(`/api/characters/${user.id}`);
+        const response = await fetch(`/api/auth/data`);
         if (response.ok) {
           const data = await response.json();
-          dispatch(setChars(data.chars))
+          dispatch(setChars(data.chars));
           dispatch(setItems(data.items));
           dispatch(setFeats(data.feats));
           dispatch(setProfs(data.profs));
