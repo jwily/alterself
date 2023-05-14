@@ -1,4 +1,4 @@
-from app.models import db, Character
+from app.models import db, Character, environment, SCHEMA
 
 
 def seed_characters():
@@ -87,5 +87,9 @@ def seed_characters():
 
 
 def undo_characters():
-    db.session.execute('TRUNCATE characters RESTART IDENTITY CASCADE;')
+    if environment == "production":
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.characters RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute('TRUNCATE characters RESTART IDENTITY CASCADE;')
     db.session.commit()

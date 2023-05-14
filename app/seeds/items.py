@@ -1,4 +1,4 @@
-from app.models import db, Item
+from app.models import db, Item, environment, SCHEMA
 
 
 def seed_items():
@@ -33,5 +33,9 @@ def seed_items():
 
 
 def undo_items():
-    db.session.execute('TRUNCATE items RESTART IDENTITY CASCADE;')
+    if environment == "production":
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.items RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute('TRUNCATE items RESTART IDENTITY CASCADE;')
     db.session.commit()

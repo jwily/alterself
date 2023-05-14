@@ -1,4 +1,4 @@
-from app.models import db, Skill
+from app.models import db, Skill, environment, SCHEMA
 
 
 def seed_skills():
@@ -60,5 +60,9 @@ def seed_skills():
 
 
 def undo_skills():
-    db.session.execute('TRUNCATE skills RESTART IDENTITY CASCADE;')
+    if environment == "production":
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.skills RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute('TRUNCATE skills RESTART IDENTITY CASCADE;')
     db.session.commit()

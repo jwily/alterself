@@ -1,4 +1,4 @@
-from app.models import db, Feature, Proficiency
+from app.models import db, Feature, Proficiency, SCHEMA, environment
 
 
 def seed_pfts():
@@ -88,6 +88,12 @@ def seed_pfts():
 
 
 def undo_pfts():
-    db.session.execute('TRUNCATE proficiencies RESTART IDENTITY CASCADE;')
-    db.session.execute('TRUNCATE features RESTART IDENTITY CASCADE;')
+    if environment == "production":
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.proficiencies RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.features RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute('TRUNCATE proficiencies RESTART IDENTITY CASCADE;')
+        db.session.execute('TRUNCATE features RESTART IDENTITY CASCADE;')
     db.session.commit()
