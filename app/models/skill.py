@@ -1,4 +1,4 @@
-from .db import db
+from .db import db, add_prefix_for_prod
 from sqlalchemy import PrimaryKeyConstraint
 
 
@@ -6,7 +6,7 @@ class Skill(db.Model):
     __tablename__ = 'skills'
 
     char_id = db.Column(db.Integer, db.ForeignKey(
-        'characters.id'), nullable=False)
+        add_prefix_for_prod('characters.id')), nullable=False)
     skill_num = db.Column(db.Integer, nullable=False)
 
     __table_args__ = (

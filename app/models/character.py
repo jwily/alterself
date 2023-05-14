@@ -1,4 +1,4 @@
-from .db import db
+from .db import db, add_prefix_for_prod
 from sqlalchemy.sql import func
 
 charTitles = {
@@ -33,10 +33,11 @@ class Character(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     image_id = db.Column(db.Integer, db.ForeignKey(
-        'images.id'), nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+        add_prefix_for_prod('images.id')), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('users.id')), nullable=False)
     campaign_id = db.Column(db.Integer, db.ForeignKey(
-        'campaigns.id'), nullable=True)
+        add_prefix_for_prod('campaigns.id')), nullable=True)
     name = db.Column(db.String(255), nullable=False)
     char_class = db.Column(db.String(40), nullable=False)
     sub_class = db.Column(db.String(40), nullable=True, default='')
