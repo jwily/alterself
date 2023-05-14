@@ -44,6 +44,9 @@ def upgrade():
                     sa.PrimaryKeyConstraint('user_id', 'campaign_id')
                     )
     # ### end Alembic commands ###
+    if environment == "production":
+        op.execute(f"ALTER TABLE campaigns SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE memberships SET SCHEMA {SCHEMA};")
 
 
 def downgrade():
