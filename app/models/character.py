@@ -1,4 +1,4 @@
-from .db import db, add_prefix_for_prod
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy.sql import func
 
 char_titles = {
@@ -28,6 +28,9 @@ char_titles = {
 
 class Character(db.Model):
     __tablename__ = 'characters'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     # Expects name, class, race, background from user
 

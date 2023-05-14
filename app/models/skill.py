@@ -1,9 +1,12 @@
-from .db import db, add_prefix_for_prod
+from .db import db, add_prefix_for_prod, environment, SCHEMA
 from sqlalchemy import PrimaryKeyConstraint
 
 
 class Skill(db.Model):
     __tablename__ = 'skills'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     char_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod('characters.id')), nullable=False)

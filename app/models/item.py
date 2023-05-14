@@ -1,9 +1,12 @@
-from .db import db, add_prefix_for_prod
+from .db import db, add_prefix_for_prod, environment, SCHEMA
 from sqlalchemy.sql import func
 
 
 class Item(db.Model):
     __tablename__ = 'items'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     char_id = db.Column(db.Integer, db.ForeignKey(
