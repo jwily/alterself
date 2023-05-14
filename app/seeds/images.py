@@ -1,4 +1,4 @@
-from app.models import db, Image
+from app.models import db, Image, environment, SCHEMA
 
 
 def seed_images():
@@ -26,5 +26,9 @@ def seed_images():
 
 
 def undo_images():
-    db.session.execute('TRUNCATE images RESTART IDENTITY CASCADE;')
+    if environment == "production":
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.images RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute('TRUNCATE images RESTART IDENTITY CASCADE;')
     db.session.commit()
