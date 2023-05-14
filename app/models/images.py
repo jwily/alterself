@@ -1,4 +1,4 @@
-from .db import db
+from .db import db, add_prefix_for_prod
 from sqlalchemy.sql import func
 
 
@@ -7,7 +7,7 @@ class Image(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(
-        'users.id'), nullable=False)
+        add_prefix_for_prod('users.id')), nullable=False)
     url = db.Column(db.String(255), nullable=False)
     created_at = db.Column(
         db.DateTime, server_default=func.now(), nullable=False)

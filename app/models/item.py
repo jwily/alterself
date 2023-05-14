@@ -1,4 +1,4 @@
-from .db import db
+from .db import db, add_prefix_for_prod
 from sqlalchemy.sql import func
 
 
@@ -7,7 +7,7 @@ class Item(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     char_id = db.Column(db.Integer, db.ForeignKey(
-        'characters.id'), nullable=False)
+        add_prefix_for_prod('characters.id')), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=True)

@@ -1,4 +1,4 @@
-from .db import db
+from .db import db, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy.sql import func
@@ -8,13 +8,13 @@ memberships = db.Table(
     db.Column(
         "user_id",
         db.Integer,
-        db.ForeignKey("users.id"),
+        db.ForeignKey(add_prefix_for_prod("users.id")),
         primary_key=True
     ),
     db.Column(
         "campaign_id",
         db.Integer,
-        db.ForeignKey("campaigns.id"),
+        db.ForeignKey(add_prefix_for_prod("campaigns.id")),
         primary_key=True
     )
 )
@@ -65,7 +65,7 @@ class Campaign(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(
-        'users.id'), nullable=False)
+        add_prefix_for_prod('users.id')), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=True)
     notes = db.Column(db.Text, nullable=True)
