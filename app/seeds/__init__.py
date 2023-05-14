@@ -5,7 +5,7 @@ from .skills import seed_skills, undo_skills
 from .items import seed_items, undo_items
 from .pfts import seed_pfts, undo_pfts
 from .images import seed_images, undo_images
-
+from ..models import environment
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -15,6 +15,13 @@ seed_commands = AppGroup('seed')
 # Creates the `flask seed all` command
 @seed_commands.command('all')
 def seed():
+    if environment == 'production':
+        undo_pfts()
+        undo_items()
+        undo_skills()
+        undo_characters()
+        undo_images()
+        undo_users()
     seed_users()
     seed_images()
     seed_characters()

@@ -19,6 +19,9 @@ memberships = db.Table(
     )
 )
 
+if environment == "production":
+    memberships.schema = SCHEMA
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
