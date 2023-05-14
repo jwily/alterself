@@ -4,7 +4,7 @@
 
 https://alterself.herokuapp.com/
 
-Welcome to Alter Self, a minimalistic role-playing character manager designed to ease new players into the world of 5th-edition Dungeons and Dragons.
+Welcome to Alter Self, a minimalistic role-playing character manager.
 
 This site serves as the creator's capstone project for his time at the App Academy coding bootcamp.
 
