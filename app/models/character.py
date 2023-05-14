@@ -1,7 +1,7 @@
 from .db import db, add_prefix_for_prod
 from sqlalchemy.sql import func
 
-charTitles = {
+char_titles = {
     'str': 'Strong',
     'dex': 'Dexterous',
     'con': 'Tough',
@@ -100,7 +100,7 @@ class Character(db.Model):
         if len(key) > 6:
             return 'Peerless'
 
-        return charTitles[key]
+        return char_titles[key]
 
     def to_dict(self):
         return {
